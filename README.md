@@ -3,4 +3,5 @@ Dreamer
 
 'Dreams from a mundane existance'
 
-WILL BE UPLOADED SOOOOOOON!
+By Addison Bellamy-Gross
+   & Maxim Prokopenko
