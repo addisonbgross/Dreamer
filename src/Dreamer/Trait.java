@@ -10,6 +10,7 @@ import java.util.Random;
  * activated each game update, and they will dictate the attitude
  * and actions of the NPC
  */
+// CHANGES FOR GIT TEST
 abstract class Trait {
 	protected float intensity; // 0.0 -> 1.0
 	

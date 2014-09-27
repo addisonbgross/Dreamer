@@ -1,0 +1,598 @@
+debugging log
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(-500, 0)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right
+class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ClassFocus  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  class Dreamer.ShadowedMessage  
+class Dreamer.Ninja@(2880, 1550)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right grounded
+class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Block3d  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Collidable  class Dreamer.MotionTrack  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Island  class Dreamer.ClassFocus  class Dreamer.MotionTrack  class Dreamer.Island  class Dreamer.Bamboo  class Dreamer.Block3d  class Dreamer.Collidable  class Dreamer.MotionTrack  class Dreamer.Collidable  class Dreamer.Collidable  class Dreamer.MotionTrack  class Dreamer.Block3d  class Dreamer.Block3d  class Dreamer.Block3d  class Dreamer.Bamboo  class Dreamer.Block3d  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Ninja  class Dreamer.Bamboo  class Dreamer.Block3d  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Island  class Dreamer.Collidable  class Dreamer.Collidable  class Dreamer.Block3d  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Collidable  class Dreamer.MotionTrack  class Dreamer.MotionTrack  class Dreamer.Island  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.Collidable  class Dreamer.Block3d  class Dreamer.Bamboo  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.Block3d  class Dreamer.MotionTrack  class Dreamer.Block3d  class Dreamer.MotionTrack  class Dreamer.Collidable  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.Body  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Block3d  class Dreamer.SunLight  class Dreamer.Island  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.Collidable  class Dreamer.Block3d  class Dreamer.Bamboo  class Dreamer.Collidable  class Dreamer.Block3d  class Dreamer.Block3d  class Dreamer.Block3d  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Block3d  class Dreamer.MotionTrack  class Dreamer.Collidable  class Dreamer.Block3d  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.ActionJewel$1  class Dreamer.Collidable  class Dreamer.Block3d  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Block3d  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.SpinningJewel  class Dreamer.Bamboo  class Dreamer.MotionTrack  
+class Dreamer.Ninja@(2880, 1550)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right grounded
+class Dreamer.Bamboo  class Dreamer.Block3d  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.Collidable  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Collidable  class Dreamer.Block3d  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.Block3d  class Dreamer.Island  class Dreamer.Block3d  class Dreamer.ActionJewel$1  class Dreamer.Bamboo  class Dreamer.Block3d  class Dreamer.MotionTrack  class Dreamer.Block3d  class Dreamer.Block3d  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Block3d  class Dreamer.Ninja  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.Block3d  class Dreamer.Block3d  class Dreamer.Block3d  class Dreamer.MotionTrack  class Dreamer.Collidable  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Collidable  class Dreamer.Block3d  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.Block3d  class Dreamer.Bamboo  class Dreamer.Block3d  class Dreamer.Block3d  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.Block3d  class Dreamer.Block3d  class Dreamer.Island  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.MotionTrack  class Dreamer.Collidable  class Dreamer.MotionTrack  class Dreamer.Body  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.Island  class Dreamer.Bamboo  class Dreamer.Block3d  class Dreamer.Bamboo  class Dreamer.Block3d  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.Collidable  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.Island  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Block3d  class Dreamer.SpinningJewel  class Dreamer.Bamboo  class Dreamer.Collidable  class Dreamer.MotionTrack  class Dreamer.Collidable  class Dreamer.Collidable  class Dreamer.Island  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.ClassFocus  class Dreamer.Collidable  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Collidable  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.SunLight  
+class Dreamer.Ninja@(2880, 1550)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right grounded
+class Dreamer.Bamboo  class Dreamer.Collidable  class Dreamer.Animation2  class Dreamer.Bamboo  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.Collidable  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Collidable  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.Island  class Dreamer.ActionJewel$1  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Animation2  class Dreamer.Bamboo  class Dreamer.Ninja  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Collidable  class Dreamer.MotionTrack  class Dreamer.Island  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Island  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Island  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.MotionTrack  class Dreamer.Collidable  class Dreamer.MotionTrack  class Dreamer.Body  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.Collidable  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.PermanentLine  class Dreamer.Island  class Dreamer.Bamboo  class Dreamer.Animation2  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Collidable  class Dreamer.MotionTrack  class Dreamer.Collidable  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.ClassFocus  class Dreamer.Collidable  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Collidable  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.SunLight  
+class Dreamer.Ninja@(2880, 1550)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right grounded
+class Dreamer.Bamboo  class Dreamer.Collidable  class Dreamer.Animation2  class Dreamer.Bamboo  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.Collidable  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Collidable  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.Island  class Dreamer.ActionJewel$1  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Animation2  class Dreamer.Bamboo  class Dreamer.Ninja  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Collidable  class Dreamer.MotionTrack  class Dreamer.Island  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Island  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Island  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.MotionTrack  class Dreamer.Collidable  class Dreamer.MotionTrack  class Dreamer.Body  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.Collidable  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.PermanentLine  class Dreamer.Island  class Dreamer.Bamboo  class Dreamer.Animation2  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Collidable  class Dreamer.MotionTrack  class Dreamer.Collidable  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.ClassFocus  class Dreamer.Collidable  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Collidable  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.SunLight  
+class Dreamer.Ninja@(2880, 1550)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right grounded
+class Dreamer.Bamboo  class Dreamer.Collidable  class Dreamer.Animation2  class Dreamer.Bamboo  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Collidable  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Collidable  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.Island  class Dreamer.ActionJewel$1  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Animation2  class Dreamer.Bamboo  class Dreamer.Ninja  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Collidable  class Dreamer.MotionTrack  class Dreamer.Island  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Island  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Island  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.MotionTrack  class Dreamer.Collidable  class Dreamer.MotionTrack  class Dreamer.Body  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.Collidable  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.Island  class Dreamer.Bamboo  class Dreamer.Animation2  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Collidable  class Dreamer.MotionTrack  class Dreamer.Collidable  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.ClassFocus  class Dreamer.Collidable  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Collidable  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.SunLight  
+class Dreamer.Ninja@(2880, 1550)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right grounded
+class Dreamer.Bamboo  class Dreamer.Collidable  class Dreamer.Animation2  class Dreamer.Bamboo  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Collidable  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Collidable  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.Island  class Dreamer.ActionJewel$1  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Animation2  class Dreamer.Bamboo  class Dreamer.Ninja  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Collidable  class Dreamer.MotionTrack  class Dreamer.Island  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Island  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Island  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.MotionTrack  class Dreamer.Collidable  class Dreamer.MotionTrack  class Dreamer.Body  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.Collidable  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.Island  class Dreamer.Bamboo  class Dreamer.Animation2  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Collidable  class Dreamer.MotionTrack  class Dreamer.Collidable  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.ClassFocus  class Dreamer.Collidable  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Collidable  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.SunLight  
+class Dreamer.Ninja@(2880, 1550)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right grounded
+class Dreamer.Bamboo  class Dreamer.Collidable  class Dreamer.Animation2  class Dreamer.Bamboo  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.Collidable  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Collidable  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.Island  class Dreamer.ActionJewel$1  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Animation2  class Dreamer.Bamboo  class Dreamer.Ninja  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Collidable  class Dreamer.MotionTrack  class Dreamer.Island  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Island  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Island  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.MotionTrack  class Dreamer.MotionTrack  class Dreamer.Collidable  class Dreamer.MotionTrack  class Dreamer.Body  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.Collidable  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.Island  class Dreamer.Bamboo  class Dreamer.Animation2  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Collidable  class Dreamer.MotionTrack  class Dreamer.Collidable  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.ClassFocus  class Dreamer.Collidable  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Collidable  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.SunLight  
+class Dreamer.Ninja@(2880, 1550)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right grounded
+class Dreamer.Bamboo  class Dreamer.Collidable  class Dreamer.Animation2  class Dreamer.Bamboo  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.Collidable  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Collidable  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.Island  class Dreamer.ActionJewel$1  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Animation2  class Dreamer.Bamboo  class Dreamer.Ninja  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Collidable  class Dreamer.MotionTrack  class Dreamer.Island  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Island  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Island  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.MotionTrack  class Dreamer.Collidable  class Dreamer.MotionTrack  class Dreamer.Body  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.Collidable  class Dreamer.MotionTrack  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.Island  class Dreamer.Bamboo  class Dreamer.Animation2  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Collidable  class Dreamer.MotionTrack  class Dreamer.Collidable  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.ClassFocus  class Dreamer.Collidable  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Collidable  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.SunLight  
+class Dreamer.Ninja@(2880, 1550)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right grounded
+class Dreamer.Bamboo  class Dreamer.Collidable  class Dreamer.Animation2  class Dreamer.Bamboo  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.Collidable  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Collidable  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.Island  class Dreamer.ActionJewel$1  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Animation2  class Dreamer.Bamboo  class Dreamer.Ninja  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Collidable  class Dreamer.MotionTrack  class Dreamer.Island  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Island  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Island  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.MotionTrack  class Dreamer.Collidable  class Dreamer.MotionTrack  class Dreamer.Body  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.Collidable  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.Island  class Dreamer.Bamboo  class Dreamer.Animation2  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Collidable  class Dreamer.MotionTrack  class Dreamer.Collidable  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.ClassFocus  class Dreamer.Collidable  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Collidable  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.SunLight  
+class Dreamer.Ninja@(2880, 1550)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right grounded
+class Dreamer.Bamboo  class Dreamer.Collidable  class Dreamer.Animation2  class Dreamer.Bamboo  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.Collidable  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Collidable  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.Island  class Dreamer.ActionJewel$1  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.MotionTrack  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Animation2  class Dreamer.Bamboo  class Dreamer.Ninja  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Collidable  class Dreamer.MotionTrack  class Dreamer.Island  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Island  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Island  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.MotionTrack  class Dreamer.Collidable  class Dreamer.MotionTrack  class Dreamer.Body  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.Collidable  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.Island  class Dreamer.Bamboo  class Dreamer.Animation2  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Collidable  class Dreamer.MotionTrack  class Dreamer.Collidable  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.ClassFocus  class Dreamer.Collidable  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Collidable  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.SunLight  
+class Dreamer.Ninja@(2880, 1550)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right grounded
+class Dreamer.Bamboo  class Dreamer.Collidable  class Dreamer.Animation2  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.Collidable  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Collidable  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.Island  class Dreamer.ActionJewel$1  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Animation2  class Dreamer.Bamboo  class Dreamer.Ninja  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Collidable  class Dreamer.MotionTrack  class Dreamer.Island  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Island  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Island  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.MotionTrack  class Dreamer.Collidable  class Dreamer.MotionTrack  class Dreamer.Body  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.Collidable  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.Island  class Dreamer.Bamboo  class Dreamer.Animation2  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Collidable  class Dreamer.MotionTrack  class Dreamer.Collidable  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.ClassFocus  class Dreamer.Collidable  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Collidable  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.SunLight  
+class Dreamer.Ninja@(2880, 1550)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right grounded
+class Dreamer.Bamboo  class Dreamer.Collidable  class Dreamer.Animation2  class Dreamer.Bamboo  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.Collidable  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Collidable  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.Island  class Dreamer.ActionJewel$1  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Animation2  class Dreamer.Bamboo  class Dreamer.Ninja  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Collidable  class Dreamer.MotionTrack  class Dreamer.Island  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Collidable  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Island  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Island  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.MotionTrack  class Dreamer.Collidable  class Dreamer.MotionTrack  class Dreamer.Body  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.Collidable  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.Island  class Dreamer.Bamboo  class Dreamer.Animation2  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Collidable  class Dreamer.MotionTrack  class Dreamer.Collidable  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.ClassFocus  class Dreamer.Collidable  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Collidable  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.SunLight  
+class Dreamer.Ninja@(2880, 1550)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right grounded
+class Dreamer.Bamboo  class Dreamer.Collidable  class Dreamer.Animation2  class Dreamer.Bamboo  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.Collidable  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Collidable  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.Island  class Dreamer.ActionJewel$1  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Animation2  class Dreamer.Bamboo  class Dreamer.Ninja  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Collidable  class Dreamer.MotionTrack  class Dreamer.Island  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Island  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Island  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.MotionTrack  class Dreamer.Collidable  class Dreamer.MotionTrack  class Dreamer.Body  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.Collidable  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.Island  class Dreamer.Bamboo  class Dreamer.Animation2  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Collidable  class Dreamer.MotionTrack  class Dreamer.Collidable  class Dreamer.MotionTrack  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.ClassFocus  class Dreamer.Collidable  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Collidable  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.SunLight  
+class Dreamer.Ninja@(2880, 1550)  w 40 h 70 vel (0, 0) health 100
+statuses:  initialized right grounded
+class Dreamer.Bamboo  class Dreamer.Collidable  class Dreamer.Animation2  class Dreamer.Bamboo  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.Collidable  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Collidable  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.Island  class Dreamer.ActionJewel$1  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Animation2  class Dreamer.Bamboo  class Dreamer.Ninja  class Dreamer.MotionTrack  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Collidable  class Dreamer.MotionTrack  class Dreamer.Island  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Island  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Island  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.MotionTrack  class Dreamer.Collidable  class Dreamer.MotionTrack  class Dreamer.Body  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.Collidable  class Dreamer.MotionTrack  class Dreamer.Bamboo  class Dreamer.Island  class Dreamer.Bamboo  class Dreamer.Animation2  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Collidable  class Dreamer.MotionTrack  class Dreamer.Collidable  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.ClassFocus  class Dreamer.Collidable  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.Collidable  class Dreamer.Collidable  class Dreamer.Bamboo  class Dreamer.Bamboo  class Dreamer.SunLight  
