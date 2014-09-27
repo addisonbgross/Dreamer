@@ -10,18 +10,10 @@ import java.util.Random;
  * activated each game update, and they will dictate the attitude
  * and actions of the NPC
  */
-// CHANGES FOR GIT TEST
 abstract class Trait {
 	protected float intensity; // 0.0 -> 1.0
-	
-	Trait() {
-		intensity = 1;
-	}
-	
-	Trait(float i) {
-		intensity = i;
-	}
-
+	Trait() { intensity = 1; }
+	Trait(float i) { intensity = i; }
 	void doActive(Enemy self){};
 	void doPassive(Enemy self){};
 }
@@ -131,6 +123,22 @@ class Violent extends Trait {
 		}
 	}
 }
+class Armourer extends Trait {
+	Armourer() {
+		super(1.0f);
+	}
+	Armourer(float i) {
+		super(i);
+	}
+	
+	void doActive(Enemy self) {
+		if (self.getTarget() != null) {
+			// TODO
+			// Chase down gear if one finds themselves unarmed
+			// and with a target
+		}
+	}
+}
 /**
  * NPC will engage in sword play with thier target
  */
@@ -141,7 +149,7 @@ class Duelist extends Trait {
 	Duelist() {
 		super(1.0f);
 	}
-	Duelist(int i) {
+	Duelist(float i) {
 		super(i);
 	}
 	public String toString() {
@@ -152,9 +160,11 @@ class Duelist extends Trait {
 	 * blocking incoming attacks
 	 */
 	void doActive(Enemy self) {
-		currentRange = stanceRange + r.nextInt(200);
-		if (self.target != null && !self.checkStatus("attacking")) {
+		// randomize duel distance
+		currentRange = stanceRange + r.nextInt(100);
+		if (self.target != null && !self.checkStatus("attacking") && self.isFacing(self.target)) {
 			distance = Math.abs(self.target.getX() - self.getX());
+			// if not within duel range
 			if (distance > currentRange) {
 				if (self.target.getX() > self.getX()) {
 					self.xVel = Math.max(self.xVel += self.acceleration, self.maxSpeed);

@@ -13,7 +13,7 @@ public class Body extends Element implements Updateable {
 	int blinkCounter;
 	int LEFT = 1, RIGHT = -1;
 	int xOffset, yOffset;
-	int LEGSPEED = 150, BODYSPEED = 40, HEADSPEED = 150; 
+	int LEGSPEED = 150, BODYSPEED = 45, HEADSPEED = 150; 
 	int dmgCounter;
 	public int weaponStage = 0;
 	

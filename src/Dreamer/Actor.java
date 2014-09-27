@@ -136,6 +136,14 @@ abstract class Actor extends Collidable implements Updateable {
 		}
 		health -= damage;		
 	}
+	boolean isFacing(Actor a) {
+		if (a.checkStatus("left") && checkStatus("left"))
+			return true;
+		else if (a.checkStatus("right") && checkStatus("right"))
+			return true;
+		else
+			return false;
+	}
 	Vector2f getVelocityVector() {
 		return new Vector2f(xVel, yVel);
 	}

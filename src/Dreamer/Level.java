@@ -158,8 +158,9 @@ class SimpleLevel extends Level {
 			//Weapon w = new Naginata(e);
 			//w.add();
 			//e.add();
-			e = new NinjaAlt(200, 500, new Speed(0.6f), new Duelist(), new Violent());
-			Weapon w = new Naginata(e);
+			Weapon w;
+			e = new NinjaAlt(200, 800, new Speed(0.3f), new Follow(), new Duelist(), new Violent());
+			w = new Naginata(e);
 			w.add();
 			e.add();
 			
