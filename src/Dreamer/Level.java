@@ -130,19 +130,25 @@ class SimpleLevel extends Level {
 	SimpleLevel() {
 		super();
 		if(!restored) {
-			//new Sun().add();
-			new Lamp(2000, -500, 0, 2000).add();
-			new Lamp(0, -500, 0, 2000).add();
-			new Lamp(-2000, -700, 0, 2000).add();
+			new Sun().add();
+			//new Lamp(2000, -500, 0, 2000).add();
+			//new Lamp(0, -500, 0, 2000).add();
+			//new Lamp(-2000, -700, 0, 2000).add();
 			Player p = Player.getFirst();
-			new Lamp(p).add();
+			//new Lamp(p).add();
 			new Katana(p).add();
 			
 			p.setCenterBottom(0, 1);
 			p.add();
 			//Shape3d s = MeshMaker.makeMesh(Library.getImage("maps/test"), Library.getImage("maps/test_color"));
-			MeshMaker.makeMesh(Library.getImage("maps/longmap"), Library.getImage("maps/longmap"));
+			Shape3d s = MeshMaker.makeMesh(Library.getImage("maps/longmap"), Library.getImage("maps/longmap"));
 
+			s.generateMotionTracks();
+			s.add();
+			s = MeshMaker.makeMesh(Library.getImage("square"), Library.getImage("squarecolormap"), true);
+			s.setPosition(5000, 0, 3000);
+			//s.generateMotionTracks();
+			//s.add();
 			new GradientBackground(new Color(63, 63, 255), new Color(220, 63, 63)).add();
 			//new MotionTrack(-2000, -100, 1000, -100).add();
 			//new LargeIsland(-4000, 0, 0).add();
