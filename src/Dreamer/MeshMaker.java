@@ -7,18 +7,17 @@ import org.newdawn.slick.SlickException;
 public class MeshMaker {	
 	static int SPACE = 100, YSPACE = 200, width, height;
 	static Color c = new Color(0, 0, 0);
-	static Shape3d makeMesh(Image heightMap, Image colorMap) {
-		return makeMesh(heightMap, colorMap, false);
+	static void makeMesh(Image heightMap, Image colorMap) {
+		 makeMesh(heightMap, colorMap, false);
 	}
-	static Shape3d makeMesh(Image map, boolean xFlipped) {
-		return makeMesh(map, map, xFlipped);
+	static void makeMesh(Image map, boolean xFlipped) {
+		makeMesh(map, map, xFlipped);
 	}
-	static Shape3d makeMesh(Image heightMap, Image colorMap, boolean xFlipped) {
+	static void makeMesh(Image heightMap, Image colorMap, boolean xFlipped) {
 		if(heightMap.getWidth() != colorMap.getWidth() || heightMap.getHeight() != colorMap.getHeight()) {
 			System.err.println("MeshMaker.java: colorMap size does not equal heightMap size!");
-			return null;
 		}
-		Shape3d mesh= new Shape3d(0, -300, 100);
+		Shape3d mesh= new Shape3d(0, 0, 0);
 		for (int x=0; x < (width = heightMap.getWidth()); ++x)
 			for (int z=0; z < (height = heightMap.getHeight()); ++z) {
 				c = heightMap.getColor(x, z);
@@ -46,6 +45,7 @@ public class MeshMaker {
 				f.triangulate();
 				mesh.addFace(f);
 			}
-		return mesh;
+		mesh.generateMotionTracks();
+		mesh.add();
 	}
 }
