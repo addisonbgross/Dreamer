@@ -39,11 +39,11 @@ public class MotionTrack extends Collidable {
 					suggestedVelocity.projectOntoUnit(left, suggestedVelocity); 
 				}
 				suggestedVelocity.scale(
-					1 - Constants.AIRFRICTION - Constants.GROUNDFRICTION * Math.abs(normal.dot(a.getVelocityVector().copy().normalise()))
+						1 - Constants.AIRFRICTION - Constants.GROUNDFRICTION * Math.abs(normal.dot(a.getVelocityVector().copy().normalise()))
 						);
-				//if(suggestedVelocity.length() < Constants.STATICFRICTION)
-					//suggestedVelocity.set(0, 0);
-				suggestedPosition.y += 0.5f;
+				if(suggestedVelocity.length() < Constants.STATICFRICTION)
+					suggestedVelocity.set(0, 0);
+				suggestedPosition.y += 0.1f;
 				suggestedTrajectory.set(suggestedTrajectory.getStart(), suggestedPosition.copy().add(suggestedVelocity));
 				a.motion = this;
 				a.addStatus("grounded");

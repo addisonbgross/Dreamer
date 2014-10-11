@@ -47,8 +47,8 @@ public class Face {
 	Vector4f normal;
 	Shape3d masterShape; //the shape this Face belongs to
 	
-	Vector4f tempV4f;
-	Vector3f tempV3f;
+	Vector4f tempV4f = new Vector4f();
+	Vector3f tempV3f = new Vector3f();
 	Color tempColor;
 	
 	Face() {}
@@ -87,7 +87,7 @@ public class Face {
 							);
 					if(texture != null)
 						glTexCoord2f(texturePoints[colorIndex[j]].x, texturePoints[colorIndex[j]].y);
-					tempV3f = Camera.translate(getVertex(triangleIndex[j]));
+					Camera.translate(getVertex(triangleIndex[j]), tempV3f);
 					glVertex3f(
 							tempV3f.x,
 							tempV3f.y,
@@ -153,7 +153,7 @@ public class Face {
 	private static Vector3f v;
 	private static Color c;
 	public static void drawColoredPoint(Vector4f position, Color color) {
-		v = Camera.translate(position);
+		Camera.translate(position, v);
 		c = color;
 		glColor4f(c.r, c.g, c.b, c.a);
 		glVertex3f(v.x, v.y, v.z);	
@@ -204,7 +204,7 @@ public class Face {
 		drawList.clear();
 	}
 	private Vector4f getVertex(int i) {
-		return masterShape.getTranslatedVertex(i);
+		return Vector4f.add(masterShape.vertices.get(i), masterShape.getPosition4f(), null);
 	}
 }
 class FaceTextureComparator implements Comparator<Face> {

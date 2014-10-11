@@ -3,6 +3,7 @@ package Dreamer;
 import java.util.ArrayList;
 import java.util.Random;
 
+import org.lwjgl.input.Keyboard;
 import org.lwjgl.util.vector.Matrix4f;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
@@ -14,8 +15,9 @@ import org.newdawn.slick.geom.Rectangle;
 
 public class Shape3d extends Element implements Lightable {
 	static Random r = new Random();
-	static Vector3f tempV3f; 
-	static Vector4f tempV4f;
+	static Vector3f tempV3f =  new Vector3f();
+	static Vector3f manhattanRadius = new Vector3f();
+	static Vector4f tempV4f =  new Vector4f();
 	static Color tempColor;
 	static boolean initialized = false;
 	
@@ -34,16 +36,31 @@ public class Shape3d extends Element implements Lightable {
 	}
 	
 	@Override
-	public void setPosition(float x, float y, float z) {
-		super.setPosition(x, y, z);
-		position.set(x, y, z, 0);
+	float getWidth() {
+		return 2 * manhattanRadius.x;
+	}
+	@Override
+	float getHeight() {
+		return 2 * manhattanRadius.y;
+	}
+	@Override
+	float getDepth() {
+		return 2 * manhattanRadius.z;
 	}
 	@Override
 	boolean isVisible() {
-		if(Camera.translate(0, position.y - manhattanRadius.y, position.z - manhattanRadius.z).y > 0)
-			if(Camera.translate(0, position.y + manhattanRadius.y, position.z - manhattanRadius.z).y < Constants.screenHeight)
-				if(Camera.translate(position.x + manhattanRadius.x, 0, position.z - manhattanRadius.z).x > 0)
-					if(Camera.translate(position.x - manhattanRadius.x, 0, position.z - manhattanRadius.z).x < Constants.screenWidth)
+		//TODO all these isVisible calls need to be reduced in expense
+		//these methods are called a LOT and are bringing down performance I'm sure
+		//this is the beginning of a better method--> return Camera.isPointVisible(getX(), getY(), getZ());
+		/*
+		if(Camera.translate(0, getY() - manhattanRadius.y, getZ() - manhattanRadius.z).y > 0)
+			if(Camera.translate(0, getY() + manhattanRadius.y, getZ() - manhattanRadius.z).y < Constants.screenHeight)
+				if(Camera.translate(getX() + manhattanRadius.x, 0, getZ() - manhattanRadius.z).x > 0)
+					if(Camera.translate(getX() - manhattanRadius.x, 0, getZ() - manhattanRadius.z).x < Constants.screenWidth)
+						return true;
+						*/
+
+				if(Camera.isPointVisible(getX(), getY(), getZ()))
 						return true;
 		return false;
 	}
@@ -57,6 +74,8 @@ public class Shape3d extends Element implements Lightable {
 	void setRotationAxis(float x, float y, float z) {
 		rotationAxis = new Vector3f(x, y, z).normalise(rotationAxis); 
 	}
+	//adds a vertex and updates the current radius in each cardinal direction
+	//vertices 
 	Vector4f addVertex(float x, float y, float z) {
 		Vector4f v = new Vector4f(x, y, z, 1);
 		vertices.add(v);
@@ -67,7 +86,7 @@ public class Shape3d extends Element implements Lightable {
 	}
 	public ArrayList<Vector2f> generateIntersectionPoints() {
 		ArrayList<Vector2f> points = new ArrayList<Vector2f>();
-		Vector4f pointA, pointB, line = new Vector4f();
+		Vector4f pointA = new Vector4f(), pointB = new Vector4f(), line = new Vector4f();
 		boolean[][] edgeGraph = new boolean[vertices.size()][vertices.size()];
 	
 		for(Face f: faces) {
@@ -80,8 +99,8 @@ public class Shape3d extends Element implements Lightable {
 					//mark edge as checked
 					edgeGraph[v1][v2] = true;
 					edgeGraph[v2][v1] = true;
-					pointA = Vector4f.add(vertices.get(v1), position, null);
-					pointB = Vector4f.add(vertices.get(v2), position, null);
+					Vector4f.add(vertices.get(v1), getPosition4f(), pointA);
+					Vector4f.add(vertices.get(v2), getPosition4f(), pointB);
 					//if line intersects the z-plane
 					if((pointA.z >=  0 && pointB.z <= 0) || (pointB.z >=  0 && pointA.z <= 0) ) {
 						//find intersection point
@@ -96,9 +115,9 @@ public class Shape3d extends Element implements Lightable {
 		}
 		return points;
 	}
-	public Vector4f getTranslatedVertex(int i) {
+	public Vector4f getTranslatedVertex(int i, Vector4f v) {
 		try {
-			return Vector4f.add(vertices.get(i), position, null);
+			return Vector4f.add(vertices.get(i), getPosition4f(), v);
 		} catch(Exception e) {
 			e.printStackTrace();
 			return null;
@@ -112,8 +131,8 @@ public class Shape3d extends Element implements Lightable {
 			for(int i = 0; i < sides; i ++) {
 				int v1 = f.vertexIndex[i];
 				int v2 = f.vertexIndex[(i + 1) % sides];
-				pointA = Vector4f.add(vertices.get(v1), position, null);
-				pointB = Vector4f.add(vertices.get(v2), position, null);
+				pointA = Vector4f.add(vertices.get(v1), getPosition4f(), null);
+				pointB = Vector4f.add(vertices.get(v2), getPosition4f(), null);
 				//if line intersects the z-plane
 				if((pointA.z >=  0 && pointB.z <= 0) || (pointB.z >=  0 && pointA.z <= 0) ) {
 					//find intersection point
@@ -149,7 +168,7 @@ public class Shape3d extends Element implements Lightable {
 		for (Face f: faces) {
 			for(int i = 0; i < f.vertexIndex.length; i++) {
 				//get the current vertex 
-				tempV4f = getTranslatedVertex(f.vertexIndex[i]);
+				getTranslatedVertex(f.vertexIndex[i], tempV4f);
 				//find direction of light to vertex
 				direction = Vector4f.sub(l.getPosition4f(), tempV4f, null).normalise(null);
 				//product of direction of light and surface normal
@@ -181,10 +200,6 @@ public class Shape3d extends Element implements Lightable {
 		}
 	}
 	@Override
-	Vector4f getPosition4f() {
-		return position;
-	}
-	@Override
 	void draw(Graphics g) {
 		for(Face f: faces) {
 			f.addToDrawList();
@@ -192,10 +207,10 @@ public class Shape3d extends Element implements Lightable {
 	}
 	public void generateMotionTracks() {
 		for(Face f: faces)
-			MotionTrack.generateMotionTrack(f, vertices, position);
+			MotionTrack.generateMotionTrack(f, vertices, getPosition4f());
 	}		
 	public void generateMotionTrack(int i) {
-		MotionTrack.generateMotionTrack(faces.get(i), vertices, position);
+		MotionTrack.generateMotionTrack(faces.get(i), vertices, getPosition4f());
 	}
 	public void generateCollidable() {
 		Polygon p = generateCollisionShape();
@@ -445,7 +460,7 @@ class LargeIsland extends Shape3d {
 		addVertex(950, 550, -150);
 		addVertex(950, 500, 150);
 		
-		new Temple(position.x, 100 + position.y, position.z, 200);
+		new Temple(getX(), 100 + getY(), getZ(), 200);
 		
 		addFace(Color.green, 0, 1, 2, 4);
 		addFace(Color.green, 0, 4, 5, 6);

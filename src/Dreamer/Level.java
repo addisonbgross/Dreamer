@@ -51,12 +51,11 @@ abstract class Level {
 			restored = false;
 		}
 	}
+	//TODO move this function and ArrayList Keys into Keyhandler.java
 	static void updateCurrent() {
-		current.update();
 		for(KeyHandler k: keys)
 			k.getKeys();
 	}
-	abstract void update();
 }
 
 class TestLevel extends Level {
@@ -103,11 +102,11 @@ class TestLevel extends Level {
 			
 			//new Katana(-1000f, -10f, 0f).add();
 			
-			e = new NinjaAlt(100, 100, new Speed(0.4f), new Follow(1), new Violent(), new Duelist());
+			e = new NinjaAlt(100, 100, new Speed(0.4f), new Follow(1), new Violent());
 			Weapon w = new Naginata(e);
 			w.add();
 			e.add();
-			e = new NinjaAlt(150, 100, new Speed(0.7f), new Follow(0.5f), new Violent(), new Duelist());
+			e = new NinjaAlt(150, 100, new Speed(0.7f), new Follow(0.5f), new Violent());
 			w = new Naginata(e);
 			w.add();
 			e.add();
@@ -119,10 +118,6 @@ class TestLevel extends Level {
 			new Sun().add();
 			Camera.focus(new ClassFocus(200, Ninja.class));
 		}
-	}
-	
-	@Override
-	void update() {
 	}
 }
 class SimpleLevel extends Level {
@@ -137,7 +132,6 @@ class SimpleLevel extends Level {
 			Player p = Player.getFirst();
 			//new Lamp(p).add();
 			new Katana(p).add();
-			
 			p.setCenterBottom(0, 1);
 			p.add();
 			Shape3d s = MeshMaker.makeMesh(Library.getImage("maps/test"), Library.getImage("maps/test_color"));
@@ -158,9 +152,8 @@ class SimpleLevel extends Level {
 			//Weapon w = new Naginata(e);
 			//w.add();
 			//e.add();
-			Weapon w;
-			e = new NinjaAlt(200, 800, new Speed(0.3f), new Duelist(), new Violent());
-			w = new Naginata(e);
+			e = new NinjaAlt(200, 500, new Speed(0.6f), new Duelist(), new Violent());
+			Weapon w = new Naginata(e);
 			w.add();
 			e.add();
 			
@@ -170,8 +163,6 @@ class SimpleLevel extends Level {
 			//new MouseLight().add();
 		}
 	}
-	@Override
-	void update() {}
 }
 class BirdLevel extends Level {
 	
@@ -231,9 +222,6 @@ class BirdLevel extends Level {
 			new Island(-200, 600, 0, 100).add();
 		}
 	}
-
-	@Override
-	void update() {}
 }
 class ForestLevel extends Level {
 	RovingGround grass;
@@ -310,7 +298,6 @@ class ForestLevel extends Level {
 			new SpinningJewel(-1000, 2700, -2200, 700, new Color(192, 192, 255, 63)).add();
 		}
 	}
-	void update() {}
 }
 class Action {
 	void perform() {}

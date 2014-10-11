@@ -29,7 +29,7 @@ public class Constants {
 	static final int EXISTENCEBUFFER = 500;
 	static final float GRAVITY = 2F;
 	static final int JUMP = 5;
-	static final int JUMPBUFFER = 100;
+	static final int JUMPBUFFER = 10;
 	static final float LEAFTHRESHHOLD = 0.3f;
 	public static final float LIGHTDISTANCE = 600;
 	static final int MARKERSIZE = 20;

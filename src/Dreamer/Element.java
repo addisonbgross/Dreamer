@@ -1,31 +1,19 @@
 package Dreamer;
 
-import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.opengl.GL15.*;
-
-import java.nio.FloatBuffer;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
-import java.util.TreeSet;
 
-import org.lwjgl.BufferUtils;
-import org.lwjgl.input.Mouse;
 import org.lwjgl.util.vector.Vector3f;
 import org.lwjgl.util.vector.Vector4f;
-import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.fills.GradientFill;
 import org.newdawn.slick.geom.Line;
 import org.newdawn.slick.geom.Polygon;
-import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.Vector2f;
-import org.newdawn.slick.opengl.TextureImpl;
 
 //TODO make setPosition etc throw an exception
 public abstract class Element {
@@ -42,10 +30,12 @@ public abstract class Element {
 		= new ElementMap<Float, HashSet<Element>>();
 	private static ElementMap<Float, HashSet<Element>> yRange 
 		= new ElementMap<Float, HashSet<Element>>();
-
+	//for cleanup of empty containers (cleaning them up on-the fly introduces
+	//concurrent errors)
 	private static HashSet<Float> deathSet = new HashSet<Float>();
-	
+	//the set which all Elements implementing Updateable get added to with .add()
 	static Set<Updateable> updateSet = new HashSet<Updateable>(100);
+	//to avoid concurrency errors and such
 	static Set<Updateable> updateLaterSet = new HashSet<Updateable>(100);
 	static Set<Updateable> updateBirthSet = new HashSet<Updateable>();
 	static Set<Updateable> updateDeathSet = new HashSet<Updateable>();
@@ -57,21 +47,14 @@ public abstract class Element {
 	public static ArrayList<Element> background = new ArrayList<Element>();
 	
 	//each subclass's constructor should set x, y, width, height, and depth
-	Vector3f manhattanRadius = new Vector3f(0, 0, 0);
+	//TODO sort out positioning once and for all... confusing mix of variables
 	Vector4f position = new Vector4f();
-	private float x, y;
 	private float width, height, depth = 0;
 	protected boolean mutable = true;
 	//set to false to turn off info
 	public static boolean debug = false;
 
 	protected Element() {}
-	
-	Element(float x, float y) 
-	{
-		this.x = x;
-		this.y = y;
-	}
 	
 	/**add: maps multiple keys to each element for fast retrieval
 	 * 
@@ -124,8 +107,8 @@ public abstract class Element {
 	public String toString() {
 		
 		String s = getClass().toString()+"@";
-		s = s.concat("("+(int)x);
-		s = s.concat(", "+(int)y+") ");
+		s = s.concat("("+(int)position.x);
+		s = s.concat(", "+(int)position.y+") ");
 		s = s.concat(" w "+(int)width);
 		s = s.concat(" h "+(int)height);
 		return s;
@@ -185,18 +168,18 @@ public abstract class Element {
 	}
 
 	//getters and printing
-	float getMinX() {return x;}
-	float getMaxX() {return x + width;}
-	float getMinY() {return y;}
-	float getMaxY() {return y + height;}
+	float getMinX() {return position.x;}
+	float getMaxX() {return position.x + width;}
+	float getMinY() {return position.y;}
+	float getMaxY() {return position.y + height;}
 	float getMinZ() {return position.z - depth / 2;}
 	float getMaxZ() {return position.z + depth / 2;}
 	float getZ() {return position.z;}
 	Vector2f getCenterBottom() {
 		return new Vector2f(getMinX() + getWidth() / 2, getMinY());
 	}
-	float getX() {return x + (width / 2);}
-	float getY() {return y + (height / 2);}
+	float getX() {return position.x + (width / 2);}
+	float getY() {return position.y + (height / 2);}
 	float getWidth() {return width;}
 	float getHeight() {return height;}
 	float getDepth() {return depth;}
@@ -217,33 +200,24 @@ public abstract class Element {
 	//setters and mutators
 	//all these require mutable = true
 	//Elements should be removed before modification
-	void adjustPosition(float x, float y) 
-	{
-		if(!mutable) throw new NotMutableException();
-		this.x += x; 
-		this.y += y;
-	}
-	Vector2f getPosition2f() {
-		return new Vector2f(x, y);
-	}
 	Vector3f getPosition3f() {
 		return new Vector3f(getX(), getY(), getZ());
 	}
 	Vector4f getPosition4f() {
 		return new Vector4f(getX(), getY(), getZ(), 1);
 	}
-	void setPosition(Vector4f vector4f)
+	void setPosition(Vector4f v)
 	{
-		if(!mutable) throw new NotMutableException();
-		x = vector4f.x; 
-		y = vector4f.y;
-		position.z = vector4f.z;
+		setPosition(v.x, v.y, v.z);
+	}
+	void setDimensions(float w, float h, float d) {
+		width = w; height = h; depth = d;
 	}
 	public void setPosition(float x, float y, float z)
 	{
 		if(!mutable) throw new NotMutableException();
-		this.x = x; 
-		this.y = y;
+		this.position.x = x; 
+		this.position.y = y;
 		this.position.z = z;
 	}
 	void setCenterBottom(Vector2f v) {
@@ -259,26 +233,26 @@ public abstract class Element {
 	void setCenter(float x, float y) 
 	{
 		if(!mutable) throw new NotMutableException();
-		this.x = x - width / 2; 
-		this.y = y - height / 2;
+		this.position.x = x - width / 2; 
+		this.position.y = y - height / 2;
 	}
 	void setCenterX(float x) 
 	{
 		if(!mutable) throw new NotMutableException();
-		this.x = x - width / 2;
+		this.position.x = x - width / 2;
 	}
 	void setCenterY(float y) 
 	{
 		if(!mutable) throw new NotMutableException();
-		this.y = y - width / 2; 
+		this.position.y = y - width / 2; 
 	}
 	void setMinX(float x) {
 		if(!mutable) throw new NotMutableException();
-		this.x = x;
+		this.position.x = x;
 	}
 	void setMinY(float y) {
 		if(!mutable) throw new NotMutableException();
-		this.y = y;
+		this.position.y = y;
 	}
 	void setMaxX(float x) {
 		if(!mutable) throw new NotMutableException();
@@ -549,7 +523,7 @@ class Marker extends Element {
 	String name;
 	Marker(String s, float x, float y) 
 	{
-		super(x, y);
+		setPosition(x, y, 0);
 		name = s;	
 	}
 	@Override
@@ -559,72 +533,6 @@ class Marker extends Element {
 		{
 			drawCursor(name+"@("+(int)getMinX()+", "+(int)getMinY()+")", getX(), getY(), getZ(), g);
 		}
-	}
-}
-class ClassFocus extends Element implements Updateable {
-	ArrayList<String> classStrings = new ArrayList<String>();
-	float maxDistance = 0;
-	int yOffset = 0;
-
-	<T> ClassFocus(Class<?>... c) {
-		for(Class<?> cn: c)
-			classStrings.add(cn.toString());
-	}
-	<T> ClassFocus(int y, Class<?>... c) {
-		this(c);
-		yOffset = y;
-	}
-
-	@Override
-	void draw(Graphics g) {
-		if(Element.debug) {
-			String s = "ClassFocus@("+(int)getMinX()+", "+(int)getMinY()+")";
-			drawCursor(s, getX(), getY(), getZ(), g);
-		}
-	}
-	public void update() {
-		remove();
-		setCenter(0, 0);
-		maxDistance = 0;
-		double minX = 0;
-		double maxX = 0;
-		double minY = 0;
-		double maxY = 0;
-		int i = 0;
-		for(String s: classStrings)
-			try {
-				for(Element e: getMasterList().get(s)) {
-					if(minX == 0 && maxX == 0 && minY == 0 && maxY == 0) {
-						minX = e.getX();
-						maxX = e.getX();
-						minY = e.getY();
-						maxY = e.getY();
-					}
-					else {
-						minX = Math.min(minX, e.getX());
-						maxX = Math.max(maxX, e.getX());
-						minY = Math.min(minY, e.getY());
-						maxY = Math.max(maxY, e.getY());
-					}
-					setCenter(
-							e.getX() + getX(), 
-							e.getY() + getY()
-					);
-					i++;
-				}
-			} catch(NullPointerException e) {
-			//class is empty, focus is on origin
-		}
-		if(i != 0 ) {
-			setCenterX(getX() / i);
-			setCenterY((getY() / i) + yOffset);
-			maxDistance = (float)Math.sqrt((Math.pow(maxX - minX, 2) + Math.pow(maxY - minY, 2)));
-		}
-		add();
-	}
-	public String toString() {
-		String s = classStrings+" focus@("+(int)getMinX()+", "+(int)getMinY()+")";
-		return s;
 	}
 }
 class PermanentLine extends Element {

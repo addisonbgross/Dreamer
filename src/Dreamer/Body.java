@@ -5,7 +5,18 @@ import java.util.Random;
 import org.lwjgl.util.vector.Vector2f;
 import org.newdawn.slick.Graphics;
 
-public class Body extends Element implements Updateable { 	
+public class Body extends Element implements Updateable { 
+	/*
+	 * 
+	 * 
+	 * //TODO 
+	 * Change animation speed due to weapon weight !!!!! <>>!>!
+	 * STAMIHNA
+	 * 
+	 * 
+	 * 
+	 */
+	
 	Animation2 legs, body, head;
 	Actor actor;
 	int direction;
@@ -13,7 +24,7 @@ public class Body extends Element implements Updateable {
 	int blinkCounter;
 	int LEFT = 1, RIGHT = -1;
 	int xOffset, yOffset;
-	int LEGSPEED = 150, BODYSPEED = 45, HEADSPEED = 150; 
+	int LEGSPEED = 150, BODYSPEED = 40, HEADSPEED = 150; 
 	int dmgCounter;
 	public int weaponStage = 0;
 	
@@ -23,21 +34,9 @@ public class Body extends Element implements Updateable {
 	Vector2f headAdjust = new Vector2f(1, 30);
 	Vector2f beltPoint  = new Vector2f(-10, 7);
 	
-	/**
-	 * Create new Body and assign to Actor
-	 * @param s	 name of texture sprite sheet set
-	 * @param a	 Actor to attack Body to
-	 */
 	Body(String s, Actor a) {
 		this(s + "legs", s + "body", s + "head", a);
 	}
-	/**
-	 * Create new Body and assign to Actor
-	 * @param legs	name of texture sprite sheet for legs
-	 * @param body	name of texture sprite sheet for body
-	 * @param head	name of texture sprite sheet for head
-	 * @param a		Actor to attach Body to
-	 */
 	Body(String legs, String body, String head, Actor a) {
 		actor = a;
 		this.legs = new Animation2(legs, 6, 4, LEGSPEED);
@@ -46,28 +45,18 @@ public class Body extends Element implements Updateable {
 		direction = LEFT;
 		setParts();
 	}
-	/**
-	 * Adjust Body position in relation to its Actor
-	 */
+	// move Animations to match Actor position
 	void setParts() {
 		legs.setPosition(actor.getX() + legsAdjust.x, actor.getY() + legsAdjust.y, actor.getZ() + 0.01f);
 		body.setPosition(actor.getX() + bodyAdjust.x, actor.getY() + bodyAdjust.y, actor.getZ());
 		head.setPosition(actor.getX() + headAdjust.x, actor.getY() + headAdjust.y, actor.getZ() - 0.01f);
 	}
-	/**
-	 * Face the animations comprising the Body
-	 * @param dir	direction of facing
-	 */
 	void turnBody(int dir) {
 		direction = dir;
 		legs.setDirection(dir);
 		body.setDirection(dir);
 		head.setDirection(dir);
 	}
-	/**
-	 * Body reacts to the current statuses of its Actor
-	 * This will adjust the animations' current frame and speed
-	 */
 	void reactToStatus() {
 		// commonly used variables	
 		boolean attacking = actor.checkStatus("attacking");
@@ -177,30 +166,18 @@ public class Body extends Element implements Updateable {
 			}
 		}
 	}
-	/**
-	 * Carry the Actor's Weapon in its standard pose
-	 */
+	// carry the Weapon as normal
 	void carryWeapon() {
 		carryWeapon(0);
 	}
-	/**
-	 * Carry the Actor's Weapon in the current frame
-	 * of its attack sequence
-	 * @param i	 current index in attack sequence
-	 */
+	// rotate weapon through attack sequence
 	void carryWeapon(int i) {
 		weaponStage = i;
 	}
-	/**
-	 * Update this object per game iteration
-	 */
 	public void update() {
 		reactToStatus();
 		setParts();
 	}
-	/**
-	 * Add this to current active Elements
-	 */
 	@Override
 	void add() {
 		super.add();
@@ -208,9 +185,6 @@ public class Body extends Element implements Updateable {
 		this.body.add();
 		this.head.add();
 	}
-	/**
-	 * Remove this from current active Elements
-	 */
 	@Override
 	void remove() {
 		super.add();

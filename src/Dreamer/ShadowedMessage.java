@@ -12,14 +12,13 @@ class ShadowedMessage extends Element {
 	
 	ShadowedMessage(String s, float x, float y) 
 	{
-		super(x, y);	
+		setPosition(x, y, 0);
 		name = s;	
 	}
 	ShadowedMessage(String s, float x, float y, Color c) 
 	{
-		super(x, y);	
+		this(s, x, y);
 		color = c;
-		name = s;	
 	}
 
 	@Override
