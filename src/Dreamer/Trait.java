@@ -140,7 +140,7 @@ class Armourer extends Trait {
 	}
 }
 /**
- * NPC will engage in sword play with thier target
+ * NPC will engage in sword play with their target
  */
 class Duelist extends Trait {
 	int stanceRange = 50, currentRange;
