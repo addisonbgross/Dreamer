@@ -11,9 +11,12 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL20;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
+
+import Dreamer.runnableExamples.ShaderProgram;
 
 public class Dreamer {
 	//for testing
@@ -56,7 +59,7 @@ public class Dreamer {
 			//initialize GL and open window
 			//Display.setDisplayMode(new DisplayMode(Constants.screenWidth,Constants.screenHeight));
 			//to set fullscreen mode uncomment the following line and comment the preceding one
-			//Display.setFullscreen(true);
+			Display.setFullscreen(true);
 			DisplayMode dm = Display.getDisplayMode();
 			Constants.screenWidth = dm.getWidth();
 			Constants.screenHeight = dm.getHeight();
@@ -138,21 +141,27 @@ public class Dreamer {
 		
 		numberOfCollisions = 0;
 		
-		//probably best if the updates happen before most other stuff	
-		Level.updateCurrent();
-		//if Camera update happens before Element updateActive it will lag by
-		//the velocity of it's focus, which is kind of cool actually
-		//to disable this, swap the two calls below
-		Camera.update();
+		Level.updateCurrent(); //keyhandling
+		
+		//this counter is to blank the screen during level switches
 		if(Level.freezeCounter == 0);
 			Element.updateAll();
-			
+		Camera.update();
+		
 		//activeSet must be cleared each update
 		Element.clearActive();
 		//all elements to be drawn should be active by the end of this function
 		Element.activateVisible();
 	}
 	static void render() {	
+		ShaderProgram shader = new ShaderProgram();
+		 
+		// do the heavy lifting of loading, compiling and linking
+		// the two shaders into a usable shader program
+		shader.init("src/Dreamer/runnableExamples/simple.vertex", "src/Dreamer/runnableExamples/simple.fragment");		
+		//TODO pass translation and perspective off to graphics card using shaders
+		//GL20.glUseProgram(shader.getProgramId());
+		
 		g.setWorldClip(new Rectangle(0, 0, Constants.screenWidth, Constants.screenHeight));
 		if(Level.freezeCounter > 0) {
 			Level.freezeCounter--;

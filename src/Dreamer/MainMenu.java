@@ -25,8 +25,4 @@ public class MainMenu extends Level {
 		Camera.focus(new ClassFocus(ShadowedMessage.class));
 		//TODO remove this
 	}
-	
-	@Override
-	void update() {
-	}
 }

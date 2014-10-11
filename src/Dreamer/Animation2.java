@@ -21,34 +21,15 @@ public class Animation2 extends Shape3d implements Updateable {
 	ArrayList<Vector2f> indices = new ArrayList<Vector2f>();
 	public int currentIndex = 0;
 	long lastTime;
-	/**
-	 * Animation2 preamble
-	 */
 	{
 		//vertices that define the corners of the animation
 		for(int i = 0; i < 4; i++)
 			vertices.add(new Vector4f());
 	}
 	
-	/**
-	 * Create a new Animation2 slide using default dimensions of 64 x 64
-	 * @param s  		name of texture sprite sheet
-	 * @param columns 	num columns in sprite sheet
-	 * @param rows		num rows in sprite sheet
-	 * @param speed		framerate of animation
-	 */
 	Animation2(String s, int columns, int rows, int speed) {
 		this(s, columns, rows, speed, 64, 64);
 	}
-	/**
-	 * Create a new Animation2 slide
-	 * @param s			name of texutre sprite sheet
-	 * @param columns	num columns in sprite sheet
-	 * @param rows		num rows in sprite sheet
-	 * @param speed		frame rate of animation
-	 * @param w			width of animation slide
-	 * @param h			height of animation slide
-	 */
 	Animation2(String s, int columns, int rows, int speed, int w, int h) {
 		super(0, 0, 0);
 		width = w;
@@ -70,9 +51,7 @@ public class Animation2 extends Shape3d implements Updateable {
 		selectRow(0);
 		addFace(f);
 	}
-	/**
-	 * Update this object per game iteration
-	 */
+	
 	public void update() {		
 		try {
 			if (running) {
@@ -94,75 +73,40 @@ public class Animation2 extends Shape3d implements Updateable {
 			e.printStackTrace();
 		}
 	}
-	/**
-	 * Start this animation
-	 */
 	void start() {
 		running = true;
 	}
-	/**
-	 * Stop this animation
-	 */
 	void stop() {
 		running = false;
 	}
-	/**
-	 * Reset this animation to its first frame
-	 */
 	void reset() {
 		currentIndex = 0;
 		firstUpdate = true;
 	}
-	/**
-	 * Set this animation to be facing left or right
-	 * @param dir	direction of animation	
-	 */
 	void setDirection(int dir) {
 		direction = (dir == LEFT)?LEFT:RIGHT;
 	}
-	/**
-	 * Set this animation to cycle
-	 * @param value
-	 */
 	void setLooping(boolean value) {
 		looping = value;
 	}
-	/**
-	 * Make this animation iterate through its sprite sheet in reverse
-	 * @param value
-	 */
 	void setReverse(boolean value) {
 		reverse = value;
 	}
-	/**
-	 * Make this animation reverse once it reaches its last frame
-	 * @param value	
-	 */
 	void setPingPong(boolean value) {
 		pingpong = value;
 	}
-	/**
-	 * Set the frame rate of this animation
-	 * @param rate	frame rate
-	 */
 	void setSpeed(float rate) {
 		if (speed >= 0)
 			speed = rate;
 	}
-	/**
-	 * Set this animation to the specified row and reset it
-	 * @param r	sprite sheet row
-	 */
 	void selectRow(int r) {
 		indices.clear();
 		for (int i = 0; i < columns; ++i)
 			indices.add(new Vector2f(i, r));
 	}
-	/**
-	 * Set this animation to a specific frame within its sprite sheet
-	 * @param x	 horizontal position of frame within the sprite sheet
-	 * @param y	 vertical position of frame within the sprite sheet
-	 */
+	Animation2 getRow() {
+		return this;
+	}
 	void selectFrame(float x, float y) {
 		if (direction == LEFT) {
 			f.setTexturePoints(
@@ -183,6 +127,7 @@ public class Animation2 extends Shape3d implements Updateable {
 	}
 	/**
 	 * Get the accurate system time
+	 * 
 	 * @return The system time in milliseconds
 	 */
 	private long getTime() {
@@ -190,6 +135,7 @@ public class Animation2 extends Shape3d implements Updateable {
 	}
 	/**
 	 * Check if we need to move to the next frame
+	 * 
 	 * @param delta The amount of time thats passed since last update
 	 */
 	int nextFrame(long delta) {

@@ -63,16 +63,18 @@ class RovingGround extends Background implements Updateable {
 		setZ(z);
 	}
 	
+	float tempY;
 	@Override
 	void draw(Graphics g) {
 		update();
 		//if(Camera.getMY() < groundHeight) 
 		{
+			tempY = Camera.translate(0, groundHeight, getZ()).y;
 			Polygon p = new Polygon();
-			p.addPoint(0, Camera.translate(0, groundHeight, getZ()).y);
+			p.addPoint(0, tempY);
 			p.addPoint(0, Constants.screenHeight);
 			p.addPoint(Constants.screenWidth, Constants.screenHeight);
-			p.addPoint(Constants.screenWidth, Camera.translate(0, groundHeight, getZ()).y);
+			p.addPoint(Constants.screenWidth, tempY);
 			g.fill(p, gradient);
 		}
 	}

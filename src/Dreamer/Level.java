@@ -51,12 +51,20 @@ abstract class Level {
 			restored = false;
 		}
 	}
+<<<<<<< HEAD
 	static void updateCurrent() {
 		current.update();
 		for(KeyHandler k: keys)
 			k.getKeys();
 	}
 	abstract void update();
+=======
+	//TODO move this function and ArrayList Keys into Keyhandler.java
+	static void updateCurrent() {
+		for(KeyHandler k: keys)
+			k.getKeys();
+	}
+>>>>>>> 46e0673486e1c1e94a9e663571c4a50d2b676035
 }
 
 class TestLevel extends Level {
@@ -103,11 +111,19 @@ class TestLevel extends Level {
 			
 			//new Katana(-1000f, -10f, 0f).add();
 			
+<<<<<<< HEAD
 			e = new NinjaAlt(100, 100, new Speed(0.4f), new Follow(1), new Violent(), new Duelist());
 			Weapon w = new Naginata(e);
 			w.add();
 			e.add();
 			e = new NinjaAlt(150, 100, new Speed(0.7f), new Follow(0.5f), new Violent(), new Duelist());
+=======
+			e = new NinjaAlt(100, 100, new Speed(0.4f), new Follow(1), new Violent());
+			Weapon w = new Naginata(e);
+			w.add();
+			e.add();
+			e = new NinjaAlt(150, 100, new Speed(0.7f), new Follow(0.5f), new Violent());
+>>>>>>> 46e0673486e1c1e94a9e663571c4a50d2b676035
 			w = new Naginata(e);
 			w.add();
 			e.add();
@@ -120,16 +136,20 @@ class TestLevel extends Level {
 			Camera.focus(new ClassFocus(200, Ninja.class));
 		}
 	}
+<<<<<<< HEAD
 	
 	@Override
 	void update() {
 	}
+=======
+>>>>>>> 46e0673486e1c1e94a9e663571c4a50d2b676035
 }
 class SimpleLevel extends Level {
 	
 	SimpleLevel() {
 		super();
 		if(!restored) {
+<<<<<<< HEAD
 			new Sun().add();
 			//new Lamp(2000, -500, 0, 2000).add();
 			//new Lamp(0, -500, 0, 2000).add();
@@ -142,6 +162,18 @@ class SimpleLevel extends Level {
 			p.add();
 			//Shape3d s = MeshMaker.makeMesh(Library.getImage("maps/test"), Library.getImage("maps/test_color"));
 			Shape3d s = MeshMaker.makeMesh(Library.getImage("maps/longmap"), Library.getImage("maps/longmap"));
+=======
+			//new Sun().add();
+			new Lamp(2000, -500, 0, 2000).add();
+			new Lamp(0, -500, 0, 2000).add();
+			new Lamp(-2000, -700, 0, 2000).add();
+			Player p = Player.getFirst();
+			//new Lamp(p).add();
+			new Katana(p).add();
+			p.setCenterBottom(0, 1);
+			p.add();
+			Shape3d s = MeshMaker.makeMesh(Library.getImage("maps/test"), Library.getImage("maps/test_color"));
+>>>>>>> 46e0673486e1c1e94a9e663571c4a50d2b676035
 			s.generateMotionTracks();
 			s.add();
 			s = MeshMaker.makeMesh(Library.getImage("square"), Library.getImage("squarecolormap"), true);
@@ -159,9 +191,14 @@ class SimpleLevel extends Level {
 			//Weapon w = new Naginata(e);
 			//w.add();
 			//e.add();
+<<<<<<< HEAD
 			Weapon w;
 			e = new NinjaAlt(200, 800, new Speed(0.3f), new Duelist(), new Violent());
 			w = new Naginata(e);
+=======
+			e = new NinjaAlt(200, 500, new Speed(0.6f), new Duelist(), new Violent());
+			Weapon w = new Naginata(e);
+>>>>>>> 46e0673486e1c1e94a9e663571c4a50d2b676035
 			w.add();
 			e.add();
 			
@@ -171,8 +208,11 @@ class SimpleLevel extends Level {
 			//new MouseLight().add();
 		}
 	}
+<<<<<<< HEAD
 	@Override
 	void update() {}
+=======
+>>>>>>> 46e0673486e1c1e94a9e663571c4a50d2b676035
 }
 class BirdLevel extends Level {
 	
@@ -232,9 +272,12 @@ class BirdLevel extends Level {
 			new Island(-200, 600, 0, 100).add();
 		}
 	}
+<<<<<<< HEAD
 
 	@Override
 	void update() {}
+=======
+>>>>>>> 46e0673486e1c1e94a9e663571c4a50d2b676035
 }
 class ForestLevel extends Level {
 	RovingGround grass;
@@ -311,7 +354,10 @@ class ForestLevel extends Level {
 			new SpinningJewel(-1000, 2700, -2200, 700, new Color(192, 192, 255, 63)).add();
 		}
 	}
+<<<<<<< HEAD
 	void update() {}
+=======
+>>>>>>> 46e0673486e1c1e94a9e663571c4a50d2b676035
 }
 class Action {
 	void perform() {}

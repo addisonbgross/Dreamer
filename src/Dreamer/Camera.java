@@ -27,7 +27,12 @@ public class Camera {
 	static float focalLength = 2000;
 	private static Element target;
 	static boolean zoom = false;
-	Matrix4f projectionMatrix = new Matrix4f();
+	//Matrix4f projectionMatrix = new Matrix4f();
+	static float tempDistance;
+	static Vector4f rotated = new Vector4f();
+	static Vector3f tempV3f = new Vector3f();
+	static Vector4f tempV4f = new Vector4f();
+	static Vector3f translated = new Vector3f();
 	
 	static void draw(Graphics g)
 	{
@@ -50,6 +55,11 @@ public class Camera {
 			if(target instanceof Updateable)
 				((Updateable) target).update();
 		}
+		if(Keyboard.isKeyDown(Keyboard.KEY_RBRACKET))
+			angle += 0.000002f;
+		if(Keyboard.isKeyDown(Keyboard.KEY_LBRACKET))
+			angle -= 0.000002f;
+		angle = angle % (float)(2 * Math.PI);
 	}
 	/**focuses the camera on a specific element
 	 * 
@@ -66,12 +76,12 @@ public class Camera {
 			try {
 				ClassFocus cf = (ClassFocus)e;
 				if ((cf.maxDistance + Constants.VIEWMARGIN) > Constants.screenHeight)
-					setScale(Constants.screenHeight / (cf.maxDistance + Constants.VIEWMARGIN));
+					scale = Constants.screenHeight / (cf.maxDistance + Constants.VIEWMARGIN);
 				else 
-					setScale(1);
+					scale = 1;
 			} catch(ClassCastException cce) {
 				//not a valid classfocus, normal scaling in effect
-				setScale(1);
+				scale = 1;
 			}
 			try {
 				switch(mode) {
@@ -107,13 +117,20 @@ public class Camera {
 	static float getMaxY() {return (scene.getMaxY() / scale) + centerY;}
 	static float getWidth() {return scene.getWidth() / scale;}
 	static float getHeight() {return scene.getHeight() / scale;}
-	static Vector2f getPositionVector() {return new Vector2f(centerX, centerY);}
+
 	static float getCenterX() {return centerX;}
 	static float getCenterY() {return centerY;}
 	static float getCenterZ() {return centerZ;}
-	static float getScale() {return scale;}
-	//setters
-	static void setScale(float s) {if(s != scale) {scale = s;}}
+
+	static boolean isPointVisible(float x, float y, float z) {
+		translate(x, y, z, tempV3f);
+		if(tempV3f.x > 0)
+			if(tempV3f.x < Constants.screenWidth)
+				if(tempV3f.y > 0)
+					if(tempV3f.y < Constants.screenHeight)
+						return true;
+		return false;
+	}
 	static Vector4f translateMouse(int x, int y) {
 		return new Vector4f(
 				((float)x / Constants.screenWidth * getWidth()) + getMinX(),
@@ -122,43 +139,35 @@ public class Camera {
 				1
 				);
 	}
-	//this is the master translate method
-	static Vector3f translate(float x, float y, float z) {
-		Vector4f v = new Vector4f(x - getCenterX(), y - getCenterY(), z - getCenterZ(), 1);
-		float distance = v.length();
+	//this is the master translate method, this vector should be used ASAP after returning
+	static Vector3f translate(float x, float y, float z, Vector3f result) {
+		tempV4f.set(x - getCenterX(), y - getCenterY(), z - getCenterZ(), 1);
+		tempDistance = tempV4f.x + tempV4f.y + tempV4f.z;
 		switch(mode) {
 			case NEW:
-				if(Keyboard.isKeyDown(Keyboard.KEY_RBRACKET))
-					angle += 0.000002f;
-				if(Keyboard.isKeyDown(Keyboard.KEY_LBRACKET))
-					angle -= 0.000002f;
-				angle = angle % (float)(2 * Math.PI);
-				Vector4f rotated = Vector.rotate(0, 1, 0, v, angle);
+				rotated = Vector.rotate(0, 1, 0, tempV4f, angle);
 				z = Math.abs(focalLength / rotated.z);
-				x = rotated.x * z;
-				y = rotated.y * z;
-				break; 
+				x = rotated.x * z * tempDistance / focalLength;
+				y = rotated.y * z * tempDistance / focalLength;
+				break;
 			default: 
-				z = Math.abs(focalLength / v.z);
-				x = v.x * z;
-				y = v.y * z;
+				z = Math.abs(focalLength / tempV4f.z);
+				x = tempV4f.x * z;
+				y = tempV4f.y * z;
 				break;
 		}
-		return new Vector3f(			
-			x + Constants.screenWidth / 2,
-			-y + Constants.screenHeight / 2,
-			Math.min(1, Math.max(1 - z / 10000, 0))
-			);
+		result.set(			
+				x + Constants.screenWidth / 2,
+				-y + Constants.screenHeight / 2,
+				Math.min(1, Math.max(1 - z / 10000, 0))
+				);
+		return result;
 	}
-static Vector3f translate(Vector3f v) {
-		return translate(v.x, v.y, v.z);
+	static Vector3f translate(float x, float y, float z) {
+		return translate(x, y, z, translated);
 	}
-	static Vector3f translate(Vector4f v) {
-		return translate(v.x, v.y, v.z);
-	}
-	static float zFunction(float z) {
-		return  (float)Math.pow(2, -z / focalLength);
-		//return 1 - z / getFocalLength();
+	static Vector3f translate(Vector4f v, Vector3f result) {
+		return translate(v.x, v.y, v.z, result);
 	}
 	public static void print() {
 		String s = "camera: ";
@@ -168,5 +177,4 @@ static Vector3f translate(Vector3f v) {
 		s = s.concat(" maxY: "+getMaxY());
 		System.out.println(s);
 	}
-
 }

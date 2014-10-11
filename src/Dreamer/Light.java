@@ -49,11 +49,8 @@ abstract public class Light extends Element {
 	boolean isVisible() {
 		if(ambient)
 			return true;
-		if(Camera.translate(0, getY() - range, getZ() - range).y > 0)
-			if(Camera.translate(0, getY() + range, getZ()  - range).y < Constants.screenHeight)
-				if(Camera.translate(getX() + range, 0, getZ()  - range).x > 0)
-					if(Camera.translate(getX() - range, 0, getZ()  - range).x < Constants.screenWidth)
-						return true;
+		if(Camera.isPointVisible(getX(), getY(), getZ()))
+			return true;
 		return false;
 	}
 	void flicker() {

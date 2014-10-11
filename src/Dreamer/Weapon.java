@@ -8,60 +8,43 @@ import org.newdawn.slick.geom.Vector2f;
 
 abstract class Weapon extends Shape3d implements Updateable {
 	Face f;
-	Actor actor;	// Carrier of this Weapon
+	Actor actor;
 	String name = "";
 	int damage, carryHeight, width, height, cuttingEdge;
 	int direction, LEFT = 1, RIGHT = -1;
-	WeaponCollision weaponCollision;	// Collision shape for this
-	protected Vector2f blockPosition;	// Position to hold Weapon during block
-	protected Vector2f weaponPoint = new Vector2f();	//
+	WeaponCollision weaponCollision;
+	Line weaponLine; 
+	protected Vector2f blockPosition;
+	protected Vector2f weaponPoint = new Vector2f();
 	protected float weaponAngle = 0, blockAngle = 20;
-	int[] attackAngles;		//
-	int[] attackOffsetX;	//	Positions of Weapon through out attack sequence
-	int[] attackOffsetY;	//
+	int[] attackAngles;
+	int[] attackOffsetX;
+	int[] attackOffsetY;
 
-	/**
-	 * Create new weapon at specified coordinates 
-	 * @param x	
-	 * @param y
-	 * @param z
-	 */
+
 	Weapon(float x, float y, float z) {
-		weaponCollision = new WeaponCollision(this);
-		this.setCenterX(x);
-		this.setCenterY(y);
-		this.setZ(z);
+		
+	}
+	Weapon(Actor a) {
+		weaponCollision = new WeaponCollision(this); 
+		attach(a);
+		//linkPositionTo(a);
 		addVertex(0, 0, 0);
 		addVertex(0, 100, 0);
 		addVertex(100, 100, 0);
 		addVertex(100, 0, 0);
-		updateCollision();
 	}
-	/**
-	 * Create new Weapon and assign to Actor
-	 * @param a	 Actor to give Weapon
-	 */
-	Weapon(Actor a) {
-		this(a.getX(), a.getY(), a.getZ());
-		attach(a);
-	}
-	/**
-	 * Maintain visibility between updates
-	 */
 	@Override
 	boolean isVisible() {
 		return true;
 	}
-	/**
-	 * Legacy support
-	 */
 	@Override
 	void draw(Graphics g) {
 		super.draw(g);
+		if(Element.debug)
+			if(weaponLine != null)
+				drawShape(weaponLine, Color.black, g);
 	}	
-	/**
-	 * Create Animation slide for Weapon
-	 */
 	void makeFace() {
 		if(!name.equals("")) {
 			f = new Face(Library.getTexture(name), new Color(1, 1, 1, 1.0f), 0, 1, 2, 3);
@@ -71,9 +54,7 @@ abstract class Weapon extends Shape3d implements Updateable {
 			addFace(f);
 		}
 	}
-	/**
-	 * Iterate through attack sequence and check for Weapon collisions
-	 */
+	
 	void attack() {
 		Actor temp;
 		updateCollision();
@@ -96,9 +77,6 @@ abstract class Weapon extends Shape3d implements Updateable {
 		}
 		weaponCollision.remove();
 	}
-	/**
-	 * Update position of this Weapon's collision shape
-	 */
 	void updateCollision() {
 		weaponCollision.remove();
 		weaponCollision.setCollisionShape(new Line(
@@ -110,10 +88,6 @@ abstract class Weapon extends Shape3d implements Updateable {
 		);
 		weaponCollision.add();
 	}
-	/**
-	 * Assign this Weapon to an Actor
-	 * @param a	 Actor to attach to
-	 */
 	void attach(Actor a) {
 		if (a.currentWeapon  != this) {
 			actor = a;
@@ -128,19 +102,11 @@ abstract class Weapon extends Shape3d implements Updateable {
 			updateCollision();
 		}
 	}
-	/**
-	 * Detach this Weapon from its Actor
-	 */
 	void detach() {
-		if (actor != null) {
-			actor.currentWeapon.updateCollision();
-			actor.currentWeapon = null;
-			actor = null;
-		}
+		actor.currentWeapon.updateCollision();
+		actor.currentWeapon = null;
+		actor = null;
 	}
-	/**
-	 * Update this object per game iteration
-	 */
 	public void update() {
 		if(actor != null) {
 			if(actor.checkStatus("dead")) {
@@ -202,18 +168,11 @@ abstract class Weapon extends Shape3d implements Updateable {
 		}
 	}
 }
-/**
- * Standard Ninja Weapon
- */
 class Katana extends Weapon {
 	Katana(Actor a) {
-		this(a.getX(), a.getY(), a.getZ());
-		attach(a);
-	}
-	Katana(float x, float y, float z) {
-		super(x, y, z);
+		super(a);
 		name = "katana";
-		damage = 20;
+		damage = 200;
 		carryHeight = 50;
 		cuttingEdge = 100;
 		
@@ -224,12 +183,19 @@ class Katana extends Weapon {
 		makeFace();
 	}
 }
-/**
- * Pretty much a sword on a staff
- */
+class Battleaxe extends Weapon {	
+	Battleaxe(Actor a) {
+		super(a);
+		name = "battleaxe";
+		damage = 10;
+		carryHeight = 3;
+		makeFace();
+	}
+}
 class Naginata extends Weapon {
-	Naginata(float x, float y, float z) {
-		super(x, y, z);
+	Vector2f block = new Vector2f(-2, -28);
+	Naginata(Actor a) {
+		super(a);
 		name = "naginata";
 		damage = 30;
 		carryHeight = 55;
@@ -241,22 +207,12 @@ class Naginata extends Weapon {
 		attackOffsetY = new int[] {-90, -85, -85, -97, -85, -65};
 		makeFace();
 	}
-	Naginata(Actor a) {
-		this(a.getX(), a.getY(), a.getZ());
-		attach(a);
-	}
 }
-/**
- * The collidable portion of a Weapon
- */
 class WeaponCollision extends Collidable {
 	Weapon weapon;
 	WeaponCollision(Weapon w) {
 		weapon = w;
 	}
-	/**
-	 * Check collisions
-	 */
 	@Override
 	boolean collide(Actor a) {
 		if(weapon.actor == null)

@@ -7,6 +7,7 @@ import java.util.LinkedList;
 import java.util.Set;
 import java.util.TreeSet;
 
+import org.lwjgl.util.vector.Vector3f;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
@@ -14,10 +15,6 @@ import org.newdawn.slick.geom.Line;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Vector2f;
 
-/**
- * The top-level abstraction of any sentient creature. The Actor acts
- * as a brain to coordinate the activities of the Body, Weapon, Trait
- */
 abstract class Actor extends Collidable implements Updateable {
 	//vision is a disposable rectangle used for activating objects, mostly
 	protected static Rectangle vision = new Rectangle(0, 0, 0, 0);
@@ -26,9 +23,9 @@ abstract class Actor extends Collidable implements Updateable {
 	private HashSet<String> status = new HashSet<String>();
 	int health = 100;
 	int stamina = 100;
-	private Set<Collidable> collisionSet;
+	private Set<Collidable> collisionSet = new HashSet<Collidable>();
 	private Collidable success = null;
-	protected Vector2f lastPosition = null;
+	protected Vector3f lastPosition = new Vector3f();
 	StatCard stats;
 	Body body;
 	Weapon currentWeapon;
@@ -75,7 +72,7 @@ abstract class Actor extends Collidable implements Updateable {
 				= new Line(getCenterBottom(), getCenterBottom().copy().add(getVelocityVector()));
 			suggestedVelocity = getVelocityVector().copy();
 			
-			collisionSet = new TreeSet<Collidable>(new CollisionComparator(this));
+			collisionSet.clear();
 			for(Element e: Element.getActiveWithin(vision)) {
 				//very important to not compare this to itself, infinite loop
 				if(Collidable.class.isAssignableFrom(e.getClass()) && e != this) {
@@ -86,7 +83,6 @@ abstract class Actor extends Collidable implements Updateable {
 			//this recursively checks all collisions to ensure that
 			//the suggestedTrajectory is within bounds of all
 			//Collidable objects
-			//TODO make this safer, can loop infinitely if in a bad situation
 			do {
 				if(success != null) {
 					collisionSet.remove(success);
@@ -99,16 +95,18 @@ abstract class Actor extends Collidable implements Updateable {
 			} while (success != null);
 			//for debugging the trajectory
 			if(lastPosition == null)
-				lastPosition = getPosition2f().copy();
+				lastPosition.set(getX(), getY(),getZ());
 			else if(
-					!(Math.abs(lastPosition.x - getPosition2f().x) < 0.05f)
+					!(Math.abs(lastPosition.x - getX()) < 0.05f)
 					||
-					!(Math.abs(lastPosition.y - getPosition2f().y) < 0.05f)
+					!(Math.abs(lastPosition.y - getY()) < 0.05f)
+					||
+					!(Math.abs(lastPosition.z - getZ()) < 0.05f)
 					) {
 				//adds trajectory lines for debugging
 				new PermanentLine(suggestedTrajectory).add();
 			}
-			lastPosition = getPosition2f().copy();
+			lastPosition.set(getX(), getY(),getZ());
 			setVelocity(suggestedVelocity);
 			setCenterBottom(suggestedTrajectory.getEnd());
 			getCollisionShape().setLocation(getMinX(), getMinY());
@@ -135,19 +133,6 @@ abstract class Actor extends Collidable implements Updateable {
 			xVel -= 6;
 		}
 		health -= damage;		
-	}
-	/**
-	 * Check to see if this is facing another Actor or not
-	 * @param a	Actor to check facing against
-	 * @return true is facing, false if not
-	 */
-	boolean isFacing(Actor a) {
-		if (a.checkStatus("left") && checkStatus("right"))
-			return true;
-		else if (a.checkStatus("right") && checkStatus("left"))
-			return true;
-		else
-			return false;
 	}
 	Vector2f getVelocityVector() {
 		return new Vector2f(xVel, yVel);
