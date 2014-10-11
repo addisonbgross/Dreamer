@@ -136,10 +136,15 @@ abstract class Actor extends Collidable implements Updateable {
 		}
 		health -= damage;		
 	}
+	/**
+	 * Check to see if this is facing another Actor or not
+	 * @param a	Actor to check facing against
+	 * @return true is facing, false if not
+	 */
 	boolean isFacing(Actor a) {
-		if (a.checkStatus("left") && checkStatus("left"))
+		if (a.checkStatus("left") && checkStatus("right"))
 			return true;
-		else if (a.checkStatus("right") && checkStatus("right"))
+		else if (a.checkStatus("right") && checkStatus("left"))
 			return true;
 		else
 			return false;

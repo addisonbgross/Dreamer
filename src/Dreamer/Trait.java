@@ -130,7 +130,6 @@ class Armourer extends Trait {
 	Armourer(float i) {
 		super(i);
 	}
-	
 	void doActive(Enemy self) {
 		if (self.getTarget() != null) {
 			// TODO
@@ -143,7 +142,7 @@ class Armourer extends Trait {
  * NPC will engage in sword play with their target
  */
 class Duelist extends Trait {
-	int stanceRange = 50, currentRange;
+	int stanceRange = 100, currentRange;
 	Random r = new Random();
 	float distance;
 	Duelist() {
@@ -161,7 +160,7 @@ class Duelist extends Trait {
 	 */
 	void doActive(Enemy self) {
 		// randomize duel distance
-		currentRange = stanceRange + r.nextInt(100);
+		currentRange = stanceRange + r.nextInt(150);
 		if (self.target != null && !self.checkStatus("attacking") && self.isFacing(self.target)) {
 			distance = Math.abs(self.target.getX() - self.getX());
 			// if not within duel range

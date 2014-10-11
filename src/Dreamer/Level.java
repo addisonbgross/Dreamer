@@ -103,11 +103,11 @@ class TestLevel extends Level {
 			
 			//new Katana(-1000f, -10f, 0f).add();
 			
-			e = new NinjaAlt(100, 100, new Speed(0.4f), new Follow(1), new Violent());
+			e = new NinjaAlt(100, 100, new Speed(0.4f), new Follow(1), new Violent(), new Duelist());
 			Weapon w = new Naginata(e);
 			w.add();
 			e.add();
-			e = new NinjaAlt(150, 100, new Speed(0.7f), new Follow(0.5f), new Violent());
+			e = new NinjaAlt(150, 100, new Speed(0.7f), new Follow(0.5f), new Violent(), new Duelist());
 			w = new Naginata(e);
 			w.add();
 			e.add();
@@ -159,7 +159,7 @@ class SimpleLevel extends Level {
 			//w.add();
 			//e.add();
 			Weapon w;
-			e = new NinjaAlt(200, 800, new Speed(0.3f), new Follow(), new Duelist(), new Violent());
+			e = new NinjaAlt(200, 800, new Speed(0.3f), new Duelist(), new Violent());
 			w = new Naginata(e);
 			w.add();
 			e.add();
