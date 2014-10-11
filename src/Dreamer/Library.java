@@ -39,6 +39,7 @@ class Library {
 		"maps/test",
 		"maps/test_color",
 		"maps/longmap",
+		"maps/sixteen",
 		"fail",
 		
 		"block",
