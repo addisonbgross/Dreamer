@@ -164,7 +164,7 @@ public class Camera {
 		return result;
 	}
 	static Vector3f translate(float x, float y, float z) {
-		return translate(x, y, z, translated);
+			return translate(x, y, z, translated);
 	}
 	static Vector3f translate(Vector4f v, Vector3f result) {
 		return translate(v.x, v.y, v.z, result);

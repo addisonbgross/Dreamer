@@ -8,7 +8,6 @@ public class MeshMaker {
 	static int SPACE = 100, YSPACE = 200, width, height;
 	static Color c = new Color(0, 0, 0);
 	static Shape3d makeMesh(Image heightMap, Image colorMap) {
-		//heightMap.getSubImage(x, y, width, height);
 		return makeMesh(heightMap, colorMap, false);
 	}
 	static Shape3d makeMesh(Image map, boolean xFlipped) {
@@ -22,9 +21,7 @@ public class MeshMaker {
 		Shape3d mesh= new Shape3d(0, -300, 100);
 		for (int x=0; x < (width = heightMap.getWidth()); ++x)
 			for (int z=0; z < (height = heightMap.getHeight()); ++z) {
-				//System.out.println(heightMap.getColor(x, z).toString());
 				c = heightMap.getColor(x, z);
-				//mesh.addVertex(x * SPACE, c.r * YSPACE, z * SPACE);
 				int xPos;
 				if(xFlipped)
 					xPos = (width /2 - x) * SPACE;
@@ -34,12 +31,10 @@ public class MeshMaker {
 			}
 		for (int x=0; x < width - 1; ++x)
 			for (int z=0; z < height - 1; ++z) {
-				//System.out.println(heightMap.getColor(x, z).toString());
 				int bottomLeft = x*height + z, 
 						topLeft = x*height + z + 1, 
 						topRight = (x + 1)*height + z + 1,
 						bottomRight = (x + 1)*height + z;
-				//System.out.println(bottomLeft + " " + topLeft + " " + topRight + " " + bottomRight);
 				Face f = new Face();
 				if(xFlipped) {
 					f.setVertices(bottomLeft, topLeft, topRight, bottomRight);
@@ -51,7 +46,6 @@ public class MeshMaker {
 				f.triangulate();
 				mesh.addFace(f);
 			}
-		//mesh.fading = true;
 		return mesh;
 	}
 }

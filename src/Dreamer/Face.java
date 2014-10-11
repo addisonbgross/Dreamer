@@ -36,8 +36,8 @@ public class Face {
 	
 	static ArrayList<Face> tempFaces = new ArrayList<Face>();  
 	
-	private ArrayList<int[]> subTriangleVertexIndex;
-	private ArrayList<int[]> subTriangleColorIndex;
+	ArrayList<int[]> subTriangleVertexIndex;
+	ArrayList<int[]> subTriangleColorIndex;
 	int[] vertexIndex;
 	
 	Vector2f[] texturePoints;
@@ -96,6 +96,15 @@ public class Face {
 				}
 		} 
 	}
+	public void iterateTriangles() {
+		for(int i = 0; i < subTriangleVertexIndex.size(); i++) {
+			triangleIndex = subTriangleVertexIndex.get(i);
+			colorIndex =  subTriangleColorIndex.get(i);
+				for(int j = 0; j < 3; j++) {
+					
+				}
+		} 	
+	}
 	private int index, start, end;
 	public void drawWireFrame() {
 		for(start = 0; start < vertexIndex.length;  start++) {
@@ -150,7 +159,7 @@ public class Face {
 			new Vector2f(u2, v2)
 		};
 	}
-	private static Vector3f v;
+	private static Vector3f v = new Vector3f();
 	private static Color c;
 	public static void drawColoredPoint(Vector4f position, Color color) {
 		Camera.translate(position, v);
@@ -203,7 +212,7 @@ public class Face {
 		texturedDrawList.clear();
 		drawList.clear();
 	}
-	private Vector4f getVertex(int i) {
+	Vector4f getVertex(int i) {
 		return Vector4f.add(masterShape.vertices.get(i), masterShape.getPosition4f(), null);
 	}
 }

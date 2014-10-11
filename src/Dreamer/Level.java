@@ -51,20 +51,11 @@ abstract class Level {
 			restored = false;
 		}
 	}
-<<<<<<< HEAD
-	static void updateCurrent() {
-		current.update();
-		for(KeyHandler k: keys)
-			k.getKeys();
-	}
-	abstract void update();
-=======
 	//TODO move this function and ArrayList Keys into Keyhandler.java
 	static void updateCurrent() {
 		for(KeyHandler k: keys)
 			k.getKeys();
 	}
->>>>>>> 46e0673486e1c1e94a9e663571c4a50d2b676035
 }
 
 class TestLevel extends Level {
@@ -72,108 +63,86 @@ class TestLevel extends Level {
 	TestLevel() {
 		super();
 		if(!restored) {			
-			new MouseLight().add();
-			//create the bricks below the main platform
-			int space = 350;
-			int n = 8;
-			for(int i = -(space * n); i < (space * n); i += space)
-			{
-				for(int j = -(space * n);j < (space * n);j += space)
-				{
-					if(j < -100)
-					{
-						Block3d b = new Block3d(Color.red, i, j, 0, 100, 20, 100);
-						b.generateCollidable();
-						b.add();
-						b = new Block3d(Color.red, i + space / 2, j + space / 2, 0, 100, 20, 100);
-						b.generateCollidable();
-						b.add();
-					}
-				}
-			}
-			
-			Block3d o;
-			int numBlocks = 200;
-			int size = 500;
-			for(int i = 0; i < numBlocks; i++) {
-				o = new Block3d(Color.yellow, i * size -5000, -100, 0, size, 100, 300);
-				o.generateMotionTrack(1);
-				o.add();
-			}
-			
-			for(Player p: Player.list) {
-				if(!p.checkStatus("dead")) {
-					new Katana(p).add();
-					p.setCenterBottom(-500, -49);
-					p.add();
-				}
-			}
-			
-			//new Katana(-1000f, -10f, 0f).add();
-			
-<<<<<<< HEAD
-			e = new NinjaAlt(100, 100, new Speed(0.4f), new Follow(1), new Violent(), new Duelist());
-			Weapon w = new Naginata(e);
-			w.add();
-			e.add();
-			e = new NinjaAlt(150, 100, new Speed(0.7f), new Follow(0.5f), new Violent(), new Duelist());
-=======
-			e = new NinjaAlt(100, 100, new Speed(0.4f), new Follow(1), new Violent());
-			Weapon w = new Naginata(e);
-			w.add();
-			e.add();
-			e = new NinjaAlt(150, 100, new Speed(0.7f), new Follow(0.5f), new Violent());
->>>>>>> 46e0673486e1c1e94a9e663571c4a50d2b676035
-			w = new Naginata(e);
-			w.add();
-			e.add();
-
-			new Ladder(0, 0, -10, 20000).add();
+//			new MouseLight().add();
+//			//create the bricks below the main platform
+//			int space = 350;
+//			int n = 8;
+//			for(int i = -(space * n); i < (space * n); i += space)
+//			{
+//				for(int j = -(space * n);j < (space * n);j += space)
+//				{
+//					if(j < -100)
+//					{
+//						Block3d b = new Block3d(Color.red, i, j, 0, 100, 20, 100);
+//						b.generateCollidable();
+//						b.add();
+//						b = new Block3d(Color.red, i + space / 2, j + space / 2, 0, 100, 20, 100);
+//						b.generateCollidable();
+//						b.add();
+//					}
+//				}
+//			}
+//			
+//			Block3d o;
+//			int numBlocks = 200;
+//			int size = 500;
+//			for(int i = 0; i < numBlocks; i++) {
+//				o = new Block3d(Color.yellow, i * size -5000, -100, 0, size, 100, 300);
+//				o.generateMotionTrack(1);
+//				o.add();
+//			}
+//			
+//			for(Player p: Player.list) {
+//				if(!p.checkStatus("dead")) {
+//					new Katana(p).add();
+//					p.setCenterBottom(-500, -49);
+//					p.add();
+//				}
+//			}
+//			
+//			//new Katana(-1000f, -10f, 0f).add();
+//			
+//			e = new NinjaAlt(100, 100, new Speed(0.4f), new Follow(1), new Violent(), new Duelist());
+//			Weapon w = new Naginata(e);
+//			w.add();
+//			e.add();
+//			e = new NinjaAlt(150, 100, new Speed(0.7f), new Follow(0.5f), new Violent(), new Duelist());
+//
+//			w = new Naginata(e);
+//			w.add();
+//			e.add();
+//
+//			new Ladder(0, 0, -10, 20000).add();
 			
 			Background b = new Background();
 			b.add();
 			new Sun().add();
-			Camera.focus(new ClassFocus(200, Ninja.class));
+			int HBLOCK = 50, VBLOCK = 50;
+			for(int i = 0; i < VBLOCK; i++)
+				for(int j = 0; j < HBLOCK; j++)
+					new Block3d(Color.blue, i * 100, j * 100, 0, 50, 50, 50).add();
+			Camera.focus(new ClassFocus(Block3d.class));
 		}
 	}
-<<<<<<< HEAD
-	
-	@Override
-	void update() {
-	}
-=======
->>>>>>> 46e0673486e1c1e94a9e663571c4a50d2b676035
 }
 class SimpleLevel extends Level {
 	
 	SimpleLevel() {
 		super();
 		if(!restored) {
-<<<<<<< HEAD
-			new Sun().add();
-			//new Lamp(2000, -500, 0, 2000).add();
-			//new Lamp(0, -500, 0, 2000).add();
-			//new Lamp(-2000, -700, 0, 2000).add();
+			//new Sun().add();
+			new Lamp(2000, -500, 0, 2000).add();
+			new Lamp(0, -500, 0, 2000).add();
+			new Lamp(-2000, -700, 0, 2000).add();
 			Player p = Player.getFirst();
-			//new Lamp(p).add();
+			new Lamp(p).add();
 			new Katana(p).add();
 			
 			p.setCenterBottom(0, 1);
 			p.add();
 			//Shape3d s = MeshMaker.makeMesh(Library.getImage("maps/test"), Library.getImage("maps/test_color"));
 			Shape3d s = MeshMaker.makeMesh(Library.getImage("maps/longmap"), Library.getImage("maps/longmap"));
-=======
-			//new Sun().add();
-			new Lamp(2000, -500, 0, 2000).add();
-			new Lamp(0, -500, 0, 2000).add();
-			new Lamp(-2000, -700, 0, 2000).add();
-			Player p = Player.getFirst();
-			//new Lamp(p).add();
-			new Katana(p).add();
-			p.setCenterBottom(0, 1);
-			p.add();
-			Shape3d s = MeshMaker.makeMesh(Library.getImage("maps/test"), Library.getImage("maps/test_color"));
->>>>>>> 46e0673486e1c1e94a9e663571c4a50d2b676035
+
 			s.generateMotionTracks();
 			s.add();
 			s = MeshMaker.makeMesh(Library.getImage("square"), Library.getImage("squarecolormap"), true);
@@ -191,14 +160,11 @@ class SimpleLevel extends Level {
 			//Weapon w = new Naginata(e);
 			//w.add();
 			//e.add();
-<<<<<<< HEAD
+
 			Weapon w;
 			e = new NinjaAlt(200, 800, new Speed(0.3f), new Duelist(), new Violent());
 			w = new Naginata(e);
-=======
-			e = new NinjaAlt(200, 500, new Speed(0.6f), new Duelist(), new Violent());
-			Weapon w = new Naginata(e);
->>>>>>> 46e0673486e1c1e94a9e663571c4a50d2b676035
+
 			w.add();
 			e.add();
 			
@@ -208,11 +174,6 @@ class SimpleLevel extends Level {
 			//new MouseLight().add();
 		}
 	}
-<<<<<<< HEAD
-	@Override
-	void update() {}
-=======
->>>>>>> 46e0673486e1c1e94a9e663571c4a50d2b676035
 }
 class BirdLevel extends Level {
 	
@@ -272,12 +233,6 @@ class BirdLevel extends Level {
 			new Island(-200, 600, 0, 100).add();
 		}
 	}
-<<<<<<< HEAD
-
-	@Override
-	void update() {}
-=======
->>>>>>> 46e0673486e1c1e94a9e663571c4a50d2b676035
 }
 class ForestLevel extends Level {
 	RovingGround grass;
@@ -354,10 +309,6 @@ class ForestLevel extends Level {
 			new SpinningJewel(-1000, 2700, -2200, 700, new Color(192, 192, 255, 63)).add();
 		}
 	}
-<<<<<<< HEAD
-	void update() {}
-=======
->>>>>>> 46e0673486e1c1e94a9e663571c4a50d2b676035
 }
 class Action {
 	void perform() {}

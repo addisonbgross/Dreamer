@@ -16,7 +16,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 
-import Dreamer.runnableExamples.ShaderProgram;
+//import Dreamer.runnableExamples.ShaderProgram;
 
 public class Dreamer {
 	//for testing
@@ -59,7 +59,7 @@ public class Dreamer {
 			//initialize GL and open window
 			//Display.setDisplayMode(new DisplayMode(Constants.screenWidth,Constants.screenHeight));
 			//to set fullscreen mode uncomment the following line and comment the preceding one
-			Display.setFullscreen(true);
+			//Display.setFullscreen(true);
 			DisplayMode dm = Display.getDisplayMode();
 			Constants.screenWidth = dm.getWidth();
 			Constants.screenHeight = dm.getHeight();
@@ -154,11 +154,11 @@ public class Dreamer {
 		Element.activateVisible();
 	}
 	static void render() {	
-		ShaderProgram shader = new ShaderProgram();
+		//ShaderProgram shader = new ShaderProgram();
 		 
 		// do the heavy lifting of loading, compiling and linking
 		// the two shaders into a usable shader program
-		shader.init("src/Dreamer/runnableExamples/simple.vertex", "src/Dreamer/runnableExamples/simple.fragment");		
+		//shader.init("src/Dreamer/runnableExamples/simple.vertex", "src/Dreamer/runnableExamples/simple.fragment");		
 		//TODO pass translation and perspective off to graphics card using shaders
 		//GL20.glUseProgram(shader.getProgramId());
 		

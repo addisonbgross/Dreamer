@@ -52,17 +52,19 @@ public class Shape3d extends Element implements Lightable {
 		//TODO all these isVisible calls need to be reduced in expense
 		//these methods are called a LOT and are bringing down performance I'm sure
 		//this is the beginning of a better method--> return Camera.isPointVisible(getX(), getY(), getZ());
+		
+		if(true)
+			if(Camera.translate(0, getY() - manhattanRadius.y, getZ() - manhattanRadius.z).y > 0)
+				if(Camera.translate(0, getY() + manhattanRadius.y, getZ() - manhattanRadius.z).y < Constants.screenHeight)
+					if(Camera.translate(getX() + manhattanRadius.x, 0, getZ() - manhattanRadius.z).x > 0)
+						if(Camera.translate(getX() - manhattanRadius.x, 0, getZ() - manhattanRadius.z).x < Constants.screenWidth)
+							return true;
 		/*
-		if(Camera.translate(0, getY() - manhattanRadius.y, getZ() - manhattanRadius.z).y > 0)
-			if(Camera.translate(0, getY() + manhattanRadius.y, getZ() - manhattanRadius.z).y < Constants.screenHeight)
-				if(Camera.translate(getX() + manhattanRadius.x, 0, getZ() - manhattanRadius.z).x > 0)
-					if(Camera.translate(getX() - manhattanRadius.x, 0, getZ() - manhattanRadius.z).x < Constants.screenWidth)
-						return true;
-						*/
-
-				if(Camera.isPointVisible(getX(), getY(), getZ()))
-						return true;
-		return false;
+		else
+			if(Camera.isPointVisible(getX(), getY(), getZ()))
+					return true;
+		*/
+		return true;
 	}
 	float textureStretch(int dimension) {
 		for(int i = 0;  i < pow2.length; i++) {
@@ -199,10 +201,20 @@ public class Shape3d extends Element implements Lightable {
 			}
 		}
 	}
+	static int numberVertices = 0;
 	@Override
+	//for reference, this is how the camera finds the point on the screen
+	//Camera.translate(getVertex(triangleIndex[j]), tempV3f);
 	void draw(Graphics g) {
 		for(Face f: faces) {
-			f.addToDrawList();
+			numberVertices = f.vertexIndex.length;
+			for(int i = 0; i < numberVertices; i++) {
+				tempV4f = f.getVertex(f.vertexIndex[i]);
+				if(Camera.isPointVisible(tempV4f.x, tempV4f.y, tempV4f.z)) { 
+					f.addToDrawList();
+					i = numberVertices; //break out of for
+				}
+			} 	
 		}
 	}
 	public void generateMotionTracks() {

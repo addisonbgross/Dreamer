@@ -226,6 +226,14 @@ abstract class Actor extends Collidable implements Updateable {
 		xVel *= d;
 		yVel *= d;
 	}
+	public boolean isFacing(Actor a) {
+		if (a.checkStatus("left") && checkStatus("right"))
+			return true;
+		else if(a.checkStatus("right") && checkStatus("left"))
+			return true;
+		else
+			return false;
+	}
 	public String toString() {
 		return super.toString()+" vel ("+(int)xVel+", "+(int)yVel+") health "+health;
 	}
