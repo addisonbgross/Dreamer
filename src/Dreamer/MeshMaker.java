@@ -11,6 +11,9 @@ public class MeshMaker {
 		//heightMap.getSubImage(x, y, width, height);
 		return makeMesh(heightMap, colorMap, false);
 	}
+	static Shape3d makeMesh(Image map, boolean xFlipped) {
+		return makeMesh(map, map, xFlipped);
+	}
 	static Shape3d makeMesh(Image heightMap, Image colorMap, boolean xFlipped) {
 		if(heightMap.getWidth() != colorMap.getWidth() || heightMap.getHeight() != colorMap.getHeight()) {
 			System.err.println("MeshMaker.java: colorMap size does not equal heightMap size!");

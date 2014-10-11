@@ -38,6 +38,7 @@ class Library {
 		"squarecolormap",
 		"maps/test",
 		"maps/test_color",
+		"maps/longmap",
 		"fail",
 		
 		"block",
