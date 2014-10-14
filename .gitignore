@@ -1,8 +1,3 @@
 *.classpath
 *.project
-<<<<<<< HEAD
-
-/bin/
-=======
-/bin
->>>>>>> refs/remotes/origin/master
+./bin
