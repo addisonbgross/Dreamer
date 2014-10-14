@@ -132,8 +132,8 @@ class SimpleLevel extends Level {
 		if(!restored) {
 			//new Sun().add();
 			new Lamp(2000, -500, 0, 2000).add();
-			//new Lamp(0, -500, 0, 2000).add();
-			//new Lamp(-2000, -700, 0, 2000).add();
+			new Lamp(0, -500, 0, 2000).add();
+			new Lamp(-2000, -700, 0, 2000).add();
 			Player p = Player.getFirst();
 			new Lamp(p).add();
 			new Katana(p).add();
@@ -156,12 +156,11 @@ class SimpleLevel extends Level {
 			//new Lamp(4000, 300, 400, 6000).add();
 			//new Lamp(-6000, 200, -2000, 8000).add();
 			
-			//e = new NinjaAlt(100, 500, new Speed(0.4f), new Follow(1), new Violent());
-			//Weapon w = new Naginata(e);
-			//w.add();
-			//e.add();
+			e = new NinjaAlt(100, 500, new Speed(0.4f), new Follow(1), new Violent());
+			Weapon w = new Naginata(e);
+			w.add();
+			e.add();
 
-			Weapon w;
 			e = new NinjaAlt(200, 800, new Speed(0.3f), new Duelist(), new Violent());
 			w = new Naginata(e);
 
