@@ -145,7 +145,7 @@ class SimpleLevel extends Level {
 //
 //			s.generateMotionTracks();
 //			s.add();
-			MeshMaker.makeMesh(Library.getImage("maps/sixteen"), Library.getImage("maps/sixteen"), true);
+			MeshMaker.makeMesh(Library.getImage("maps/test"), Library.getImage("maps/test_color"), true);
 //			s.setPosition(5000, 0, 3000);
 			//s.generateMotionTracks();
 			//s.add();
