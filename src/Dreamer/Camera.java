@@ -80,7 +80,7 @@ public class Camera {
 				else 
 					scale = 1;
 			} catch(ClassCastException cce) {
-				//not a valid classfocus, normal scaling in effect
+				//not a valid classFocus, normal scaling in effect
 				scale = 1;
 			}
 			try {

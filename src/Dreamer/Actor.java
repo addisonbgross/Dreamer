@@ -227,6 +227,7 @@ abstract class Actor extends Collidable implements Updateable {
 		yVel *= d;
 	}
 	public boolean isFacing(Actor a) {
+		assert this != null : "Ya can't check the facing of a null object";
 		if (a.checkStatus("left") && checkStatus("right"))
 			return true;
 		else if(a.checkStatus("right") && checkStatus("left"))

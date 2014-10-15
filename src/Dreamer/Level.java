@@ -140,37 +140,23 @@ class SimpleLevel extends Level {
 			
 			p.setCenterBottom(0, 1);
 			p.add();
-			//Shape3d s = MeshMaker.makeMesh(Library.getImage("maps/test"), Library.getImage("maps/test_color"));
-//			Shape3d s = MeshMaker.makeMesh(Library.getImage("maps/longmap"), Library.getImage("maps/longmap"));
-//
-//			s.generateMotionTracks();
-//			s.add();
+	
 			MeshMaker.makeMesh(Library.getImage("maps/test"), Library.getImage("maps/test_color"), true);
-//			s.setPosition(5000, 0, 3000);
-			//s.generateMotionTracks();
-			//s.add();
+
 			new GradientBackground(new Color(63, 63, 255), new Color(220, 63, 63)).add();
-			//new MotionTrack(-2000, -100, 1000, -100).add();
-			//new LargeIsland(-4000, 0, 0).add();
-			//new Ziggurat(-1000, -300, 0, 2500);
-			//new Lamp(4000, 300, 400, 6000).add();
-			//new Lamp(-6000, 200, -2000, 8000).add();
 			
-			e = new NinjaAlt(100, 500, new Speed(0.4f), new Follow(1), new Violent());
-			Weapon w = new Naginata(e);
-			w.add();
-			e.add();
-
-			e = new NinjaAlt(200, 800, new Speed(0.3f), new Duelist(), new Violent());
+			Weapon w;
+			e = new NinjaAlt(100, 500, new Speed(0.7f), new Follow(), new Duelist(), new Violent());
 			w = new Naginata(e);
-
+			w.add();
+			e.add();
+			e = new NinjaAlt(200, 800, new Speed(0.5f), new Follow(), new Duelist(), new Violent());
+			w = new Naginata(e);
 			w.add();
 			e.add();
 			
-			//new GreyRoom().add();
 			new ActionJewel(100, 40, 0, new Action() {void perform() {new ForestLevel();}}).add();
 			Camera.focus(new ClassFocus(200, Ninja.class));
-			//new MouseLight().add();
 		}
 	}
 }
@@ -210,7 +196,7 @@ class BirdLevel extends Level {
 			
 			Player one = Player.getFirst();
 			one.setVelocity(0, 0);
-			one.setCenterBottom(-100, 2);
+			one.setCenterBottom(-100, 100);
 			new Lamp(one).add();
 			Lamp l = new Lamp(500, 200, 0);
 			l.add();
@@ -230,6 +216,7 @@ class BirdLevel extends Level {
 			new Island(-200, 400, 0, 100).add();
 			new Island(0, 500, 0, 100).add();
 			new Island(-200, 600, 0, 100).add();
+			Camera.focus(new ClassFocus(200, Ninja.class));
 		}
 	}
 }
@@ -274,6 +261,7 @@ class ForestLevel extends Level {
 			Player one = Player.getFirst();
 			one.setCenterBottom(2900, 1551);
 			one.add();
+			new Lamp(one).add();
 			Camera.focus(new ClassFocus(100, Ninja.class));
 			
 			int offsetX = 250, offsetY = 100, size = 100;
@@ -306,6 +294,7 @@ class ForestLevel extends Level {
 			new SpinningJewel(0, 1000, -2000, 800, new Color(192, 192, 192, 63)).add();
 			new SpinningJewel(-2000, 2500, -2500, 1000, new Color(255, 192, 192, 63)).add();
 			new SpinningJewel(-1000, 2700, -2200, 700, new Color(192, 192, 255, 63)).add();
+			Camera.focus(new ClassFocus(200, Ninja.class));
 		}
 	}
 }

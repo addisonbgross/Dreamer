@@ -72,7 +72,7 @@ public class Bamboo extends Element {
 		return leaf;
 	}
 	void draw(Graphics g) {
-		g.setAntiAlias(true);
+		//g.setAntiAlias(true);
 		drawShape(bs, brightColor, g);
 		drawShape(ds, darkColor, g);
 		for (Polygon r: rings)
