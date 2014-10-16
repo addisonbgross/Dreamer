@@ -141,7 +141,9 @@ class SimpleLevel extends Level {
 			p.setCenterBottom(0, 1);
 			p.add();
 	
-			MeshMaker.makeMesh(Library.getImage("maps/forest_elevation"), Library.getImage("maps/forest_colour"), true);
+			MeshMaker.makeMesh(Library.getImage("maps/flat_elevation"), Library.getImage("maps/flat_colour"), true, 0, -300, 100);
+			MeshMaker.makeMesh(Library.getImage("maps/flat_elevation"), Library.getImage("maps/flat_colour"), true, 0, 12500, 100);
+			MeshMaker.makeMesh(Library.getImage("maps/flat_elevation"), Library.getImage("maps/flat_colour"), true, 0, -13100, 100);
 			
 			new GradientBackground(new Color(63, 63, 255), new Color(220, 63, 63)).add();
 			
@@ -226,9 +228,9 @@ class ForestLevel extends Level {
 	ForestLevel() {
 		super();
 		if(!restored) {
-			//new GradientBackground(new Color(63, 63, 255), new Color(220, 220, 255)).add();
+			new GradientBackground(new Color(63, 63, 255), new Color(220, 220, 255)).add();
 			new Sun().add();
-			new RovingGround(new Color(0, 127, 31), new Color(192, 223, 127), 1, -10000).add();
+			//new RovingGround(new Color(0, 127, 31), new Color(192, 223, 127), 1, -10000).add();
 			
 			Random r = new Random();
 			float f = -9500f;
@@ -258,7 +260,9 @@ class ForestLevel extends Level {
 //			new Ziggurat(1500, 0, -100, 1750);
 //			new Ziggurat(-500, 0, 200, 1200);
 			
-			MeshMaker.makeMesh(Library.getImage("maps/forest_elevation"), Library.getImage("maps/forest_colour"), true);
+			MeshMaker.makeMesh(Library.getImage("maps/forest_elevation"), Library.getImage("maps/forest_colour"), true, 0, -300, 100);
+			MeshMaker.makeMesh(Library.getImage("maps/flat_elevation"), Library.getImage("maps/flat_colour"), true, 0, -13100, 100);	// These two arent drawing for some reason
+			MeshMaker.makeMesh(Library.getImage("maps/flat_elevation"), Library.getImage("maps/flat_colour"), true, 0, 12500, 100); 	// <<
 			
 			Player one = Player.getFirst();
 			one.setCenterBottom(2900, 1551);
