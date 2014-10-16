@@ -1,5 +1,7 @@
 package Dreamer;
 
+import java.util.ArrayList;
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
@@ -9,6 +11,8 @@ public class MeshMaker {
 	static Image elevationMap, colorMap;
 	static Color c = new Color(0, 0, 0);
 	static boolean xFlipped;
+
+	static ArrayList<Shape3d> meshList = new ArrayList<Shape3d>();
 	
 	static void makeMesh(Image heightMap, Image colorMap, boolean xFlipped) {
 		if(heightMap.getWidth() != colorMap.getWidth() || heightMap.getHeight() != colorMap.getHeight()) {
@@ -47,6 +51,8 @@ public class MeshMaker {
 				mesh.addFace(f);
 			}
 		 mesh.generateMotionTracks();
+		 
+		 meshList.add(mesh);
 		 mesh.add();
 	}
 }

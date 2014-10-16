@@ -39,6 +39,8 @@ class Library {
 		"maps/test",
 		"maps/test_color",
 		"maps/longmap",
+		"maps/forest_elevation",
+		"maps/forest_colour",
 		"fail",
 		
 		"block",

@@ -141,8 +141,8 @@ class SimpleLevel extends Level {
 			p.setCenterBottom(0, 1);
 			p.add();
 	
-			MeshMaker.makeMesh(Library.getImage("maps/test"), Library.getImage("maps/test_color"), true);
-
+			MeshMaker.makeMesh(Library.getImage("maps/forest_elevation"), Library.getImage("maps/forest_colour"), true);
+			
 			new GradientBackground(new Color(63, 63, 255), new Color(220, 63, 63)).add();
 			
 			Weapon w;
@@ -226,7 +226,7 @@ class ForestLevel extends Level {
 	ForestLevel() {
 		super();
 		if(!restored) {
-			new GradientBackground(new Color(63, 63, 255), new Color(220, 220, 255)).add();
+			//new GradientBackground(new Color(63, 63, 255), new Color(220, 220, 255)).add();
 			new Sun().add();
 			new RovingGround(new Color(0, 127, 31), new Color(192, 223, 127), 1, -10000).add();
 			
@@ -253,10 +253,12 @@ class ForestLevel extends Level {
 				new Tree(i + 1000, 1, .8f, 50, new Color(200, 100, 0)).add();
 			*/
 			
-			new Ziggurat(1000, 0, 0, 1500);
-			new Ziggurat(0, 0, -800, 2000);
-			new Ziggurat(1500, 0, -100, 1750);
-			new Ziggurat(-500, 0, 200, 1200);
+//			new Ziggurat(1000, 0, 0, 1500);
+//			new Ziggurat(0, 0, -800, 2000);
+//			new Ziggurat(1500, 0, -100, 1750);
+//			new Ziggurat(-500, 0, 200, 1200);
+			
+			MeshMaker.makeMesh(Library.getImage("maps/forest_elevation"), Library.getImage("maps/forest_colour"), true);
 			
 			Player one = Player.getFirst();
 			one.setCenterBottom(2900, 1551);
@@ -284,13 +286,13 @@ class ForestLevel extends Level {
 			new Island(200, 200, -1500, 100).add();
 			new Island(1000, 700, -1000f, 100).add();
 				
-			Bamboo b;
-			r = new Random();
-			for(int x = 0; x < 2000; x += 50) {
-				b = new Bamboo(x +r. nextInt(25), 0, r.nextFloat() * 500, 50 + r.nextInt(300));
-				b.setDepth(0);
-				b.add();
-			}
+//			Bamboo b;
+//			r = new Random();
+//			for(int x = 0; x < 2000; x += 50) {
+//				b = new Bamboo(x +r. nextInt(25), 0, r.nextFloat() * 500, 50 + r.nextInt(300));
+//				b.setDepth(0);
+//				b.add();
+//			}
 			new SpinningJewel(0, 1000, -2000, 800, new Color(192, 192, 192, 63)).add();
 			new SpinningJewel(-2000, 2500, -2500, 1000, new Color(255, 192, 192, 63)).add();
 			new SpinningJewel(-1000, 2700, -2200, 700, new Color(192, 192, 255, 63)).add();
