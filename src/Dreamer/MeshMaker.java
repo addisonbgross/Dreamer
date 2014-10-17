@@ -4,7 +4,7 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.Image;
 
 public class MeshMaker {	
-	static int SPACE = 200, YSPACE = 200, width, height, xMeshes, yMeshes;
+	static int SPACE = 100, YSPACE = 200, width, height, xMeshes, yMeshes;
 	static Image elevationMap, colorMap;
 	static Color c = new Color(0, 0, 0);
 	static boolean xFlipped;

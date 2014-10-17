@@ -261,8 +261,8 @@ class ForestLevel extends Level {
 //			new Ziggurat(-500, 0, 200, 1200);
 			
 			MeshMaker.makeMesh(Library.getImage("maps/forest_elevation"), Library.getImage("maps/forest_colour"), true, 0, -300, 100);
-			MeshMaker.makeMesh(Library.getImage("maps/flat_elevation"), Library.getImage("maps/flat_colour"), true, 0, -13100, 100);	// These two arent drawing for some reason
-			MeshMaker.makeMesh(Library.getImage("maps/flat_elevation"), Library.getImage("maps/flat_colour"), true, 0, 12500, 100); 	// <<
+			MeshMaker.makeMesh(Library.getImage("maps/flat_elevation"), Library.getImage("maps/flat_colour"), true, -6400, -300, 100);	// These two arent drawing for some reason
+			MeshMaker.makeMesh(Library.getImage("maps/flat_elevation"), Library.getImage("maps/flat_colour"), true, 6400, -300, 100); 	// <<
 			
 			Player one = Player.getFirst();
 			one.setCenterBottom(2900, 1551);
