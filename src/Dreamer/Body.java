@@ -5,6 +5,7 @@ import java.util.Random;
 import org.lwjgl.util.vector.Vector2f;
 import org.newdawn.slick.Graphics;
 
+//COCKS
 public class Body extends Element implements Updateable { 	
 	Animation2 legs, body, head;
 	Actor actor;
