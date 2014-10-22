@@ -53,12 +53,16 @@ public class Shape3d extends Element implements Lightable {
 		//these methods are called a LOT and are bringing down performance I'm sure
 		//this is the beginning of a better method--> return Camera.isPointVisible(getX(), getY(), getZ());
 		
-		if(true)
-			if(Camera.translate(0, getY() - manhattanRadius.y, getZ() - manhattanRadius.z).y > 0)
-				if(Camera.translate(0, getY() + manhattanRadius.y, getZ() - manhattanRadius.z).y < Constants.screenHeight)
-					if(Camera.translate(getX() + manhattanRadius.x, 0, getZ() - manhattanRadius.z).x > 0)
-						if(Camera.translate(getX() - manhattanRadius.x, 0, getZ() - manhattanRadius.z).x < Constants.screenWidth)
-							return true;
+		// Another attempt at it, checks the furthest left point and furthest right point
+		// seems to make sense so long as we only move laterally
+		if (Camera.isPointVisible(getX(), getY(), getZ()) || Camera.isPointVisible(getX() + getWidth(), getY() + getHeight(), getZ() + getDepth()))
+			return true;
+		
+//		if(Camera.translate(0, getY() - manhattanRadius.y, getZ() - manhattanRadius.z).y > 0)
+//			if(Camera.translate(0, getY() + manhattanRadius.y, getZ() - manhattanRadius.z).y < Constants.screenHeight)
+//				if(Camera.translate(getX() + manhattanRadius.x, 0, getZ() - manhattanRadius.z).x > 0)
+//					if(Camera.translate(getX() - manhattanRadius.x, 0, getZ() - manhattanRadius.z).x < Constants.screenWidth)
+//						return true;
 		/*
 		else
 			if(Camera.isPointVisible(getX(), getY(), getZ()))

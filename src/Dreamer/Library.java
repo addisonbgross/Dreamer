@@ -41,8 +41,12 @@ class Library {
 		"maps/longmap",
 		"maps/forest_elevation",
 		"maps/forest_colour",
+		"maps/forest_elevation2",
+		"maps/forest_colour2",
 		"maps/flat_elevation",
 		"maps/flat_colour",
+		"maps/landform_elevation",
+		"maps/landform_colour",
 		"fail",
 		
 		"block",

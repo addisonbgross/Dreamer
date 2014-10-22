@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Random;
 
 import org.newdawn.slick.Color;
+import org.newdawn.slick.Image;
 
 /* Level is the base class for all games states, including menus, editors, debuggers etc
  * 
@@ -142,8 +143,8 @@ class SimpleLevel extends Level {
 			p.add();
 	
 			MeshMaker.makeMesh(Library.getImage("maps/flat_elevation"), Library.getImage("maps/flat_colour"), true, 0, -300, 100);
-			MeshMaker.makeMesh(Library.getImage("maps/flat_elevation"), Library.getImage("maps/flat_colour"), true, 0, 12500, 100);
-			MeshMaker.makeMesh(Library.getImage("maps/flat_elevation"), Library.getImage("maps/flat_colour"), true, 0, -13100, 100);
+//			MeshMaker.makeMesh(Library.getImage("maps/flat_elevation"), Library.getImage("maps/flat_colour"), true, 0, 12500, 100);
+//			MeshMaker.makeMesh(Library.getImage("maps/flat_elevation"), Library.getImage("maps/flat_colour"), true, 0, -13100, 100);
 			
 			new GradientBackground(new Color(63, 63, 255), new Color(220, 63, 63)).add();
 			
@@ -260,15 +261,14 @@ class ForestLevel extends Level {
 //			new Ziggurat(1500, 0, -100, 1750);
 //			new Ziggurat(-500, 0, 200, 1200);
 			
-			MeshMaker.makeMesh(Library.getImage("maps/forest_elevation"), Library.getImage("maps/forest_colour"), true, 0, -300, 100);
-			MeshMaker.makeMesh(Library.getImage("maps/flat_elevation"), Library.getImage("maps/flat_colour"), true, -6400, -300, 100);	// These two arent drawing for some reason
-			MeshMaker.makeMesh(Library.getImage("maps/flat_elevation"), Library.getImage("maps/flat_colour"), true, 6400, -300, 100); 	// <<
+			// create a terrain mesh
+			diceMesh(Library.getImage("maps/landform_elevation"), Library.getImage("maps/landform_colour"), 35000, -300, 100);
 			
 			Player one = Player.getFirst();
 			one.setCenterBottom(2900, 1551);
 			one.add();
-			new Lamp(one).add();
-			Camera.focus(new ClassFocus(100, Ninja.class));
+			
+			//new Lamp(one).add();
 			
 			int offsetX = 250, offsetY = 100, size = 100;
 			for(int i = 0; i < 10; i++) {
@@ -300,8 +300,30 @@ class ForestLevel extends Level {
 			new SpinningJewel(0, 1000, -2000, 800, new Color(192, 192, 192, 63)).add();
 			new SpinningJewel(-2000, 2500, -2500, 1000, new Color(255, 192, 192, 63)).add();
 			new SpinningJewel(-1000, 2700, -2200, 700, new Color(192, 192, 255, 63)).add();
-			Camera.focus(new ClassFocus(200, Ninja.class));
+			Camera.focus(new ClassFocus(150, Ninja.class));
 		}
+	}
+	
+	// dice that mesh into slices for faster resolve!
+	public void diceMesh(Image imgH, Image imgC, int x, int y, int z) {
+		int numDivs = 16;
+		int width = imgH.getWidth() / numDivs;
+		int depth = imgH.getHeight();
+		Image tempH, tempC;
+		
+		for (int i = 0; i < numDivs; ++i) {
+			if (i < numDivs - 1) {
+				tempH = imgH.getSubImage(width * i, 0, width + 1, depth);
+				tempC = imgC.getSubImage(width * i, 0, width + 1, depth);
+			} else {
+				tempH = imgH.getSubImage(width * i, 0, width, depth);
+				tempC = imgC.getSubImage(width * i, 0, width, depth);
+			}
+			MeshMaker.makeMesh(tempH, tempC, true, x - MeshMaker.XSPACE * i * width, y, z);
+		}
+	}
+	public void diceMesh(Image img, int x, int y, int z) {
+		diceMesh(img, img, x, y, z); // for lazynes
 	}
 }
 class Action {

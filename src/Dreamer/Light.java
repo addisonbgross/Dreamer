@@ -99,7 +99,7 @@ final class LampLight extends Light implements Updateable {
 	float flickerRange;
 	{
 		orthogonality = 0;
-		color = new Color(230,200, 200);
+		color = new Color(255,255, 255);
 		flickerRange = 600;
 	}
 	public LampLight(Shape3d shape) {
@@ -108,7 +108,7 @@ final class LampLight extends Light implements Updateable {
 	}
 	public void update() {
 		setPosition(s.position.x, s.position.y, s.position.z);
-		range = flickerRange;
+		range = flickerRange + 1000;
 		range = r.nextInt((int)range / 5) + range; 
 		//flicker();
 	}
