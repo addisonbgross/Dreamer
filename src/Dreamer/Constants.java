@@ -41,7 +41,7 @@ public class Constants {
 	static final float PERSPECTIVE = 1.5f, PERSPECTIVESQUASH = 4f;
 	static final float PLAYERJUMPVEL = 35, PLAYERMAXVEL = 35;
 	static final float SHADOWOFFSET = 4;
-	static final int SNOWHEIGHT = 500;
+	static final int SNOWHEIGHT = 2000;
 	static final int STARTX = -200, STARTY = 1;
 	static final int TOP = 1, RIGHT = 2, BOTTOM = 3, LEFT = 0;
 	static final float VEL = 18;

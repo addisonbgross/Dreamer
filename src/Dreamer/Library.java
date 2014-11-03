@@ -47,6 +47,8 @@ class Library {
 		"maps/flat_colour",
 		"maps/landform_elevation",
 		"maps/landform_colour",
+		"maps/rough_elevation",
+		"maps/rough_colour",
 		"fail",
 		
 		"block",

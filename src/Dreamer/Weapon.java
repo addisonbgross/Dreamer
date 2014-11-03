@@ -172,7 +172,7 @@ class Katana extends Weapon {
 	Katana(Actor a) {
 		super(a);
 		name = "katana";
-		damage = 200;
+		damage = 10;
 		carryHeight = 50;
 		cuttingEdge = 100;
 		
@@ -187,7 +187,7 @@ class Battleaxe extends Weapon {
 	Battleaxe(Actor a) {
 		super(a);
 		name = "battleaxe";
-		damage = 10;
+		damage = 15;
 		carryHeight = 3;
 		makeFace();
 	}

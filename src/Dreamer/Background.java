@@ -109,7 +109,7 @@ class Mountain extends Background {
 	Color mountainColor = new Color(127, 127, 127);
 	Color shadowColor = new Color(63, 63, 63);
 	Color snowColor = new Color(200, 220, 255, 191);
-
+	
 	Mountain(float x, float y, float z, int size) {
 		setPosition(x, y, z);
 		
@@ -124,7 +124,7 @@ class Mountain extends Background {
 		if(size > Constants.SNOWHEIGHT) {
 			snow.addPoint(
 					x + Constants.SNOWHEIGHT,
-					y + Constants.SNOWHEIGHT 
+					y + Constants.SNOWHEIGHT
 					);	
 			snow.addPoint(x + size, y + size);
 			snow.addPoint(x + (2 * size) - Constants.SNOWHEIGHT, y + Constants.SNOWHEIGHT);
