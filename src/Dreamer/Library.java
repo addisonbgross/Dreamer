@@ -4,6 +4,8 @@ import java.awt.Font;
 import java.awt.FontFormatException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.HashMap;
 
 import org.newdawn.slick.Color;
@@ -22,61 +24,18 @@ class Library {
 	static TrueTypeFont defaultFont;
 	static Color defaultFontColor = Color.black;
     static boolean messages = false;
-    
-	private static String[] imageNames = {
-		"sunset",
-		"space",
-		"fastgrass",
-		"sand",
-		"sword",
-		"katana",
-		"battleaxe",
-		"naginata",
-		"arrow",
-		"smallguy",
-		"square", // Test for MeshMaker
-		"squarecolormap",
-		"maps/test",
-		"maps/test_color",
-		"maps/longmap",
-		"maps/forest_elevation",
-		"maps/forest_colour",
-		"maps/forest_elevation2",
-		"maps/forest_colour2",
-		"maps/flat_elevation",
-		"maps/flat_colour",
-		"maps/landform_elevation",
-		"maps/landform_colour",
-		"fail",
-		
-		"block",
-		"hitblock",
-		"brick",
-		"yellowblock",
-		"grayblock",
-		"treebark",
-		"ground", 
-		"arrow",
-		"e_ninja_legs",
-		"e_ninja_body",
-		"e_ninja_head"
-	};
-	private static String[] bodyNames = {
-		"e_ninja_",
-		"e_ninjaalt_"
-	};
 	
 	//main tests loading the current images 
 	//TODO check all resources
-	public static void test() {
+	public static void test() throws IOException {
 		System.out.println("Initializing Library");
 		Dreamer.init();
 		Library.messages = true;
 		Library.load();
 	}
-	static void load() {
+	static void load() throws IOException {
 		importFonts();
-		importImages();
+		importArt();
 	}
 	public static void addImage(String string, ImageTracker temp) {
 		images.put(string, temp);
@@ -90,17 +49,18 @@ class Library {
 	static Texture getTexture(String s) {
 		return images.get(s).image.getTexture();//textures.get(s);
 	}
-	static void importImage() {
-		for(String s: imageNames) {
-			ImageTracker temp = new ImageTracker(s);
-			images.put(s, temp);
-		}
-	}
-	static void importImages() {
-		for(String s: imageNames) {
-			ImageTracker temp = new ImageTracker(s);
-			images.put(s, temp);
-		}
+	static void importArt() throws IOException {
+		Files.walk(Paths.get("res/")).forEach(filePath -> {
+			if (Files.isRegularFile(filePath)) {
+				if (!filePath.toString().contains("fonts") && !filePath.toString().contains("legacy") && !filePath.toString().contains("sounds")) {
+					String tempName = filePath.toString().substring(0, filePath.toString().lastIndexOf("."));
+			    	tempName = tempName.replace("res/", "");
+					
+					ImageTracker tempImage = new ImageTracker(tempName);
+			    	images.put(tempName, tempImage);
+				}
+		    }
+		});
 	}
 	static void importFonts() {
 		// load font from a .ttf file
@@ -117,20 +77,6 @@ class Library {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
- 		/*
-		Font raleway;
- 		try {
-			inputStream = ResourceLoader.getResourceAsStream("res/fonts/NewShape-Bold.ttf");
-			raleway = Font.createFont(Font.TRUETYPE_FONT, inputStream);
-			raleway = raleway.deriveFont(62f); // set font size
-			//messageFont = new TrueTypeFont(raleway, false);
-		} catch (FontFormatException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		*/
-		//init default truetypefont
 	    font = new Font("Serif", Font.BOLD, 14);
 	    defaultFont = new TrueTypeFont(font, true);
 	}
@@ -156,19 +102,6 @@ class ImageTracker {
 			e.printStackTrace();
 		} catch (Exception e) {
 			System.err.println("Image import of "+s+".png failed");
-			e.printStackTrace();
-		}
-	}
-	ImageTracker(String s, String part) {
-		try {
-			image =  new Image(Constants.RESPATH + s + part + ".png", true, Image.FILTER_NEAREST);
-			scaledImage = image.copy();
-			if(Library.messages) System.out.println("Image import of " + s + part + ".png successful");
-		} catch (RuntimeException e) {
-			System.err.println("Image import of " + s + part + ".png failed");
-			e.printStackTrace();
-		} catch (Exception e) {
-			System.err.println("Image import of " + s + part + ".png failed");
 			e.printStackTrace();
 		}
 	}

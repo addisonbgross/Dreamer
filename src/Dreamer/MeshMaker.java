@@ -4,7 +4,7 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.Image;
 
 public class MeshMaker {	
-	public static int XSPACE = 300, YSPACE = 500, width, height, xMeshes, yMeshes;
+	public static int XSPACE = 300, YSPACE = 1500, width, height, xMeshes, yMeshes;
 	static Image elevationMap, colorMap;
 	static Color c;
 	static Shape3d mesh;

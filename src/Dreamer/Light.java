@@ -98,7 +98,7 @@ final class LampLight extends Light implements Updateable {
 	Shape3d s;
 	float flickerRange;
 	{
-		orthogonality = 0;
+		orthogonality = 1f;
 		color = new Color(255,255, 255);
 		flickerRange = 600;
 	}

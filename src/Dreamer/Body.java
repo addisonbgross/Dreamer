@@ -182,6 +182,12 @@ public class Body extends Element implements Updateable {
 		this.head.remove();
 	}
 	@Override
+	public boolean isVisible() {
+		if (Camera.isPointVisible(getX(), getY(), getZ()) || Camera.isPointVisible(getX() + getWidth(), getY() + getHeight(), getZ() + getDepth()))
+			return true;
+		return false;
+	}
+	@Override
 	void draw(Graphics g) {
 		//stupid
 	}

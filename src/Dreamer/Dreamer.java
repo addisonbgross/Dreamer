@@ -1,17 +1,35 @@
 package Dreamer;
 
-import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL11.GL_BLEND;
+import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
+import static org.lwjgl.opengl.GL11.GL_DEPTH_BUFFER_BIT;
+import static org.lwjgl.opengl.GL11.GL_FRONT;
+import static org.lwjgl.opengl.GL11.GL_LESS;
+import static org.lwjgl.opengl.GL11.GL_MODELVIEW;
+import static org.lwjgl.opengl.GL11.GL_ONE_MINUS_SRC_ALPHA;
+import static org.lwjgl.opengl.GL11.GL_PROJECTION;
+import static org.lwjgl.opengl.GL11.GL_SRC_ALPHA;
+import static org.lwjgl.opengl.GL11.glBlendFunc;
+import static org.lwjgl.opengl.GL11.glClear;
+import static org.lwjgl.opengl.GL11.glClearColor;
+import static org.lwjgl.opengl.GL11.glClearDepth;
+import static org.lwjgl.opengl.GL11.glCullFace;
+import static org.lwjgl.opengl.GL11.glDepthFunc;
+import static org.lwjgl.opengl.GL11.glEnable;
+import static org.lwjgl.opengl.GL11.glLoadIdentity;
+import static org.lwjgl.opengl.GL11.glMatrixMode;
+import static org.lwjgl.opengl.GL11.glOrtho;
+import static org.lwjgl.opengl.GL11.glViewport;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.text.NumberFormat;
 
 import org.lwjgl.Sys;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL20;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
@@ -35,7 +53,12 @@ public class Dreamer {
 	public static void main(String[] argv) 
 	{		
 		init();	
-		Library.load();
+		
+		try {
+			Library.load();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
 
 		new ZoomKeys().add();
 		new FunctionKeys().add();
@@ -59,7 +82,7 @@ public class Dreamer {
 			//initialize GL and open window
 			//Display.setDisplayMode(new DisplayMode(Constants.screenWidth,Constants.screenHeight));
 			//to set fullscreen mode uncomment the following line and comment the preceding one
-			//Display.setFullscreen(true);
+			Display.setFullscreen(true);
 			DisplayMode dm = Display.getDisplayMode();
 			Constants.screenWidth = dm.getWidth();
 			Constants.screenHeight = dm.getHeight();
