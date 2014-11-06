@@ -1,13 +1,10 @@
 package Dreamer;
 
 import org.lwjgl.input.Keyboard;
-import org.lwjgl.input.Mouse;
-import org.lwjgl.util.vector.Matrix4f;
 import org.lwjgl.util.vector.Vector3f;
 import org.lwjgl.util.vector.Vector4f;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Rectangle;
-import org.newdawn.slick.geom.Vector2f;
 
 public class Camera {
 	
@@ -124,10 +121,10 @@ public class Camera {
 
 	static boolean isPointVisible(float x, float y, float z) {
 		translate(x, y, z, tempV3f);
-		if(tempV3f.x > 0)
-			if(tempV3f.x < Constants.screenWidth)
+		if(tempV3f.x > 0 - 2 * scene.getWidth())//focalLength * scale)
+			if(tempV3f.x < Constants.screenWidth + 2.5 * scene.getWidth())
 				if(tempV3f.y > 0)
-					if(tempV3f.y < Constants.screenHeight)
+					if(tempV3f.y < Constants.screenHeight + 2 * scene.getWidth())
 						return true;
 		return false;
 	}

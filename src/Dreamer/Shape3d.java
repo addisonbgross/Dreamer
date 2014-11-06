@@ -3,8 +3,6 @@ package Dreamer;
 import java.util.ArrayList;
 import java.util.Random;
 
-import org.lwjgl.input.Keyboard;
-import org.lwjgl.util.vector.Matrix4f;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 import org.lwjgl.util.vector.Vector4f;
@@ -52,23 +50,22 @@ public class Shape3d extends Element implements Lightable {
 		//TODO all these isVisible calls need to be reduced in expense
 		//these methods are called a LOT and are bringing down performance I'm sure
 		//this is the beginning of a better method--> return Camera.isPointVisible(getX(), getY(), getZ());
-		
-		// Another attempt at it, checks the furthest left point and furthest right point
-		// seems to make sense so long as we only move laterally
-		if (Camera.isPointVisible(getX(), getY(), getZ()) || Camera.isPointVisible(getX() + getWidth(), getY() + getHeight(), getZ() + getDepth()))
+		if (Camera.isPointVisible(getX(), getY(), getZ()))
 			return true;
-		
-//		if(Camera.translate(0, getY() - manhattanRadius.y, getZ() - manhattanRadius.z).y > 0)
-//			if(Camera.translate(0, getY() + manhattanRadius.y, getZ() - manhattanRadius.z).y < Constants.screenHeight)
-//				if(Camera.translate(getX() + manhattanRadius.x, 0, getZ() - manhattanRadius.z).x > 0)
-//					if(Camera.translate(getX() - manhattanRadius.x, 0, getZ() - manhattanRadius.z).x < Constants.screenWidth)
-//						return true;
-		/*
+		else if (Camera.isPointVisible(getX() + getWidth(), getY(), getZ()))
+			return true;
+		else if (Camera.isPointVisible(getX() - getWidth(), getY(), getZ()))
+			return true;
+		else if (Camera.isPointVisible(getX(), getY() + getHeight(), getZ()))
+			return true;
+		else if (Camera.isPointVisible(getX(), getY() - getHeight(), getZ()))
+			return true;
+		else if (Camera.isPointVisible(getX(), getY(), getZ() + getDepth()))
+			return true;
+		else if (Camera.isPointVisible(getX(), getY(), getZ() - getDepth()))
+			return true;
 		else
-			if(Camera.isPointVisible(getX(), getY(), getZ()))
-					return true;
-		*/
-		return true;
+			return false;
 	}
 	float textureStretch(int dimension) {
 		for(int i = 0;  i < pow2.length; i++) {

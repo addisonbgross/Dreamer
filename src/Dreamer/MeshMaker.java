@@ -4,7 +4,7 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.Image;
 
 public class MeshMaker {	
-	public static int XSPACE = 200, YSPACE = 500, width, height, xMeshes, yMeshes;
+	public static int XSPACE = 300, YSPACE = 1500, width, height, xMeshes, yMeshes;
 	static Image elevationMap, colorMap;
 	static Color c;
 	static Shape3d mesh;
@@ -32,7 +32,7 @@ public class MeshMaker {
 					xPos = (x - width / 2) * XSPACE;
 				
 				// add vertex with height relative to colour of pixel [black, white] = [0, MaxHeight]
-				mesh.addVertex(xPos, (c.r + c.g + c.b) * YSPACE, (z - height / 2) * XSPACE * 4);
+				mesh.addVertex(xPos, (c.r + c.g + c.b) * YSPACE, (z - height / 2) * XSPACE);
 			}
 		for (int x = 0; x < width - 1; ++x)
 			for (int z = 0; z < height - 1; ++z) {

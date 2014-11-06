@@ -57,12 +57,35 @@ abstract class Level {
 		for(KeyHandler k: keys)
 			k.getKeys();
 	}
+	
+	// dice that mesh into slices for faster resolve!
+	public void diceMesh(Image imgH, Image imgC, int x, int y, int z) {
+		int numDivs = imgH.getWidth();
+		int width = imgH.getWidth() / numDivs;
+		int depth = imgH.getHeight();
+		Image tempH, tempC;
+		
+		for (int i = 0; i < numDivs; ++i) {
+			if (i < numDivs - 1) {
+				tempH = imgH.getSubImage(width * i, 0, width + 1, depth);
+				tempC = imgC.getSubImage(width * i, 0, width + 1, depth);
+			} else {
+				tempH = imgH.getSubImage(width * i, 0, width, depth);
+				tempC = imgC.getSubImage(width * i, 0, width, depth);
+			}
+			MeshMaker.makeMesh(tempH, tempC, true, x - MeshMaker.XSPACE * i * width, y, z);
+		}
+	}
+	public void diceMesh(Image img, int x, int y, int z) {
+		diceMesh(img, img, x, y, z); // for laziness
+	}
 }
 
 class TestLevel extends Level {
 	
 	TestLevel() {
 		super();
+		
 		if(!restored) {			
 			Background b = new Background();
 			b.add();
@@ -90,12 +113,9 @@ class SimpleLevel extends Level {
 			
 			p.setCenterBottom(0, 1);
 			p.add();
-	
-			MeshMaker.makeMesh(Library.getImage("maps/flat_elevation"), Library.getImage("maps/flat_colour"), true, Library.getImage("maps/flat_colour").getWidth(), -300, 100);
-			MeshMaker.makeMesh(Library.getImage("maps/flat_elevation"), Library.getImage("maps/flat_colour"), true, Library.getImage("maps/flat_colour").getWidth() * 200, -300, 100);
-			MeshMaker.makeMesh(Library.getImage("maps/flat_elevation"), Library.getImage("maps/flat_colour"), true, Library.getImage("maps/flat_colour").getWidth() * 300, -300, 100);
-			MeshMaker.makeMesh(Library.getImage("maps/flat_elevation"), Library.getImage("maps/flat_colour"), true, Library.getImage("maps/flat_colour").getWidth() * -300, -300, 100);
-			MeshMaker.makeMesh(Library.getImage("maps/flat_elevation"), Library.getImage("maps/flat_colour"), true, Library.getImage("maps/flat_colour").getWidth()* - 200, -300, 100);
+
+			// create a terrain mesh
+			diceMesh(Library.getImage("maps/madness_elevation"), Library.getImage("maps/madness_colour"), 35000, -300, 100);
 			
 			new GradientBackground(new Color(63, 63, 255), new Color(220, 63, 63)).add();
 			
@@ -185,27 +205,26 @@ class ForestLevel extends Level {
 			 */
 			new GradientBackground(new Color(63, 63, 255), new Color(220, 220, 255)).add();
 			new Sun().add();
+
+			// create a terrain mesh
+			diceMesh(Library.getImage("maps/madness_elevation"), Library.getImage("maps/madness_colour"), 35000, -300, 100);
 			
-			Random r = new Random();
-			float f = -9500f;
-			int maxSize = 1000;
-			int xm;
+			Enemy e;
+			Weapon w;
+			Player one = Player.getFirst();
+			w = new Katana(one);
+			one.setCenterBottom(2900, 1551);
+			//new Lamp(one).add();
+			one.add();
+			w.add();
 			
-			for(int i = 0; i < 50; i++) {
-				xm = (int)Math.sqrt((double)r.nextInt(200000000)) - 15000;
-				new Mountain(
-						xm * 3, 
-						-500, 
-						f, 
-						(r.nextInt(maxSize) + maxSize / 2) * (30000 - Math.abs(xm)) / 9000
-						).add();
-				f += 20f;
-				maxSize -= 4;
+			
+			for (int i = 0; i < 10; ++i) {
+				e = new NinjaAlt(i * 100, 500, new Speed(0.7f), new Follow(), new Duelist(), new Violent());
+				w = new Naginata(e);
+				w.add();
+				e.add();
 			}
-			
-			// Green field level
-			diceMesh(Library.getImage("maps/rough_elevation"), Library.getImage("maps/rough_colour"), Library.getImage("maps/rough_colour").getWidth(), -300, 100);
-			//diceMesh(Library.getImage("maps/rough_elevation"), Library.getImage("maps/rough_colour"), 95 * Library.getImage("maps/rough_colour").getWidth(), -300, 100);
 			
 			int offsetX = 250, offsetY = 100, size = 100;
 			for(int i = 0; i < 10; i++) {
@@ -225,20 +244,11 @@ class ForestLevel extends Level {
 			new Island(-300, 400, -1200, 100).add();
 			new Island(700, 1200, -1250, 100).add();
 			new Island(200, 200, -1500, 100).add();
-			new Island(1000, 700, -1000f, 100).add();
+			new Island(1000, 700, -1000f, 100).add();	
+
 			new SpinningJewel(0, 1000, -2000, 800, new Color(192, 192, 192, 63)).add();
 			new SpinningJewel(-2000, 2500, -2500, 1000, new Color(255, 192, 192, 63)).add();
 			new SpinningJewel(-1000, 2700, -2200, 700, new Color(192, 192, 255, 63)).add();
-			
-			/**
-			 * Actor setup
-			 */
-			Weapon w;
-			Enemy e;
-			Player ninja = Player.getFirst();
-			ninja.setCenterBottom(300, 100);
-			w = new Katana(ninja);
-			w.add();
 			
 			for (int i = 0; i < 5; ++i) {
 				e = new NinjaAlt(-2000 * i, 0, new Speed(1.0f * (i % 3)), new Follow(), new Duelist(), new Violent());
@@ -252,29 +262,6 @@ class ForestLevel extends Level {
 			 */
 			Camera.focus(new ClassFocus(150, Ninja.class));
 		}
-	}
-//	public void LoadModel
-	
-	// dice that mesh into slices for faster resolve!
-	public void diceMesh(Image imgH, Image imgC, int x, int y, int z) {
-		int numDivs = 64;
-		int width = imgH.getWidth() / numDivs;
-		int depth = imgH.getHeight();
-		Image tempH, tempC;
-		
-		for (int i = 0; i < numDivs; ++i) {
-			if (i < numDivs - 1) {
-				tempH = imgH.getSubImage(width * i, 0, width + 1, depth);
-				tempC = imgC.getSubImage(width * i, 0, width + 1, depth);
-			} else {
-				tempH = imgH.getSubImage(width * i, 0, width, depth);
-				tempC = imgC.getSubImage(width * i, 0, width, depth);
-			}
-			MeshMaker.makeMesh(tempH, tempC, true, x - MeshMaker.XSPACE * i * width, y, z);
-		}
-	}
-	public void diceMesh(Image img, int x, int y, int z) {
-		diceMesh(img, img, x, y, z); // for lazynes
 	}
 }
 class Action {

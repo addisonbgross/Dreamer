@@ -1,10 +1,27 @@
 package Dreamer;
 
-import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL11.GL_BLEND;
+import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
+import static org.lwjgl.opengl.GL11.GL_DEPTH_BUFFER_BIT;
+import static org.lwjgl.opengl.GL11.GL_FRONT;
+import static org.lwjgl.opengl.GL11.GL_LESS;
+import static org.lwjgl.opengl.GL11.GL_MODELVIEW;
+import static org.lwjgl.opengl.GL11.GL_ONE_MINUS_SRC_ALPHA;
+import static org.lwjgl.opengl.GL11.GL_PROJECTION;
+import static org.lwjgl.opengl.GL11.GL_SRC_ALPHA;
+import static org.lwjgl.opengl.GL11.glBlendFunc;
+import static org.lwjgl.opengl.GL11.glClear;
+import static org.lwjgl.opengl.GL11.glClearColor;
+import static org.lwjgl.opengl.GL11.glClearDepth;
+import static org.lwjgl.opengl.GL11.glCullFace;
+import static org.lwjgl.opengl.GL11.glDepthFunc;
+import static org.lwjgl.opengl.GL11.glEnable;
+import static org.lwjgl.opengl.GL11.glLoadIdentity;
+import static org.lwjgl.opengl.GL11.glMatrixMode;
+import static org.lwjgl.opengl.GL11.glOrtho;
+import static org.lwjgl.opengl.GL11.glViewport;
 
 import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.NumberFormat;
@@ -13,9 +30,6 @@ import org.lwjgl.Sys;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL20;
-import org.lwjgl.util.vector.Vector3f;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
@@ -39,7 +53,12 @@ public class Dreamer {
 	public static void main(String[] argv) 
 	{		
 		init();	
-		Library.load();
+		
+		try {
+			Library.load();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
 
 		new ZoomKeys().add();
 		new FunctionKeys().add();
@@ -47,8 +66,6 @@ public class Dreamer {
 		player = new Ninja(-500, 0);
 		new WASDKeys(player).add();
 		player.addToGame();
-		
-		System.out.println(java.lang.Runtime.getRuntime().maxMemory() / 1024 / 1024 + " MBees");
 		
 		origin.add();
 		new MainMenu();
@@ -65,7 +82,7 @@ public class Dreamer {
 			//initialize GL and open window
 			//Display.setDisplayMode(new DisplayMode(Constants.screenWidth,Constants.screenHeight));
 			//to set fullscreen mode uncomment the following line and comment the preceding one
-			//Display.setFullscreen(true);
+			Display.setFullscreen(true);
 			DisplayMode dm = Display.getDisplayMode();
 			Constants.screenWidth = dm.getWidth();
 			Constants.screenHeight = dm.getHeight();
@@ -91,44 +108,6 @@ public class Dreamer {
 			//NOTE this was the culprit for upside-down drawing
 			glOrtho(0, Constants.screenWidth, Constants.screenHeight, 0, 1, -1);
 			glMatrixMode(GL_MODELVIEW);
-			
-			// Attemped OBJ loading
-			int objectDisplayList = glGenLists(1);
-			glNewList(objectDisplayList, GL_COMPILE); 
-			{
-				Model m = null;
-				try {
-					m = ObjLoader.loadModel(new File("res/house.obj"));
-				} catch (FileNotFoundException e) {
-					e.printStackTrace();
-					Display.destroy();
-					System.exit(1);
-				} catch (IOException e) {
-					e.printStackTrace();
-					Display.destroy();
-					System.exit(1);
-				}
-				glBegin(GL_TRIANGLES);
-					for (ModelFace face : m.faces) {
-						Vector3f n1 = m.normals.get((int) face.normal.x - 1);
-						glNormal3f(n1.x, n1.y, n1.z);
-						Vector3f v1 = m.vertices.get((int) face.vertex.x - 1);
-						glVertex3f(v1.x, v1.y, v1.z);
-						
-						Vector3f n2 = m.normals.get((int) face.normal.y - 1);
-						glNormal3f(n2.x, n2.y, n2.z);
-						Vector3f v2 = m.vertices.get((int) face.vertex.y - 1);
-						glVertex3f(v2.x, v2.y, v2.z);
-						
-						Vector3f n3 = m.normals.get((int) face.normal.z - 1);
-						glNormal3f(n3.x, n3.y, n3.z);
-						Vector3f v3 = m.vertices.get((int) face.vertex.z - 1);
-						glVertex3f(v3.x, v3.y, v3.z);
-					}
-				glEnd();
-			}
-			glEndList();
-			
 		}
 		catch(Exception e) {
 			e.printStackTrace(System.err);
@@ -151,7 +130,6 @@ public class Dreamer {
 			Display.processMessages();
 			update();
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-			
 			render();
 			// update screen
 			Display.sync(60);
