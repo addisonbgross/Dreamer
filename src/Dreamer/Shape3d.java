@@ -32,7 +32,18 @@ public class Shape3d extends Element implements Lightable {
 	Shape3d(float x, float y, float z) {
 		this.setPosition(x, y, z);
 	}
-	
+	@Override
+	float getX() {
+		return position.x;
+	}
+	@Override
+	float getY() {
+		return position.y;
+	}
+	@Override
+	float getZ() {
+		return position.z;
+	}
 	@Override
 	float getWidth() {
 		return 2 * manhattanRadius.x;
@@ -52,20 +63,36 @@ public class Shape3d extends Element implements Lightable {
 		//this is the beginning of a better method--> return Camera.isPointVisible(getX(), getY(), getZ());
 		if (Camera.isPointVisible(getX(), getY(), getZ()))
 			return true;
-		else if (Camera.isPointVisible(getX() + getWidth(), getY(), getZ()))
-			return true;
-		else if (Camera.isPointVisible(getX() - getWidth(), getY(), getZ()))
-			return true;
-		else if (Camera.isPointVisible(getX(), getY() + getHeight(), getZ()))
-			return true;
-		else if (Camera.isPointVisible(getX(), getY() - getHeight(), getZ()))
-			return true;
-		else if (Camera.isPointVisible(getX(), getY(), getZ() + getDepth()))
-			return true;
-		else if (Camera.isPointVisible(getX(), getY(), getZ() - getDepth()))
-			return true;
-		else
-			return false;
+		
+		if (getX() >= Camera.getCenterX() && getY() >= Camera.getCenterY()) // Cartesian I
+			if (Camera.isPointVisible(getX() - getWidth() / 2, getY() - getHeight() / 2, getZ() - getDepth() / 2)) {
+				return true;
+			} else {
+				return false;
+			}
+		
+		if (getX() < Camera.getCenterX() && getY() > Camera.getCenterY()) // Cartesian II
+			if (Camera.isPointVisible(getX() + getWidth() / 2, getY() - getHeight() / 2, getZ() - getDepth() / 2)) {
+				return true;
+			} else {
+				return false; 
+			}
+		
+		if (getX() <= Camera.getCenterX() && getY() <= Camera.getCenterY()) // Cartesian III
+			if (Camera.isPointVisible(getX() + getWidth() / 2, getY() + getHeight() / 2, getZ() - getDepth() / 2)) {
+				return true;
+			} else {
+				return false;
+			}
+		
+		if (getX() > Camera.getCenterX() && getY() < Camera.getCenterY()) // Cartesian IV
+			if (Camera.isPointVisible(getX() - getWidth() / 2, getY() + getHeight() / 2, getZ() - getDepth() / 2)) {
+				return true;
+			} else{
+				return false;
+			}
+		
+		return false;
 	}
 	float textureStretch(int dimension) {
 		for(int i = 0;  i < pow2.length; i++) {
@@ -374,6 +401,7 @@ class SpinningJewel extends Shape3d implements Updateable {
 	SpinningJewel(float x, float y, float z, float size, Color c) {
 		super(x, y, z);
 		this.size = size;
+		manhattanRadius.set(size, size, size);
 		setRotationAxis(0, 1, 0);
 		color = c;
 		angle = 0;

@@ -26,7 +26,6 @@ class Library {
     static boolean messages = false;
 	
 	//main tests loading the current images 
-	//TODO check all resources
 	public static void test() throws IOException {
 		System.out.println("Initializing Library");
 		Dreamer.init();
@@ -50,11 +49,11 @@ class Library {
 		return images.get(s).image.getTexture();//textures.get(s);
 	}
 	static void importArt() throws IOException {
-		Files.walk(Paths.get("res/")).forEach(filePath -> {
+		Files.walk(Paths.get(Constants.RESPATH)).forEach(filePath -> {
 			if (Files.isRegularFile(filePath)) {
-				if (!filePath.toString().contains("fonts") && !filePath.toString().contains("legacy") && !filePath.toString().contains("sounds")) {
+				if (!filePath.toString().contains(Constants.FONTSPATH) && !filePath.toString().contains(Constants.LEGACYPATH) && !filePath.toString().contains(Constants.SOUNDSPATH)) {
 					String tempName = filePath.toString().substring(0, filePath.toString().lastIndexOf("."));
-			    	tempName = tempName.replace("res/", "");
+			    	tempName = tempName.replace(Constants.RESPATH, "");
 					
 					ImageTracker tempImage = new ImageTracker(tempName);
 			    	images.put(tempName, tempImage);
@@ -68,7 +67,7 @@ class Library {
 
 		Font chunk;
  		try {
-			inputStream = ResourceLoader.getResourceAsStream("res/fonts/8-bit Madness.ttf");
+			inputStream = ResourceLoader.getResourceAsStream(Constants.RESPATH + Constants.FONTSPATH + "8-bit Madness.ttf");
 			chunk = Font.createFont(Font.TRUETYPE_FONT, inputStream);
 			chunk = chunk.deriveFont(60f); // set font size
 			messageFont = new TrueTypeFont(chunk, true);
