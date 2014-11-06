@@ -85,17 +85,17 @@ class TestLevel extends Level {
 	
 	TestLevel() {
 		super();
-		
-		if(!restored) {			
-			Background b = new Background();
-			b.add();
-			new Sun().add();
-			int HBLOCK = 50, VBLOCK = 50;
-			for(int i = 0; i < VBLOCK; i++)
-				for(int j = 0; j < HBLOCK; j++)
-					new Block3d(Color.blue, i * 100, j * 100, 0, 50, 50, 50).add();
-			Camera.focus(new ClassFocus(Block3d.class));
-		}
+//		
+//		if(!restored) {			
+//			Background b = new Background();
+//			b.add();
+//			new Sun().add();
+//			int HBLOCK = 50, VBLOCK = 50;
+//			for(int i = 0; i < VBLOCK; i++)
+//				for(int j = 0; j < HBLOCK; j++)
+//					new Block3d(Color.blue, i * 100, j * 100, 0, 50, 50, 50).add();
+//			Camera.focus(new ClassFocus(Block3d.class));
+//		}
 	}
 }
 class SimpleLevel extends Level {
@@ -115,7 +115,7 @@ class SimpleLevel extends Level {
 			p.add();
 
 			// create a terrain mesh
-			diceMesh(Library.getImage("maps/madness_elevation"), Library.getImage("maps/madness_colour"), 35000, -300, 100);
+			diceMesh(Library.getImage(Constants.MAPPATH + "madness_elevation"), Library.getImage(Constants.MAPPATH + "madness_colour"), 35000, -300, 100);
 			
 			new GradientBackground(new Color(63, 63, 255), new Color(220, 63, 63)).add();
 			
@@ -207,7 +207,7 @@ class ForestLevel extends Level {
 			new Sun().add();
 
 			// create a terrain mesh
-			diceMesh(Library.getImage("maps/madness_elevation"), Library.getImage("maps/madness_colour"), 35000, -300, 100);
+			diceMesh(Library.getImage(Constants.MAPPATH + "madness_elevation"), Library.getImage(Constants.MAPPATH + "madness_colour"), 35000, -300, 100);
 			
 			Enemy e;
 			Weapon w;
