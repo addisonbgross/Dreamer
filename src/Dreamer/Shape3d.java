@@ -56,44 +56,49 @@ public class Shape3d extends Element implements Lightable {
 	float getDepth() {
 		return 2 * manhattanRadius.z;
 	}
+	
 	@Override
 	boolean isVisible() {
-		//TODO all these isVisible calls need to be reduced in expense
-		//these methods are called a LOT and are bringing down performance I'm sure
-		//this is the beginning of a better method--> return Camera.isPointVisible(getX(), getY(), getZ());
-		if (Camera.isPointVisible(getX(), getY(), getZ()))
+		/*
+		 * Here's the deal. We need to account for the camera's zoom factor if we want it too draw things
+		 * that are deep into the Z distance. The constants screenWiidth and screenHeight are not scaled 
+		 * when the camera zooms in/out; thus, we do not enjoy excellent clipping
+		 */
+		if (Math.abs(Camera.getCenterX() - (getX() + getWidth())) < Constants.screenWidth)// + (Camera.focalLength / Camera.getScale()))
 			return true;
+		else
+			return false;
 		
-		if (getX() >= Camera.getCenterX() && getY() >= Camera.getCenterY()) // Cartesian I
-			if (Camera.isPointVisible(getX() - getWidth() / 2, getY() - getHeight() / 2, getZ() - getDepth() / 2)) {
-				return true;
-			} else {
-				return false;
-			}
-		
-		if (getX() < Camera.getCenterX() && getY() > Camera.getCenterY()) // Cartesian II
-			if (Camera.isPointVisible(getX() + getWidth() / 2, getY() - getHeight() / 2, getZ() - getDepth() / 2)) {
-				return true;
-			} else {
-				return false; 
-			}
-		
-		if (getX() <= Camera.getCenterX() && getY() <= Camera.getCenterY()) // Cartesian III
-			if (Camera.isPointVisible(getX() + getWidth() / 2, getY() + getHeight() / 2, getZ() - getDepth() / 2)) {
-				return true;
-			} else {
-				return false;
-			}
-		
-		if (getX() > Camera.getCenterX() && getY() < Camera.getCenterY()) // Cartesian IV
-			if (Camera.isPointVisible(getX() - getWidth() / 2, getY() + getHeight() / 2, getZ() - getDepth() / 2)) {
-				return true;
-			} else{
-				return false;
-			}
-		
-		return false;
+//		if (Camera.isPointVisible(getX(), getY(), getZ()))
+//			return true;
+//		
+//		if (getX() >= Camera.getCenterX() && getY() >= Camera.getCenterY()) // Cartesian I
+//			if (Camera.isPointVisible(getX() - getWidth() / 2, getY() - getHeight() / 2, getZ() - getDepth() / 2))
+//				return true;
+//			else
+//				return false;
+//		
+//		if (getX() <= Camera.getCenterX() && getY() >= Camera.getCenterY()) // Cartesian II
+//			if (Camera.isPointVisible(getX() + getWidth() / 2, getY() - getHeight() / 2, getZ() - getDepth() / 2))
+//				return true;
+//			else
+//				return false; 
+//		
+//		if (getX() <= Camera.getCenterX() && getY() <= Camera.getCenterY()) // Cartesian III
+//			if (Camera.isPointVisible(getX() + getWidth() / 2, getY() + getHeight() / 2, getZ() - getDepth() / 2))
+//				return true;
+//			else 
+//				return false;
+//		
+//		if (getX() >= Camera.getCenterX() && getY() <= Camera.getCenterY()) // Cartesian IV
+//			if (Camera.isPointVisible(getX() - getWidth() / 2, getY() + getHeight() / 2, getZ() - getDepth() / 2))
+//				return true;
+//			else
+//				return false;
+//		
+//		return false;
 	}
+	
 	float textureStretch(int dimension) {
 		for(int i = 0;  i < pow2.length; i++) {
 			if(dimension <= pow2[i])
@@ -234,16 +239,9 @@ public class Shape3d extends Element implements Lightable {
 	//for reference, this is how the camera finds the point on the screen
 	//Camera.translate(getVertex(triangleIndex[j]), tempV3f);
 	void draw(Graphics g) {
-		for(Face f: faces) {
-			numberVertices = f.vertexIndex.length;
-			for(int i = 0; i < numberVertices; i++) {
-				tempV4f = f.getVertex(f.vertexIndex[i]);
-				if(Camera.isPointVisible(tempV4f.x, tempV4f.y, tempV4f.z)) { 
-					f.addToDrawList();
-					i = numberVertices; //break out of for
-				}
-			} 	
-		}
+		if (this.isVisible())
+			for (Face f: faces)
+				f.addToDrawList();
 	}
 	public void generateMotionTracks() {
 		for(Face f: faces)
@@ -402,6 +400,7 @@ class SpinningJewel extends Shape3d implements Updateable {
 		super(x, y, z);
 		this.size = size;
 		manhattanRadius.set(size, size, size);
+		
 		setRotationAxis(0, 1, 0);
 		color = c;
 		angle = 0;

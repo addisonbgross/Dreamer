@@ -1,16 +1,11 @@
 package Dreamer;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Set;
-import java.util.TreeSet;
 
 import org.lwjgl.util.vector.Vector3f;
-import org.newdawn.slick.Animation;
-import org.newdawn.slick.Color;
-import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Line;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Vector2f;
@@ -126,11 +121,11 @@ abstract class Actor extends Collidable implements Updateable {
 	}
 	void takeDamage(int damage, float weaponX) {
 		if (weaponX > getX()) {
-			yVel += 1;
-			xVel += 6;
+			yVel += 0.5 * damage;
+			xVel -= 0.8 *damage;
 		} else {
-			yVel += 1;
-			xVel -= 6;
+			yVel += 0.5 * damage;
+			xVel += 0.8 * damage;
 		}
 		health -= damage;		
 	}

@@ -115,6 +115,8 @@ public class Camera {
 	static float getWidth() {return scene.getWidth() / scale;}
 	static float getHeight() {return scene.getHeight() / scale;}
 
+	static float getScale() {return scale;}
+	
 	static float getCenterX() {return centerX;}
 	static float getCenterY() {return centerY;}
 	static float getCenterZ() {return centerZ;}

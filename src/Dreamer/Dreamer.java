@@ -260,5 +260,6 @@ public class Dreamer {
 	static void displayTestTime() {
 		g.setColor(Library.defaultFontColor);
 	    g.drawString("delta: "+measuredDelta+" us(?)" , 20, 160);
+	    g.drawString("screen width: " + Constants.screenWidth + ", screen height: " + Constants.screenHeight, 20, 240);
 	}
 }

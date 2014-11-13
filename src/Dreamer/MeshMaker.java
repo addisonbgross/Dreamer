@@ -34,6 +34,7 @@ public class MeshMaker {
 				// add vertex with height relative to colour of pixel [black, white] = [0, MaxHeight]
 				mesh.addVertex(xPos, (c.r + c.g + c.b) * YSPACE, (z - height / 2) * XSPACE);
 			}
+		
 		for (int x = 0; x < width - 1; ++x)
 			for (int z = 0; z < height - 1; ++z) {
 				int bottomLeft = x * height + z, 
@@ -53,9 +54,8 @@ public class MeshMaker {
 				f.triangulate();
 				mesh.addFace(f);
 			}
-		
-		 mesh.generateMotionTracks();
-		 Map.meshList.add(mesh); // This is just a master list for addressing individual meshes
-		 mesh.add();
+		mesh.generateMotionTracks();
+		Map.meshList.add(mesh); // This is just a master list for addressing individual meshes
+		mesh.add();
 	}
 }
