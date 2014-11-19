@@ -105,7 +105,7 @@ public class Body extends Element implements Updateable {
 				carryWeapon(body.currentIndex);
 				body.setLooping(false);
 				body.selectRow(2);
-				body.start();
+				body.start();					
 			} else if (jumping) {
 				carryWeapon();
 				body.setLooping(true);

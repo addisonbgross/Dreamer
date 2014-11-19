@@ -3,6 +3,7 @@ package Dreamer;
 import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import org.junit.After;
 import org.junit.Before;
@@ -148,5 +149,18 @@ public class CameraTest {
 		assertEquals(false, blockBottom.isVisible());
 		assertEquals(false, blockRight.isVisible());
 		assertEquals(false, blockLeft.isVisible());
+	}
+	@Test
+	public void isBlockFieldVisible() {
+		Camera.focus(new Marker("Origin", 0, 0));
+		int w = 10;
+		int h = 10;
+		int d = 10;
+		ArrayList<Block3d> blerks = new ArrayList<Block3d>();
+		for (int i = 0; i < 50; ++i)
+			for (int j = 0; j < 50; ++j) {
+				blerks.add(new Block3d(Color.orange, (i * w) + 10, (j * h) + 10, -5000, w, h, d));
+			}
+		assertEquals(true, blerks.get(0).isVisible());
 	}
 }

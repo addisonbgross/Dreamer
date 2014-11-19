@@ -14,11 +14,11 @@ import org.newdawn.slick.geom.Rectangle;
 public class Shape3d extends Element implements Lightable {
 	static Random r = new Random();
 	static Vector3f tempV3f =  new Vector3f();
-	static Vector3f manhattanRadius = new Vector3f();
 	static Vector4f tempV4f =  new Vector4f();
 	static Color tempColor;
-	static boolean initialized = false;
+	boolean initialized = false;
 	
+	Vector3f manhattanRadius = new Vector3f();
 	ArrayList<Vector4f> vertices = new ArrayList<Vector4f>();
 	private ArrayList<Face> faces = new ArrayList<Face>();
 	
@@ -58,45 +58,35 @@ public class Shape3d extends Element implements Lightable {
 	}
 	
 	@Override
-	boolean isVisible() {
-		/*
-		 * Here's the deal. We need to account for the camera's zoom factor if we want it too draw things
-		 * that are deep into the Z distance. The constants screenWiidth and screenHeight are not scaled 
-		 * when the camera zooms in/out; thus, we do not enjoy excellent clipping
-		 */
-		if (Math.abs(Camera.getCenterX() - (getX() + getWidth())) < Constants.screenWidth)// + (Camera.focalLength / Camera.getScale()))
+	boolean isVisible() {		
+		if (Camera.isPointVisible(getX(), getY(), getZ()))
 			return true;
-		else
-			return false;
 		
-//		if (Camera.isPointVisible(getX(), getY(), getZ()))
-//			return true;
-//		
-//		if (getX() >= Camera.getCenterX() && getY() >= Camera.getCenterY()) // Cartesian I
-//			if (Camera.isPointVisible(getX() - getWidth() / 2, getY() - getHeight() / 2, getZ() - getDepth() / 2))
-//				return true;
-//			else
-//				return false;
-//		
-//		if (getX() <= Camera.getCenterX() && getY() >= Camera.getCenterY()) // Cartesian II
-//			if (Camera.isPointVisible(getX() + getWidth() / 2, getY() - getHeight() / 2, getZ() - getDepth() / 2))
-//				return true;
-//			else
-//				return false; 
-//		
-//		if (getX() <= Camera.getCenterX() && getY() <= Camera.getCenterY()) // Cartesian III
-//			if (Camera.isPointVisible(getX() + getWidth() / 2, getY() + getHeight() / 2, getZ() - getDepth() / 2))
-//				return true;
-//			else 
-//				return false;
-//		
-//		if (getX() >= Camera.getCenterX() && getY() <= Camera.getCenterY()) // Cartesian IV
-//			if (Camera.isPointVisible(getX() - getWidth() / 2, getY() + getHeight() / 2, getZ() - getDepth() / 2))
-//				return true;
-//			else
-//				return false;
-//		
-//		return false;
+		if (getX() >= Camera.getCenterX() && getY() >= Camera.getCenterY()) // Cartesian I
+			if (Camera.isPointVisible(getX() - getWidth() / 2, getY() - getHeight() / 2, getZ() - getDepth()))
+				return true;
+			else
+				return false;
+		
+		if (getX() <= Camera.getCenterX() && getY() >= Camera.getCenterY()) // Cartesian II
+			if (Camera.isPointVisible(getX() + getWidth() / 2, getY() - getHeight() / 2, getZ() - getDepth()))
+				return true;
+			else
+				return false; 
+		
+		if (getX() <= Camera.getCenterX() && getY() <= Camera.getCenterY()) // Cartesian III
+			if (Camera.isPointVisible(getX() + getWidth() / 2, getY() + getHeight() / 2, getZ() - getDepth()))
+				return true;
+			else 
+				return false;
+		
+		if (getX() >= Camera.getCenterX() && getY() <= Camera.getCenterY()) // Cartesian IV
+			if (Camera.isPointVisible(getX() - getWidth() / 2, getY() + getHeight() / 2, getZ() - getDepth()))
+				return true;
+			else
+				return false;
+		
+		return false;
 	}
 	
 	float textureStretch(int dimension) {
@@ -427,8 +417,6 @@ class SpinningJewel extends Shape3d implements Updateable {
 		for(int i = 0; i < vertices.size(); i++)
 			vertices.set(i, Vector.rotate(rotationAxis, modelVertices.get(i), angle));
 		angle += angleIncrement;
-		angle = angle % 6.28318f;
-		//setPosition((float)(translation.x + Math.cos(angle)), (float)(translation.y + Math.cos(angle)), (float)(translation.z + Math.sin(angle)));
 	}
 }
 class ActionJewel extends SpinningJewel {

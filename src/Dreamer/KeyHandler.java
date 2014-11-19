@@ -208,10 +208,12 @@ class ZoomKeys extends KeyHandler {
 		if(Camera.zoom) {
 			if(Keyboard.isKeyDown(Keyboard.KEY_COMMA)) {
 				Camera.nudge(0, 0, -velocity);
+				Camera.zoomLength--;
 				velocity++;
 			}
 			else if(Keyboard.isKeyDown(Keyboard.KEY_PERIOD)) {
 				Camera.nudge(0, 0, velocity);
+				Camera.zoomLength++;
 				velocity++;
 			}	
 			else if(Keyboard.isKeyDown(Keyboard.KEY_UP)) {
