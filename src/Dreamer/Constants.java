@@ -14,7 +14,6 @@ public class Constants {
 	static String LEGACYPATH = System.getProperty("os.name").startsWith("W") ? "legacy\\" : "legacy/";
 	static String SOUNDSPATH = System.getProperty("os.name").startsWith("W") ? "sounds\\" : "sounds/";
 	
-//	public static final String RESPATH = "res/";
 	//these define a box within which vision is active
 	static final float ACTORACCELERATION = 1.7f;
 	static final int ACTORLOOKX = 800, ACTORLOOKY = 200;
@@ -33,7 +32,7 @@ public class Constants {
 	static final int ENEMYATTACKRANGE = 180;
 	public static final int ENEMYATTACKWAIT = 30;
 	static final int EXISTENCEBUFFER = 500;
-	static final float GRAVITY = 2F;
+	static final float GRAVITY = 2f;
 	static final int JUMP = 5;
 	static final int JUMPBUFFER = 10;
 	static final float LEAFTHRESHHOLD = 0.3f;

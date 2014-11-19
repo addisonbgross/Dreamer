@@ -14,11 +14,11 @@ import org.newdawn.slick.geom.Rectangle;
 public class Shape3d extends Element implements Lightable {
 	static Random r = new Random();
 	static Vector3f tempV3f =  new Vector3f();
-	static Vector3f manhattanRadius = new Vector3f();
 	static Vector4f tempV4f =  new Vector4f();
 	static Color tempColor;
-	static boolean initialized = false;
+	boolean initialized = false;
 	
+	Vector3f manhattanRadius = new Vector3f();
 	ArrayList<Vector4f> vertices = new ArrayList<Vector4f>();
 	private ArrayList<Face> faces = new ArrayList<Face>();
 	
@@ -56,44 +56,39 @@ public class Shape3d extends Element implements Lightable {
 	float getDepth() {
 		return 2 * manhattanRadius.z;
 	}
+	
 	@Override
-	boolean isVisible() {
-		//TODO all these isVisible calls need to be reduced in expense
-		//these methods are called a LOT and are bringing down performance I'm sure
-		//this is the beginning of a better method--> return Camera.isPointVisible(getX(), getY(), getZ());
+	boolean isVisible() {		
 		if (Camera.isPointVisible(getX(), getY(), getZ()))
 			return true;
 		
 		if (getX() >= Camera.getCenterX() && getY() >= Camera.getCenterY()) // Cartesian I
-			if (Camera.isPointVisible(getX() - getWidth() / 2, getY() - getHeight() / 2, getZ() - getDepth() / 2)) {
+			if (Camera.isPointVisible(getX() - getWidth() / 2, getY() - getHeight() / 2, getZ() - getDepth()))
 				return true;
-			} else {
+			else
 				return false;
-			}
 		
-		if (getX() < Camera.getCenterX() && getY() > Camera.getCenterY()) // Cartesian II
-			if (Camera.isPointVisible(getX() + getWidth() / 2, getY() - getHeight() / 2, getZ() - getDepth() / 2)) {
+		if (getX() <= Camera.getCenterX() && getY() >= Camera.getCenterY()) // Cartesian II
+			if (Camera.isPointVisible(getX() + getWidth() / 2, getY() - getHeight() / 2, getZ() - getDepth()))
 				return true;
-			} else {
+			else
 				return false; 
-			}
 		
 		if (getX() <= Camera.getCenterX() && getY() <= Camera.getCenterY()) // Cartesian III
-			if (Camera.isPointVisible(getX() + getWidth() / 2, getY() + getHeight() / 2, getZ() - getDepth() / 2)) {
+			if (Camera.isPointVisible(getX() + getWidth() / 2, getY() + getHeight() / 2, getZ() - getDepth()))
 				return true;
-			} else {
+			else 
 				return false;
-			}
 		
-		if (getX() > Camera.getCenterX() && getY() < Camera.getCenterY()) // Cartesian IV
-			if (Camera.isPointVisible(getX() - getWidth() / 2, getY() + getHeight() / 2, getZ() - getDepth() / 2)) {
+		if (getX() >= Camera.getCenterX() && getY() <= Camera.getCenterY()) // Cartesian IV
+			if (Camera.isPointVisible(getX() - getWidth() / 2, getY() + getHeight() / 2, getZ() - getDepth()))
 				return true;
-			} else{
+			else
 				return false;
-			}
 		
 		return false;
 	}
+	
 	float textureStretch(int dimension) {
 		for(int i = 0;  i < pow2.length; i++) {
 			if(dimension <= pow2[i])
@@ -234,16 +229,9 @@ public class Shape3d extends Element implements Lightable {
 	//for reference, this is how the camera finds the point on the screen
 	//Camera.translate(getVertex(triangleIndex[j]), tempV3f);
 	void draw(Graphics g) {
-		for(Face f: faces) {
-			numberVertices = f.vertexIndex.length;
-			for(int i = 0; i < numberVertices; i++) {
-				tempV4f = f.getVertex(f.vertexIndex[i]);
-				if(Camera.isPointVisible(tempV4f.x, tempV4f.y, tempV4f.z)) { 
-					f.addToDrawList();
-					i = numberVertices; //break out of for
-				}
-			} 	
-		}
+		if (this.isVisible())
+			for (Face f: faces)
+				f.addToDrawList();
 	}
 	public void generateMotionTracks() {
 		for(Face f: faces)
@@ -402,6 +390,7 @@ class SpinningJewel extends Shape3d implements Updateable {
 		super(x, y, z);
 		this.size = size;
 		manhattanRadius.set(size, size, size);
+		
 		setRotationAxis(0, 1, 0);
 		color = c;
 		angle = 0;
@@ -428,8 +417,6 @@ class SpinningJewel extends Shape3d implements Updateable {
 		for(int i = 0; i < vertices.size(); i++)
 			vertices.set(i, Vector.rotate(rotationAxis, modelVertices.get(i), angle));
 		angle += angleIncrement;
-		angle = angle % 6.28318f;
-		//setPosition((float)(translation.x + Math.cos(angle)), (float)(translation.y + Math.cos(angle)), (float)(translation.z + Math.sin(angle)));
 	}
 }
 class ActionJewel extends SpinningJewel {

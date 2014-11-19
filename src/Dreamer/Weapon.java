@@ -116,7 +116,7 @@ abstract class Weapon extends Shape3d implements Updateable {
 			}
 			
 			// Set weapon on front or back of Actor depending on ladder
-			setZ((actor.checkStatus("climbing") || actor.checkStatus("blocking")?2f:-2f));
+			setZ((actor.checkStatus("climbing") || actor.checkStatus("blocking")?2f:-10f));
 
 			manhattanRadius.set(100, 100, 0);
 			

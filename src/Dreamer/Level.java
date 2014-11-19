@@ -22,6 +22,7 @@ import org.newdawn.slick.Image;
  */
 abstract class Level {
 	Enemy e; //Generic enemy pointer
+	Weapon w;
 	boolean restored = false;
 	static HashMap<String, SavedState> paused = new HashMap<String, SavedState>();
 	static Level current;
@@ -52,6 +53,9 @@ abstract class Level {
 			restored = false;
 		}
 	}
+	static void clear() {
+		Element.clearAll();
+	}
 	//TODO move this function and ArrayList Keys into Keyhandler.java
 	static void updateCurrent() {
 		for(KeyHandler k: keys)
@@ -66,15 +70,17 @@ abstract class Level {
 		Image tempH, tempC;
 		
 		for (int i = 0; i < numDivs; ++i) {
-			if (i < numDivs - 1) {
-				tempH = imgH.getSubImage(width * i, 0, width + 1, depth);
-				tempC = imgC.getSubImage(width * i, 0, width + 1, depth);
-			} else {
-				tempH = imgH.getSubImage(width * i, 0, width, depth);
-				tempC = imgC.getSubImage(width * i, 0, width, depth);
-			}
-			MeshMaker.makeMesh(tempH, tempC, true, x - MeshMaker.XSPACE * i * width, y, z);
-		}
+			//for (int j = 0; j < depth; ++j) {
+				if (i < numDivs - 1) {
+					tempH = imgH.getSubImage(width * i, 0, width + 1, depth);
+					tempC = imgC.getSubImage(width * i, 0, width + 1, depth);
+				} else {
+					tempH = imgH.getSubImage(width * i, 0, width, depth);
+					tempC = imgC.getSubImage(width * i, 0, width, depth);
+				}
+				MeshMaker.makeMesh(tempH, tempC, true, x - MeshMaker.XSPACE * i * width, y, z);
+			//}
+		}	
 	}
 	public void diceMesh(Image img, int x, int y, int z) {
 		diceMesh(img, img, x, y, z); // for laziness
@@ -82,33 +88,53 @@ abstract class Level {
 }
 
 class TestLevel extends Level {
-	
 	TestLevel() {
 		super();
+		//Random r = new Random();
+		//new SpinningJewel(0, 0, -1000, 700, new Color(50, 50, 50, 75)).add();
+		
+		int offsetX = 250, offsetY = 100, size = 200;
+//		new Island(-250 + offsetX, 200 +  offsetY, -1000, size).add();
+//		new Island(offsetX, 200 +  offsetY, -1000, size).add();
 //		
-//		if(!restored) {			
-//			Background b = new Background();
-//			b.add();
-//			new Sun().add();
-//			int HBLOCK = 50, VBLOCK = 50;
-//			for(int i = 0; i < VBLOCK; i++)
-//				for(int j = 0; j < HBLOCK; j++)
-//					new Block3d(Color.blue, i * 100, j * 100, 0, 50, 50, 50).add();
-//			Camera.focus(new ClassFocus(Block3d.class));
+//		new Island(-250 + offsetX, 200 +  offsetY - 500, -1000, size).add();
+//		new Island(offsetX, 200 +  offsetY - 500, -1000, size).add();
+//		
+//		new Island(-250 + offsetX, 200 +  offsetY - 1000, -1000, size).add();
+//		new Island(offsetX, 200 +  offsetY - 1000, -1000, size).add();
+		
+		for(int i = 0; i < 10; i++) {
+			offsetX += 10;
+			offsetY += 5;
+			size += 5;
+			new Island(-250 + i * offsetX, 200 +  i * offsetY, -1000, size).add();
+		}
+		
+//		for(int i = 0; i < 10; i++) {
+//			offsetX += 10;
+//			offsetY -=  5;
+//			size -=  5;
+//			new Island(2500 - i * offsetX, 1700 +  i * offsetY, 0, size).add();
 //		}
+		
+		//diceMesh(Library.getImage(Constants.MAPPATH + "madness_elevation"), Library.getImage(Constants.MAPPATH + "madness_colour"), 0, 0, -1000);
+		// used for CameraTest
+//		for (int i = 0; i < 50; ++i)
+//			for (int j = 0; j < 50; ++j) {					
+//				new Block3d(new Color(r.nextInt()), (i * 2000) + 10, 0, -(j * 5000) + 10, 1000, 1000, 1000).add();
+//			}
 	}
 }
+
 class SimpleLevel extends Level {
 	
 	SimpleLevel() {
 		super();
 		if(!restored) {
 			//new Sun().add();
-			new Lamp(2000, -500, 0, 2000).add();
-			new Lamp(0, -500, 0, 2000).add();
-			new Lamp(-2000, -700, 0, 2000).add();
 			Player p = Player.getFirst();
 			new Lamp(p).add();
+			new Lamp(p.getX() - 3000, 200, -5000).add();
 			new Katana(p).add();
 			
 			p.setCenterBottom(0, 1);
@@ -119,7 +145,6 @@ class SimpleLevel extends Level {
 			
 			new GradientBackground(new Color(63, 63, 255), new Color(220, 63, 63)).add();
 			
-			Weapon w;
 			e = new NinjaAlt(100, 500, new Speed(0.7f), new Follow(), new Duelist(), new Violent());
 			w = new Naginata(e);
 			w.add();
@@ -207,24 +232,14 @@ class ForestLevel extends Level {
 			new Sun().add();
 
 			// create a terrain mesh
-			diceMesh(Library.getImage(Constants.MAPPATH + "madness_elevation"), Library.getImage(Constants.MAPPATH + "madness_colour"), 35000, -300, 100);
+			diceMesh(Library.getImage(Constants.MAPPATH + "madness_elevation"), Library.getImage(Constants.MAPPATH + "madness_colour"), 35000, 0, 0);
 			
-			Enemy e;
-			Weapon w;
 			Player one = Player.getFirst();
 			w = new Katana(one);
 			one.setCenterBottom(2900, 1551);
 			//new Lamp(one).add();
 			one.add();
 			w.add();
-			
-			
-			for (int i = 0; i < 10; ++i) {
-				e = new NinjaAlt(i * 100, 500, new Speed(0.7f), new Follow(), new Duelist(), new Violent());
-				w = new Naginata(e);
-				w.add();
-				e.add();
-			}
 			
 			int offsetX = 250, offsetY = 100, size = 100;
 			for(int i = 0; i < 10; i++) {
@@ -250,12 +265,12 @@ class ForestLevel extends Level {
 			new SpinningJewel(-2000, 2500, -2500, 1000, new Color(255, 192, 192, 63)).add();
 			new SpinningJewel(-1000, 2700, -2200, 700, new Color(192, 192, 255, 63)).add();
 			
-			for (int i = 0; i < 5; ++i) {
-				e = new NinjaAlt(-2000 * i, 0, new Speed(1.0f * (i % 3)), new Follow(), new Duelist(), new Violent());
-				w = new Naginata(e);
-				w.add();
-				e.add();
-			}
+//			for (int i = 0; i < 5; ++i) {
+//				e = new NinjaAlt(-2000 * i, 0, new Speed(1.0f * (i % 3)), new Follow(), new Duelist(), new Violent(), new Jumpy());
+//				w = new Naginata(e);
+//				w.add();
+//				e.add();
+//			}
 			
 			/**
 			 * Focus camera on player
