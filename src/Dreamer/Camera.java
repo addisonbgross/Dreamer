@@ -163,7 +163,7 @@ public class Camera {
 		result.set(			
 				x + Constants.screenWidth / 2,
 				-y + Constants.screenHeight / 2,
-				Math.min(1, Math.max(1 - z / 1000, 0))
+				Math.min(1, Math.max(1 - z / 10000, 0))
 				);
 		return result;
 	}
