@@ -9,5 +9,4 @@ public class Model {
 	public ArrayList<Vector3f> normals = new ArrayList<Vector3f>();
 	public ArrayList<ModelFace> faces = new ArrayList<ModelFace>();
 	public Model() { }
-	
 }
