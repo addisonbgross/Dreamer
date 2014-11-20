@@ -104,6 +104,9 @@ public class Animation2 extends Shape3d implements Updateable {
 		for (int i = 0; i < columns; ++i)
 			indices.add(new Vector2f(i, r));
 	}
+	int framesWide() {
+		return columns;
+	}
 	Animation2 getRow() {
 		return this;
 	}
