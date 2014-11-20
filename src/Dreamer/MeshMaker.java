@@ -58,4 +58,27 @@ public class MeshMaker {
 		Map.meshList.add(mesh); // This is just a master list for addressing individual meshes
 		mesh.add();
 	}
+	// dice that mesh into slices for faster resolve!
+	public static void diceMesh(Image imgH, Image imgC, int x, int y, int z) {
+		int numDivs = imgH.getWidth();
+		int width = imgH.getWidth() / numDivs;
+		int depth = imgH.getHeight();
+		Image tempH, tempC;
+		
+		for (int i = 0; i < numDivs; ++i) {
+			//for (int j = 0; j < depth; ++j) {
+				if (i < numDivs - 1) {
+					tempH = imgH.getSubImage(width * i, 0, width + 1, depth);
+					tempC = imgC.getSubImage(width * i, 0, width + 1, depth);
+				} else {
+					tempH = imgH.getSubImage(width * i, 0, width, depth);
+					tempC = imgC.getSubImage(width * i, 0, width, depth);
+				}
+				MeshMaker.makeMesh(tempH, tempC, true, x - MeshMaker.XSPACE * i * width, y, z);
+			//}
+		}	
+	}
+	public static void diceMesh(Image img, int x, int y, int z) {
+		diceMesh(img, img, x, y, z); // for laziness
+	}
 }
