@@ -32,11 +32,6 @@ abstract class Level {
 	
 	Level() {
 		freezeCounter = 2;
-		try {
-			pauseCurrent();
-		} catch(NullPointerException n) {
-			//current level does not exist yet, no big deal
-		}
 		current = this;
 		Element.clearAll();
 	}
@@ -60,28 +55,6 @@ abstract class Level {
 	static void updateCurrent() {
 		for(KeyHandler k: keys)
 			k.getKeys();
-	}
-	
-	// dice that mesh into slices for faster resolve!
-	public void diceMesh(Image imgH, Image imgC, int x, int y, int z) {
-		int numDivs = imgH.getWidth();
-		int width = imgH.getWidth() / numDivs;
-		int depth = imgH.getHeight();
-		Image tempH, tempC;
-		
-		for (int i = 0; i < numDivs; ++i) {
-			if (i < numDivs - 1) {
-				tempH = imgH.getSubImage(width * i, 0, width + 1, depth);
-				tempC = imgC.getSubImage(width * i, 0, width + 1, depth);
-			} else {
-				tempH = imgH.getSubImage(width * i, 0, width, depth);
-				tempC = imgC.getSubImage(width * i, 0, width, depth);
-			}
-			MeshMaker.makeMesh(tempH, tempC, true, x - MeshMaker.XSPACE * i * width, y, z);
-		}	
-	}
-	public void diceMesh(Image img, int x, int y, int z) {
-		diceMesh(img, img, x, y, z); // for laziness
 	}
 }
 
@@ -141,7 +114,7 @@ class SimpleLevel extends Level {
 			p.add();
 
 			// create a terrain mesh
-			diceMesh(Library.getImage(Constants.MAPPATH + "madness_elevation"), Library.getImage(Constants.MAPPATH + "madness_colour"), 35000, -300, 100);
+			MeshMaker.diceMesh(Library.getImage(Constants.MAPPATH + "madness_elevation"), Library.getImage(Constants.MAPPATH + "madness_colour"), 35000, -300, 100);
 			
 			new GradientBackground(new Color(63, 63, 255), new Color(220, 63, 63)).add();
 			
@@ -232,7 +205,7 @@ class ForestLevel extends Level {
 			new Sun().add();
 
 			// create a terrain mesh
-			diceMesh(Library.getImage(Constants.MAPPATH + "madness_elevation"), Library.getImage(Constants.MAPPATH + "madness_colour"), 35000, 0, 0);
+			MeshMaker.diceMesh(Library.getImage(Constants.MAPPATH + "madness_elevation"), Library.getImage(Constants.MAPPATH + "madness_colour"), 35000, 0, 0);
 			
 			Player one = Player.getFirst();
 			w = new Katana(one);

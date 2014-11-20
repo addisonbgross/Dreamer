@@ -30,6 +30,7 @@ import org.lwjgl.Sys;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
+import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
@@ -177,8 +178,18 @@ public class Dreamer {
 		Element.activateVisible();
 	}
 	static void render() {	
+		
+		//EXPERIMENTS IN SWITCHING CAMERA TO OPENGL PROPER
+		
 		//ShaderProgram shader = new ShaderProgram();
-		 
+		/*
+		GL11.glOrtho(0, 0, -2000, 2000, zNea, zFar);
+		
+		GL11.glLoadIdentity();
+		GL11.glTranslatef(0, 200, 0f);
+		GL11.glRotatef(1f, 0, 0, 1);
+		GL11.glTranslatef(0, -200, 0f);
+		 */
 		// do the heavy lifting of loading, compiling and linking
 		// the two shaders into a usable shader program
 		//shader.init("src/Dreamer/runnableExamples/simple.vertex", "src/Dreamer/runnableExamples/simple.fragment");		
