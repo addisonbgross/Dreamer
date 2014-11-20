@@ -32,31 +32,19 @@ public class Shape3d extends Element implements Lightable {
 	Shape3d(float x, float y, float z) {
 		this.setPosition(x, y, z);
 	}
-	@Override
-	float getX() {
-		return position.x;
-	}
-	@Override
-	float getY() {
-		return position.y;
-	}
-	@Override
-	float getZ() {
-		return position.z;
-	}
-	@Override
-	float getWidth() {
-		return 2 * manhattanRadius.x;
-	}
-	@Override
-	float getHeight() {
-		return 2 * manhattanRadius.y;
-	}
-	@Override
-	float getDepth() {
-		return 2 * manhattanRadius.z;
-	}
 	
+	@Override
+	float getX() {return position.x;}
+	@Override
+	float getY() {return position.y;}
+	@Override
+	float getZ() {return position.z;}
+	@Override
+	float getWidth() {return 2 * manhattanRadius.x;}
+	@Override
+	float getHeight() {return 2 * manhattanRadius.y;}
+	@Override
+	float getDepth() {return 2 * manhattanRadius.z;}	
 	@Override
 	boolean isVisible() {		
 		if (Camera.isPointVisible(getX(), getY(), getZ()))
