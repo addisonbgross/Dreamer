@@ -49,17 +49,19 @@ abstract public class Light extends Element {
 	boolean isVisible() {
 		if(ambient)
 			return true;
-		if(Camera.isPointVisible(getX(), getY(), getZ()))
+		else if(Camera.isPointVisible(getX(), getY(), getZ()))
+			return true;
+		else if (Camera.isPointVisible(getX() + range, getY() + range, getZ() - range))
+			return true;
+		else if (Camera.isPointVisible(getX() + range, getY() - range, getZ() - range))
+			return true;
+		else if (Camera.isPointVisible(getX() - range, getY() + range, getZ() - range))
+			return true;
+		else if (Camera.isPointVisible(getX() - range, getY() + range, getZ() - range))
 			return true;
 		return false;
 	}
 	void flicker() {
-		/*
-		if (r.nextInt() % 2 == 0)
-			color = color.brighter(5);
-		else
-			color = color.darker(6);
-		*/
 		range = r.nextInt(200) + 800;
 	}
 	static void clearAll() {
