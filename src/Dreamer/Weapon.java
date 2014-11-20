@@ -17,6 +17,7 @@ abstract class Weapon extends Shape3d implements Updateable {
 	protected Vector2f blockPosition;
 	protected Vector2f weaponPoint = new Vector2f();
 	protected float weaponAngle = 0, blockAngle = 20;
+	float texWidth, texHeight;
 	int[] attackAngles;
 	int[] attackOffsetX;
 	int[] attackOffsetY;
@@ -50,7 +51,9 @@ abstract class Weapon extends Shape3d implements Updateable {
 			f = new Face(Library.getTexture(name), new Color(1, 1, 1, 1.0f), 0, 1, 2, 3);
 			width = Library.getImage(name).getWidth(); //.getTextureWidth();
 			height = Library.getImage(name).getHeight();
-			f.setTexturePoints(0, 0,  textureStretch(width), textureStretch(height));
+			texWidth = textureStretch(width);
+			texHeight = textureStretch(height);
+			f.setTexturePoints(0, 0,  texWidth, texHeight);			
 			addFace(f);
 		}
 	}
@@ -135,6 +138,10 @@ abstract class Weapon extends Shape3d implements Updateable {
 				weaponAngle = -direction * blockAngle;
 			} else {
 				direction = (actor.checkStatus("left"))?LEFT:RIGHT;
+				if (direction == LEFT)
+					f.setTexturePoints(texWidth, 0, 0, texHeight);
+				else
+					f.setTexturePoints(0, 0, texWidth, texHeight);
 				weaponAngle = -direction * attackAngles[rotation];
 			}
 			xOffset = attackOffsetX[rotation] + xBlockOffset;
