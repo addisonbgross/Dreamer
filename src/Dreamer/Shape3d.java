@@ -417,9 +417,8 @@ class ActionJewel extends SpinningJewel {
 		transporter = new Collidable(new Rectangle(getX() - size / 2, getY() - size / 2, size, size)) {
 			boolean collide(Actor a) {
 				if(a.getCollisionShape().intersects(getCollisionShape())) {
-					//TODO resolve concurrentException
-					//action.perform(a);
-					//action.perform();
+					action.perform(a);
+					action.perform();
 					return true;
 				}	
 				return false;
