@@ -115,10 +115,6 @@ abstract class Actor extends Collidable implements Updateable {
 		if(checkStatus("jumping"))
 			applyFriction(Constants.AIRFRICTION);
 	}
-	@Override
-	boolean collide(Actor a) {
-		return false;
-	}
 	void takeDamage(int damage, float weaponX) {
 		if (weaponX > getX()) {
 			yVel += 0.5 * damage;

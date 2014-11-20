@@ -70,16 +70,14 @@ abstract class Level {
 		Image tempH, tempC;
 		
 		for (int i = 0; i < numDivs; ++i) {
-			//for (int j = 0; j < depth; ++j) {
-				if (i < numDivs - 1) {
-					tempH = imgH.getSubImage(width * i, 0, width + 1, depth);
-					tempC = imgC.getSubImage(width * i, 0, width + 1, depth);
-				} else {
-					tempH = imgH.getSubImage(width * i, 0, width, depth);
-					tempC = imgC.getSubImage(width * i, 0, width, depth);
-				}
-				MeshMaker.makeMesh(tempH, tempC, true, x - MeshMaker.XSPACE * i * width, y, z);
-			//}
+			if (i < numDivs - 1) {
+				tempH = imgH.getSubImage(width * i, 0, width + 1, depth);
+				tempC = imgC.getSubImage(width * i, 0, width + 1, depth);
+			} else {
+				tempH = imgH.getSubImage(width * i, 0, width, depth);
+				tempC = imgC.getSubImage(width * i, 0, width, depth);
+			}
+			MeshMaker.makeMesh(tempH, tempC, true, x - MeshMaker.XSPACE * i * width, y, z);
 		}	
 	}
 	public void diceMesh(Image img, int x, int y, int z) {
@@ -135,6 +133,8 @@ class SimpleLevel extends Level {
 			Player p = Player.getFirst();
 			new Lamp(p).add();
 			new Lamp(p.getX() - 3000, 200, -5000).add();
+			new Lamp(p.getX() - 5000, 300, -3000).add();
+			new Lamp(p.getX() + 3000, 300, -5000).add();
 			new Katana(p).add();
 			
 			p.setCenterBottom(0, 1);
