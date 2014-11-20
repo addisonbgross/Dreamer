@@ -21,8 +21,9 @@ abstract public class KeyHandler {
 	public void getKeys() {
 		if(!focus.checkStatus("dead")) {
 			//if the key is freshly pressed
-			float scaleVel = (focus.checkStatus("blocking"))?Constants.VEL*0.6f:Constants.VEL;
+			float scaleVel = (focus.checkStatus("blocking"))?Constants.VEL*0.5f:Constants.VEL;
 			if(Keyboard.isKeyDown(keyMap.get("jumpKey"))) {
+				focus.body.body.currentIndex = 0;
 				if(!wasPressed.contains("jumpKey")) {
 					wasPressed.add("jumpKey");
 					if(!focus.checkStatus("jumping"))

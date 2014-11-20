@@ -36,9 +36,9 @@ public class Body extends Element implements Updateable {
 	}
 	// move Animations to match Actor position
 	void setParts() {
-		legs.setPosition(actor.getX() + legsAdjust.x, actor.getY() + legsAdjust.y, actor.getZ() + 0.01f);
+		legs.setPosition(actor.getX() + legsAdjust.x, actor.getY() + legsAdjust.y, actor.getZ() - 0.01f);
 		body.setPosition(actor.getX() + bodyAdjust.x, actor.getY() + bodyAdjust.y, actor.getZ());
-		head.setPosition(actor.getX() + headAdjust.x, actor.getY() + headAdjust.y, actor.getZ() - 0.01f);
+		head.setPosition(actor.getX() + headAdjust.x, actor.getY() + headAdjust.y, actor.getZ() + 0.1f);
 	}
 	void turnBody(int dir) {
 		direction = dir;
