@@ -15,7 +15,7 @@ public class MainMenu extends Level {
 			"Z: Zoom Mode"
 	}; 
 	
-	MainMenu() {
+	void createLevel() {
 		Element.debug = false;
 		Element.clearAll();
 		int i = 0;
@@ -23,6 +23,5 @@ public class MainMenu extends Level {
 			new ShadowedMessage(s, 0, i-= 80).add();
 		new BorderedBackground().add();
 		Camera.focus(new ClassFocus(ShadowedMessage.class));
-		//TODO remove this
 	}
 }
