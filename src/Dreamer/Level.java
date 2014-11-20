@@ -106,6 +106,8 @@ class SimpleLevel extends Level {
 			Player p = Player.getFirst();
 			new Lamp(p).add();
 			new Lamp(p.getX() - 3000, 200, -5000).add();
+			new Lamp(p.getX() - 5000, 300, -3000).add();
+			new Lamp(p.getX() + 3000, 300, -5000).add();
 			new Katana(p).add();
 			
 			p.setCenterBottom(0, 1);
