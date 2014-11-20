@@ -36,9 +36,9 @@ public class Body extends Element implements Updateable {
 	}
 	// move Animations to match Actor position
 	void setParts() {
-		legs.setPosition(actor.getX() + legsAdjust.x, actor.getY() + legsAdjust.y, actor.getZ() + 0.01f);
+		legs.setPosition(actor.getX() + legsAdjust.x, actor.getY() + legsAdjust.y, actor.getZ() - 0.01f);
 		body.setPosition(actor.getX() + bodyAdjust.x, actor.getY() + bodyAdjust.y, actor.getZ());
-		head.setPosition(actor.getX() + headAdjust.x, actor.getY() + headAdjust.y, actor.getZ() - 0.01f);
+		head.setPosition(actor.getX() + headAdjust.x, actor.getY() + headAdjust.y, actor.getZ() + 0.1f);
 	}
 	void turnBody(int dir) {
 		direction = dir;
@@ -105,12 +105,12 @@ public class Body extends Element implements Updateable {
 				carryWeapon(body.currentIndex);
 				body.setLooping(false);
 				body.selectRow(2);
-				body.start();					
+				body.start();
 			} else if (jumping) {
 				carryWeapon();
 				body.setLooping(true);
 				body.selectRow(1);
-				body.stop();
+				body.start();
 			} else if (Math.abs(actor.xVel) > 1) {    
 				carryWeapon();
 				body.setLooping(true);
