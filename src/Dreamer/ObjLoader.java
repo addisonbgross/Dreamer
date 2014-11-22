@@ -5,48 +5,68 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Random;
+import java.util.ArrayList;
 
-import org.lwjgl.util.vector.Vector3f;
 import org.newdawn.slick.Color;
 //does not yet work
 public class ObjLoader {
 	public static Shape3d loadModel(File f) throws FileNotFoundException, IOException {
 		BufferedReader reader = new BufferedReader(new FileReader(f));
-		//Model m = new Model();
 		Shape3d m = new Shape3d();
 		String line;
 		int a, b, c;
-		Random r = new Random();
+		ArrayList<Integer> vertStart = new ArrayList<Integer>();
+		ArrayList<Integer> faceStart = new ArrayList<Integer>();
 		
-		while ((line = reader.readLine()) != null) {
-			if (line.startsWith("v ")) {
-				float x = Float.valueOf(line.split(" ")[1]);
-				float y = Float.valueOf(line.split(" ")[2]);
-				float z = Float.valueOf(line.split(" ")[3]);
-				m.addVertex(x, y, z);
-			} else if (line.startsWith("vn ")) {
-				float x = Float.valueOf(line.split(" ")[1]);
-				float y = Float.valueOf(line.split(" ")[2]);
-				float z = Float.valueOf(line.split(" ")[3]);
-				//m.addVertex(x, y, z);
-			} else if (line.startsWith("vn ")) {
-				Vector3f vertexIndices = new Vector3f(Float.valueOf(line.split(" ")[1].split("/")[0]),
-													  Float.valueOf(line.split(" ")[2].split("/")[0]),
-													  Float.valueOf(line.split(" ")[3].split("/")[0]));
-				
-				Vector3f normalIndices = new Vector3f(Float.valueOf(line.split(" ")[1].split("/")[2]),
-													  Float.valueOf(line.split(" ")[2].split("/")[2]),
-													  Float.valueOf(line.split(" ")[3].split("/")[2]));
-				//m.(new ModelFace(vertexIndices, normalIndices));
+		int mark = 0;
+		line = reader.readLine();
+		while (line != null) {
+			++mark;
+			if (line.startsWith("o ")) {
+				vertStart.add(mark);
+				System.out.println("Obj start: " + mark);
+			} else if (line.startsWith("s ")) {
+				faceStart.add(mark);
+				System.out.println("Face start: " + mark);
 			}
-			if (line.startsWith("f ")) {
-				a = Integer.valueOf(line.split(" ")[1]);
-				b = Integer.valueOf(line.split(" ")[2]);
-				c = Integer.valueOf(line.split(" ")[3]);
-				m.addFace(new Face(new Color(r.nextInt()), a, b, c));
-			}
+			line = reader.readLine();
 		}
+		
+		reader = new BufferedReader(new FileReader(f));
+		line = reader.readLine();
+		while (line != null) {
+			if (line.startsWith("v ")) {
+				float x = Float.valueOf(line.split(" ")[1]) * 100;
+				float y = Float.valueOf(line.split(" ")[2]) * 100;
+				float z = Float.valueOf(line.split(" ")[3]) * 100;
+				m.addVertex(x, y, z);
+			} 
+			if (line.startsWith("f ")) {
+				a = Integer.valueOf(line.split(" ")[1]) - 1;
+				b = Integer.valueOf(line.split(" ")[2]) - 1;
+				c = Integer.valueOf(line.split(" ")[3]) - 1;
+				m.addFace(new Face(Color.darkGray, a, b, c));
+			}
+			line = reader.readLine();
+		}
+		/*
+		reader = new BufferedReader(new FileReader(f));
+		line = reader.readLine();
+		while (line != null) {
+			if (line.startsWith("v ")) {
+				float x = Float.valueOf(line.split(" ")[1]) * 100;
+				float y = Float.valueOf(line.split(" ")[2]) * 100;
+				float z = Float.valueOf(line.split(" ")[3]) * 100;
+				m.addVertex(x, y, z);
+			} 
+			if (line.startsWith("f ")) {
+				a = Integer.valueOf(line.split(" ")[1]) - 1;
+				b = Integer.valueOf(line.split(" ")[2]) - 1;
+				c = Integer.valueOf(line.split(" ")[3]) - 1;
+				m.addFace(new Face(Color.darkGray, a, b, c));
+			}
+			line = reader.readLine();
+		}*/
 		reader.close();		
 		return m;
 	}

@@ -51,13 +51,13 @@ abstract public class Light extends Element {
 			return true;
 		else if(Camera.isPointVisible(getX(), getY(), getZ()))
 			return true;
-		else if (Camera.isPointVisible(getX() + range, getY() + range, getZ() - range))
+		else if (Camera.isPointVisible(getX() + range, getY() + range, getZ()))// - range))
 			return true;
-		else if (Camera.isPointVisible(getX() + range, getY() - range, getZ() - range))
+		else if (Camera.isPointVisible(getX() + range, getY() - range, getZ()))// + range))
 			return true;
-		else if (Camera.isPointVisible(getX() - range, getY() + range, getZ() - range))
+		else if (Camera.isPointVisible(getX() - range, getY() + range, getZ()))// + range))
 			return true;
-		else if (Camera.isPointVisible(getX() - range, getY() + range, getZ() - range))
+		else if (Camera.isPointVisible(getX() - range, getY() - range, getZ()))// + range))
 			return true;
 		return false;
 	}
