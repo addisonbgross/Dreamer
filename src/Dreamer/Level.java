@@ -1,5 +1,8 @@
 package Dreamer;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
@@ -69,7 +72,7 @@ class SimpleLevel extends Level {
 		p.add();
 
 		// create a terrain mesh
-		MeshMaker.diceMesh(Library.getImage(Constants.MAPPATH + "madness_elevation"), Library.getImage(Constants.MAPPATH + "madness_colour"), 35000, -300, 100);
+		MeshMaker.diceMesh(Library.getImage(Constants.MAPPATH + "madness_elevation"), Library.getImage(Constants.MAPPATH + "madness_colour"), 35000, 0, 100);
 		
 		new GradientBackground(new Color(63, 63, 255), new Color(220, 63, 63)).add();
 		
@@ -82,7 +85,21 @@ class SimpleLevel extends Level {
 		w.add();
 		e.add();
 		
-		new ActionJewel(100, 40, 0, new Action() {void perform() {new ForestLevel();}}).add();
+		Shape3d house = new Shape3d();
+		try {
+	        house = ObjLoader.loadModel(new File("res/legacy/monkey.obj"));
+	        house.setPosition(p.getX() - 300, 101, 0);
+	        house.add();
+	        System.out.println("HOSUE CREATEDD!");
+		} catch (FileNotFoundException e1) {
+	        // TODO Auto-generated catch block
+	        e1.printStackTrace();
+        } catch (IOException e1) {
+	        // TODO Auto-generated catch block
+	        e1.printStackTrace();
+        }
+		
+		//new ActionJewel(100, 40, 0, new Action() {void perform() {new ForestLevel();}}).add();
 		Camera.focus(new ClassFocus(200, Ninja.class));
 	}
 }
@@ -140,6 +157,7 @@ class BirdLevel extends Level {
 		new Island(-200, 400, 0, 100).add();
 		new Island(0, 500, 0, 100).add();
 		new Island(-200, 600, 0, 100).add();
+		
 		Camera.focus(new ClassFocus(200, Ninja.class));
 	}
 }
@@ -186,6 +204,21 @@ class ForestLevel extends Level {
 		new SpinningJewel(0, 1000, -2000, 800, new Color(192, 192, 192, 63)).add();
 		new SpinningJewel(-2000, 2500, -2500, 1000, new Color(255, 192, 192, 63)).add();
 		new SpinningJewel(-1000, 2700, -2200, 700, new Color(192, 192, 255, 63)).add();
+		
+		Shape3d house = new Shape3d();
+		try {
+	        house = ObjLoader.loadModel(new File("res/legacy/sphere.obj"));
+	        house.setPosition(200, 101, 0);
+	        house.add();
+	        System.out.println("HOSUE CREATEDD!");
+		} catch (FileNotFoundException e1) {
+	        // TODO Auto-generated catch block
+	        e1.printStackTrace();
+        } catch (IOException e1) {
+	        // TODO Auto-generated catch block
+	        e1.printStackTrace();
+        }
+		
 		/**
 		 * Focus camera on player
 		 */
