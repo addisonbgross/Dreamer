@@ -21,6 +21,21 @@ public class ObjLoader {
 		int mark = 0;
 		line = reader.readLine();
 		while (line != null) {
+			if (line.startsWith("v ")) {
+				float x = Float.valueOf(line.split(" ")[1]) * 100;
+				float y = Float.valueOf(line.split(" ")[2]) * 100;
+				float z = Float.valueOf(line.split(" ")[3]) * 100;
+				m.addVertex(x, y, z);
+			} 
+			if (line.startsWith("f ")) {
+				a = Integer.valueOf(line.split(" ")[1]) - 1;
+				b = Integer.valueOf(line.split(" ")[2]) - 1;
+				c = Integer.valueOf(line.split(" ")[3]) - 1;
+				// reversed the order of these as so to wind the 
+				//   faces in the correct orientation (normals).
+				m.addFace(new Face(Color.darkGray, c, b, a));
+			}
+			
 			++mark;
 			if (line.startsWith("o ")) {
 				vertStart.add(mark);
@@ -31,42 +46,6 @@ public class ObjLoader {
 			}
 			line = reader.readLine();
 		}
-		
-		reader = new BufferedReader(new FileReader(f));
-		line = reader.readLine();
-		while (line != null) {
-			if (line.startsWith("v ")) {
-				float x = Float.valueOf(line.split(" ")[1]) * 100;
-				float y = Float.valueOf(line.split(" ")[2]) * 100;
-				float z = Float.valueOf(line.split(" ")[3]) * 100;
-				m.addVertex(x, y, z);
-			} 
-			if (line.startsWith("f ")) {
-				a = Integer.valueOf(line.split(" ")[1]) - 1;
-				b = Integer.valueOf(line.split(" ")[2]) - 1;
-				c = Integer.valueOf(line.split(" ")[3]) - 1;
-				m.addFace(new Face(Color.darkGray, a, b, c));
-			}
-			line = reader.readLine();
-		}
-		/*
-		reader = new BufferedReader(new FileReader(f));
-		line = reader.readLine();
-		while (line != null) {
-			if (line.startsWith("v ")) {
-				float x = Float.valueOf(line.split(" ")[1]) * 100;
-				float y = Float.valueOf(line.split(" ")[2]) * 100;
-				float z = Float.valueOf(line.split(" ")[3]) * 100;
-				m.addVertex(x, y, z);
-			} 
-			if (line.startsWith("f ")) {
-				a = Integer.valueOf(line.split(" ")[1]) - 1;
-				b = Integer.valueOf(line.split(" ")[2]) - 1;
-				c = Integer.valueOf(line.split(" ")[3]) - 1;
-				m.addFace(new Face(Color.darkGray, a, b, c));
-			}
-			line = reader.readLine();
-		}*/
 		reader.close();		
 		return m;
 	}

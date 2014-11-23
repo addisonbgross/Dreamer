@@ -4,11 +4,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Random;
 
 import org.newdawn.slick.Color;
-import org.newdawn.slick.Image;
 
 /* Level is the base class for all games states, including menus, editors, debuggers etc
  * 
@@ -88,9 +86,8 @@ class SimpleLevel extends Level {
 		Shape3d house = new Shape3d();
 		try {
 	        house = ObjLoader.loadModel(new File("res/legacy/monkey.obj"));
-	        house.setPosition(p.getX() - 300, 101, 0);
+	        house.setPosition(p.getX() - 300, 101, -100);
 	        house.add();
-	        System.out.println("HOSUE CREATEDD!");
 		} catch (FileNotFoundException e1) {
 	        // TODO Auto-generated catch block
 	        e1.printStackTrace();
@@ -207,10 +204,9 @@ class ForestLevel extends Level {
 		
 		Shape3d house = new Shape3d();
 		try {
-	        house = ObjLoader.loadModel(new File("res/legacy/sphere.obj"));
+	        house = ObjLoader.loadModel(new File("res/legacy/monkey.obj"));
 	        house.setPosition(200, 101, 0);
 	        house.add();
-	        System.out.println("HOSUE CREATEDD!");
 		} catch (FileNotFoundException e1) {
 	        // TODO Auto-generated catch block
 	        e1.printStackTrace();

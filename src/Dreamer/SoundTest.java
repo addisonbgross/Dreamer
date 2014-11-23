@@ -17,13 +17,13 @@ public class SoundTest {
 	/** The ogg sound effect */
 	private Audio oggEffect;
 	/** The wav sound effect */
-	private Audio wavEffect;
+	//private Audio wavEffect;
 	/** The aif source effect */
-	private Audio aifEffect;
+	//private Audio aifEffect;
 	/** The ogg stream thats been loaded */
-	private Audio oggStream;
+	//private Audio oggStream;
 	/** The mod stream thats been loaded */
-	private Audio modStream;
+	//private Audio modStream;
  
 	/**
 	 * Start the test 

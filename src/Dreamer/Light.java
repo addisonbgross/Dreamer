@@ -16,7 +16,6 @@ abstract public class Light extends Element {
 	static public ArrayList<Light> lightList = new ArrayList<Light>();
 	static boolean firstLight = true;
 	static Random r = new Random();
-	
 	Color color = new Color(127, 127, 127);
 	float range = Constants.LIGHTDISTANCE;
 	float orthogonality = 0;
@@ -51,13 +50,13 @@ abstract public class Light extends Element {
 			return true;
 		else if(Camera.isPointVisible(getX(), getY(), getZ()))
 			return true;
-		else if (Camera.isPointVisible(getX() + range, getY() + range, getZ()))// - range))
+		else if (Camera.isPointVisible(getX() + Constants.LIGHTDISTANCE, getY() + Constants.LIGHTDISTANCE, getZ()))
 			return true;
-		else if (Camera.isPointVisible(getX() + range, getY() - range, getZ()))// + range))
+		else if (Camera.isPointVisible(getX() + Constants.LIGHTDISTANCE, getY() - Constants.LIGHTDISTANCE, getZ()))
 			return true;
-		else if (Camera.isPointVisible(getX() - range, getY() + range, getZ()))// + range))
+		else if (Camera.isPointVisible(getX() - Constants.LIGHTDISTANCE, getY() + Constants.LIGHTDISTANCE, getZ()))
 			return true;
-		else if (Camera.isPointVisible(getX() - range, getY() - range, getZ()))// + range))
+		else if (Camera.isPointVisible(getX() - Constants.LIGHTDISTANCE, getY() - Constants.LIGHTDISTANCE, getZ()))
 			return true;
 		return false;
 	}
