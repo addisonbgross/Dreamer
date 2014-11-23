@@ -55,7 +55,6 @@ public class MeshMaker {
 				mesh.addFace(f);
 			}
 		mesh.generateMotionTracks();
-		Map.meshList.add(mesh); // This is just a master list for addressing individual meshes
 		mesh.add();
 	}
 	// dice that mesh into slices for faster resolve!
