@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
 
 import org.newdawn.slick.Color;
 //does not yet work
@@ -15,10 +14,7 @@ public class ObjLoader {
 		Shape3d m = new Shape3d();
 		String line;
 		int a, b, c;
-		ArrayList<Integer> vertStart = new ArrayList<Integer>();
-		ArrayList<Integer> faceStart = new ArrayList<Integer>();
 		
-		int mark = 0;
 		line = reader.readLine();
 		while (line != null) {
 			if (line.startsWith("v ")) {
@@ -34,15 +30,6 @@ public class ObjLoader {
 				// reversed the order of these as so to wind the 
 				//   faces in the correct orientation (normals).
 				m.addFace(new Face(Color.darkGray, c, b, a));
-			}
-			
-			++mark;
-			if (line.startsWith("o ")) {
-				vertStart.add(mark);
-				System.out.println("Obj start: " + mark);
-			} else if (line.startsWith("s ")) {
-				faceStart.add(mark);
-				System.out.println("Face start: " + mark);
 			}
 			line = reader.readLine();
 		}
