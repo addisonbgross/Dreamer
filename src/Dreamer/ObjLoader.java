@@ -7,7 +7,7 @@ import java.io.FileReader;
 import java.io.IOException;
 
 import org.newdawn.slick.Color;
-//does not yet work
+
 public class ObjLoader {
 	public static Shape3d loadModel(File f) throws FileNotFoundException, IOException {
 		BufferedReader reader = new BufferedReader(new FileReader(f));
