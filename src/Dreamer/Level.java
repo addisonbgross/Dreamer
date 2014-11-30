@@ -8,19 +8,8 @@ import java.util.Random;
 
 import org.newdawn.slick.Color;
 
-/* Level is the base class for all games states, including menus, editors, debuggers etc
- * 
- * on a call to pauseCurrent, the current level saves it's state to it's own memory as a
- * SavedState object.
- * 
- * when calling a level's resume it will immediately instantiate itself
- * 
- * see class TestLevel for a simple example of a Level
- * 
- * TODO improve the way players are handled
- * Currently player states are shared between Levels, ideally each Level would
- * restore the players from a list and add keyhandlers
- */
+// Level is the base class for all games states, including menus, editors, debuggers etc
+
 abstract class Level {
 	Enemy e; //Generic enemy pointer
 	Weapon w;

@@ -1,10 +1,7 @@
 package Dreamer;
 
-import java.util.ArrayList;
-
 public class MainMenu extends Level {
 	
-	ArrayList<SavedState> games = new ArrayList<SavedState>();  
 	String[] options = {
 			"1: Testlevel", 
 			"2: SimpleLevel", 
