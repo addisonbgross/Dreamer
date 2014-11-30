@@ -2,6 +2,7 @@ package Dreamer;
 
 import java.awt.Font;
 import java.awt.FontFormatException;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -16,6 +17,7 @@ import org.newdawn.slick.util.ResourceLoader;
 
 class Library {
 	private static HashMap<String, ImageTracker> images = new HashMap<String, ImageTracker>();
+	private static HashMap<String, Shape3d> models = new HashMap<String, Shape3d>();
 	static Texture tempTexture = null;	
     static Font font;// = new Font("Courier", Font.BOLD, 60);
     static TrueTypeFont messageFont;// = new TrueTypeFont(font, false);
@@ -35,6 +37,7 @@ class Library {
 	static void load() throws IOException {
 		importFonts();
 		importArt();
+		models.put("monkey", ObjLoader.loadModel(new File("res/legacy/monkey.obj")));
 	}
 	public static void addImage(String string, ImageTracker temp) {
 		images.put(string, temp);
@@ -44,6 +47,9 @@ class Library {
 	}
 	static Image getImage(String s) {
 		return images.get(s).original();
+	}
+	static Shape3d getModel(String s) {
+		return models.get(s);
 	}
 	static Texture getTexture(String s) {
 		return images.get(s).image.getTexture();//textures.get(s);
