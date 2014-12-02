@@ -1,8 +1,5 @@
 package Dreamer;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -63,27 +60,21 @@ class SimpleLevel extends Level {
 		
 		new GradientBackground(new Color(63, 63, 255), new Color(220, 63, 63)).add();
 		
-		e = new NinjaAlt(100, 500, new Speed(0.7f), new Follow(), new Duelist(), new Violent());
-		w = new Naginata(e);
-		w.add();
-		e.add();
-		e = new NinjaAlt(200, 800, new Speed(0.5f), new Follow(), new Duelist(), new Violent());
-		w = new Naginata(e);
-		w.add();
-		e.add();
+//		e = new NinjaAlt(100, 500, new Speed(0.7f), new Follow(), new Duelist(), new Violent());
+//		w = new Naginata(e);
+//		w.add();
+//		e.add();
+//		e = new NinjaAlt(200, 800, new Speed(0.5f), new Follow(), new Duelist(), new Violent());
+//		w = new Naginata(e);
+//		w.add();
+//		e.add();
 		
-		Shape3d house = new Shape3d();
-		try {
-	        house = ObjLoader.loadModel(new File("res/legacy/monkey.obj"));
-	        house.setPosition(p.getX() - 300, 101, -100);
-	        house.add();
-		} catch (FileNotFoundException e1) {
-	        // TODO Auto-generated catch block
-	        e1.printStackTrace();
-        } catch (IOException e1) {
-	        // TODO Auto-generated catch block
-	        e1.printStackTrace();
-        }
+		for (int i = 0; i < 10; i++) {
+			Shape3d s = new Shape3d();
+			s = Library.getModel("monkey");
+	        s.setPosition(p.getX() - (i * 300), 101, -250);
+	        s.add(); 
+		}
 		
 		//new ActionJewel(100, 40, 0, new Action() {void perform() {new ForestLevel();}}).add();
 		Camera.focus(new ClassFocus(200, Ninja.class));
@@ -192,17 +183,9 @@ class ForestLevel extends Level {
 		new SpinningJewel(-1000, 2700, -2200, 700, new Color(192, 192, 255, 63)).add();
 		
 		Shape3d house = new Shape3d();
-		try {
-	        house = ObjLoader.loadModel(new File("res/legacy/monkey.obj"));
-	        house.setPosition(200, 101, 0);
-	        house.add();
-		} catch (FileNotFoundException e1) {
-	        // TODO Auto-generated catch block
-	        e1.printStackTrace();
-        } catch (IOException e1) {
-	        // TODO Auto-generated catch block
-	        e1.printStackTrace();
-        }
+		house = Library.getModel("house");
+		house.setCenter(100, 100);
+		house.add();
 		
 		/**
 		 * Focus camera on player

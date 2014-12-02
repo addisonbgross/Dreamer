@@ -44,6 +44,7 @@ abstract public class Light extends Element {
 			g.draw(e);
 		}
 	}
+	// This is used redundantly in the Lamp (Shape3d) class. A way to generalize this is needed
 	@Override
 	boolean isVisible() {
 		if(ambient)

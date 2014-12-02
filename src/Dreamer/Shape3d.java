@@ -609,6 +609,20 @@ class Lamp extends Shape3d implements Updateable {
 		super.remove();
 		light.remove();
 	}
+	@Override
+	boolean isVisible() {
+		if(Camera.isPointVisible(getX(), getY(), getZ()))
+			return true;
+		else if (Camera.isPointVisible(getX() + Constants.LIGHTDISTANCE, getY() + Constants.LIGHTDISTANCE, getZ()))
+			return true;
+		else if (Camera.isPointVisible(getX() + Constants.LIGHTDISTANCE, getY() - Constants.LIGHTDISTANCE, getZ()))
+			return true;
+		else if (Camera.isPointVisible(getX() - Constants.LIGHTDISTANCE, getY() + Constants.LIGHTDISTANCE, getZ()))
+			return true;
+		else if (Camera.isPointVisible(getX() - Constants.LIGHTDISTANCE, getY() - Constants.LIGHTDISTANCE, getZ()))
+			return true;
+		return false;
+	}
 	public void update() {
 		if(actor != null)
 			setPosition(actor.getX() + actor.body.beltPoint.x, actor.getMinY() + actor.body.beltPoint.y, 2);
