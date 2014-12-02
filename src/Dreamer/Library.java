@@ -37,7 +37,6 @@ class Library {
 	static void load() throws IOException {
 		importFonts();
 		importArt();
-		models.put("monkey", ObjLoader.loadModel(new File("res/legacy/monkey.obj")));
 	}
 	public static void addImage(String string, ImageTracker temp) {
 		images.put(string, temp);
@@ -49,12 +48,41 @@ class Library {
 		return images.get(s).original();
 	}
 	static Shape3d getModel(String s) {
-		return models.get(s);
+		Shape3d m = new Shape3d();
+		m = models.get(s);
+		return m;
 	}
 	static Texture getTexture(String s) {
 		return images.get(s).image.getTexture();//textures.get(s);
 	}
 	static void importArt() throws IOException {
+		Files.walk(Paths.get(Constants.RESPATH)).forEach(filePath -> {
+			if (Files.isRegularFile(filePath)) {
+				if (!filePath.toString().contains(Constants.FONTSPATH) && !filePath.toString().contains(Constants.LEGACYPATH) && !filePath.toString().contains(Constants.SOUNDSPATH)) {
+					// load obj file model
+					if (filePath.toString().contains(".obj")) {
+						String tempName = filePath.toString().substring(0, filePath.toString().length());
+						tempName = tempName.replace(Constants.RESPATH, "");
+						try {
+							String modelName = tempName.replace("models/", "").replace(".obj", "");
+	                        models.put(modelName, ObjLoader.loadModel(new File("res/" + tempName)));
+                        } catch (Exception e) {
+	                        System.out.println("Failure to load the model: " + tempName);
+	                        e.printStackTrace();
+                        }
+					// load standard png image
+					} else if (!filePath.toString().contains("models")) {
+						String tempName = filePath.toString().substring(0, filePath.toString().lastIndexOf("."));
+				    	tempName = tempName.replace(Constants.RESPATH, "");
+						
+						ImageTracker tempImage = new ImageTracker(tempName);
+				    	images.put(tempName, tempImage);
+					}
+				} 
+		    }
+		});
+	}
+	static void importModels() throws IOException {
 		Files.walk(Paths.get(Constants.RESPATH)).forEach(filePath -> {
 			if (Files.isRegularFile(filePath)) {
 				if (!filePath.toString().contains(Constants.FONTSPATH) && !filePath.toString().contains(Constants.LEGACYPATH) && !filePath.toString().contains(Constants.SOUNDSPATH)) {

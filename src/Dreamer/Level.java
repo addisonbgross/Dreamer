@@ -1,8 +1,5 @@
 package Dreamer;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -186,17 +183,9 @@ class ForestLevel extends Level {
 		new SpinningJewel(-1000, 2700, -2200, 700, new Color(192, 192, 255, 63)).add();
 		
 		Shape3d house = new Shape3d();
-		try {
-	        house = ObjLoader.loadModel(new File("res/legacy/monkey.obj"));
-	        house.setPosition(200, 101, 0);
-	        house.add();
-		} catch (FileNotFoundException e1) {
-	        // TODO Auto-generated catch block
-	        e1.printStackTrace();
-        } catch (IOException e1) {
-	        // TODO Auto-generated catch block
-	        e1.printStackTrace();
-        }
+		house = Library.getModel("house");
+		house.setCenter(100, 100);
+		house.add();
 		
 		/**
 		 * Focus camera on player
