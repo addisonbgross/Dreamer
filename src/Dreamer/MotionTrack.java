@@ -70,7 +70,6 @@ public class MotionTrack extends Collidable {
 					g
 					);
 	}
-	//TODO make work
 	public static void generateMotionTrack(Face f, ArrayList<Vector4f> vertices, Vector4f translation) {
 		int sides = f.vertexIndex.length;
 		Vector4f line, intersectLine;
@@ -155,14 +154,6 @@ class LadderTrack extends Collidable {
 				} else {
 					suggestedVelocity.y = 0;
 				}
-				/*
-				suggestedVelocity.scale(
-						1 - Constants.AIRFRICTION - Constants.GROUNDFRICTION * Math.abs(normal.dot(a.getVelocityVector().copy().normalise()))
-						);
-				if(suggestedVelocity.length() < Constants.STATICFRICTION)
-					suggestedVelocity.set(0, 0);
-					*/
-				//suggestedPosition.y += 0.1f;
 				suggestedTrajectory.set(a.getCenterBottom(), a.getCenterBottom().copy().add(suggestedVelocity));
 				a.motion = this;
 				a.addStatus("grounded");
