@@ -64,8 +64,8 @@ class Library {
 						String tempName = filePath.toString().substring(0, filePath.toString().length());
 						tempName = tempName.replace(Constants.RESPATH, "");
 						try {
-							String modelName = tempName.replace("models/", "").replace(".obj", "");
-	                        models.put(modelName, ObjLoader.loadModel(new File("res/" + tempName)));
+							String modelName = tempName.replace(Constants.MODELPATH, "").replace(".obj", "");
+	                        models.put(modelName, ObjLoader.loadModel(new File(Constants.RESPATH + tempName)));
                         } catch (Exception e) {
 	                        System.out.println("Failure to load the model: " + tempName);
 	                        e.printStackTrace();
