@@ -39,7 +39,6 @@ public class Constants {
 			STATICFRICTION = 0.8f;
 	//buffer for detecting collisions and fidelity of collision detection
 	static final int COLLISIONINTERVAL = 30;
-	static final boolean FASTCAMERA = true;
 	static final int ENEMYMOTIONBUFFER = 80;
 	static final int ENEMYJUMPRANGEX = 200;
 	static final int ENEMYATTACKRANGE = 180;
@@ -48,20 +47,14 @@ public class Constants {
 	static final float GRAVITY = 2f;
 	static final int JUMP = 5;
 	static final int JUMPBUFFER = 10;
-	static final float LEAFTHRESHHOLD = 0.3f;
 	public static final float LIGHTDISTANCE = 600;
 	static final int MARKERSIZE = 20;
 	//limit for testing collisions, after that adjusts velocity to 1 in current direction
 	static final int MAXTEST = 20;
-	static final int MEMORYLENGTH = 6;
-	static final float OPENGLZ = 1000;
-	static final int PERPENDICULARSCALE = 4;
-	static final float PERSPECTIVE = 1.5f, PERSPECTIVESQUASH = 4f;
 	static final float PLAYERJUMPVEL = 35, PLAYERMAXVEL = 35;
 	static final float SHADOWOFFSET = 4;
 	static final int SNOWHEIGHT = 2000;
 	static final int STARTX = -200, STARTY = 1;
-	static final int TOP = 1, RIGHT = 2, BOTTOM = 3, LEFT = 0;
 	static final float VEL = 18;
 	static final int VIEWMARGIN = 100;
 	static final int FALLRESET = -2000;
@@ -69,5 +62,4 @@ public class Constants {
 	public static final int NUMFRAMES = 4;
 	public static final Color COLLISIONCOLOUR = Color.yellow;
 	public static final Color TRAILCOLOR = Color.black;
-	public static final float TRANSPARENCYRANGE = 400;	
 }
