@@ -3,6 +3,7 @@ package Dreamer;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -17,7 +18,7 @@ import org.newdawn.slick.util.ResourceLoader;
 
 class Library {
 	private static HashMap<String, ImageTracker> images = new HashMap<String, ImageTracker>();
-	private static HashMap<String, Shape3d> models = new HashMap<String, Shape3d>();
+	private static HashMap<String, File> models = new HashMap<String, File>();
 	static Texture tempTexture = null;	
     static Font font;// = new Font("Courier", Font.BOLD, 60);
     static TrueTypeFont messageFont;// = new TrueTypeFont(font, false);
@@ -48,7 +49,17 @@ class Library {
 		return images.get(s).original();
 	}
 	static Shape3d getModel(String s) {
-		return models.get(s);
+		Shape3d m = new Shape3d();
+		try {
+			m = ObjLoader.loadModel(models.get(s));
+		} catch (FileNotFoundException e) {
+			//model not found
+			e.printStackTrace();
+		} catch (IOException e) {
+			//model not found in a different way
+			e.printStackTrace();
+		}
+		return m;
 	}
 	static Texture getTexture(String s) {
 		return images.get(s).image.getTexture();
@@ -58,7 +69,7 @@ class Library {
 		referrenceName = referrenceName.replace(Constants.RESPATH, "");
 		try {
 			String modelName = referrenceName.replace("models/", "").replace(".obj", "");
-            models.put(modelName, ObjLoader.loadModel(new File("res/" + referrenceName)));
+            models.put(modelName, new File("res/" + referrenceName));
         } catch (Exception e) {
             System.out.println("Failure to load the model file: " + referrenceName);
             e.printStackTrace();
