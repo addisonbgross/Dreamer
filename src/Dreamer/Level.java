@@ -187,6 +187,10 @@ class ForestLevel extends Level {
 		house.setCenter(100, 100);
 		house.add();
 		
+		Shape3d otherHouse = Library.getModel("house");
+		otherHouse.setCenter(300, 100);
+		otherHouse.add();
+		
 		/**
 		 * Focus camera on player
 		 */
