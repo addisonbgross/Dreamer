@@ -22,7 +22,6 @@ abstract class Weapon extends Shape3d implements Updateable {
 	int[] attackOffsetX;
 	int[] attackOffsetY;
 
-
 	Weapon(float x, float y, float z) {
 		
 	}
@@ -47,7 +46,7 @@ abstract class Weapon extends Shape3d implements Updateable {
 				drawShape(weaponLine, Color.black, g);
 	}	
 	void makeFace() {
-		if(!name.equals("")) {
+		//if(!name.equals("")) {
 			f = new Face(Library.getTexture(name), new Color(1, 1, 1, 1.0f), 0, 1, 2, 3);
 			width = Library.getImage(name).getWidth(); //.getTextureWidth();
 			height = Library.getImage(name).getHeight();
@@ -55,7 +54,7 @@ abstract class Weapon extends Shape3d implements Updateable {
 			texHeight = textureStretch(height);
 			f.setTexturePoints(0, 0,  texWidth, texHeight);			
 			addFace(f);
-		}
+		//}
 	}
 	
 	void attack() {

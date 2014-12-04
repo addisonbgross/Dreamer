@@ -60,21 +60,13 @@ class SimpleLevel extends Level {
 		
 		new GradientBackground(new Color(63, 63, 255), new Color(220, 63, 63)).add();
 		
-//		e = new NinjaAlt(100, 500, new Speed(0.7f), new Follow(), new Duelist(), new Violent());
-//		w = new Naginata(e);
-//		w.add();
-//		e.add();
-//		e = new NinjaAlt(200, 800, new Speed(0.5f), new Follow(), new Duelist(), new Violent());
-//		w = new Naginata(e);
-//		w.add();
-//		e.add();
-		
-		for (int i = 0; i < 10; i++) {
-			Shape3d s = new Shape3d();
-			s = Library.getModel("monkey");
-	        s.setPosition(p.getX() - (i * 300), 101, -250);
-	        s.add(); 
-		}
+		Shape3d s = Library.getModel("monkey");
+		s.setPosition(300, 101, -250);
+        s.add();
+        
+        s = Library.getModel("monkey");
+		s.setPosition(600, 101, -250);
+        s.add();
 		
 		//new ActionJewel(100, 40, 0, new Action() {void perform() {new ForestLevel();}}).add();
 		Camera.focus(new ClassFocus(200, Ninja.class));
@@ -182,14 +174,9 @@ class ForestLevel extends Level {
 		new SpinningJewel(-2000, 2500, -2500, 1000, new Color(255, 192, 192, 63)).add();
 		new SpinningJewel(-1000, 2700, -2200, 700, new Color(192, 192, 255, 63)).add();
 		
-		Shape3d house = new Shape3d();
-		house = Library.getModel("house");
-		house.setCenter(100, 100);
-		house.add();
-		
-		Shape3d otherHouse = Library.getModel("house");
-		otherHouse.setCenter(300, 100);
-		otherHouse.add();
+		Shape3d s = Library.getModel("monkey");
+		s.setCenter(0,  0);
+        s.add();
 		
 		/**
 		 * Focus camera on player
