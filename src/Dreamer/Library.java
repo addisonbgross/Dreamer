@@ -51,7 +51,7 @@ class Library {
 		return models.get(s);
 	}
 	static Texture getTexture(String s) {
-		return images.get(s).image.getTexture();//textures.get(s);
+		return images.get(s).image.getTexture();
 	}
 	static private void loadModel(String file) {
 		String referrenceName = file.substring(0, file.length());

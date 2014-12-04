@@ -17,10 +17,10 @@ public class Body extends Element implements Updateable {
 	int dmgCounter;
 	public int weaponStage = 0;
 	
-	//for adjusting the body part animations' positions
-	Vector2f legsAdjust = new Vector2f(0, 0);
-	Vector2f bodyAdjust = new Vector2f(1, -5);
-	Vector2f headAdjust = new Vector2f(1, 30);
+	//for adjusting the body part animations' positions vertically
+	int bodyAdjust = -5;
+	int headAdjust = 30;
+	// the point where items attach
 	Vector2f beltPoint  = new Vector2f(-10, 7);
 	
 	Body(String s, Actor a) {
@@ -36,9 +36,9 @@ public class Body extends Element implements Updateable {
 	}
 	// move Animations to match Actor position
 	void setParts() {
-		legs.setPosition(actor.getX() + legsAdjust.x, actor.getY() + legsAdjust.y, actor.getZ() - 0.01f);
-		body.setPosition(actor.getX() + bodyAdjust.x, actor.getY() + bodyAdjust.y, actor.getZ());
-		head.setPosition(actor.getX() + headAdjust.x, actor.getY() + headAdjust.y, actor.getZ() + 0.1f);
+		legs.setPosition(actor.getX(), actor.getY(), actor.getZ() - 0.05f);
+		body.setPosition(actor.getX(), actor.getY() + bodyAdjust, actor.getZ());
+		head.setPosition(actor.getX(), actor.getY() + headAdjust, actor.getZ() + 0.5f);
 	}
 	void turnBody(int dir) {
 		direction = dir;
@@ -106,22 +106,10 @@ public class Body extends Element implements Updateable {
 				body.setLooping(false);
 				body.selectRow(2);
 				body.start();
-			} else if (jumping) {
+			} else if (jumping || Math.abs(actor.xVel) > 1) {
 				carryWeapon();
 				body.setLooping(true);
 				body.selectRow(1);
-				body.start();
-			} else if (Math.abs(actor.xVel) > 1) {    
-				carryWeapon();
-				body.setLooping(true);
-				body.setSpeed(BODYSPEED);
-				body.selectRow(1);
-				body.start();			
-			} else if ((actor.checkStatus("up") || actor.checkStatus("down")) && climbing) {
-				carryWeapon();
-				body.setLooping(true);
-				body.selectRow(3);
-				body.setSpeed(Math.abs(actor.yVel + 1) / (Constants.VEL / 200));
 				body.start();
 			} else if (climbing) {
 				carryWeapon();

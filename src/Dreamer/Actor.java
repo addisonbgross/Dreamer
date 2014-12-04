@@ -55,26 +55,12 @@ abstract class Actor extends Collidable implements Updateable {
 		
 		if (!checkStatus("dead")) {
 			applyGravity();
-			
-			vision.setBounds(
-					getMinX() + xVel - (Constants.COLLISIONINTERVAL), 
-					getMinY() + yVel - (Constants.COLLISIONINTERVAL), 
-					getWidth() + 2 * (Constants.COLLISIONINTERVAL + Math.abs(xVel)), 
-					getHeight() + 2 *(Constants.COLLISIONINTERVAL + Math.abs(yVel))
-			);
+			findCollisions();
 			
 			suggestedTrajectory 
 				= new Line(getCenterBottom(), getCenterBottom().copy().add(getVelocityVector()));
 			suggestedVelocity = getVelocityVector().copy();
 			
-			collisionSet.clear();
-			for(Element e: Element.getActiveWithin(vision)) {
-				//very important to not compare this to itself, infinite loop
-				if(Collidable.class.isAssignableFrom(e.getClass()) && e != this) {
-					collisionSet.add((Collidable)e);
-					Dreamer.numberOfCollisions++;
-				}
-			}
 			//this recursively checks all collisions to ensure that
 			//the suggestedTrajectory is within bounds of all
 			//Collidable objects
@@ -125,6 +111,23 @@ abstract class Actor extends Collidable implements Updateable {
 		}
 		health -= damage;		
 	}
+	void findCollisions() {
+		vision.setBounds(
+				getMinX() + xVel - (Constants.COLLISIONINTERVAL), 
+				getMinY() + yVel - (Constants.COLLISIONINTERVAL), 
+				getWidth() + 2 * (Constants.COLLISIONINTERVAL + Math.abs(xVel)), 
+				getHeight() + 2 *(Constants.COLLISIONINTERVAL + Math.abs(yVel))
+		);
+		
+		collisionSet.clear();
+		for(Element e: Element.getActiveWithin(vision)) {
+			//very important to not compare this to itself, infinite loop
+			if(Collidable.class.isAssignableFrom(e.getClass()) && e != this) {
+				collisionSet.add((Collidable)e);
+				Dreamer.numberOfCollisions++;
+			}
+		}
+	}
 	Vector2f getVelocityVector() {
 		return new Vector2f(xVel, yVel);
 	}
@@ -160,6 +163,10 @@ abstract class Actor extends Collidable implements Updateable {
 			removeStatus("blocking");
 		else if(s == "blocking")
 			removeStatus("attacking");
+		else if(s == "jumping")
+			removeStatus("grounded");
+		else if(s == "grounded")
+			removeStatus("jumping");
 		status.add(s);
 	}
 	void removeStatus(String s) {	

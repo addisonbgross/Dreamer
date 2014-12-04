@@ -23,15 +23,13 @@ abstract public class KeyHandler {
 			//if the key is freshly pressed
 			float scaleVel = (focus.checkStatus("blocking"))?Constants.VEL*0.5f:Constants.VEL;
 			if(Keyboard.isKeyDown(keyMap.get("jumpKey"))) {
-				focus.body.body.currentIndex = 0;
 				if(!wasPressed.contains("jumpKey")) {
 					wasPressed.add("jumpKey");
 					if(!focus.checkStatus("jumping"))
 						if(focus.checkStatus("grounded")) {
+							focus.body.body.currentIndex = 0;
 							focus.addStatus("jumping");
 							focus.adjustVel(0, Constants.PLAYERJUMPVEL);
-							focus.removeStatus("grounded");
-							focus.motion = null;
 						}
 				}
 			} else {
