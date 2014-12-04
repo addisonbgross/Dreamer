@@ -62,46 +62,34 @@ class Library {
 		return m;
 	}
 	static Texture getTexture(String s) {
-		return images.get(s).image.getTexture();//textures.get(s);
+		return images.get(s).image.getTexture();
+	}
+	static private void loadModel(String file) {
+		String referrenceName = file.substring(0, file.length());
+		referrenceName = referrenceName.replace(Constants.RESPATH, "");
+		try {
+			String modelName = referrenceName.replace("models/", "").replace(".obj", "");
+            models.put(modelName, new File("res/" + referrenceName));
+        } catch (Exception e) {
+            System.out.println("Failure to load the model file: " + referrenceName);
+            e.printStackTrace();
+        }
+	}
+	static void loadImage(String file) {
+		String referrenceName = file.substring(0, file.toString().lastIndexOf("."));
+    	referrenceName = referrenceName.replace(Constants.RESPATH, "");
+		
+		ImageTracker tempImage = new ImageTracker(referrenceName);
+    	images.put(referrenceName, tempImage);
 	}
 	static void importArt() throws IOException {
 		Files.walk(Paths.get(Constants.RESPATH)).forEach(filePath -> {
 			if (Files.isRegularFile(filePath)) {
-				if (!filePath.toString().contains(Constants.FONTSPATH) && !filePath.toString().contains(Constants.LEGACYPATH) && !filePath.toString().contains(Constants.SOUNDSPATH)) {
-					// load obj file model
-					if (filePath.toString().contains(".obj")) {
-						String tempName = filePath.toString().substring(0, filePath.toString().length());
-						tempName = tempName.replace(Constants.RESPATH, "");
-						try {
-							String modelName = tempName.replace(Constants.MODELPATH, "").replace(".obj", "");
-	                        models.put(modelName, new File(Constants.RESPATH + tempName));
-                        } catch (Exception e) {
-	                        System.out.println("Failure to load the model: " + tempName);
-	                        e.printStackTrace();
-                        }
-					// load standard png image
-					} else if (!filePath.toString().contains("models")) {
-						String tempName = filePath.toString().substring(0, filePath.toString().lastIndexOf("."));
-				    	tempName = tempName.replace(Constants.RESPATH, "");
-						
-						ImageTracker tempImage = new ImageTracker(tempName);
-				    	images.put(tempName, tempImage);
-					}
-				} 
-		    }
-		});
-	}
-	static void importModels() throws IOException {
-		Files.walk(Paths.get(Constants.RESPATH)).forEach(filePath -> {
-			if (Files.isRegularFile(filePath)) {
-				if (!filePath.toString().contains(Constants.FONTSPATH) && !filePath.toString().contains(Constants.LEGACYPATH) && !filePath.toString().contains(Constants.SOUNDSPATH)) {
-					String tempName = filePath.toString().substring(0, filePath.toString().lastIndexOf("."));
-			    	tempName = tempName.replace(Constants.RESPATH, "");
-					
-					ImageTracker tempImage = new ImageTracker(tempName);
-			    	images.put(tempName, tempImage);
-				}
-		    }
+				if (filePath.toString().contains(".obj"))
+					loadModel(filePath.toString());
+				else if (filePath.toString().contains(".png"))
+					loadImage(filePath.toString()); 
+			}
 		});
 	}
 	static void importFonts() {

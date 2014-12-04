@@ -13,14 +13,15 @@ public class ObjLoader {
 		BufferedReader reader = new BufferedReader(new FileReader(f));
 		Shape3d m = new Shape3d();
 		String line;
+		int SCALE = 100;
 		int a, b, c;
 		
 		line = reader.readLine();
 		while (line != null) {
 			if (line.startsWith("v ")) {
-				float x = Float.valueOf(line.split(" ")[1]) * 100;
-				float y = Float.valueOf(line.split(" ")[2]) * 100;
-				float z = Float.valueOf(line.split(" ")[3]) * 100;
+				float x = Float.valueOf(line.split(" ")[1]) * SCALE;
+				float y = Float.valueOf(line.split(" ")[2]) * SCALE;
+				float z = Float.valueOf(line.split(" ")[3]) * SCALE;
 				m.addVertex(x, y, z);
 			} 
 			if (line.startsWith("f ")) {
@@ -28,7 +29,7 @@ public class ObjLoader {
 				b = Integer.valueOf(line.split(" ")[2]) - 1;
 				c = Integer.valueOf(line.split(" ")[3]) - 1;
 				// reversed the order of these as so to wind the 
-				//   faces in the correct orientation (normals).
+				// faces in the correct orientation (normals).
 				m.addFace(new Face(Color.darkGray, c, b, a));
 			}
 			line = reader.readLine();

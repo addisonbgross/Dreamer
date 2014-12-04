@@ -55,26 +55,12 @@ abstract class Actor extends Collidable implements Updateable {
 		
 		if (!checkStatus("dead")) {
 			applyGravity();
-			
-			vision.setBounds(
-					getMinX() + xVel - (Constants.COLLISIONINTERVAL), 
-					getMinY() + yVel - (Constants.COLLISIONINTERVAL), 
-					getWidth() + 2 * (Constants.COLLISIONINTERVAL + Math.abs(xVel)), 
-					getHeight() + 2 *(Constants.COLLISIONINTERVAL + Math.abs(yVel))
-			);
+			findCollisions();
 			
 			suggestedTrajectory 
 				= new Line(getCenterBottom(), getCenterBottom().copy().add(getVelocityVector()));
 			suggestedVelocity = getVelocityVector().copy();
 			
-			collisionSet.clear();
-			for(Element e: Element.getActiveWithin(vision)) {
-				//very important to not compare this to itself, infinite loop
-				if(Collidable.class.isAssignableFrom(e.getClass()) && e != this) {
-					collisionSet.add((Collidable)e);
-					Dreamer.numberOfCollisions++;
-				}
-			}
 			//this recursively checks all collisions to ensure that
 			//the suggestedTrajectory is within bounds of all
 			//Collidable objects
@@ -117,13 +103,30 @@ abstract class Actor extends Collidable implements Updateable {
 	}
 	void takeDamage(int damage, float weaponX) {
 		if (weaponX > getX()) {
-			yVel += 0.5 * damage;
-			xVel -= 0.8 *damage;
+			yVel = 0.5f * damage;
+			xVel = 0.8f * -damage;
 		} else {
-			yVel += 0.5 * damage;
-			xVel += 0.8 * damage;
+			yVel = 0.5f * damage;
+			xVel = 0.8f * damage;
 		}
 		health -= damage;		
+	}
+	void findCollisions() {
+		vision.setBounds(
+				getMinX() + xVel - (Constants.COLLISIONINTERVAL), 
+				getMinY() + yVel - (Constants.COLLISIONINTERVAL), 
+				getWidth() + 2 * (Constants.COLLISIONINTERVAL + Math.abs(xVel)), 
+				getHeight() + 2 *(Constants.COLLISIONINTERVAL + Math.abs(yVel))
+		);
+		
+		collisionSet.clear();
+		for(Element e: Element.getActiveWithin(vision)) {
+			//very important to not compare this to itself, infinite loop
+			if(Collidable.class.isAssignableFrom(e.getClass()) && e != this) {
+				collisionSet.add((Collidable)e);
+				Dreamer.numberOfCollisions++;
+			}
+		}
 	}
 	Vector2f getVelocityVector() {
 		return new Vector2f(xVel, yVel);
@@ -160,33 +163,32 @@ abstract class Actor extends Collidable implements Updateable {
 			removeStatus("blocking");
 		else if(s == "blocking")
 			removeStatus("attacking");
+		else if(s == "jumping")
+			removeStatus("grounded");
+		else if(s == "grounded")
+			removeStatus("jumping");
 		status.add(s);
 	}
 	void removeStatus(String s) {	
 		status.remove(s);
 	}
-	void clearStatus() {	
-		status = new HashSet<String>();
+	void clearStatus() {
+		status.clear();
 	}
 	String getStatus() {	
 		String out = "statuses: ";
 		for(String s: status) 
-		{
-			out = out.concat(" "+s);
-		}
+			out = out.concat(" " + s);
 		return out;
 	}
 	void printStatus() {	
 		for(String s: status) 
-		{
-			System.out.print(" "+s);
-		}
+			System.out.print(" " + s);
 		System.out.println();
 	}
 	// reset and death
 	void die() {
 		addStatus("dead");
-		this.
 		remove();
 	}
 	void reset(float x, float y) {
@@ -199,19 +201,16 @@ abstract class Actor extends Collidable implements Updateable {
 		add();
 	}
 	// movement and physics
-	void applyGravity() 
-	{	
+	void applyGravity() {	
 		yVel -= Constants.GRAVITY;
 	}
-	void adjustVel(float xInc, float yInc)
-	{
+	void adjustVel(float xInc, float yInc){
 		xVel += xInc;
 		xVel = Math.min(xVel, Constants.PLAYERMAXVEL);
 		yVel += yInc;
 		yVel = Math.min(yVel, Constants.PLAYERJUMPVEL);
 	}
 	void applyFriction(double d) {
-		
 		d = Math.min(1, d);
 		d = 1 - d;
 		xVel *= d;
@@ -227,7 +226,7 @@ abstract class Actor extends Collidable implements Updateable {
 			return false;
 	}
 	public String toString() {
-		return super.toString()+" vel ("+(int)xVel+", "+(int)yVel+") health "+health;
+		return super.toString() + " vel (" + (int)xVel + ", " + (int)yVel + ") health " + health;
 	}
 }
 /*
