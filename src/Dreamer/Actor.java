@@ -117,11 +117,11 @@ abstract class Actor extends Collidable implements Updateable {
 	}
 	void takeDamage(int damage, float weaponX) {
 		if (weaponX > getX()) {
-			yVel += 0.5 * damage;
-			xVel -= 0.8 *damage;
+			yVel = 0.5f * damage;
+			xVel = 0.8f * -damage;
 		} else {
-			yVel += 0.5 * damage;
-			xVel += 0.8 * damage;
+			yVel = 0.5f * damage;
+			xVel = 0.8f * damage;
 		}
 		health -= damage;		
 	}
@@ -165,28 +165,23 @@ abstract class Actor extends Collidable implements Updateable {
 	void removeStatus(String s) {	
 		status.remove(s);
 	}
-	void clearStatus() {	
-		status = new HashSet<String>();
+	void clearStatus() {
+		status.clear();
 	}
 	String getStatus() {	
 		String out = "statuses: ";
 		for(String s: status) 
-		{
-			out = out.concat(" "+s);
-		}
+			out = out.concat(" " + s);
 		return out;
 	}
 	void printStatus() {	
 		for(String s: status) 
-		{
-			System.out.print(" "+s);
-		}
+			System.out.print(" " + s);
 		System.out.println();
 	}
 	// reset and death
 	void die() {
 		addStatus("dead");
-		this.
 		remove();
 	}
 	void reset(float x, float y) {
@@ -199,19 +194,16 @@ abstract class Actor extends Collidable implements Updateable {
 		add();
 	}
 	// movement and physics
-	void applyGravity() 
-	{	
+	void applyGravity() {	
 		yVel -= Constants.GRAVITY;
 	}
-	void adjustVel(float xInc, float yInc)
-	{
+	void adjustVel(float xInc, float yInc){
 		xVel += xInc;
 		xVel = Math.min(xVel, Constants.PLAYERMAXVEL);
 		yVel += yInc;
 		yVel = Math.min(yVel, Constants.PLAYERJUMPVEL);
 	}
 	void applyFriction(double d) {
-		
 		d = Math.min(1, d);
 		d = 1 - d;
 		xVel *= d;
@@ -227,7 +219,7 @@ abstract class Actor extends Collidable implements Updateable {
 			return false;
 	}
 	public String toString() {
-		return super.toString()+" vel ("+(int)xVel+", "+(int)yVel+") health "+health;
+		return super.toString() + " vel (" + (int)xVel + ", " + (int)yVel + ") health " + health;
 	}
 }
 /*

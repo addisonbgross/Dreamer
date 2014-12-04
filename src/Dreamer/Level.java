@@ -69,12 +69,17 @@ class SimpleLevel extends Level {
 //		w.add();
 //		e.add();
 		
-		for (int i = 0; i < 10; i++) {
-			Shape3d s = new Shape3d();
-			s = Library.getModel("monkey");
-	        s.setPosition(p.getX() - (i * 300), 101, -250);
-	        s.add(); 
-		}
+		Shape3d s = Library.getModel("monkey");
+		s.setPosition(300, 101, -250);
+        s.add();
+        
+        s = Library.getModel("sphere");
+		s.setPosition(0, 101, -250);
+        s.add();
+        
+        s = Library.getModel("monkey");
+		s.setPosition(-300, 101, -250);
+        s.add();
 		
 		//new ActionJewel(100, 40, 0, new Action() {void perform() {new ForestLevel();}}).add();
 		Camera.focus(new ClassFocus(200, Ninja.class));
