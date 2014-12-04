@@ -33,6 +33,20 @@ public class Shape3d extends Element implements Lightable {
 		this.setPosition(x, y, z);
 	}
 	
+	//TODO improve seperation of copy from master
+	Shape3d copy() {
+		//does not copy rotational or fading characteristics
+		Shape3d copy = new Shape3d(position.x, position.y, position.z);
+		copy.manhattanRadius = Vector.copy(manhattanRadius);
+		for(Vector4f v: vertices ) {
+			copy.addVertex(v.x, v.y, v.z);
+		}
+		for(Face f: faces) {
+			//TODO realize a genuine copy method for faces
+			copy.addFace(f);
+		}
+		return copy;
+	}
 	@Override
 	float getX() {return position.x;}
 	@Override
