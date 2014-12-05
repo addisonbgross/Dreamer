@@ -60,7 +60,11 @@ class SimpleLevel extends Level {
 		
 		new GradientBackground(new Color(63, 63, 255), new Color(220, 63, 63)).add();
 		
-		Shape3d s = Library.getModel("monkey");
+		Shape3d s = Library.getModel("colourcube");
+		s.setPosition(0, 101, -250);
+        s.add();
+		
+		s = Library.getModel("monkey");
 		s.setPosition(300, 101, -250);
         s.add();
         
