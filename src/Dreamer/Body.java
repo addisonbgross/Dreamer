@@ -105,11 +105,16 @@ public class Body extends Element implements Updateable {
 				carryWeapon(body.currentIndex);
 				body.setLooping(false);
 				body.selectRow(2);
+				body.setSpeed(BODYSPEED);
 				body.start();
 			} else if (jumping || Math.abs(actor.xVel) > 1) {
 				carryWeapon();
 				body.setLooping(true);
 				body.selectRow(1);
+				if (jumping)
+					body.setSpeed(Math.abs(actor.yVel / (Constants.VEL / 70)));
+				else
+					body.setSpeed(Math.abs(actor.xVel / (Constants.VEL / 70)));
 				body.start();
 			} else if (climbing) {
 				carryWeapon();
