@@ -61,6 +61,19 @@ class Library {
 		}
 		return m;
 	}
+	static Shape3d getModel(String s, int scale) {
+		Shape3d m = new Shape3d();
+		try {
+			m = ObjLoader.loadModel(models.get(s), scale);
+		} catch (FileNotFoundException e) {
+			//model not found
+			e.printStackTrace();
+		} catch (IOException e) {
+			//model not found in a different way
+			e.printStackTrace();
+		}
+		return m;
+	}
 	static Texture getTexture(String s) {
 		return images.get(s).image.getTexture();
 	}

@@ -8,13 +8,15 @@ import java.io.IOException;
 
 import org.newdawn.slick.Color;
 
-public class ObjLoader {
+public class ObjLoader {	
 	public static Shape3d loadModel(File f) throws FileNotFoundException, IOException {
+		return loadModel(f, Constants.DEFAULTMODELSCALE);
+	}
+	public static Shape3d loadModel(File f, int scale) throws FileNotFoundException, IOException {
 		BufferedReader reader = new BufferedReader(new FileReader(f));
 		Shape3d m = new Shape3d();
 		Color faceColor = Color.red;
 		String line;
-		int SCALE = 100;
 		int a, b, c;
 		
 		MtlLoader.loadMaterials(new File(Constants.RESPATH + Constants.MODELPATH + f.getName().replace(".obj", ".mtl")));
@@ -25,9 +27,9 @@ public class ObjLoader {
 				faceColor = MtlLoader.getColor(line.substring("usemtl ".length(), line.length()));
 			
 			if (line.startsWith("v ")) {
-				float x = Float.valueOf(line.split(" ")[1]) * SCALE;
-				float y = Float.valueOf(line.split(" ")[2]) * SCALE;
-				float z = Float.valueOf(line.split(" ")[3]) * SCALE;
+				float x = Float.valueOf(line.split(" ")[1]) * scale;
+				float y = Float.valueOf(line.split(" ")[2]) * scale;
+				float z = Float.valueOf(line.split(" ")[3]) * scale;
 				m.addVertex(x, y, z);
 			} 
 			if (line.startsWith("f ")) {

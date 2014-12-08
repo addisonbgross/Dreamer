@@ -5,13 +5,15 @@ import java.util.ArrayList;
 import org.newdawn.slick.Graphics;
 
 class ClassFocus extends Element implements Updateable {
-	ArrayList<String> classStrings = new ArrayList<String>();
+	ArrayList<Element> classElements = new ArrayList<Element>();
 	float maxDistance = 0;
 	int yOffset = 0;
-
+	
 	<T> ClassFocus(Class<?>... c) {
 		for(Class<?> cn: c)
-			classStrings.add(cn.toString());
+			for (Element e : masterList)
+				if (e.getClass() == cn)
+					classElements.add(e);
 	}
 	<T> ClassFocus(int y, Class<?>... c) {
 		this(c);
@@ -36,29 +38,27 @@ class ClassFocus extends Element implements Updateable {
 		double minZ = 0;
 		double maxZ = 0;
 		int i = 0;
-		for(String s: classStrings)
+		for (Element e : classElements)
 			try {
-				for(Element e: getMasterList().get(s)) {
-					if(minX == 0 && maxX == 0 && minY == 0 && maxY == 0) {
-						minX = e.getX();
-						maxX = e.getX();
-						minY = e.getY();
-						maxY = e.getY();
-						minZ = e.getZ();
-						maxZ = e.getZ();
-					}
-					else {
-						minX = Math.min(minX, e.getX());
-						maxX = Math.max(maxX, e.getX());
-						minY = Math.min(minY, e.getY());
-						maxY = Math.max(maxY, e.getY());
-						minZ = Math.min(minZ, e.getZ());
-						maxZ = Math.max(maxZ, e.getZ());
-					}
-					setPosition(e.getX() + getX(), e.getY() + getY(), e.getZ() + getZ());
-					i++;
+				if(minX == 0 && maxX == 0 && minY == 0 && maxY == 0) {
+					minX = e.getX();
+					maxX = e.getX();
+					minY = e.getY();
+					maxY = e.getY();
+					minZ = e.getZ();
+					maxZ = e.getZ();
 				}
-			} catch(NullPointerException e) {
+				else {
+					minX = Math.min(minX, e.getX());
+					maxX = Math.max(maxX, e.getX());
+					minY = Math.min(minY, e.getY());
+					maxY = Math.max(maxY, e.getY());
+					minZ = Math.min(minZ, e.getZ());
+					maxZ = Math.max(maxZ, e.getZ());
+				}
+				setPosition(e.getX() + getX(), e.getY() + getY(), e.getZ() + getZ());
+				i++;
+			} catch(NullPointerException ex) {
 			//class is empty, focus is on origin
 		}
 		if(i != 0 ) {
@@ -68,7 +68,7 @@ class ClassFocus extends Element implements Updateable {
 		add();
 	}
 	public String toString() {
-		String s = classStrings+" focus@("+(int)getMinX()+", "+(int)getMinY()+")";
+		String s = classElements+" focus@("+(int)getMinX()+", "+(int)getMinY()+")";
 		return s;
 	}
 }

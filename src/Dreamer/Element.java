@@ -1,8 +1,10 @@
 package Dreamer;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.PriorityQueue;
 import java.util.Set;
 import java.util.TreeMap;
 
@@ -19,8 +21,11 @@ import org.newdawn.slick.geom.Vector2f;
 public abstract class Element {
 	//the masterList contains all Elements that have had their .add() method called
 	//they are removed from this list by calling their .remove() method
-	protected static ElementMap<String, HashSet<Element>> masterList 
-		= new ElementMap<String, HashSet<Element>>();
+	protected static PriorityQueue<Element> masterList 
+		= new PriorityQueue<Element>(1000, new zComparator());
+	protected static PriorityQueue<Element> activeSet 
+		= new PriorityQueue<Element>(1000, new zComparator());
+	
 	//each Collidable is placed in these maps according to it's x and y position
 	//from now on, only Collidables need to be on this 
 	//this list must have the current positions of the Collidable updated manually,
@@ -39,7 +44,6 @@ public abstract class Element {
 	static Set<Updateable> updateLaterSet = new HashSet<Updateable>(100);
 	static Set<Updateable> updateBirthSet = new HashSet<Updateable>();
 	static Set<Updateable> updateDeathSet = new HashSet<Updateable>();
-	static Set<Element> activeSet = new HashSet<Element>(1000);
 	private static Set<Element> xSet = new HashSet<Element>();
 	private static Set<Element> ySet = new HashSet<Element>();
 	//backgrounds are drawn before other elements and still use a variety of 
@@ -82,7 +86,7 @@ public abstract class Element {
 			for(float offset = getHeight(); offset >= 0; offset -= Constants.COLLISIONINTERVAL)
 				yRange.add(getMinY() + offset, this);
 		} 
-		masterList.add(this.getClass().toString(), this);
+		masterList.add(this);
 	}
 	void remove()
 	{
@@ -96,7 +100,7 @@ public abstract class Element {
 			for(float offset = getHeight(); offset >= 0; offset -= Constants.COLLISIONINTERVAL)
 				yRange.remove(getMinY() + offset, this);
 		}
-		masterList.remove(this.getClass().toString(), this);
+		masterList.remove(this);
 		mutable = true;
 	}
 	boolean isVisible() {
@@ -285,14 +289,9 @@ public abstract class Element {
 	 */
 	static void activateVisible()
 	{	
-		for(HashSet<Element> entry : masterList.values()) 
-		{
-			for(Element o: entry)
-			{
-				if(o.isVisible())
-					activeSet.add(o);
-			}
-		}
+		for (Element e : masterList)
+			if (e.isVisible())
+				activeSet.add(e);
 	}
 	/**getActiveWithin: returns the active set bound within a rectangle of Shape width and height
 	 * @param <T>
@@ -338,7 +337,7 @@ public abstract class Element {
 		}
 		return tempActive;
 	}
-	static ElementMap<String, HashSet<Element>> getMasterList() {
+	static PriorityQueue<Element> getMasterList() {
 		return masterList;
 	}
 	static ElementMap<Float, HashSet<Element>> getXRange() {
@@ -363,13 +362,8 @@ public abstract class Element {
 	}
 	static void printMasterList() {
 		System.out.println("MASTERLIST");
-		for(HashSet<Element> entry : masterList.values()) 
-		{
-			for(Element e: entry)
-			{
-				e.print();
-			}
-		}
+		for (Element e : masterList)
+			e.print();
 	}
 	static void printActive() {	
 		System.out.println("ACTIVE ELEMENTS");
@@ -380,18 +374,14 @@ public abstract class Element {
 	}
 	static void drawAll(Graphics g){
 		for(Element e: background) e.draw(g);
-		for(HashSet<Element> entry : masterList.values()) {
-			for(Element o: entry) {
-				o.draw(g);
-			}
-		}
+		for (Element e : masterList)
+			e.draw(g);
 	}
 	static void drawActive(Graphics g){
-		for(Element e: background) e.draw(g);
+		for(Element e: background) 
+			e.draw(g);
 		for(Element o: activeSet)
-		{
 			o.draw(g);
-		}
 		Face.drawFaces();
 	}
 	
@@ -405,11 +395,7 @@ public abstract class Element {
 		return yRange.size();
 	}	
 	static int numberTotal() {
-		int i = 0;
-		for(HashSet<Element> entry : masterList.values()) {
-			i += entry.size();
-		}
-		return i;
+		return masterList.size();
 	}	
 	
 	static void clearAll() {	
@@ -553,7 +539,12 @@ class PermanentLine extends Element {
 	}
 }
 
-
+class zComparator implements Comparator<Element> {
+    @Override
+    public int compare(Element a, Element b) {
+    	return a.getZ() < b.getZ() ? 1 : (a.getZ() == b.getZ() ? 0 : -1);
+    }
+}
 
 
 

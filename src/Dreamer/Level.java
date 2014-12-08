@@ -61,7 +61,7 @@ class SimpleLevel extends Level {
 		new GradientBackground(new Color(63, 63, 255), new Color(220, 63, 63)).add();
 		
 		Shape3d s = Library.getModel("colourcube");
-		s.setPosition(0, 101, -250);
+		s.setPosition(0, 150, -250);
         s.add();
 		
 		s = Library.getModel("monkey");
@@ -178,8 +178,8 @@ class ForestLevel extends Level {
 		new SpinningJewel(-2000, 2500, -2500, 1000, new Color(255, 192, 192, 63)).add();
 		new SpinningJewel(-1000, 2700, -2200, 700, new Color(192, 192, 255, 63)).add();
 		
-		Shape3d s = Library.getModel("monkey");
-		s.setCenter(0,  0);
+		Shape3d s = Library.getModel("monkey", 300);
+		s.setCenter(0,  500);
         s.add();
 		
 		/**
