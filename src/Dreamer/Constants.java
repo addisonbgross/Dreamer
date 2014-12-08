@@ -62,4 +62,6 @@ public class Constants {
 	public static final int NUMFRAMES = 4;
 	public static final Color COLLISIONCOLOUR = Color.yellow;
 	public static final Color TRAILCOLOR = Color.black;
+	// models
+	static int DEFAULTMODELSCALE = 100;
 }
