@@ -48,10 +48,12 @@ class Library {
 	static Image getImage(String s) {
 		return images.get(s).original();
 	}
-	static Shape3d getModel(String s) {
+	static Shape3d getModel(String s, int scale, int x, int y, int z) {
 		Shape3d m = new Shape3d();
 		try {
-			m = ObjLoader.loadModel(models.get(s));
+			m = ObjLoader.loadModel(models.get(s), scale);
+			m.setPosition(x, y, z);
+			m.generateMotionTracks();
 		} catch (FileNotFoundException e) {
 			//model not found
 			e.printStackTrace();
@@ -61,10 +63,12 @@ class Library {
 		}
 		return m;
 	}
-	static Shape3d getModel(String s, int scale) {
+	static Shape3d getModel(String s, int x, int y, int z) {
 		Shape3d m = new Shape3d();
 		try {
-			m = ObjLoader.loadModel(models.get(s), scale);
+			m = ObjLoader.loadModel(models.get(s));
+			m.setPosition(x, y, z);
+			m.generateMotionTracks();
 		} catch (FileNotFoundException e) {
 			//model not found
 			e.printStackTrace();

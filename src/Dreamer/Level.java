@@ -39,7 +39,15 @@ abstract class Level {
 }
 class TestLevel extends Level {
 	void createLevel() {
-		//blank for testing
+		new GradientBackground(new Color(150, 150, 150), Color.black).add();
+		Library.getModel("scene", 300, 0,  0,  -700).add();
+		
+		Player p = Player.getFirst();
+		p.setCenterBottom(0,  50);
+		p.add();
+		new Lamp(p).add();
+		
+		Camera.focus(new ClassFocus(200, Ninja.class));
 	}
 }
 class SimpleLevel extends Level {	
@@ -60,17 +68,13 @@ class SimpleLevel extends Level {
 		
 		new GradientBackground(new Color(63, 63, 255), new Color(220, 63, 63)).add();
 		
-		Shape3d s = Library.getModel("colourcube");
-		s.setPosition(0, 150, -250);
-        s.add();
-		
-		s = Library.getModel("monkey");
-		s.setPosition(300, 101, -250);
-        s.add();
+		Library.getModel("colourcube", 0, 150, -250).add();
         
-        s = Library.getModel("monkey");
-		s.setPosition(600, 101, -250);
-        s.add();
+        Library.getModel("scene", -500,  0,  0).add();
+		
+		Library.getModel("monkey", 300, 101, -250).add();
+        
+        Library.getModel("monkey", 600, 101, -250).add();
 		
 		//new ActionJewel(100, 40, 0, new Action() {void perform() {new ForestLevel();}}).add();
 		Camera.focus(new ClassFocus(200, Ninja.class));
@@ -177,10 +181,6 @@ class ForestLevel extends Level {
 		new SpinningJewel(0, 1000, -2000, 800, new Color(192, 192, 192, 63)).add();
 		new SpinningJewel(-2000, 2500, -2500, 1000, new Color(255, 192, 192, 63)).add();
 		new SpinningJewel(-1000, 2700, -2200, 700, new Color(192, 192, 255, 63)).add();
-		
-		Shape3d s = Library.getModel("monkey", 300);
-		s.setCenter(0,  500);
-        s.add();
 		
 		/**
 		 * Focus camera on player

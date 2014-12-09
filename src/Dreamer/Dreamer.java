@@ -30,6 +30,7 @@ import org.lwjgl.Sys;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
+import org.lwjgl.opengl.PixelFormat;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
@@ -86,7 +87,7 @@ public class Dreamer {
 			DisplayMode dm = Display.getDisplayMode();
 			Constants.screenWidth = dm.getWidth();
 			Constants.screenHeight = dm.getHeight();
-			Display.create();
+			Display.create(new PixelFormat(2, 2, 0, 2));
 			Display.setVSyncEnabled(true);
 
 			glClearColor(1.0f, 1.0f, 1.0f, 0.0f);
