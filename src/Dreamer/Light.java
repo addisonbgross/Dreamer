@@ -118,8 +118,8 @@ final class LampLight extends Light implements Updateable {
 }
 final class SunLight extends Light {
 	{
-		orthogonality = 0.5f;
-		color = new Color(225, 225, 225);	// Original brightness (185, 175, 170);
+		orthogonality = 0.9f;
+		color = new Color(240, 240, 240);	// Original brightness (185, 175, 170);
 		ambient = true;
 	}
 	SunLight(float x, float y, float z) {
