@@ -32,6 +32,11 @@ public class Shape3d extends Element implements Lightable {
 	Shape3d(float x, float y, float z) {
 		this.setPosition(x, y, z);
 	}
+	Shape3d(ArrayList<Vector4f> v, ArrayList<Face> f, float x, float y, float z) {
+		this(x, y, z);
+		faces.addAll(f);
+		vertices.addAll(v);
+	}
 	
 	//TODO improve seperation of copy from master
 	Shape3d copy() {
@@ -97,6 +102,18 @@ public class Shape3d extends Element implements Lightable {
 				return dimension / pow2[i]; 
 		}
 		return 1;
+	}
+	void setFaces(ArrayList<Face> f) {
+		faces = f;
+	}
+	void setVertices(ArrayList<Vector4f> v) {
+		vertices = v;
+	}
+	ArrayList<Face> getFaces() {
+		return faces;
+	}
+	ArrayList<Vector4f> getVertices() {
+		return vertices;
 	}
 	void setRotationAxis(float x, float y, float z) {
 		rotationAxis = new Vector3f(x, y, z).normalise(rotationAxis); 
