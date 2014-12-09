@@ -8,8 +8,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.lwjgl.util.vector.Vector4f;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.TrueTypeFont;
@@ -48,27 +50,17 @@ class Library {
 	static Image getImage(String s) {
 		return images.get(s).original();
 	}
-	static Shape3d getModel(String s, int scale, int x, int y, int z) {
-		Shape3d m = new Shape3d();
-		try {
-			m = ObjLoader.loadModel(models.get(s), scale);
-			m.setPosition(x, y, z);
-			m.generateMotionTracks();
-		} catch (FileNotFoundException e) {
-			//model not found
-			e.printStackTrace();
-		} catch (IOException e) {
-			//model not found in a different way
-			e.printStackTrace();
-		}
-		return m;
+	static ArrayList<Shape3d> getModel(String s, int x, int y, int z) {
+		return getModel(s, Constants.DEFAULTMODELSCALE, x, y, z);
 	}
-	static Shape3d getModel(String s, int x, int y, int z) {
-		Shape3d m = new Shape3d();
+	static ArrayList<Shape3d> getModel(String s, int scale, int x, int y, int z) {
+		ArrayList<Shape3d> modelList = null;
 		try {
-			m = ObjLoader.loadModel(models.get(s));
-			m.setPosition(x, y, z);
-			m.generateMotionTracks();
+			modelList = ObjLoader.loadModel(models.get(s), scale);
+			for (Shape3d m : modelList) {
+				m.setPosition(x, y, z);
+				m.generateMotionTracks();
+			}
 		} catch (FileNotFoundException e) {
 			//model not found
 			e.printStackTrace();
@@ -76,7 +68,7 @@ class Library {
 			//model not found in a different way
 			e.printStackTrace();
 		}
-		return m;
+		return modelList;
 	}
 	static Texture getTexture(String s) {
 		return images.get(s).image.getTexture();
@@ -161,4 +153,23 @@ class ImageTracker {
 		return scaledImage;
 	}
 	Image original() {return image;}
+}
+class ModelGhost {
+	ArrayList<Vector4f> verts;
+	ArrayList<Face> faces;
+	
+	ModelGhost() {}
+	
+	void addVert(Vector4f v) {
+		verts.add(v);
+	}
+	void addFace(Face f) {
+		faces.add(f);
+	}
+	ArrayList<Vector4f> getVerts() {
+		return verts;
+	}
+	ArrayList<Face> getFaces() {
+		return faces;
+	}
 }

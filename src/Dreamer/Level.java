@@ -39,13 +39,15 @@ abstract class Level {
 }
 class TestLevel extends Level {
 	void createLevel() {
-		new GradientBackground(new Color(150, 150, 150), Color.black).add();
-		Library.getModel("scene", 300, 0,  0,  -700).add();
+		new GradientBackground(Color.blue, new Color(150, 150, 150)).add();
+		new Model("scene", 300, 0, 0, -700).add();
 		
 		Player p = Player.getFirst();
 		p.setCenterBottom(0,  50);
 		p.add();
-		new Lamp(p).add();
+		
+		new Sun().add();
+		//new Lamp(p).add();
 		
 		Camera.focus(new ClassFocus(200, Ninja.class));
 	}
@@ -68,13 +70,13 @@ class SimpleLevel extends Level {
 		
 		new GradientBackground(new Color(63, 63, 255), new Color(220, 63, 63)).add();
 		
-		Library.getModel("colourcube", 0, 150, -250).add();
+		//Library.getModel("colourcube", 0, 150, -250).add();
         
-        Library.getModel("scene", -500,  0,  0).add();
+        //Library.getModel("scene", -500,  0,  0).add();
 		
-		Library.getModel("monkey", 300, 101, -250).add();
+		//Library.getModel("monkey", 300, 101, -250).add();
         
-        Library.getModel("monkey", 600, 101, -250).add();
+        //Library.getModel("monkey", 600, 101, -250).add();
 		
 		//new ActionJewel(100, 40, 0, new Action() {void perform() {new ForestLevel();}}).add();
 		Camera.focus(new ClassFocus(200, Ninja.class));
