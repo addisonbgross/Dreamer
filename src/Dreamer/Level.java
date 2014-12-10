@@ -40,10 +40,10 @@ abstract class Level {
 class TestLevel extends Level {
 	void createLevel() {
 		new GradientBackground(Color.blue, new Color(150, 150, 150)).add();
-		new Model("scene", 300, 0, 0, -700).add();
+		new Model("scene", 800, 0, 0, -700).add();
 		
 		Player p = Player.getFirst();
-		p.setCenterBottom(0,  100);
+		p.setCenterBottom(0,  500);
 		p.add();
 		
 		new Sun().add();
