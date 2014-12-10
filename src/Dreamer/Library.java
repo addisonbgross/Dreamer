@@ -74,13 +74,13 @@ class Library {
 		return images.get(s).image.getTexture();
 	}
 	static private void loadModel(String file) {
-		String referrenceName = file.substring(0, file.length());
-		referrenceName = referrenceName.replace(Constants.RESPATH, "");
+		String referenceName = file.substring(0, file.length());
+		referenceName = referenceName.replace(Constants.RESPATH, "");
 		try {
-			String modelName = referrenceName.replace("models/", "").replace(".obj", "");
-            models.put(modelName, new File("res/" + referrenceName));
+			String modelName = referenceName.replace(Constants.MODELPATH, "").replace(".obj", "");
+            models.put(modelName, new File(Constants.RESPATH + referenceName));
         } catch (Exception e) {
-            System.out.println("Failure to load the model file: " + referrenceName);
+            System.out.println("Failure to load the model file: " + referenceName);
             e.printStackTrace();
         }
 	}
