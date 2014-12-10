@@ -43,7 +43,7 @@ class TestLevel extends Level {
 		new Model("scene", 300, 0, 0, -700).add();
 		
 		Player p = Player.getFirst();
-		p.setCenterBottom(0,  100);
+		p.setCenterBottom(0,  50);
 		p.add();
 		
 		new Sun().add();

@@ -11,15 +11,12 @@ public class Model extends Element {
 		models = Library.getModel(s, scale, x, y, z);
 	}
 	@Override
-	void draw(Graphics g) {
-		for (Shape3d s : models)
-			if (s.isVisible())
-				for (Face f: s.getFaces())
-					f.addToDrawList();
-	}
-	@Override
 	void add() {
 		for (Shape3d s : models)
 			s.add();
+	}
+	@Override
+	void draw(Graphics g) {
+		// naw dog
 	}
 }

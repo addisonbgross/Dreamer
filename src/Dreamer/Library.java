@@ -61,11 +61,11 @@ class Library {
 				m.setPosition(x, y, z);
 				m.generateMotionTracks();
 			}
-		} catch (FileNotFoundException e) {
-			//model not found
+		} catch (FileNotFoundException e) { //model not found
+			System.out.println("Model [" + s + "] not found!");
 			e.printStackTrace();
-		} catch (IOException e) {
-			//model not found in a different way
+		} catch (IOException e) {//model not found in a different way
+			System.out.println("IOException while loading model [" + s + "]");
 			e.printStackTrace();
 		}
 		return modelList;

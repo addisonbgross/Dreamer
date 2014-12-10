@@ -10,7 +10,7 @@ import org.newdawn.slick.Color;
 
 public class ObjLoader {	
 	public static ArrayList<Shape3d> loadModel(File f, int scale) throws FileNotFoundException, IOException {
-		BufferedReader reader = new BufferedReader(new FileReader(f));
+		BufferedReader reader = new BufferedReader(new FileReader(f));;
 		ArrayList<Shape3d> modelList = new ArrayList<Shape3d>();
 		Shape3d m = null;
 		Color faceColor = Color.red;
