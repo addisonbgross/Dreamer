@@ -55,7 +55,7 @@ abstract class Actor extends Collidable implements Updateable {
 		
 		if (!checkStatus("dead")) {
 			applyGravity();
-			findCollisions();
+			collisionSet = findCollisions(collisionSet);
 			
 			suggestedTrajectory 
 				= new Line(getCenterBottom(), getCenterBottom().copy().add(getVelocityVector()));
@@ -111,7 +111,13 @@ abstract class Actor extends Collidable implements Updateable {
 		}
 		health -= damage;		
 	}
-	void findCollisions() {
+	@Override
+	//Do not remove this method!  It is used to prevent Actor-Actor collisions
+	boolean collide(Actor a) {
+		return false;
+	}
+	Set<Collidable> findCollisions(Set<Collidable> foundCollisions) {
+		
 		vision.setBounds(
 				getMinX() + xVel - (Constants.COLLISIONINTERVAL), 
 				getMinY() + yVel - (Constants.COLLISIONINTERVAL), 
@@ -119,14 +125,15 @@ abstract class Actor extends Collidable implements Updateable {
 				getHeight() + 2 *(Constants.COLLISIONINTERVAL + Math.abs(yVel))
 		);
 		
-		collisionSet.clear();
+		foundCollisions.clear();
 		for(Element e: Element.getActiveWithin(vision)) {
 			//very important to not compare this to itself, infinite loop
 			if(Collidable.class.isAssignableFrom(e.getClass()) && e != this) {
-				collisionSet.add((Collidable)e);
+				 foundCollisions.add((Collidable)e);
 				Dreamer.numberOfCollisions++;
 			}
 		}
+		return foundCollisions;
 	}
 	Vector2f getVelocityVector() {
 		return new Vector2f(xVel, yVel);
