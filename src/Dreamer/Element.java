@@ -21,8 +21,8 @@ import org.newdawn.slick.geom.Vector2f;
 public abstract class Element {
 	//the masterList contains all Elements that have had their .add() method called
 	//they are removed from this list by calling their .remove() method
-	protected static PriorityQueue<Element> masterList 
-		= new PriorityQueue<Element>(1000, new zComparator());
+	protected static HashSet<Element> masterList 
+		= new HashSet<Element>(1000);
 	protected static PriorityQueue<Element> activeSet 
 		= new PriorityQueue<Element>(1000, new zComparator());
 	
@@ -337,7 +337,7 @@ public abstract class Element {
 		}
 		return tempActive;
 	}
-	static PriorityQueue<Element> getMasterList() {
+	static HashSet<Element> getMasterList() {
 		return masterList;
 	}
 	static ElementMap<Float, HashSet<Element>> getXRange() {
