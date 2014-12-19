@@ -159,6 +159,10 @@ class ForestLevel extends Level {
 		one.add();
 		w.add();
 		
+//		Sweat s = new Sweat(2900, 1700, 0);
+//		s.add();
+//		s.start();
+		
 		int offsetX = 250, offsetY = 100, size = 100;
 		for(int i = 0; i < 10; i++) {
 			offsetX += 10;
