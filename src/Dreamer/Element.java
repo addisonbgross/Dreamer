@@ -210,6 +210,13 @@ public abstract class Element {
 	Vector4f getPosition4f() {
 		return new Vector4f(getX(), getY(), getZ(), 1);
 	}
+	
+	public boolean contains(String... strings) {
+		for (String s: strings)
+			if(!getClass().toString().toLowerCase().contains(s.toLowerCase())) 
+					return false;
+		return true;
+	}
 	void setPosition(Vector4f v)
 	{
 		setPosition(v.x, v.y, v.z);
