@@ -25,7 +25,6 @@ abstract class Weapon extends Shape3d implements Updateable {
 	Weapon(Actor a) {
 		weaponCollision = new WeaponCollision(this); 
 		attach(a);
-		//linkPositionTo(a);
 		addVertex(0, 0, 0);
 		addVertex(0, 100, 0);
 		addVertex(100, 100, 0);
