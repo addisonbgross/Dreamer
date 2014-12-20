@@ -1,5 +1,6 @@
 package Dreamer;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashSet;
@@ -18,7 +19,8 @@ import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.Vector2f;
 
 //TODO make setPosition etc throw an exception
-public abstract class Element {
+public class Element implements Serializable {
+	private static final long serialVersionUID = 1384182428126670525L;
 	//the masterList contains all Elements that have had their .add() method called
 	//they are removed from this list by calling their .remove() method
 	protected static HashSet<Element> masterList 
@@ -137,7 +139,7 @@ public abstract class Element {
 	}
 	
 	//only method subclasses must implement, even if just for debugging
-	abstract void draw(Graphics g);
+	void draw(Graphics g) {}
 	
 	void drawShape(Shape s, Color c, Graphics g, boolean filled) {
 		if(Line.class.equals(s.getClass())) {

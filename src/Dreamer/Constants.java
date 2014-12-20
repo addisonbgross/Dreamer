@@ -8,6 +8,9 @@ public class Constants {
 
 	public static int ladderWidth = 50;
 	
+	static String LEVELPATH = System
+			.getProperty("os.name")
+			.startsWith("W") ? "levels\\" : "levels/";
 	static String MAPPATH = System
 			.getProperty("os.name")
 			.startsWith("W") ? "maps\\" : "maps/";

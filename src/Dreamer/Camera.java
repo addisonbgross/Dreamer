@@ -37,19 +37,23 @@ public class Camera {
 	static Vector3f translated = new Vector3f();
 	
 	static void draw(Graphics g)
-	{
-		//print out the camera info and focus box
-		g.setColor(Library.defaultFontColor);
-		scene.setCenterX(Constants.screenWidth / 2);
-		scene.setCenterY(Constants.screenHeight / 2);
-		g.draw(scene);
-		scene.setCenterX(0);
-		scene.setCenterY(0);
-		g.setColor(Library.defaultFontColor);
-		g.drawString("CAMTARGET "+target.toString(), 20, 180);
-		g.drawString("CAMCENTER@("+(int)getCenterX()+", "+(int)getCenterY()+", "+scale+")", 20, 200);
-		g.drawString("CAMSCENE ("+(int)getMinX()+", "+(int)getMinY()+", "+(int)getMaxX()+", "+(int)getMaxY()+")", 20, 220);
-		g.setColor(Library.defaultFontColor);
+	{	
+		try {
+			//print out the camera info and focus box
+			g.setColor(Library.defaultFontColor);
+			scene.setCenterX(Constants.screenWidth / 2);
+			scene.setCenterY(Constants.screenHeight / 2);
+			g.draw(scene);
+			scene.setCenterX(0);
+			scene.setCenterY(0);
+			g.setColor(Library.defaultFontColor);
+			g.drawString("CAMTARGET "+target.toString(), 20, 180);
+			g.drawString("CAMCENTER@("+(int)getCenterX()+", "+(int)getCenterY()+", "+scale+")", 20, 200);
+			g.drawString("CAMSCENE ("+(int)getMinX()+", "+(int)getMinY()+", "+(int)getMaxX()+", "+(int)getMaxY()+")", 20, 220);
+			g.setColor(Library.defaultFontColor);
+		} catch(NullPointerException e) {
+			//camera unfocused
+		}
 	}
 	static void update() {
 		if(target != null) {

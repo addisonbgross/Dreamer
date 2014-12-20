@@ -15,10 +15,13 @@ public class MainMenu extends Level {
 	void createLevel() {
 		Element.debug = false;
 		Element.clearAll();
+		Editor e = new Editor();
+		/*
 		int i = 0;
 		for(String s: options)
 			new ShadowedMessage(s, 0, i-= 80).add();
 		new BorderedBackground().add();
 		Camera.focus(new ClassFocus(ShadowedMessage.class));
+		*/
 	}
 }

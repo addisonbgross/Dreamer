@@ -54,6 +54,6 @@ public class MousePointer extends Element implements Updateable {
 	@Override
 	void draw(Graphics g) {
 		if(Element.debug)
-			drawCursor("MouseLight", getX(), getY(), getZ(), g);
+			drawCursor("MousePointer", getX(), getY(), getZ(), g);
 	}
 }

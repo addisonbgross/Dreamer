@@ -7,7 +7,7 @@ import org.newdawn.slick.Color;
 
 // Level is the base class for all games states, including menus, editors, debuggers etc
 
-abstract class Level {
+class Level {
 	Enemy e; //Generic enemy pointer
 	Weapon w;
 	static Level current;

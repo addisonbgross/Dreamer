@@ -10,82 +10,86 @@ import Dreamer.Camera.Function;
 
 abstract public class KeyHandler {
 	Actor focus;
-	Map<String, Integer>keyMap;
-	java.util.HashSet<String> wasPressed = new java.util.HashSet<String>();
-	boolean[] keys = new boolean[127];
+	Integer counter;
+	static Map<String, Integer>keyMap = new HashMap<String, Integer>();
+	static Map<Integer, Action>actionMap = new HashMap<Integer, Action>();
+	static java.util.HashSet<String> wasPressed = new java.util.HashSet<String>();
+	static boolean[] keys = new boolean[127];
+	static String keyBuffer = "";
 	
-	public KeyHandler() {
-		keyMap = new HashMap<String, Integer>();
+	public KeyHandler() {}
+	
+	public boolean test(Integer keyCode) {
+		return Keyboard.isKeyDown(keyCode);
+	}
+	public boolean test(String s) {
+		return Keyboard.isKeyDown(keyMap.get(s));
 	}
 	
 	public void getKeys() {
-		if(!focus.checkStatus("dead")) {
-			//if the key is freshly pressed
-			float scaleVel = (focus.checkStatus("blocking"))?Constants.VEL*0.5f:Constants.VEL;
-			if(Keyboard.isKeyDown(keyMap.get("jumpKey"))) {
-				if(!wasPressed.contains("jumpKey")) {
-					wasPressed.add("jumpKey");
-					if(!focus.checkStatus("jumping"))
-						if(focus.checkStatus("grounded")) {
-							focus.addStatus("jumping");
-							focus.adjustVel(0, Constants.PLAYERJUMPVEL);
-						}
+		if(focus != null) {
+			if(!focus.checkStatus("dead")) {
+				//if the key is freshly pressed
+				float scaleVel = (focus.checkStatus("blocking"))?Constants.VEL*0.5f:Constants.VEL;
+				if(test("jumpKey")) {
+					if(!wasPressed.contains("jumpKey")) {
+						wasPressed.add("jumpKey");
+						if(!focus.checkStatus("jumping"))
+							if(focus.checkStatus("grounded")) {
+								focus.addStatus("jumping");
+								focus.adjustVel(0, Constants.PLAYERJUMPVEL);
+							}
+					}
+				} else {
+					wasPressed.remove("jumpKey");
 				}
-			} else {
-				wasPressed.remove("jumpKey");
-			}
-			
-			// Sideways movement!
-			float scaleJump = 1;
-			if (focus.checkStatus("jumping")) 
-				scaleJump = 0.4f;
-			if(Keyboard.isKeyDown(keyMap.get("rightKey"))) {
-				focus.removeStatus("left");
-				focus.addStatus("right");
-				if (focus.xVel < scaleVel)
-					focus.xVel+=(focus.xVel < 5)? 2 * scaleJump: Constants.ACTORACCELERATION * scaleJump;
-				else 
-					focus.setXVel(scaleVel);
-			}
-			if(Keyboard.isKeyDown(keyMap.get("leftKey"))) {
-				focus.removeStatus("right");
-				focus.addStatus("left");
-				if (focus.xVel > -scaleVel)
-					focus.xVel-=(focus.xVel > -5)? 2 * scaleJump: Constants.ACTORACCELERATION * scaleJump;
-				else 
-					focus.setXVel(-scaleVel);
-			}  
-			if(Keyboard.isKeyDown(keyMap.get("upKey"))) {
-				focus.removeStatus("down");
-				focus.addStatus("up");
-			}else if(Keyboard.isKeyDown(keyMap.get("downKey"))) {
-				focus.removeStatus("up");
-				focus.addStatus("down");					
-			} else {
-				focus.removeStatus("up");
-				focus.removeStatus("down");
-			}
-			if(Keyboard.isKeyDown(keyMap.get("attackKey"))) {
-				focus.addStatus("tryattack");
-			} else
-				focus.removeStatus("tryattack");
-			
-			if(Keyboard.isKeyDown(keyMap.get("actionKey"))) {
-				if(keys[keyMap.get("actionKey")] != true) {
-					focus.addStatus("acting");	
+				
+				// Sideways movement!
+				float scaleJump = 1;
+				if (focus.checkStatus("jumping")) 
+					scaleJump = 0.4f;
+				if(test("rightKey")) {
+					focus.addStatus("right");
+					if (focus.xVel < scaleVel)
+						focus.xVel+=(focus.xVel < 5)? 2 * scaleJump: Constants.ACTORACCELERATION * scaleJump;
+					else 
+						focus.setXVel(scaleVel);
+				}
+				if(test("leftKey")) {
+					focus.addStatus("left");
+					if (focus.xVel > -scaleVel)
+						focus.xVel-=(focus.xVel > -5)? 2 * scaleJump: Constants.ACTORACCELERATION * scaleJump;
+					else 
+						focus.setXVel(-scaleVel);
+				}  
+				if(test("upKey")) {
+					focus.addStatus("up");
+				}else if(test("downKey")) {
+					focus.addStatus("down");					
+				} else {
+					focus.removeStatus("down");
+				}
+				if(test("attackKey")) {
+					focus.addStatus("tryattack");
 				} else
+					focus.removeStatus("tryattack");
+				
+				if(test("actionKey")) {
+					if(keys[keyMap.get("actionKey")] != true) {
+						focus.addStatus("acting");	
+					} else
+						focus.removeStatus("acting");
+					keys[keyMap.get("actionKey")] = true;
+				} else {
+					keys[keyMap.get("actionKey")] = false;
 					focus.removeStatus("acting");
-				keys[keyMap.get("actionKey")] = true;
-			} else {
-				keys[keyMap.get("actionKey")] = false;
-				focus.removeStatus("acting");
-			}
-			
-			if(Keyboard.isKeyDown(keyMap.get("blockKey"))) {
-				focus.addStatus("blocking");
-			} 	else
-				focus.removeStatus("blocking");
-			
+				}
+				
+				if(test("blockKey")) {
+					focus.addStatus("blocking");
+				} 	else
+					focus.removeStatus("blocking");
+		}
 
 			if(Keyboard.isKeyDown(Keyboard.KEY_H)) {	
 				if(keys[Keyboard.KEY_H] != true) {
@@ -179,6 +183,20 @@ class FunctionKeys extends KeyHandler {
 		}
 	}
 }
+class TestKeys extends KeyHandler {
+	public void getKeys() {
+		while (Keyboard.next()) {
+			Integer keyNum = Keyboard.getEventKey();
+			if(Keyboard.getEventKeyState()) {
+				try {
+					actionMap.get(keyNum).perform();
+				} catch(NullPointerException e) {
+					//not there, no bigs
+				}
+			}
+		}
+	}
+}
 class ZoomKeys extends KeyHandler {
 	protected boolean z = false, j = false;
 	private int velocity = 0;
@@ -237,7 +255,6 @@ class ZoomKeys extends KeyHandler {
 	}
 }
 class ArrowKeys extends KeyHandler {
-
 	public ArrowKeys(Actor subject) {
 		focus = subject;
 		keyMap = new HashMap<String, Integer>();
