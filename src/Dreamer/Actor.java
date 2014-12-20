@@ -25,6 +25,7 @@ abstract class Actor extends Collidable implements Updateable {
 	Body body;
 	Weapon weapon;
 	public int weaponStage = 0;
+	public boolean sweating = false;
 
 	Actor() {}
 	Actor(StatCard sc, float x, float y) {
@@ -95,13 +96,17 @@ abstract class Actor extends Collidable implements Updateable {
 			// attack sequence
 			if (checkStatus("tryattack") && !checkStatus("attacking") && weapon != null) {
 				if (stamina < weapon.getWeight()) {
-					body.resetBody();
-					new Sweat(body.getHeadPosition().x + 20, body.getHeadPosition().y, body.getHeadPosition().z).add();
+					if (!sweating) {
+						sweating = true;
+						body.resetBody();
+						new Sweat(this);
+					}
 					removeStatus("attacking");
-			    } else {
+				} else {
+					sweating = false;
 					stamina -= weapon.getWeight();
 					addStatus("attacking");
-				}
+				} 
 			}
 		}
 		
