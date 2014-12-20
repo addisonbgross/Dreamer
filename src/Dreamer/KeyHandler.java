@@ -184,6 +184,46 @@ class FunctionKeys extends KeyHandler {
 	}
 }
 class TestKeys extends KeyHandler {
+	char[] alphabet = ("qwertyuiop" + "asdfghjkl" + "zxcvbnm").toCharArray();
+	int[] codes = {
+			16, 17, 18, 19, 20, 21, 22, 23, 24, 25, //qwertyuiop
+			30, 31, 32, 33, 34, 35, 36, 37, 38, //asdfghjkl
+			44, 45, 46, 47, 48, 49, 50 //zxcvbnm
+			};
+	
+	TestKeys(Editor e) {
+		for(int i = 0; i < alphabet.length; i++) {
+			char key = alphabet[i];
+			KeyHandler.actionMap.put(
+				codes[i], 
+				new Action() {
+					void perform() {
+						KeyHandler.keyBuffer = KeyHandler.keyBuffer + key;
+						e.console.name = KeyHandler.keyBuffer;
+					}
+				}
+			);
+		}
+		KeyHandler.actionMap.put(
+			Keyboard.KEY_RETURN, 
+			new Action() {
+				void perform() {
+					KeyHandler.keyBuffer = "";
+					e.console.name = KeyHandler.keyBuffer;
+				}
+			}
+		);
+		KeyHandler.actionMap.put(
+			Keyboard.KEY_SPACE, 
+			new Action() {
+				void perform() {
+					KeyHandler.keyBuffer = KeyHandler.keyBuffer + " ";
+					e.console.name = KeyHandler.keyBuffer;
+				}
+			}
+		);
+	}
+	
 	public void getKeys() {
 		while (Keyboard.next()) {
 			Integer keyNum = Keyboard.getEventKey();
@@ -195,6 +235,11 @@ class TestKeys extends KeyHandler {
 				}
 			}
 		}
+	}
+	public void remove() {
+		super.remove();
+		for(int i: codes)
+			actionMap.remove(i);
 	}
 }
 class ZoomKeys extends KeyHandler {
