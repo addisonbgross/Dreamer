@@ -2,6 +2,8 @@ package Dreamer;
 
 public class MainMenu extends Level {
 	
+	static Editor e;
+	
 	String[] options = {
 			"1: Testlevel", 
 			"2: SimpleLevel", 
@@ -15,7 +17,7 @@ public class MainMenu extends Level {
 	void createLevel() {
 		Element.debug = false;
 		Element.clearAll();
-		Editor e = new Editor();
+		//e = new Editor();
 		/*
 		int i = 0;
 		for(String s: options)

@@ -16,6 +16,7 @@ abstract public class KeyHandler {
 	static java.util.HashSet<String> wasPressed = new java.util.HashSet<String>();
 	static boolean[] keys = new boolean[127];
 	static String keyBuffer = "";
+	boolean kill = false;
 	
 	public KeyHandler() {}
 	
@@ -112,6 +113,19 @@ abstract public class KeyHandler {
 	}
 	void remove() {
 		Level.keys.remove(this);
+	}
+
+	public static void openGameKeys() {
+		for(KeyHandler k: Level.keys)
+			k.kill = true;
+		new ZoomKeys().add();
+		new FunctionKeys().add();
+		new WASDKeys(Player.getFirst()).add();
+	}
+	public static void openConsoleKeys() {
+		for(KeyHandler k: Level.keys)
+			k.kill = true;
+		new TestKeys(MainMenu.e).add();
 	}
 }
 class FunctionKeys extends KeyHandler {
@@ -219,6 +233,14 @@ class TestKeys extends KeyHandler {
 				void perform() {
 					KeyHandler.keyBuffer = KeyHandler.keyBuffer + " ";
 					e.console.name = KeyHandler.keyBuffer;
+				}
+			}
+		);
+		KeyHandler.actionMap.put(
+			Keyboard.KEY_TAB,
+			new Action() {
+				void perform() {
+					KeyHandler.openGameKeys();
 				}
 			}
 		);

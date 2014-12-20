@@ -61,12 +61,9 @@ public class Dreamer {
 			e1.printStackTrace();
 		}
 
-		//new ZoomKeys().add();
-		//new FunctionKeys().add();
-		
 		player = new Ninja(-500, 0);
-		//new WASDKeys(player).add();
 		player.addToGame();
+		KeyHandler.openGameKeys();
 		
 		origin.add();
 		new MainMenu();

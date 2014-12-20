@@ -12,6 +12,7 @@ class Level {
 	Weapon w;
 	static Level current;
 	static ArrayList<KeyHandler> keys = new ArrayList<KeyHandler>();
+	static ArrayList<KeyHandler> keyDeathList = new ArrayList<KeyHandler>();
 	static boolean frozen = false, levelChanged = false;
 	static int freezeCounter = 0;
 	
@@ -24,8 +25,15 @@ class Level {
 	}
 	//TODO move this function and ArrayList Keys into Keyhandler.java
 	static void updateCurrent() {
-		for(KeyHandler k: keys)
+		for(KeyHandler k: keys) {
 			k.getKeys();
+			if(k.kill == true)
+				keyDeathList.add(k);
+		}
+		for(KeyHandler k: keyDeathList) {
+			k.remove();
+		}
+		keyDeathList.clear();
 		if(levelChanged) {
 			levelChanged = false;
 			freezeCounter = 2;
