@@ -139,8 +139,8 @@ public class Face {
 		vertexColor = new Color[vertexIndex.length];
 		faceColor = new Color[vertexIndex.length];
 		for(int i = 0; i < vertexIndex.length; i++) {
-			vertexColor[i] = new Color(desired.r, desired.g, desired.b, desired.a);
-			faceColor[i] = new Color(desired.r, desired.g, desired.b, desired.a);
+			vertexColor[i] = desired;//new Color(desired.r, desired.g, desired.b, desired.a);
+			faceColor[i] = desired;//new Color(desired.r, desired.g, desired.b, desired.a);
 		}
 	}
 	public void setColors(Color... desired) {

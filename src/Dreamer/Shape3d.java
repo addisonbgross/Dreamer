@@ -1,6 +1,8 @@
 package Dreamer;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 import org.lwjgl.util.vector.Vector2f;
@@ -528,19 +530,32 @@ class LargeIsland extends Shape3d {
 	}
 }
 class Island extends Shape3d {
-	Color topColor = new Color(31, 127, 15);
-	Color bottomColor = new Color(127, 63, 31);
-	
 	Island(float x, float y, float z, float radius) {
 		super(x, y, z);
+		create(radius);
+	}
+	
+	void create(float radius) {
 		int numPoints = 8;
 		for(float theta = 0; theta < (2 * Math.PI); theta += (2 * Math.PI) / numPoints)
 			addVertex(radius * (float)Math.cos(theta), 0, radius * (float)Math.sin(theta));
 		addVertex(0, -radius, 0);
-		addFace(topColor, 0, 1, 2, 3, 4, 5, 6, 7); //top
+		addFace(Theme.current.getColor("top"), 0, 1, 2, 3, 4, 5, 6, 7); //top
 		for(int i = 0; i < numPoints; i++)
-			addFace(bottomColor, 9, (i + 1) % numPoints, i);
+			addFace(Theme.current.getColor("bottom"), 9, (i + 1) % numPoints, i);
 		generateMotionTrack(0);
+	}
+}
+class Theme {
+	static Theme current = new Theme();
+	Map<String, Color> colorMap = new HashMap<String, Color>(10);
+	Color getColor(String s) {
+		Color c;
+		return ((c = colorMap.get(s.toLowerCase())) == null) ? new Color(50, 50, 50): c;
+	}
+	
+	void addColor(String s, int r, int g, int b) {
+		colorMap.put(s, new Color(r, g, b));
 	}
 }
 class GreyRoom extends Shape3d {

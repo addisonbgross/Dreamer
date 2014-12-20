@@ -148,7 +148,11 @@ class ForestLevel extends Level {
 		 */
 		new GradientBackground(new Color(63, 63, 255), new Color(220, 220, 255)).add();
 		new Sun().add();
-
+		Theme iceTheme = new Theme();
+		iceTheme.addColor("top", 70, 180, 255);
+		iceTheme.addColor("bottom", 30, 75, 150);
+		Theme.current = iceTheme;
+		
 		// create a terrain mesh
 		MeshMaker.diceMesh(Library.getImage(Constants.MAPPATH + "madness_elevation"), Library.getImage(Constants.MAPPATH + "madness_colour"), 35000, 0, 0);
 		
