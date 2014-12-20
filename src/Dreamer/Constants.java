@@ -52,6 +52,7 @@ public class Constants {
 	//limit for testing collisions, after that adjusts velocity to 1 in current direction
 	static final int MAXTEST = 20;
 	static final float PLAYERJUMPVEL = 35, PLAYERMAXVEL = 35;
+	static final int DAMAGESTUN = 35;
 	static final float SHADOWOFFSET = 4;
 	static final int SNOWHEIGHT = 2000;
 	static final int STARTX = -200, STARTY = 1;
@@ -59,6 +60,7 @@ public class Constants {
 	static final int VIEWMARGIN = 100;
 	static final int FALLRESET = -2000;
 	static final int STARTINGHEALTH = 100;
+	static final int STARTINGSTAMINA = 100;
 	public static final int NUMFRAMES = 4;
 	public static final Color COLLISIONCOLOUR = Color.yellow;
 	public static final Color TRAILCOLOR = Color.black;

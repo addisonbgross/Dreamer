@@ -27,7 +27,6 @@ abstract public class KeyHandler {
 					wasPressed.add("jumpKey");
 					if(!focus.checkStatus("jumping"))
 						if(focus.checkStatus("grounded")) {
-							focus.body.body.currentIndex = 0;
 							focus.addStatus("jumping");
 							focus.adjustVel(0, Constants.PLAYERJUMPVEL);
 						}
@@ -67,9 +66,9 @@ abstract public class KeyHandler {
 				focus.removeStatus("down");
 			}
 			if(Keyboard.isKeyDown(keyMap.get("attackKey"))) {
-				focus.addStatus("attacking");
-			} 	else
-				focus.removeStatus("attacking");
+				focus.addStatus("tryattack");
+			} else
+				focus.removeStatus("tryattack");
 			
 			if(Keyboard.isKeyDown(keyMap.get("actionKey"))) {
 				if(keys[keyMap.get("actionKey")] != true) {

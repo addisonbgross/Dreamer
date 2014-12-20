@@ -23,7 +23,7 @@ abstract class Actor extends Collidable implements Updateable {
 	protected Vector3f lastPosition = new Vector3f();
 	StatCard stats;
 	Body body;
-	Weapon currentWeapon;
+	Weapon weapon;
 	public int weaponStage = 0;
 
 	Actor() {}
@@ -91,6 +91,18 @@ abstract class Actor extends Collidable implements Updateable {
 			setVelocity(suggestedVelocity);
 			setCenterBottom(suggestedTrajectory.getEnd());
 			getCollisionShape().setLocation(getMinX(), getMinY());
+			
+			// attack sequence
+			if (checkStatus("tryattack") && !checkStatus("attacking") && weapon != null) {
+				if (stamina < weapon.getWeight()) {
+					body.resetBody();
+					new Sweat(body.getHeadPosition().x + 20, body.getHeadPosition().y, body.getHeadPosition().z).add();
+					removeStatus("attacking");
+			    } else {
+					stamina -= weapon.getWeight();
+					addStatus("attacking");
+				}
+			}
 		}
 		
 		// Reset if fallen off of level
@@ -202,6 +214,7 @@ abstract class Actor extends Collidable implements Updateable {
 		remove();
 		setVelocity(0,0);
 		health = Constants.STARTINGHEALTH;
+		stamina = Constants.STARTINGSTAMINA;
 		clearStatus();
 		addStatus("initialized");
 		setPosition(x, y, 0);
@@ -275,7 +288,7 @@ class Enemy extends Actor {
                 getWidth() + lookX,
                 getHeight() + lookY
         );
-         
+        
         setTarget(null); // reset enemy vision
         for(Element e: Element.getActiveWithin(vision)) {
             if(Player.class.isAssignableFrom(e.getClass())) {

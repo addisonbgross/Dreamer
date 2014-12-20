@@ -10,7 +10,7 @@ abstract class Weapon extends Shape3d implements Updateable {
 	Face f;
 	Actor actor;
 	String name = "";
-	int damage, carryHeight, width, height, cuttingEdge;
+	int damage, carryHeight, width, height, cuttingEdge, weight;
 	int direction, LEFT = 1, RIGHT = -1;
 	WeaponCollision weaponCollision;
 	Line weaponLine; 
@@ -22,9 +22,6 @@ abstract class Weapon extends Shape3d implements Updateable {
 	int[] attackOffsetX;
 	int[] attackOffsetY;
 
-	Weapon(float x, float y, float z) {
-		
-	}
 	Weapon(Actor a) {
 		weaponCollision = new WeaponCollision(this); 
 		attach(a);
@@ -46,18 +43,16 @@ abstract class Weapon extends Shape3d implements Updateable {
 				drawShape(weaponLine, Color.black, g);
 	}	
 	void makeFace() {
-		//if(!name.equals("")) {
-			f = new Face(Library.getTexture(name), new Color(1, 1, 1, 1.0f), 0, 1, 2, 3);
-			width = Library.getImage(name).getWidth(); //.getTextureWidth();
-			height = Library.getImage(name).getHeight();
-			texWidth = textureStretch(width);
-			texHeight = textureStretch(height);
-			f.setTexturePoints(0, 0,  texWidth, texHeight);			
-			addFace(f);
-		//}
+		f = new Face(Library.getTexture(name), new Color(1, 1, 1, 1.0f), 0, 1, 2, 3);
+		width = Library.getImage(name).getWidth(); 
+		height = Library.getImage(name).getHeight();
+		texWidth = textureStretch(width);
+		texHeight = textureStretch(height);
+		f.setTexturePoints(0, 0,  texWidth, texHeight);			
+		addFace(f);
 	}
 	
-	void attack() {
+	void attack() {		
 		Actor temp;
 		updateCollision();
 		Shape s = weaponCollision.getCollisionShape();
@@ -91,22 +86,19 @@ abstract class Weapon extends Shape3d implements Updateable {
 		weaponCollision.add();
 	}
 	void attach(Actor a) {
-		if (a.currentWeapon  != this) {
+		if (a.weapon  != this) {
 			actor = a;
-			if(a.currentWeapon == null)
-				a.currentWeapon = this;
-			else {
-				//TODO below call is causing some kind of infinite recursion?
-				//a.weapon.updateCollision();
-				a.currentWeapon.detach();
-				a.currentWeapon = this;
-			}
+			
+			if(a.weapon != null)
+				a.weapon.detach();	
+			a.weapon = this;
+
 			updateCollision();
 		}
 	}
 	void detach() {
-		actor.currentWeapon.updateCollision();
-		actor.currentWeapon = null;
+		actor.weapon.updateCollision();
+		actor.weapon = null;
 		actor = null;
 	}
 	public void update() {
@@ -173,12 +165,16 @@ abstract class Weapon extends Shape3d implements Updateable {
 					); 
 		}
 	}
+	int getWeight() {
+		return weight;
+	}
 }
 class Katana extends Weapon {
 	Katana(Actor a) {
 		super(a);
 		name = "katana";
 		damage = 10;
+		weight = 20;
 		carryHeight = 50;
 		cuttingEdge = 100;
 		
@@ -204,6 +200,7 @@ class Naginata extends Weapon {
 		super(a);
 		name = "naginata";
 		damage = 30;
+		weight = 30;
 		carryHeight = 55;
 		cuttingEdge = 160;
 		

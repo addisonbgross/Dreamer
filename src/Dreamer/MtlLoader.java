@@ -15,19 +15,26 @@ public class MtlLoader {
 	public static void loadMaterials(File f) throws FileNotFoundException, IOException {
 		BufferedReader reader = new BufferedReader(new FileReader(f));
 		String line, currentMaterial = "Filler";
+		float opacity = 1.0f;
+		float r = 0, g = 0, b = 0;
 		colorMap = new HashMap<String, Color>(); 
 		
 		line = reader.readLine();
 		while (line != null) {
 			if (line.startsWith("newmtl "))
 				currentMaterial = line.substring("newmtl ".length(), line.length());
-
+			
 			if (line.startsWith("Kd ")) {
-				float r = Float.valueOf(line.split(" ")[1]);
-				float g = Float.valueOf(line.split(" ")[2]);
-				float b = Float.valueOf(line.split(" ")[3]);
-				colorMap.put(currentMaterial, new Color(r, g, b));
+				r = Float.valueOf(line.split(" ")[1]);
+				g = Float.valueOf(line.split(" ")[2]);
+				b = Float.valueOf(line.split(" ")[3]);
 			} 
+			
+			if (line.startsWith("d ")) {
+				opacity = Float.valueOf(line.split(" ")[1]);
+				colorMap.put(currentMaterial, new Color(r, g, b, opacity));
+			}
+			
 			line = reader.readLine();
 		}
 		reader.close();		

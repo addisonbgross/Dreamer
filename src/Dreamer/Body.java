@@ -3,6 +3,7 @@ package Dreamer;
 import java.util.Random;
 
 import org.lwjgl.util.vector.Vector2f;
+import org.lwjgl.util.vector.Vector3f;
 import org.newdawn.slick.Graphics;
 
 public class Body extends Element implements Updateable { 	
@@ -68,7 +69,7 @@ public class Body extends Element implements Updateable {
 			head.stop();
 			
 			++dmgCounter;
-			if (dmgCounter > 35) {
+			if (dmgCounter > Constants.DAMAGESTUN) {
 				actor.removeStatus("damaged");
 				dmgCounter = 0;
 			}
@@ -155,6 +156,18 @@ public class Body extends Element implements Updateable {
 	// rotate weapon through attack sequence
 	void carryWeapon(int i) {
 		weaponStage = i;
+	}
+	void resetLegs() {
+		legs.reset();
+	}
+	void resetBody() {
+		body.reset();
+	}
+	void resetHead() {
+		head.reset();
+	}
+	Vector3f getHeadPosition() {
+		return new Vector3f(head.getX(), head.getY(), head.getZ());
 	}
 	public void update() {
 		reactToStatus();
