@@ -132,7 +132,7 @@ class BirdLevel extends Level {
 		new LadderPlatform(200, 200, 0, 500, false).add();
 		new Ladder(200, 200, -10, 210).add();
 		for(int i = 0; i < 50; i++)
-			new SpinningJewel(r.nextInt(500), r.nextInt(500), r.nextInt(500), r.nextInt(25) + 1, new Color(r.nextInt())).add();
+			new SpinningJewel(r.nextInt(500), r.nextInt(500), r.nextInt(500), r.nextInt(25) + 1).add();
 		new Island(-200, 400, 0, 100).add();
 		new Island(0, 500, 0, 100).add();
 		new Island(-200, 600, 0, 100).add();
@@ -148,10 +148,16 @@ class ForestLevel extends Level {
 		 */
 		new GradientBackground(new Color(63, 63, 255), new Color(220, 220, 255)).add();
 		new Sun().add();
-		Theme iceTheme = new Theme();
-		iceTheme.addColor("top", 70, 180, 255);
-		iceTheme.addColor("bottom", 30, 75, 150);
-		Theme.current = iceTheme;
+		
+		Theme ice = new Theme();
+		ice.addColor("light", 70, 180, 255);
+		ice.addColor("dark", 30, 75, 150);
+		
+		Theme fire = new Theme();
+		fire.addColor("light", 255, 180, 40);
+		fire.addColor("dark", 150, 75, 30);
+		
+		Theme.current = ice;
 		
 		// create a terrain mesh
 		MeshMaker.diceMesh(Library.getImage(Constants.MAPPATH + "madness_elevation"), Library.getImage(Constants.MAPPATH + "madness_colour"), 35000, 0, 0);
@@ -181,16 +187,21 @@ class ForestLevel extends Level {
 			new Island(2500 - i * offsetX, 1700 +  i * offsetY, 0, size).add();
 		}
 		new Island(-1000, 1000, 0, 400).add();
-		new ActionJewel(-1000, 1040, 0, new Action() {void perform() {new BirdLevel();}}).add();
-		new ActionJewel(-1000, 200, 0, new Action() {void perform() {new BirdLevel();}}).add();
 		new Island(-300, 400, -1200, 100).add();
 		new Island(700, 1200, -1250, 100).add();
 		new Island(200, 200, -1500, 100).add();
 		new Island(1000, 700, -1000f, 100).add();	
 
-		new SpinningJewel(0, 1000, -2000, 800, new Color(192, 192, 192, 63)).add();
-		new SpinningJewel(-2000, 2500, -2500, 1000, new Color(255, 192, 192, 63)).add();
-		new SpinningJewel(-1000, 2700, -2200, 700, new Color(192, 192, 255, 63)).add();
+		Theme.current = fire;
+		
+		new ActionJewel(-1000, 1040, 0, new Action() {void perform() {new BirdLevel();}}).add();
+		new ActionJewel(-1000, 200, 0, new Action() {void perform() {new BirdLevel();}}).add();
+		
+		Theme.current.setTransparency(50);
+		
+		new SpinningJewel(0, 1000, -2000, 800).add();
+		new SpinningJewel(-2000, 2500, -2500, 1000).add();
+		new SpinningJewel(-1000, 2700, -2200, 700).add();
 		
 		/**
 		 * Focus camera on player

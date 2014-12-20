@@ -245,7 +245,7 @@ public class Shape3d extends Element implements Lightable {
 			}
 		}
 	}
-	static int numberVertices = 0;
+
 	@Override
 	//for reference, this is how the camera finds the point on the screen
 	//Camera.translate(getVertex(triangleIndex[j]), tempV3f);
@@ -404,16 +404,12 @@ class Temple {
 class SpinningJewel extends Shape3d implements Updateable {
 	ArrayList<Vector4f> modelVertices = new ArrayList<Vector4f>();
 
-	float size;
-	Color color;
-
-	SpinningJewel(float x, float y, float z, float size, Color c) {
+	SpinningJewel(float x, float y, float z, float size) {
 		super(x, y, z);
-		this.size = size;
 		manhattanRadius.set(size, size, size);
 		
 		setRotationAxis(0, 1, 0);
-		color = c;
+		Color c = Theme.current.getColor("light");
 		angle = 0;
 		angleIncrement = 0.01f;
 		
@@ -435,18 +431,19 @@ class SpinningJewel extends Shape3d implements Updateable {
 	}
 
 	public void update() {
-		for(int i = 0; i < vertices.size(); i++)
+		for(int i = 0; i < vertices.size(); i++) {
 			vertices.set(i, Vector.rotate(rotationAxis, modelVertices.get(i), angle));
+		}
 		angle += angleIncrement;
 	}
 }
 class ActionJewel extends SpinningJewel {
 	int size = 20;
-	Color color = new Color(60, 60, 230);
 	Level level;
 	Collidable transporter;
+	
 	ActionJewel(float x, float y, float z, Action action) {
-		super(x, y, z, 20, new Color(60, 60, 230));
+		super(x, y, z, 20);
 		transporter = new Collidable(new Rectangle(getX() - size / 2, getY() - size / 2, size, size)) {
 			boolean collide(Actor a) {
 				if(a.getCollisionShape().intersects(getCollisionShape())) {
@@ -461,74 +458,6 @@ class ActionJewel extends SpinningJewel {
 		add();
 	}
 }
-class LargeIsland extends Shape3d {
-	
-	LargeIsland(float x, float y, float z) {
-		super(x, y, z);
-	
-		addVertex(-1600, 0, 100);
-		addVertex(-1850,0, 150);
-		addVertex(-2000, 0, 0);
-		addVertex(-1800, 0, -200);
-		addVertex(-1900, 20, -250);
-
-		addVertex(-1200, 50, -200);
-		addVertex(-1100, 25, 300);
-		
-		addVertex(-1000, 150, -300);
-		addVertex(-900, 100, 300);
-
-		addVertex(-800, 50, -300);
-		addVertex(-800, 50, 300);
-		
-		addVertex(-650, 100, -250);
-		addVertex(-700, 75, 250);
-		
-		addVertex(-400, 150, -250);
-		addVertex(-450, 75, 200);
-		
-		addVertex(-200, 100, -250);
-		addVertex(-200, 100, 200);
-		
-		addVertex(200, 100, -300);
-		addVertex(200, 100, 200);
-		
-		addVertex(-200, 50, 250);
-		addVertex(150, 50, 300);
-		
-		addVertex(350, 125, -350);
-		addVertex(400, 100, 250);
-		
-		addVertex(500, 175, -300);
-		addVertex(550, 150, 200);
-		
-		addVertex(800, 350, -250);
-		addVertex(750, 300, 150);
-		
-		addVertex(950, 550, -150);
-		addVertex(950, 500, 150);
-		
-		new Temple(getX(), 100 + getY(), getZ(), 200);
-		
-		addFace(Color.green, 0, 1, 2, 4);
-		addFace(Color.green, 0, 4, 5, 6);
-		addFace(Color.green, 6, 5, 7, 8);
-		addFace(Color.green, 8, 7, 9, 10);
-		addFace(Color.green, 10, 9, 11, 12);
-		addFace(Color.green, 12, 11, 13, 14);
-		addFace(Color.green, 14, 13, 15, 16);
-		addFace(Color.green, 16, 15, 17, 18);
-		addFace(Color.green, 20, 19, 16, 18);
-		addFace(Color.green, 14, 16, 19);
-		addFace(Color.green, 18, 17, 21, 22);
-		addFace(Color.green, 22, 21, 23, 24);
-		addFace(Color.green, 24, 23, 25, 26);
-		addFace(Color.green, 26, 25, 27);
-		addFace(Color.green, 26, 27, 28);
-
-		generateMotionTracks();
-	}
-}
 class Island extends Shape3d {
 	Island(float x, float y, float z, float radius) {
 		super(x, y, z);
@@ -540,22 +469,10 @@ class Island extends Shape3d {
 		for(float theta = 0; theta < (2 * Math.PI); theta += (2 * Math.PI) / numPoints)
 			addVertex(radius * (float)Math.cos(theta), 0, radius * (float)Math.sin(theta));
 		addVertex(0, -radius, 0);
-		addFace(Theme.current.getColor("top"), 0, 1, 2, 3, 4, 5, 6, 7); //top
+		addFace(Theme.current.getColor("light"), 0, 1, 2, 3, 4, 5, 6, 7); //top
 		for(int i = 0; i < numPoints; i++)
-			addFace(Theme.current.getColor("bottom"), 9, (i + 1) % numPoints, i);
+			addFace(Theme.current.getColor("dark"), 9, (i + 1) % numPoints, i);
 		generateMotionTrack(0);
-	}
-}
-class Theme {
-	static Theme current = new Theme();
-	Map<String, Color> colorMap = new HashMap<String, Color>(10);
-	Color getColor(String s) {
-		Color c;
-		return ((c = colorMap.get(s.toLowerCase())) == null) ? new Color(50, 50, 50): c;
-	}
-	
-	void addColor(String s, int r, int g, int b) {
-		colorMap.put(s, new Color(r, g, b));
 	}
 }
 class GreyRoom extends Shape3d {
@@ -675,6 +592,7 @@ class Lamp extends Shape3d implements Updateable {
 		light.update();
 	}
 }
+
 class Ziggurat {
 	float layerSize = 50;
 	Ziggurat(float x, float y, float z, float size) {
