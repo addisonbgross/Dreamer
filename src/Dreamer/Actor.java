@@ -109,7 +109,7 @@ abstract class Actor extends Collidable implements Updateable {
 				} 
 			}
 			
-			if (stamina < Constants.STARTINGSTAMINA)
+			if (stamina < Constants.STARTINGSTAMINA && !checkStatus("blocking"))
 				stamina += Constants.STAMINAREGEN;
 		}
 		
