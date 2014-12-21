@@ -478,8 +478,8 @@ class Island extends Shape3d {
 class GreyRoom extends Shape3d {
 	int size = 500;
 	Color c = Color.gray;
-	GreyRoom() {
-		setPosition(0, 0, 0);
+	GreyRoom(int x, int y, int z) {
+		setPosition(x, y, z);
 		addVertex(-size, 0, -size);
 		addVertex(-size, size, -size);
 		addVertex(size, size, -size);

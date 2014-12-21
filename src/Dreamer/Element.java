@@ -51,6 +51,7 @@ public class Element implements Serializable {
 	//backgrounds are drawn before other elements and still use a variety of 
 	//methods to render
 	public static ArrayList<Element> background = new ArrayList<Element>();
+	public static ArrayList<Element> foreground = new ArrayList<Element>();
 	
 	//each subclass's constructor should set x, y, width, height, and depth
 	//TODO sort out positioning once and for all... confusing mix of variables
@@ -392,6 +393,8 @@ public class Element implements Serializable {
 		for(Element o: activeSet)
 			o.draw(g);
 		Face.drawFaces();
+		for(Element e: foreground)
+			e.draw(g);
 	}
 	
 	static int numberActive() {
@@ -418,6 +421,7 @@ public class Element implements Serializable {
 		xSet.clear();
 		ySet.clear();
 		background.clear();
+		foreground.clear();
 		Light.clearAll();
 	}
 	static void clearActive() {
@@ -430,7 +434,6 @@ public class Element implements Serializable {
 	 * also cleans up the active lists of Elements 
 	 */
 	public static void updateAll() {
-
 		
 		updateSet.addAll(updateBirthSet);
 		updateBirthSet.clear();
@@ -551,7 +554,14 @@ class PermanentLine extends Element {
 class zComparator implements Comparator<Element> {
     @Override
     public int compare(Element a, Element b) {
-    	return a.getZ() < b.getZ() ? 1 : (a.getZ() == b.getZ() ? 0 : -1);
+    	boolean aIs = a.contains("message"), bIs = b.contains("message");
+    	if(!aIs && !bIs)
+    		return a.getZ() < b.getZ() ? 1 : (a.getZ() == b.getZ() ? 0 : -1);
+    	else if(aIs && !bIs)
+    		return 1;
+    	else if(!aIs && bIs)
+    		return -1;
+    	return 0;
     }
 }
 

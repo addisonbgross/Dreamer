@@ -5,7 +5,7 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.opengl.TextureImpl;
 
-class ShadowedMessage extends Element {	
+class ShadowedMessage extends Foreground {	
 
 	String name;
 	Color color = Color.black;
