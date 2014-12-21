@@ -25,7 +25,7 @@ class ShadowedMessage extends Foreground {
 	void draw(Graphics g) 
 	{
 		GL11.glDisable(GL11.GL_DEPTH_TEST);
-		g.setColor(Library.messageFontShadow);
+		g.setColor(Theme.current.getColor("dark"));
 		g.setFont(Library.messageFont);
 		TextureImpl.bindNone();
 		g.drawString(
@@ -33,7 +33,7 @@ class ShadowedMessage extends Foreground {
 				Camera.translate(getMinX() - Library.messageFont.getWidth(name) / 2 + Constants.SHADOWOFFSET / 2, 0, 0).x, 
 				Camera.translate(0, getMinY() + Library.messageFont.getHeight(name) / 2 - Constants.SHADOWOFFSET / 2, 0).y
 		);
-		g.setColor(Library.messageFontColor);		
+		g.setColor(Theme.current.getColor("font"));		
 		g.drawString(
 				name, 
 				Camera.translate(getMinX() - Library.messageFont.getWidth(name) / 2 - Constants.SHADOWOFFSET / 2, 0, 0).x, 

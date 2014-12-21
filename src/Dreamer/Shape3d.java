@@ -336,6 +336,10 @@ class Block3d extends Shape3d {
 		addFace(c, 3, 7, 4, 0);
 		addFace(c, 0, 1, 5, 4);
 	}
+
+	Block3d(float x, float y, float z, float w, float h, float d) {
+		this(Theme.current.getColor("light"), x, y, z, w, h, d);
+	}
 }
 class Weird extends Shape3d {
 	Weird(float x, float y, float z, float size) {
