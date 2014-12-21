@@ -17,6 +17,8 @@ public class Body extends Element implements Updateable {
 	int LEGSPEED = 150, BODYSPEED = 40, HEADSPEED = 150; 
 	int dmgCounter;
 	public int weaponStage = 0;
+	int attackHoldLength = 20;
+	int attackCounter = 0;
 	
 	//for adjusting the body part animations' positions vertically
 	int bodyAdjust = -5;
@@ -99,10 +101,18 @@ public class Body extends Element implements Updateable {
 				body.selectRow(4);
 			} else if (attacking) {
 				carryWeapon(body.currentIndex);
-				body.setLooping(false);
-				body.selectRow(2);
-				body.setSpeed(BODYSPEED);
-				body.start();
+				if (body.currentIndex == body.framesWide() - 1) {
+					++attackCounter;
+					if (attackCounter == attackHoldLength) {
+						actor.removeStatus("attacking");
+						attackCounter = 0;
+					}
+				} else {
+					body.setLooping(false);
+					body.selectRow(2);
+					body.setSpeed(BODYSPEED);
+					body.start();
+				}
 			} else if (jumping || Math.abs(actor.xVel) > 1) {
 				carryWeapon();
 				body.setLooping(true);
