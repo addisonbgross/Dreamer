@@ -96,7 +96,7 @@ public class Animation2 extends Shape3d implements Updateable {
 		pingpong = value;
 	}
 	void setSpeed(float rate) {
-		if (speed >= 0)
+		if (rate >= 0)
 			speed = rate;
 	}
 	void selectRow(int r) {
@@ -152,7 +152,7 @@ public class Animation2 extends Shape3d implements Updateable {
 	
 		if(frameCounter >= speed) {
 			numFrames = (int) (frameCounter / speed);
-			frameCounter = (int)(frameCounter % speed); // Gotta have an int frame 
+			frameCounter = (int)(frameCounter % speed);
 			if (!looping) {
 				if (currentIndex + numFrames > 5) {
 					numFrames = 0;

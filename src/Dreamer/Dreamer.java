@@ -84,7 +84,7 @@ public class Dreamer {
 			DisplayMode dm = Display.getDisplayMode();
 			Constants.screenWidth = dm.getWidth();
 			Constants.screenHeight = dm.getHeight();
-			Display.create(new PixelFormat(4, 4, 0, 4));
+			Display.create(new PixelFormat(2, 2, 0, 2));
 			Display.setVSyncEnabled(true);
 
 			glClearColor(1.0f, 1.0f, 1.0f, 0.0f);

@@ -73,23 +73,18 @@ public class Body extends Element implements Updateable {
 				actor.removeStatus("damaged");
 				dmgCounter = 0;
 			}
-		} else {			
-			//Legs
-			if (jumping) {
-				legs.selectRow(2);
-				legs.setSpeed(LEGSPEED);
-				legs.start();
-			} else if (Math.abs(actor.xVel) > 1 && !climbing) {
-				legs.selectRow(1);
-				legs.setSpeed(Math.abs(actor.xVel + 1) / (Constants.VEL / 40));
+		} else {	
+			if (Math.abs(actor.xVel) > 1 && !climbing) {
+				legs.selectRow(jumping ? 2 : 1);
+				legs.setSpeed(jumping ? LEGSPEED : LEGSPEED * 6 / Math.abs(actor.xVel + 1));
 				legs.start();
 			} else if ((actor.checkStatus("up") || actor.checkStatus("down")) && climbing) {
 				legs.selectRow(3);
-				legs.setSpeed(Math.abs(actor.yVel + 1) / (Constants.VEL / 200));
+				legs.setSpeed(Math.abs(actor.yVel + 1) * (Constants.VEL / 200));
 				legs.start();
 			} else if (climbing) {
 				legs.selectRow(3);
-				legs.setSpeed(Math.abs(actor.yVel + 1) / (Constants.VEL / 200));
+				legs.setSpeed(Math.abs(actor.yVel + 1) * (Constants.VEL / 200));
 				legs.stop();
 			} else {
 				legs.selectRow(0);
@@ -113,9 +108,9 @@ public class Body extends Element implements Updateable {
 				body.setLooping(true);
 				body.selectRow(1);
 				if (jumping)
-					body.setSpeed(Math.abs(actor.yVel / (Constants.VEL / 70)));
+					body.setSpeed(Math.abs(1200 / Math.abs(actor.yVel + 1)));
 				else
-					body.setSpeed(Math.abs(actor.xVel / (Constants.VEL / 70)));
+					body.setSpeed(Math.abs(800 / Math.abs(actor.xVel + 1)));
 				body.start();
 			} else if (climbing) {
 				carryWeapon();

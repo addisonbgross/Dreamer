@@ -4,7 +4,7 @@ import org.newdawn.slick.Color;
 
 //sorted alphabetically
 public class Constants {
-	static int screenWidth = 1367, screenHeight = 768;
+	static int screenWidth = 1920, screenHeight = 1080;
 
 	public static int ladderWidth = 50;
 	
@@ -62,8 +62,9 @@ public class Constants {
 	static final float VEL = 18;
 	static final int VIEWMARGIN = 100;
 	static final int FALLRESET = -2000;
-	static final int STARTINGHEALTH = 100;
-	static final int STARTINGSTAMINA = 100;
+	static final float STARTINGHEALTH = 100;
+	static final float STARTINGSTAMINA = 100;
+	static final float STAMINAREGEN = 0.15f;
 	public static final int NUMFRAMES = 4;
 	public static final Color COLLISIONCOLOUR = Color.yellow;
 	public static final Color TRAILCOLOR = Color.black;

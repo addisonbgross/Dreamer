@@ -48,7 +48,7 @@ class Level {
 class TestLevel extends Level {
 	void createLevel() {
 		new GradientBackground(Color.blue, new Color(150, 150, 150)).add();
-		new Model("potatoe", 2500, 0, 0, -5000).add();
+		new Model("potatoe", 300, 0, 200, 0).add();
 		
 		Player p = Player.getFirst();
 		p.setCenterBottom(0,  4000);
@@ -177,9 +177,10 @@ class ForestLevel extends Level {
 		one.add();
 		w.add();
 		
-//		Sweat s = new Sweat(2900, 1700, 0);
-//		s.add();
-//		s.start();
+		Enemy en = new NinjaAlt(500, 300, new Duelist(), new Violent(), new Follow());
+		w = new Katana(en);
+		en.add();
+		w.add();
 		
 		int offsetX = 250, offsetY = 100, size = 100;
 		for(int i = 0; i < 10; i++) {

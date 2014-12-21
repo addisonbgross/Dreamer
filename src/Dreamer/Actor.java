@@ -16,8 +16,8 @@ abstract class Actor extends Collidable implements Updateable {
 	protected Collidable motion = null;
 	protected float xVel = 0, yVel = 0;
 	private HashSet<String> status = new HashSet<String>();
-	int health = 100;
-	int stamina = 100;
+	float health = Constants.STARTINGHEALTH;
+	float stamina = Constants.STARTINGSTAMINA;
 	private Set<Collidable> collisionSet = new HashSet<Collidable>();
 	private Collidable success = null;
 	protected Vector3f lastPosition = new Vector3f();
@@ -108,6 +108,9 @@ abstract class Actor extends Collidable implements Updateable {
 					addStatus("attacking");
 				} 
 			}
+			
+			if (stamina < Constants.STARTINGSTAMINA)
+				stamina += Constants.STAMINAREGEN;
 		}
 		
 		// Reset if fallen off of level
