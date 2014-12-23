@@ -60,6 +60,8 @@ public class Constants {
 	static final int SNOWHEIGHT = 2000;
 	static final int STARTX = -200, STARTY = 1;
 	static final float VEL = 18;
+	static final float SPRINTVEL = 25;
+	static final float SPRINTSTAMINA = 0.1f;
 	static final int VIEWMARGIN = 100;
 	static final int FALLRESET = -2000;
 	static final float STARTINGHEALTH = 100;

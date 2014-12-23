@@ -5,7 +5,7 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.opengl.TextureImpl;
 
-class ShadowedMessage extends Foreground {	
+class ShadowedMessage extends Element {	
 
 	String name;
 	Color color = Color.black;
@@ -13,6 +13,11 @@ class ShadowedMessage extends Foreground {
 	ShadowedMessage(String s, float x, float y) 
 	{
 		setPosition(x, y, 0);
+		name = s;	
+	}
+	ShadowedMessage(String s, float x, float y, float z) 
+	{
+		setPosition(x, y, z);
 		name = s;	
 	}
 	ShadowedMessage(String s, float x, float y, Color c) 

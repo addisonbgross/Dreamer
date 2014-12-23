@@ -25,7 +25,7 @@ abstract class Actor extends Collidable implements Updateable {
 	Body body;
 	Weapon weapon;
 	public int weaponStage = 0;
-	public boolean sweating = false;
+	public boolean sweating = false, airborne = false;
 
 	Actor() {}
 	Actor(StatCard sc, float x, float y) {
@@ -93,6 +93,41 @@ abstract class Actor extends Collidable implements Updateable {
 			setCenterBottom(suggestedTrajectory.getEnd());
 			getCollisionShape().setLocation(getMinX(), getMinY());
 			
+			
+			float scaledVel = (checkStatus("blocking")) ? Constants.VEL / 2 : Constants.VEL;
+			
+			// sprint sequence
+			if (checkStatus("trysprint") && !checkStatus("blocking") && stamina > 0) {
+				scaledVel = Constants.VEL * 2.5f;
+				stamina--;
+				if (stamina <= 0)
+					if (!sweating) {
+						sweating = true;
+						new Sweat(this);
+					}
+			} 
+			
+			// Sideways movement!
+			float scaledJumpVel = 1;
+			if (checkStatus("jumping")) 
+				scaledJumpVel = 0.4f;
+			
+			// left and right sequences
+			if(checkStatus("tryright")) {
+				addStatus("right");
+				if (xVel < scaledVel)
+					xVel += (xVel < 5) ? 2 * scaledJumpVel : Constants.ACTORACCELERATION * scaledJumpVel;
+				else 
+					setXVel(scaledVel);
+			}
+			if(checkStatus("tryleft")) {
+				addStatus("left");
+				if (xVel > -scaledVel)
+					xVel -= (xVel > -5) ? 2 * scaledJumpVel : Constants.ACTORACCELERATION * scaledJumpVel;
+				else 
+					setXVel(-scaledVel);
+			}  
+			
 			// attack sequence
 			if (checkStatus("tryattack") && !checkStatus("attacking") && weapon != null) {
 				if (stamina < weapon.getWeight()) {
@@ -108,6 +143,16 @@ abstract class Actor extends Collidable implements Updateable {
 					addStatus("attacking");
 				} 
 			}
+			
+			// jump sequence
+			if (checkStatus("tryjump") && !airborne) {
+				if (checkStatus("grounded")) {
+					airborne = true;
+					addStatus("jumping");
+					adjustVel(0, Constants.PLAYERJUMPVEL);
+				}
+			} else if (!checkStatus("tryjump") && checkStatus("grounded"))
+				airborne = false;
 			
 			if (stamina < Constants.STARTINGSTAMINA && !checkStatus("blocking"))
 				stamina += Constants.STAMINAREGEN;
@@ -243,6 +288,14 @@ abstract class Actor extends Collidable implements Updateable {
 		d = 1 - d;
 		xVel *= d;
 		yVel *= d;
+	}
+	public boolean isFacing(String s) {
+		if (s == "left" && checkStatus("left"))
+			return true;
+		else if (s == "right" && checkStatus("right"))
+			return true;
+		else
+			return false;
 	}
 	public boolean isFacing(Actor a) {
 		assert this != null : "Ya can't check the facing of a null object";

@@ -30,50 +30,42 @@ abstract public class KeyHandler {
 	public void getKeys() {
 		if(focus != null) {
 			if(!focus.checkStatus("dead")) {
-				//if the key is freshly pressed
-				float scaleVel = (focus.checkStatus("blocking"))?Constants.VEL*0.5f:Constants.VEL;
 				if(test("jumpKey")) {
-					if(!wasPressed.contains("jumpKey")) {
-						wasPressed.add("jumpKey");
-						if(!focus.checkStatus("jumping"))
-							if(focus.checkStatus("grounded")) {
-								focus.addStatus("jumping");
-								focus.adjustVel(0, Constants.PLAYERJUMPVEL);
-							}
-					}
+					focus.addStatus("tryjump");
 				} else {
-					wasPressed.remove("jumpKey");
+					focus.removeStatus("tryjump");
 				}
 				
-				// Sideways movement!
-				float scaleJump = 1;
-				if (focus.checkStatus("jumping")) 
-					scaleJump = 0.4f;
 				if(test("rightKey")) {
-					focus.addStatus("right");
-					if (focus.xVel < scaleVel)
-						focus.xVel+=(focus.xVel < 5)? 2 * scaleJump: Constants.ACTORACCELERATION * scaleJump;
-					else 
-						focus.setXVel(scaleVel);
+					focus.addStatus("tryright");
+				} else {
+					focus.removeStatus("tryright");
 				}
+				
 				if(test("leftKey")) {
-					focus.addStatus("left");
-					if (focus.xVel > -scaleVel)
-						focus.xVel-=(focus.xVel > -5)? 2 * scaleJump: Constants.ACTORACCELERATION * scaleJump;
-					else 
-						focus.setXVel(-scaleVel);
-				}  
+					focus.addStatus("tryleft");
+				} else {
+					focus.removeStatus("tryleft");
+				}
+				
 				if(test("upKey")) {
 					focus.addStatus("up");
 				}else if(test("downKey")) {
 					focus.addStatus("down");					
 				} else {
+					focus.removeStatus("up");
 					focus.removeStatus("down");
 				}
+				
 				if(test("attackKey")) {
 					focus.addStatus("tryattack");
 				} else
 					focus.removeStatus("tryattack");
+				
+				if(test("sprintKey")) {
+					focus.addStatus(("trysprint"));
+				} else
+					focus.removeStatus("trysprint");
 				
 				if(test("actionKey")) {
 					if(keys[keyMap.get("actionKey")] != true) {
@@ -345,6 +337,7 @@ class WASDKeys extends KeyHandler {
 		keyMap.put("actionKey", Keyboard.KEY_E);
 		keyMap.put("attackKey", Keyboard.KEY_K);
 		keyMap.put("blockKey", Keyboard.KEY_L);
+		keyMap.put("sprintKey", Keyboard.KEY_LSHIFT);
 	}
 }
 

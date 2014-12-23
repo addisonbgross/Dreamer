@@ -26,7 +26,7 @@ public class Sweat extends Element implements Effect, Updateable {
 	}
 	@Override
     public void update() {
-		if (a.checkStatus("left")) {
+		if (a.isFacing("left")) {
 			animation.direction = LEFT;
 			animation.setPosition(a.body.getHeadPosition().x + 20, a.body.getHeadPosition().y, a.body.getHeadPosition().z);
 		} else {
