@@ -45,7 +45,9 @@ public class ObjLoader {
 				a = Integer.valueOf(line.split(" ")[1]) - 1;
 				b = Integer.valueOf(line.split(" ")[2]) - 1;
 				c = Integer.valueOf(line.split(" ")[3]) - 1;
-				m.addFace(new Face(faceColor, c - highVert, b - highVert, a - highVert));
+				Face face = new Face(faceColor, c - highVert, b - highVert, a - highVert);
+				//face.normal = new Vector4f(); // correct face normal here
+				m.addFace(face);
 			}
 			line = reader.readLine();
 		}

@@ -30,7 +30,7 @@ public class MainMenu extends Level {
 		new Lamp(-400, -100, 0).add();
 		//new Model("scene", 200, 100, -200, -1500).add();
 		//new Sun().add();
-		//new BorderedForeground().add();
+		new BorderedForeground().add();
 		Camera.focus(Dreamer.origin);
 	}
 }
