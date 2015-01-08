@@ -45,9 +45,6 @@ public class Dreamer {
 	static int numberOfUpdates = 0;
 	//various printing things
 	static BufferedWriter logWriter = null;
-	//the meat
-	static Player player;
-	static Player player2;
 	static Graphics g = new Graphics();
 	static Marker origin = new Marker("Origin", 0, 0);
 
@@ -60,13 +57,15 @@ public class Dreamer {
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
-
-		player = new Ninja(-500, 0);
-		player.addToGame();
+		
+		new Ninja(0, 0).addToGame();
 		KeyHandler.openGameKeys();
 		
 		origin.add();
 		new MainMenu();
+		//Editor editor = new Editor();
+		//new EditorKeys(editor).add();
+		//editor.start();
 		
 		try {
 			play();
@@ -79,7 +78,9 @@ public class Dreamer {
 		try {
 			//initialize GL and open window
 			//Display.setDisplayMode(new DisplayMode(Constants.screenWidth,Constants.screenHeight));
-			//to set fullscreen mode uncomment the following line and comment the preceding one
+			/*
+				To set fullscreen mode uncomment the following line and comment the preceding one
+			 */
 			Display.setFullscreen(true);
 			DisplayMode dm = Display.getDisplayMode();
 			Constants.screenWidth = dm.getWidth();
@@ -149,8 +150,6 @@ public class Dreamer {
 		numberOfUpdates++;
 		try {
 			if(numberOfUpdates < 200) {
-				logWriter.write(player.toString()+"\r\n");
-				logWriter.write(player.getStatus()+"\r\n");
 				for (Element e: Element.activeSet)
 					logWriter.write(e.getClass() + "  ");
 				logWriter.write("\n");
@@ -162,7 +161,8 @@ public class Dreamer {
 		
 		numberOfCollisions = 0;
 		
-		Level.updateCurrent(); //keyhandling
+		Level.updateCurrent();
+		KeyHandler.getKeys();
 		
 		//this counter is to blank the screen during level switches
 		if(Level.freezeCounter == 0);

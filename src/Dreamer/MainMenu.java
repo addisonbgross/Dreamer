@@ -2,8 +2,7 @@ package Dreamer;
 
 public class MainMenu extends Level {
 	
-	static Editor e;
-	static int spacing = 80;
+	final static int spacing = 80;
 	
 	String[] options = {
 			"NEW GAME",
@@ -14,7 +13,6 @@ public class MainMenu extends Level {
 	void createLevel() {
 		Element.debug = false;
 		Element.clearAll();
-		//e = new Editor();
 		Theme mono = new Theme();
 		mono.addColor("light", 200, 200, 200);
 		mono.addColor("dark", 25, 25, 25);

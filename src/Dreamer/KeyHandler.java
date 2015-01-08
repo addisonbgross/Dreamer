@@ -6,239 +6,54 @@ import java.util.Map;
 import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.Color;
 
-import Dreamer.Camera.Function;
-
 abstract public class KeyHandler {
-	Actor focus;
-	Integer counter;
+	static boolean initialized =  false;
+	//these next two fields cannot be changed without drastic consequences
+	static final char[] alphabetPlus = (
+			"1234567890-=" + 
+			"qwertyuiop[]" + 
+			"asdfghjkl;'" + 
+			"zxcvbnm,./" + 
+			" "
+			).toCharArray();
+	static final int[] codes = {
+			2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, // 1234567890-=
+			16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, // qwertyuiop[]
+			30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, // asdfghjkl;'
+			44, 45, 46, 47, 48, 49, 50, 51, 52, 53,// zxcvbnm,./
+			Keyboard.KEY_SPACE
+			};
 	static Map<String, Integer>keyMap = new HashMap<String, Integer>();
 	static Map<Integer, Action>actionMap = new HashMap<Integer, Action>();
-	static java.util.HashSet<String> wasPressed = new java.util.HashSet<String>();
-	static boolean[] keys = new boolean[127];
 	static String keyBuffer = "";
-	boolean kill = false;
 	
-	public KeyHandler() {}
+	public KeyHandler() {
+		if(!initialized) {
+			for(int i = 0; i < alphabetPlus.length; i++) {
+				keyMap.put(alphabetPlus[i] + "", codes[i]);
+			}
+			initialized = true;
+		}
+	}
 	
-	public boolean test(Integer keyCode) {
+	public static boolean test(Integer keyCode) {
 		return Keyboard.isKeyDown(keyCode);
 	}
-	public boolean test(String s) {
+	public static boolean test(String s) {
 		return Keyboard.isKeyDown(keyMap.get(s));
 	}
-	
-	public void getKeys() {
-		if(focus != null) {
-			if(!focus.checkStatus("dead")) {
-				if(test("jumpKey")) {
-					focus.addStatus("tryjump");
-				} else {
-					focus.removeStatus("tryjump");
-				}
-				
-				if(test("rightKey")) {
-					focus.addStatus("tryright");
-				} else {
-					focus.removeStatus("tryright");
-				}
-				
-				if(test("leftKey")) {
-					focus.addStatus("tryleft");
-				} else {
-					focus.removeStatus("tryleft");
-				}
-				
-				if(test("upKey")) {
-					focus.addStatus("up");
-				}else if(test("downKey")) {
-					focus.addStatus("down");					
-				} else {
-					focus.removeStatus("up");
-					focus.removeStatus("down");
-				}
-				
-				if(test("attackKey")) {
-					focus.addStatus("tryattack");
-				} else
-					focus.removeStatus("tryattack");
-				
-				if(test("sprintKey")) {
-					focus.addStatus(("trysprint"));
-				} else
-					focus.removeStatus("trysprint");
-				
-				if(test("actionKey")) {
-					if(keys[keyMap.get("actionKey")] != true) {
-						focus.addStatus("acting");	
-					} else
-						focus.removeStatus("acting");
-					keys[keyMap.get("actionKey")] = true;
-				} else {
-					keys[keyMap.get("actionKey")] = false;
-					focus.removeStatus("acting");
-				}
-				
-				if(test("blockKey")) {
-					focus.addStatus("blocking");
-				} 	else
-					focus.removeStatus("blocking");
-		}
-
-			if(Keyboard.isKeyDown(Keyboard.KEY_H)) {	
-				if(keys[Keyboard.KEY_H] != true) {
-					Block3d p;
-					if(focus.checkStatus("left"))
-						p = new Block3d(Color.blue, focus.getX() - 100, focus.getMinY() + 50, focus.getZ(), 100, 20, 100);
-					else
-						p = new Block3d(Color.red, focus.getX() + 100, focus.getMinY() + 50, focus.getZ(), 100, 20, 100);
-					p.generateCollidable();
-					p.add();
-				} 
-				keys[Keyboard.KEY_H] = true;
-			}else {
-				keys[Keyboard.KEY_H] = false;
-			}
-		}
+	public static void clearKeys() {
+		actionMap.clear();
 	}
-	void add() {
-		Level.keys.add(this);
+	public static boolean addKey(Integer i, Action a) {
+		actionMap.put(i, a);
+		return true;
 	}
-	void remove() {
-		Level.keys.remove(this);
-	}
-
-	public static void openGameKeys() {
-		for(KeyHandler k: Level.keys)
-			k.kill = true;
-		new ZoomKeys().add();
-		new FunctionKeys().add();
-		new WASDKeys(Player.getFirst()).add();
-	}
-	public static void openConsoleKeys() {
-		for(KeyHandler k: Level.keys)
-			k.kill = true;
-		new TestKeys(MainMenu.e).add();
-	}
-}
-class FunctionKeys extends KeyHandler {
-	@Override 
-	public void getKeys() {
-		if(Keyboard.isKeyDown(Keyboard.KEY_P)) {
-			if(keys[Keyboard.KEY_P] != true) {
-				
-				Element.printActive();
-				/*
-				Element.printAll();
-				
-				System.out.println(Level.current.getClass());
-				System.out.println("UPDATE SET START");
-				for(Updateable u: Element.updateSet)
-					System.out.println(u.toString());
-				System.out.println("END");
-				*/
-			}
-			keys[Keyboard.KEY_P] = true;
-		} else {
-			keys[Keyboard.KEY_P] = false;
-		}
-		if(Keyboard.isKeyDown(Keyboard.KEY_T)) {
-			if(keys[Keyboard.KEY_T] != true)
-				Element.debug = !Element.debug;
-			keys[Keyboard.KEY_T] = true;
-		} else {
-			keys[Keyboard.KEY_T] = false;
-		}
-		if(Keyboard.isKeyDown(Keyboard.KEY_RETURN)) {
-			//starts sampling a function
-			Dreamer.sampled = false;
-		}
-		if(Keyboard.isKeyDown(Keyboard.KEY_1)) {
-			new TestLevel();
-		}
-		if(Keyboard.isKeyDown(Keyboard.KEY_2)) {
-			new SimpleLevel();
-		}
-		if(Keyboard.isKeyDown(Keyboard.KEY_3)) {
-			new BirdLevel();
-		}
-		if(Keyboard.isKeyDown(Keyboard.KEY_4)) {
-			new ForestLevel();
-		}
-		if(Keyboard.isKeyDown(Keyboard.KEY_M)) {
-			new MainMenu();
-		}
-		if(Keyboard.isKeyDown(Keyboard.KEY_I)){
-			for(Player p: Player.list) {
-				p.reset();
-				new ForestLevel();
-			}
-		}
-		if(Keyboard.isKeyDown(Keyboard.KEY_C)) {
-			if(keys[Keyboard.KEY_C] != true)
-				if(Library.defaultFontColor == Color.black) {
-					Library.defaultFontColor = Color.cyan;
-					Library.messageFontColor = Color.red;
-				} else {
-					Library.defaultFontColor = Color.black;
-					Library.messageFontColor = Color.blue;
-				}
-			keys[Keyboard.KEY_C] = true;
-		}	
-		else {
-			keys[Keyboard.KEY_C] = false;
-		}
-	}
-}
-class TestKeys extends KeyHandler {
-	char[] alphabet = ("qwertyuiop" + "asdfghjkl" + "zxcvbnm").toCharArray();
-	int[] codes = {
-			16, 17, 18, 19, 20, 21, 22, 23, 24, 25, //qwertyuiop
-			30, 31, 32, 33, 34, 35, 36, 37, 38, //asdfghjkl
-			44, 45, 46, 47, 48, 49, 50 //zxcvbnm
-			};
-	
-	TestKeys(Editor e) {
-		for(int i = 0; i < alphabet.length; i++) {
-			char key = alphabet[i];
-			KeyHandler.actionMap.put(
-				codes[i], 
-				new Action() {
-					void perform() {
-						KeyHandler.keyBuffer = KeyHandler.keyBuffer + key;
-						e.console.name = KeyHandler.keyBuffer;
-					}
-				}
-			);
-		}
-		KeyHandler.actionMap.put(
-			Keyboard.KEY_RETURN, 
-			new Action() {
-				void perform() {
-					KeyHandler.keyBuffer = "";
-					e.console.name = KeyHandler.keyBuffer;
-				}
-			}
-		);
-		KeyHandler.actionMap.put(
-			Keyboard.KEY_SPACE, 
-			new Action() {
-				void perform() {
-					KeyHandler.keyBuffer = KeyHandler.keyBuffer + " ";
-					e.console.name = KeyHandler.keyBuffer;
-				}
-			}
-		);
-		KeyHandler.actionMap.put(
-			Keyboard.KEY_TAB,
-			new Action() {
-				void perform() {
-					KeyHandler.openGameKeys();
-				}
-			}
-		);
+	public static boolean addKey(char c, Action a) {
+		return addKey(keyMap.get(c + ""), a);
 	}
 	
-	public void getKeys() {
+	public static void getKeys() {
 		while (Keyboard.next()) {
 			Integer keyNum = Keyboard.getEventKey();
 			if(Keyboard.getEventKeyState()) {
@@ -247,97 +62,230 @@ class TestKeys extends KeyHandler {
 				} catch(NullPointerException e) {
 					//not there, no bigs
 				}
+			} else {
+				try {
+					actionMap.get(keyNum).stop();
+				} catch(NullPointerException e) {
+					//not there, no bigs
+				}
 			}
 		}
 	}
-	public void remove() {
-		super.remove();
-		for(int i: codes)
-			actionMap.remove(i);
+	public static void openGameKeys() {
+		clearKeys();
+		new ZoomKeys().add();
+		new FunctionKeys().add();
+		new WASDKeys(Player.getFirst()).add();
+	}
+}
+class FunctionKeys extends  KeyHandler {
+	void add() {
+		addKey(
+				'p',
+				new Action() {
+					void perform() {
+						Element.printActive();
+					}
+				}
+		);
+		addKey(
+				't',
+				new Action() {
+					void perform() {
+						Element.debug = !Element.debug;
+					}
+				}
+		);
+		addKey(
+				'c',
+				new Action() {
+					void perform() {
+						if(Library.defaultFontColor == Color.black) {
+							Library.defaultFontColor = Color.cyan;
+							Library.messageFontColor = Color.red;
+						} else {
+							Library.defaultFontColor = Color.black;
+							Library.messageFontColor = Color.blue;
+						}
+					}
+				}
+		);
+		addKey(
+				'1',
+				new Action() {
+					void perform() {
+						new TestLevel();
+					}
+				}
+		);
+		addKey(
+				'2',
+				new Action() {
+					void perform() {
+						new SimpleLevel();
+					}
+				}
+		);
+		addKey(
+				'3',
+				new Action() {
+					void perform() {
+						new BirdLevel();
+					}
+				}
+		);
+		addKey(
+				'4',
+				new Action() {
+					void perform() {
+						new ForestLevel();
+					}
+				}
+		);
+		addKey(
+				'm',
+				new Action() {
+					void perform() {
+						new MainMenu();
+					}
+				}
+		);
+		addKey(
+				'i',
+				new Action() {
+					void perform() {
+						for(Player p: Player.list) {
+							p.reset();
+							new ForestLevel();
+						}
+					}
+				}
+		);
+	}
+}
+class EditorKeys extends KeyHandler {
+	Editor editor;
+	
+	EditorKeys(Editor e){
+		editor = e;
+	};
+	
+	void add() {
+		for(int i = 0; i < alphabetPlus.length; i++) {
+			char key = alphabetPlus[i];
+			addKey(
+				codes[i], 
+				new Action() {
+					void perform() {
+						KeyHandler.keyBuffer = KeyHandler.keyBuffer + key;
+						editor.console.name = KeyHandler.keyBuffer;
+					}
+				}
+			);
+		}
+		addKey(
+			Keyboard.KEY_RETURN, 
+			new Action() {
+				void perform() {
+					KeyHandler.keyBuffer = "";
+					editor.console.name = KeyHandler.keyBuffer;
+				}
+			}
+		);
+		addKey(
+			Keyboard.KEY_TAB,
+			new Action() {
+				void perform() {
+					KeyHandler.openGameKeys();
+				}
+			}
+		);
 	}
 }
 class ZoomKeys extends KeyHandler {
-	protected boolean z = false, j = false;
-	private int velocity = 0;
-	@Override 
-	public void getKeys() {
-		if(Keyboard.isKeyDown(Keyboard.KEY_J)) {
-			if(j != true)
-				if(Camera.mode == Function.NEW)
-					Camera.mode = Function.ORIGINAL;
-				else
-					Camera.mode = Function.NEW;
-			j = true;
-		}	
-		else {
-			j = false;
-		}
-		if(Keyboard.isKeyDown(Keyboard.KEY_Z)) {
-			if(z != true)
-				Camera.zoom = !Camera.zoom;
-			z = true;
-		}	
-		else {
-			z = false;
-		}
-		if(Camera.zoom) {
-			if(Keyboard.isKeyDown(Keyboard.KEY_COMMA)) {
-				Camera.nudge(0, 0, -velocity);
-				Camera.zoomLength--;
-				velocity++;
-			}
-			else if(Keyboard.isKeyDown(Keyboard.KEY_PERIOD)) {
-				Camera.nudge(0, 0, velocity);
-				Camera.zoomLength++;
-				velocity++;
-			}	
-			else if(Keyboard.isKeyDown(Keyboard.KEY_UP)) {
-				Camera.nudge(0, velocity, 0);
-				velocity++;
-			}	
-			else if(Keyboard.isKeyDown(Keyboard.KEY_DOWN)) {
-				Camera.nudge(0, -velocity, 0);
-				velocity++;
-			}	
-			else if(Keyboard.isKeyDown(Keyboard.KEY_LEFT)) {
-				Camera.nudge(-velocity, 0, 0);
-				velocity++;
-			}	
-			else if(Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) {
-				Camera.nudge(velocity, 0, 0);
-				velocity++;
-			}	
-			else {
-				velocity = 0;
-			}
-		}
-	}
-}
-class ArrowKeys extends KeyHandler {
-	public ArrowKeys(Actor subject) {
-		focus = subject;
-		keyMap = new HashMap<String, Integer>();
-		keyMap.put("jumpKey", Keyboard.KEY_SPACE);
-		keyMap.put("leftKey", Keyboard.KEY_LEFT);
-		keyMap.put("rightKey", Keyboard.KEY_RIGHT);
-		keyMap.put("downKey", Keyboard.KEY_S);
-		keyMap.put("attackKey", Keyboard.KEY_F);
-		keyMap.put("actionKey", Keyboard.KEY_E);
+	void add() {
+		addKey(
+				'z', 
+				new Action() {
+					void perform() {
+						Camera.zoom = !Camera.zoom;
+					}
+				}
+			);
+		addKey(
+				Keyboard.KEY_COMMA, 
+				new CameraAction("zoom_in")
+			);
+		addKey(
+				Keyboard.KEY_PERIOD, 
+				new CameraAction("zoom_out")
+			);
+		addKey(
+				Keyboard.KEY_UP, 
+				new CameraAction("up")
+			);
+		addKey(
+				Keyboard.KEY_DOWN, 
+				new CameraAction("down")
+			);
+		addKey(
+				Keyboard.KEY_LEFT, 
+				new CameraAction("left")
+			);
+		addKey(
+				Keyboard.KEY_RIGHT, 
+				new CameraAction("right")
+			);
 	}
 }
 class WASDKeys extends KeyHandler {
-	public WASDKeys(Actor subject) {
-		focus = subject;	
-		keyMap = new HashMap<String, Integer>();
-		keyMap.put("jumpKey", Keyboard.KEY_SPACE);
-		keyMap.put("upKey", Keyboard.KEY_W);
-		keyMap.put("leftKey", Keyboard.KEY_A);
-		keyMap.put("rightKey", Keyboard.KEY_D);
-		keyMap.put("downKey", Keyboard.KEY_S);
-		keyMap.put("actionKey", Keyboard.KEY_E);
-		keyMap.put("attackKey", Keyboard.KEY_K);
-		keyMap.put("blockKey", Keyboard.KEY_L);
-		keyMap.put("sprintKey", Keyboard.KEY_LSHIFT);
+	Actor subject;
+	
+	public WASDKeys(Actor a) {
+		super();
+		subject = a;
+	}
+	
+	void add() {
+		
+		{
+			addKey(
+					' ',
+					new KeyedActorAction(subject, "tryjump")
+			);
+			addKey(
+					'd',
+					new KeyedActorAction(subject, "tryright")
+			);
+			addKey(
+					'a',
+					new KeyedActorAction(subject, "tryleft")
+			);
+			addKey(
+					'w',
+					new KeyedActorAction(subject, "up")
+			);
+			addKey(
+					's',
+					new KeyedActorAction(subject, "down")
+			);
+			addKey(
+					'k',
+					new KeyedActorAction(subject, "tryattack")
+			);
+			addKey(
+					Keyboard.KEY_LSHIFT,
+					new KeyedActorAction(subject, "trysprint")
+			);
+			addKey(
+					'e',
+					new KeyedActorAction(subject, "acting")
+			);
+			addKey(
+					'l',
+					new KeyedActorAction(subject, "blocking")
+			);
+		}
 	}
 }
 

@@ -153,6 +153,8 @@ abstract class Actor extends Collidable implements Updateable {
 				}
 			} else if (!checkStatus("tryjump") && checkStatus("grounded"))
 				airborne = false;
+			else
+				removeStatus("tryjump");
 			
 			if (stamina < Constants.STARTINGSTAMINA && !checkStatus("blocking"))
 				stamina += Constants.STAMINAREGEN;

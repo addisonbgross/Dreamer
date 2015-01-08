@@ -22,8 +22,17 @@ public class Editor {
 	String path = Constants.RESPATH + Constants.LEVELPATH;
 	ShadowedMessage console = new ShadowedMessage("", 0, 0);
 	
-	Editor() {
+	Editor() {}
+	
+	void start() {
 		Level.clear();
+		
+		Theme mono = new Theme();
+		mono.addColor("light", 200, 200, 200);
+		mono.addColor("dark", 25, 25, 25);
+		mono.addColor("font", 225, 225, 225);
+		
+		Theme.current = mono;
 		pointer = new MousePointer();
 		pointer.add();
 		origin = new Marker("origin", 0, 0);
@@ -31,9 +40,11 @@ public class Editor {
 		write("test");
 		Level.clear();
 		read("test");
-		new TestKeys(this).add();
 		console.add();
+		ShadowedMessage test = new ShadowedMessage("tets", 0, 100);
+		test.add();
 	}
+
 	void write(String s, Element... e) {
 		ObjectOutputStream out;
 		try {
