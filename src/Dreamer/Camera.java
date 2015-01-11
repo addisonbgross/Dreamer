@@ -24,6 +24,8 @@ public class Camera {
 	static float focalLength = 2000;
 	private static Element target;
 	static boolean zoom = false;
+	private static String nextMovement = "stop";
+	private static int velocity = 0;
 	
 	static int zoomLength;
 	static int MAXZOOM = 150;
@@ -56,6 +58,44 @@ public class Camera {
 		}
 	}
 	static void update() {
+		switch (nextMovement) {	
+	        case	"zoom_in":
+	    		nudge(0, 0, velocity);
+	    		zoomLength--;
+	    		velocity++;
+				break;
+				
+	        case	"zoom_out":
+	    		nudge(0, 0, -velocity);
+	    		zoomLength++;
+	    		velocity++;
+				break;
+				
+	        case	"up":
+				nudge(0, velocity, 0);
+				velocity++;
+				break;
+				
+	        case	"down":
+				nudge(0, -velocity, 0);
+				velocity++;
+				break;
+				
+	        case	"left":
+				nudge(-velocity, 0 ,0);
+				velocity++;
+				break;
+				
+	        case	"right":
+				nudge(velocity, 0, 0);
+				velocity++;
+				break;
+				
+	        case "stop":
+	        	velocity = 0;
+	        	break;
+		}
+		
 		if(target != null) {
 			focus(target);
 			if(target instanceof Updateable)
@@ -184,5 +224,8 @@ public class Camera {
 		s = s.concat(" maxX: "+getMaxX());
 		s = s.concat(" maxY: "+getMaxY());
 		System.out.println(s);
+	}
+	public static void move(String s) {
+		nextMovement = s;
 	}
 }

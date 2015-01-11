@@ -2,8 +2,7 @@ package Dreamer;
 
 public class MainMenu extends Level {
 	
-	static Editor e;
-	static int spacing = 80;
+	final static int spacing = 80;
 	
 	String[] options = {
 			"NEW GAME",
@@ -14,7 +13,6 @@ public class MainMenu extends Level {
 	void createLevel() {
 		Element.debug = false;
 		Element.clearAll();
-		//e = new Editor();
 		Theme mono = new Theme();
 		mono.addColor("light", 200, 200, 200);
 		mono.addColor("dark", 25, 25, 25);
@@ -22,15 +20,15 @@ public class MainMenu extends Level {
 		
 		Theme.current = mono;
 		
-		//new Background("space").add();
+		new Background("space").add();
 		int i = options.length * spacing / 2;
 		for(String s: options)
-			new ShadowedMessage(s, 0, i-= spacing, 500).add();
+			new ShadowedMessage(s, 0, i-= spacing).add();
 		new Block3d(0, -250, -200, 800, 20, 600).add();
 		new Lamp(-400, -100, 0).add();
-		new Model("scene", 200, 100, -200, -1500).add();
+		//new Model("scene", 200, 100, -200, -1500).add();
 		//new Sun().add();
-		//new BorderedForeground().add();
+		new BorderedForeground().add();
 		Camera.focus(Dreamer.origin);
 	}
 }

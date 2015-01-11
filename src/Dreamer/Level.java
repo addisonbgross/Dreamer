@@ -1,6 +1,5 @@
 package Dreamer;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 import org.newdawn.slick.Color;
@@ -11,8 +10,6 @@ class Level {
 	Enemy e; //Generic enemy pointer
 	Weapon w;
 	static Level current;
-	static ArrayList<KeyHandler> keys = new ArrayList<KeyHandler>();
-	static ArrayList<KeyHandler> keyDeathList = new ArrayList<KeyHandler>();
 	static boolean frozen = false, levelChanged = false;
 	static int freezeCounter = 0;
 	
@@ -25,15 +22,6 @@ class Level {
 	}
 	//TODO move this function and ArrayList Keys into Keyhandler.java
 	static void updateCurrent() {
-		for(KeyHandler k: keys) {
-			k.getKeys();
-			if(k.kill == true)
-				keyDeathList.add(k);
-		}
-		for(KeyHandler k: keyDeathList) {
-			k.remove();
-		}
-		keyDeathList.clear();
 		if(levelChanged) {
 			levelChanged = false;
 			freezeCounter = 2;
@@ -204,7 +192,12 @@ class ForestLevel extends Level {
 		Theme.current = fire;
 		
 		new ActionJewel(-1000, 1040, 0, new Action() {void perform() {new BirdLevel();}}).add();
-		new ActionJewel(-1000, 200, 0, new Action() {void perform() {new BirdLevel();}}).add();
+		new ActionJewel(-1000, 50, 0, new Action() {
+			void perform(Actor a) {
+				a.addStatus("tryjump");
+			}
+		}).add();
+		new ActionJewel(-800, 50, 0, new KeyedActorAction(Player.getFirst(), "tryjump")).add();
 		
 		Theme.current.setTransparency(50);
 		
