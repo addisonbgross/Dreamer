@@ -98,7 +98,7 @@ abstract class Actor extends Collidable implements Updateable {
 			
 			// sprint sequence
 			if (checkStatus("trysprint") && !checkStatus("blocking") && stamina > 0) {
-				scaledVel = Constants.VEL * 2.5f;
+				scaledVel = Constants.VEL * 3;
 				stamina--;
 				if (stamina <= 0)
 					if (!sweating) {
