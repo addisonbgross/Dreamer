@@ -26,15 +26,8 @@ abstract public class KeyHandler {
 	static Map<String, Integer>keyMap = new HashMap<String, Integer>();
 	static Map<Integer, Action>actionMap = new HashMap<Integer, Action>();
 	static String keyBuffer = "";
-	
-	public KeyHandler() {
-		if(!initialized) {
-			for(int i = 0; i < alphabetPlus.length; i++) {
-				keyMap.put(alphabetPlus[i] + "", codes[i]);
-			}
-			initialized = true;
-		}
-	}
+
+	public KeyHandler() {}
 	
 	public static boolean test(Integer keyCode) {
 		return Keyboard.isKeyDown(keyCode);
@@ -71,11 +64,46 @@ abstract public class KeyHandler {
 			}
 		}
 	}
+	public static void init() {
+		if(!initialized) {
+			for(int i = 0; i < alphabetPlus.length; i++) {
+				keyMap.put(alphabetPlus[i] + "", codes[i]);
+			}
+			initialized = true;
+		}
+	}
 	public static void openGameKeys() {
 		clearKeys();
 		new ZoomKeys().add();
 		new FunctionKeys().add();
 		new WASDKeys(Player.getFirst()).add();
+	}
+	public static void openMenuKeys() {
+		clearKeys();
+		addKey(
+				Keyboard.KEY_UP,
+				new Action() {
+					void perform() {
+						MainMenu.move("up");
+					}
+				}
+		);
+		addKey(
+				Keyboard.KEY_DOWN,
+				new Action() {
+					void perform() {
+						MainMenu.move("down");
+					}
+				}
+		);
+		addKey(
+				'k',
+				new Action() {
+					void perform() {
+						openGameKeys();
+					}
+				}
+		);
 	}
 }
 class FunctionKeys extends  KeyHandler {

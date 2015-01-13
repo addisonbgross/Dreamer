@@ -8,24 +8,22 @@ import org.newdawn.slick.opengl.TextureImpl;
 class ShadowedMessage extends Foreground {	
 
 	String name;
-	Color color = Color.black;
+	Color textColor = Color.black, shadowColor = Color.gray, highlightColor = Color.red;
+	boolean highlight =  false;
 	
 	ShadowedMessage(String s, float x, float y) 
 	{
 		setPosition(x, y, 0);
 		name = s;	
-	}
-	ShadowedMessage(String s, float x, float y, Color c) 
-	{
-		this(s, x, y);
-		color = c;
+		shadowColor = Theme.current.getColor("dark");
+		textColor = Theme.current.getColor("font");
 	}
 
 	@Override
 	void draw(Graphics g) 
 	{
 		GL11.glDisable(GL11.GL_DEPTH_TEST);
-		g.setColor(Theme.current.getColor("dark"));
+		g.setColor(shadowColor);
 		g.setFont(Library.messageFont);
 		TextureImpl.bindNone();
 		g.drawString(
@@ -33,7 +31,7 @@ class ShadowedMessage extends Foreground {
 				Camera.translate(getMinX() - Library.messageFont.getWidth(name) / 2 + Constants.SHADOWOFFSET / 2, 0, 0).x, 
 				Camera.translate(0, getMinY() + Library.messageFont.getHeight(name) / 2 - Constants.SHADOWOFFSET / 2, 0).y
 		);
-		g.setColor(Theme.current.getColor("font"));		
+		g.setColor(highlight? highlightColor : textColor);		
 		g.drawString(
 				name, 
 				Camera.translate(getMinX() - Library.messageFont.getWidth(name) / 2 - Constants.SHADOWOFFSET / 2, 0, 0).x, 

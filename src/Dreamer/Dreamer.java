@@ -59,7 +59,7 @@ public class Dreamer {
 		}
 		
 		new Ninja(0, 0).addToGame();
-		KeyHandler.openGameKeys();
+		KeyHandler.openMenuKeys();
 		
 		origin.add();
 		new MainMenu();
@@ -119,6 +119,7 @@ public class Dreamer {
 		}
 		catch(Exception e) {e.printStackTrace();}
 		
+		KeyHandler.init();
 	    g.setFont(Library.defaultFont);
 	}
 	static void play() throws SlickException
