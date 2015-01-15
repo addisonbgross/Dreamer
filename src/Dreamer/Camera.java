@@ -28,8 +28,6 @@ public class Camera {
 	private static int velocity = 0;
 	
 	static int zoomLength;
-	static int MAXZOOM = 150;
-	static int MINZOOM = 0;
 	
 	//Matrix4f projectionMatrix = new Matrix4f();
 	static float tempDistance;
