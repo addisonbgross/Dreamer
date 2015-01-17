@@ -23,9 +23,11 @@ abstract class Actor extends Collidable implements Updateable {
 	protected Vector3f lastPosition = new Vector3f();
 	StatCard stats;
 	Body body;
+	ArrayList<Effect> effects = new ArrayList<Effect>();
+	Sweat sweat;
 	Weapon weapon;
 	public int weaponStage = 0;
-	public boolean sweating = false, airborne = false;
+	public boolean airborne = false;
 
 	Actor() {}
 	Actor(StatCard sc, float x, float y) {
@@ -33,6 +35,7 @@ abstract class Actor extends Collidable implements Updateable {
 		status.add("right");
 		stats = sc;
 		body = new Body(stats.prefix, this);
+		sweat = new Sweat(this);
 		
 		setCollisionShape(new Rectangle(x, y, stats.width, stats.height));
 		setPosition(x, y, 0);
@@ -42,6 +45,9 @@ abstract class Actor extends Collidable implements Updateable {
 		if(!checkStatus("dead")) {
 			super.add();
 			body.add();
+			sweat.add();
+			
+			effects.add(sweat);
 		} else
 			//TODO procedure for after dying
 			System.out.println(getClass() + " has died! Cannot add to lists.");
@@ -49,6 +55,7 @@ abstract class Actor extends Collidable implements Updateable {
 	void remove() {
 		super.remove();
 		body.remove();
+		sweat.remove();
 	}
 	public void update() {
 		if(health <= 0)
@@ -91,20 +98,17 @@ abstract class Actor extends Collidable implements Updateable {
 			lastPosition.set(getX(), getY(),getZ());
 			setVelocity(suggestedVelocity);
 			setCenterBottom(suggestedTrajectory.getEnd());
-			getCollisionShape().setLocation(getMinX(), getMinY());
+			getCollisionShape().setLocation(getMinX(), getMinY());			
 			
-			
-			float scaledVel = (checkStatus("blocking")) ? Constants.VEL / 2 : Constants.VEL;
+			float blockingVel = (checkStatus("blocking")) ? Constants.VEL / 2 : Constants.VEL;
 			
 			// sprint sequence
 			if (checkStatus("trysprint") && !checkStatus("blocking") && stamina > 0) {
-				scaledVel = Constants.VEL * 3;
+				blockingVel = Constants.VEL * 3;
 				stamina--;
 				if (stamina <= 0)
-					if (!sweating) {
-						sweating = true;
-						new Sweat(this);
-					}
+					if (!checkStatus("sweating"))
+						addStatus("sweating");
 			} 
 			
 			// Sideways movement!
@@ -115,32 +119,31 @@ abstract class Actor extends Collidable implements Updateable {
 			// left and right sequences
 			if(checkStatus("tryright")) {
 				addStatus("right");
-				if (xVel < scaledVel)
+				if (xVel < blockingVel)
 					xVel += (xVel < 5) ? 2 * scaledJumpVel : Constants.ACTORACCELERATION * scaledJumpVel;
 				else 
-					setXVel(scaledVel);
+					setXVel(blockingVel);
 			}
 			if(checkStatus("tryleft")) {
 				addStatus("left");
-				if (xVel > -scaledVel)
+				if (xVel > -blockingVel)
 					xVel -= (xVel > -5) ? 2 * scaledJumpVel : Constants.ACTORACCELERATION * scaledJumpVel;
 				else 
-					setXVel(-scaledVel);
+					setXVel(-blockingVel);
 			}  
 			
 			// attack sequence
 			if (checkStatus("tryattack") && !checkStatus("attacking") && weapon != null) {
 				if (stamina < weapon.getWeight()) {
-					if (!sweating) {
-						sweating = true;
+					if (!checkStatus("sweating")) {
+						addStatus("sweating");
 						body.resetBody();
-						new Sweat(this);
 					}
 					removeStatus("attacking");
 				} else {
-					sweating = false;
-					stamina -= weapon.getWeight();
 					addStatus("attacking");
+					removeStatus("sweating");
+					stamina -= weapon.getWeight();
 				} 
 			}
 			
@@ -158,6 +161,9 @@ abstract class Actor extends Collidable implements Updateable {
 			
 			if (stamina < Constants.STARTINGSTAMINA && !checkStatus("blocking"))
 				stamina += Constants.STAMINAREGEN;
+			
+			for (Effect e : effects)
+				e.followActor();
 		}
 		
 		// Reset if fallen off of level
