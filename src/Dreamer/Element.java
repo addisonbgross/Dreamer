@@ -441,7 +441,7 @@ public class Element implements Serializable {
 		Updateable z = null;
 		try {
 			for(Updateable e: updateSet) {
-				if(Actor.class.isAssignableFrom(e.getClass()))
+				if(Actor.class.isAssignableFrom(e.getClass()) || Sweat.class.isAssignableFrom(e.getClass()))
 					e.update();
 				else
 					updateLaterSet.add(e);

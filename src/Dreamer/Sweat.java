@@ -2,46 +2,27 @@ package Dreamer;
 
 import org.newdawn.slick.Graphics;
 
-public class Sweat extends Element implements Effect, Updateable {
-	Animation2 animation;
-	int LEFT = 1, RIGHT = -1;
-	Actor a;
-	
-	Sweat(Actor actor) {
-		a = actor;
-		animation = new Animation2("sweat", 8, 1, 155, 20, 30);
-		add();
-	}
-
-	@Override
-	public void add() {
-		super.add();
-		animation.add();
-		animation.start();
-	}
-	@Override
-	public void remove() {
-		super.remove();
-		animation.remove();
+public class Sweat extends Effect {	
+	Sweat(Actor a) {
+		actor = a;
+		animation = new Animation2("sweat", 9, 1, 100, 20, 30);
+		xOffset = 20;
+		yOffset = 30;
+		zOffset = 5;
 	}
 	@Override
     public void update() {
-		if (a.isFacing("left")) {
-			animation.direction = LEFT;
-			animation.setPosition(a.body.getHeadPosition().x + 20, a.body.getHeadPosition().y, a.body.getHeadPosition().z);
-		} else {
-			animation.direction = RIGHT;
-			animation.setPosition(a.body.getHeadPosition().x - 20, a.body.getHeadPosition().y, a.body.getHeadPosition().z);
-		}
-			
-		if (animation.currentIndex == animation.framesWide() - 1) {
-			a.sweating = false;
-	    	remove();
+		if (actor.checkStatus("sweating")) {
+			if (!animation.running)
+				animation.start();
+				
+			if (animation.currentIndex == animation.framesWide() - 1) {
+				actor.removeStatus("sweating");
+				animation.reset();
+				animation.stop();
+			}
 		}
 	}
 	@Override
-    void draw(Graphics g) {
-	    // bollocks
-    }
-
+    void draw(Graphics g) {}
 }

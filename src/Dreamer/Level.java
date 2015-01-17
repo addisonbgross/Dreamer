@@ -38,6 +38,11 @@ class TestLevel extends Level {
 		new GradientBackground(Color.blue, new Color(150, 150, 150)).add();
 		new Model("scene", 300, 0, 200, -500).add();
 		new Model("alphaTest", 100, 300, 400, 300).add();
+		new Model("alphaTest", 100, 500, 800, 400).add();
+		new Model("alphaTest", 100, 0, 200, 200).add();
+		new Model("alphaTest", 100, -300, 500, 100).add();
+		new Model("alphaTest", 100, -60000, 50, 300).add();
+		
 		
 		Player p = Player.getFirst();
 		p.setCenterBottom(0,  4000);
@@ -200,7 +205,7 @@ class ForestLevel extends Level {
 		}).add();
 		new ActionJewel(-800, 50, 0, new KeyedActorAction(Player.getFirst(), "tryjump")).add();
 		
-		//Theme.current.setTransparency(50);
+		Theme.current.setTransparency(50);
 		
 		new SpinningJewel(0, 100, -1000, 400).add();
 		new SpinningJewel(2000, 2500, -2500, 400).add();
