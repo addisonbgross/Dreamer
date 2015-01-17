@@ -24,9 +24,9 @@ public class Element implements Serializable {
 	//the masterList contains all Elements that have had their .add() method called
 	//they are removed from this list by calling their .remove() method
 	protected static HashSet<Element> masterList 
-		= new HashSet<Element>(1000);
+		= new HashSet<Element>(2000);
 	protected static PriorityQueue<Element> activeSet 
-		= new PriorityQueue<Element>(1000, new zComparator());
+		= new PriorityQueue<Element>(2000, new zComparator());
 	
 	//each Collidable is placed in these maps according to it's x and y position
 	//from now on, only Collidables need to be on this 
@@ -554,14 +554,7 @@ class PermanentLine extends Element {
 class zComparator implements Comparator<Element> {
     @Override
     public int compare(Element a, Element b) {
-    	boolean aIs = a.contains("message"), bIs = b.contains("message");
-    	if(!aIs && !bIs)
-    		return a.getZ() < b.getZ() ? 1 : (a.getZ() == b.getZ() ? 0 : -1);
-    	else if(aIs && !bIs)
-    		return 1;
-    	else if(!aIs && bIs)
-    		return -1;
-    	return 0;
+    	return a.getZ() > b.getZ() ? 1 : (a.getZ() == b.getZ()) ? 0 : -1;
     }
 }
 

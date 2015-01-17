@@ -250,8 +250,8 @@ public class Shape3d extends Element implements Lightable {
 	//for reference, this is how the camera finds the point on the screen
 	//Camera.translate(getVertex(triangleIndex[j]), tempV3f);
 	void draw(Graphics g) {
-		if (this.isVisible())
-			for (Face f: faces)
+		for (Face f: faces)
+			if (isVisible())
 				f.addToDrawList();
 	}
 	public void generateMotionTracks() {
