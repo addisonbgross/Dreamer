@@ -87,7 +87,7 @@ class Library {
 	static void loadImage(String file) {
 		String referrenceName = file.substring(0, file.toString().lastIndexOf("."));
     	referrenceName = referrenceName.replace(Constants.RESPATH, "");
-		
+
 		ImageTracker tempImage = new ImageTracker(referrenceName);
     	images.put(referrenceName, tempImage);
 	}

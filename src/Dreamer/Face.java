@@ -19,7 +19,6 @@ import static org.lwjgl.opengl.GL11.glVertex3f;
 
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.List;
 import java.util.TreeSet;
 
 import org.lwjgl.opengl.GL11;
@@ -31,7 +30,7 @@ import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.opengl.TextureImpl;
 
 public class Face {
-	private static List<Face> drawList = new ArrayList<Face>(5000); 
+	private static ArrayList<Face> drawList = new ArrayList<Face>(5000); 
 	private static TreeSet<Face> texturedDrawList = new  TreeSet<Face>(new FaceTextureComparator());
 	
 	static ArrayList<Face> tempFaces = new ArrayList<Face>();  
