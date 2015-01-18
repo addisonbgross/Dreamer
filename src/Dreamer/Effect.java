@@ -14,14 +14,14 @@ public abstract class Effect extends Element implements Updateable {
 		super.remove();
 		animation.remove();
 	}
-	void followActor() {
+	public void position() {
 		if (actor.isFacing("left")) {
 			animation.direction = LEFT;
-			
 			animation.setPosition(actor.getX() + xOffset, actor.getY() + yOffset, actor.getZ() + zOffset);
 		} else {
 			animation.direction = RIGHT;
 			animation.setPosition(actor.getX() - xOffset, actor.getY() + yOffset, actor.getZ() + zOffset);
 		}
 	}
+	abstract void followActor();
 }

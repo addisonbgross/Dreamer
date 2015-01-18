@@ -23,6 +23,16 @@ public class Sweat extends Effect {
 			}
 		}
 	}
+	void followActor() {
+		if (actor.isFacing("left")) {
+			animation.direction = LEFT;
+			
+			animation.setPosition(actor.getX() + xOffset, actor.getY() + yOffset, actor.getZ() + zOffset);
+		} else {
+			animation.direction = RIGHT;
+			animation.setPosition(actor.getX() - xOffset, actor.getY() + yOffset, actor.getZ() + zOffset);
+		}
+	}
 	@Override
     void draw(Graphics g) {}
 }

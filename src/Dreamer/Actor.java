@@ -23,8 +23,12 @@ abstract class Actor extends Collidable implements Updateable {
 	protected Vector3f lastPosition = new Vector3f();
 	StatCard stats;
 	Body body;
+	
 	ArrayList<Effect> effects = new ArrayList<Effect>();
 	Sweat sweat;
+	JumpDust jumpDust;
+	SprintDust sprintDust;
+	
 	Weapon weapon;
 	public int weaponStage = 0;
 	public boolean airborne = false;
@@ -35,7 +39,11 @@ abstract class Actor extends Collidable implements Updateable {
 		status.add("right");
 		stats = sc;
 		body = new Body(stats.prefix, this);
+		
+		// effects
 		sweat = new Sweat(this);
+		jumpDust = new JumpDust(this);
+		sprintDust = new SprintDust(this);
 		
 		setCollisionShape(new Rectangle(x, y, stats.width, stats.height));
 		setPosition(x, y, 0);
@@ -46,8 +54,12 @@ abstract class Actor extends Collidable implements Updateable {
 			super.add();
 			body.add();
 			sweat.add();
+			jumpDust.add();
+			sprintDust.add();
 			
 			effects.add(sweat);
+			effects.add(jumpDust);
+			effects.add(sprintDust);
 		} else
 			//TODO procedure for after dying
 			System.out.println(getClass() + " has died! Cannot add to lists.");
@@ -100,16 +112,22 @@ abstract class Actor extends Collidable implements Updateable {
 			setCenterBottom(suggestedTrajectory.getEnd());
 			getCollisionShape().setLocation(getMinX(), getMinY());			
 			
-			float blockingVel = (checkStatus("blocking")) ? Constants.VEL / 2 : Constants.VEL;
+			float currentVel = (checkStatus("blocking")) ? Constants.VEL / 2 : Constants.VEL;
 			
 			// sprint sequence
-			if (checkStatus("trysprint") && !checkStatus("blocking") && stamina > 0) {
-				blockingVel = Constants.VEL * 3;
-				stamina--;
-				if (stamina <= 0)
+			if (checkStatus("trysprint") && !checkStatus("blocking")) {
+				if (stamina > 0) {
+					currentVel = 2.5f * Constants.VEL;
+					stamina--;
+					addStatus("sprinting");
+				} else {
 					if (!checkStatus("sweating"))
 						addStatus("sweating");
-			} 
+					
+					removeStatus("sprinting");
+				}
+			} else
+				removeStatus("sprinting");
 			
 			// Sideways movement!
 			float scaledJumpVel = 1;
@@ -119,17 +137,17 @@ abstract class Actor extends Collidable implements Updateable {
 			// left and right sequences
 			if(checkStatus("tryright")) {
 				addStatus("right");
-				if (xVel < blockingVel)
+				if (xVel < currentVel)
 					xVel += (xVel < 5) ? 2 * scaledJumpVel : Constants.ACTORACCELERATION * scaledJumpVel;
 				else 
-					setXVel(blockingVel);
+					setXVel(currentVel);
 			}
 			if(checkStatus("tryleft")) {
 				addStatus("left");
-				if (xVel > -blockingVel)
+				if (xVel > -currentVel)
 					xVel -= (xVel > -5) ? 2 * scaledJumpVel : Constants.ACTORACCELERATION * scaledJumpVel;
 				else 
-					setXVel(-blockingVel);
+					setXVel(-currentVel);
 			}  
 			
 			// attack sequence
@@ -159,6 +177,7 @@ abstract class Actor extends Collidable implements Updateable {
 			else
 				removeStatus("tryjump");
 			
+			// regenerate stamina
 			if (stamina < Constants.STARTINGSTAMINA && !checkStatus("blocking"))
 				stamina += Constants.STAMINAREGEN;
 			
