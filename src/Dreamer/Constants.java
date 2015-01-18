@@ -66,7 +66,7 @@ public class Constants {
 	static final int FALLRESET = -2000;
 	static final float STARTINGHEALTH = 100;
 	static final float STARTINGSTAMINA = 100;
-	static final float STAMINAREGEN = 0.15f;
+	static final float STAMINAREGEN = 0.20f;
 	public static final int NUMFRAMES = 4;
 	public static final Color COLLISIONCOLOUR = Color.yellow;
 	public static final Color TRAILCOLOR = Color.black;
