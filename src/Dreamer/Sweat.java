@@ -1,6 +1,5 @@
 package Dreamer;
 
-import org.newdawn.slick.Graphics;
 
 public class Sweat extends Effect {	
 	Sweat(Actor a) {
@@ -24,15 +23,6 @@ public class Sweat extends Effect {
 		}
 	}
 	void followActor() {
-		if (actor.isFacing("left")) {
-			animation.direction = LEFT;
-			
-			animation.setPosition(actor.getX() + xOffset, actor.getY() + yOffset, actor.getZ() + zOffset);
-		} else {
-			animation.direction = RIGHT;
-			animation.setPosition(actor.getX() - xOffset, actor.getY() + yOffset, actor.getZ() + zOffset);
-		}
+		rePosition();
 	}
-	@Override
-    void draw(Graphics g) {}
 }

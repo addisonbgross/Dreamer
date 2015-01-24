@@ -112,6 +112,7 @@ abstract class Actor extends Collidable implements Updateable {
 			setCenterBottom(suggestedTrajectory.getEnd());
 			getCollisionShape().setLocation(getMinX(), getMinY());			
 			
+			// slower velocity if blocking
 			float currentVel = (checkStatus("blocking")) ? Constants.VEL / 2 : Constants.VEL;
 			
 			// sprint sequence
@@ -181,6 +182,7 @@ abstract class Actor extends Collidable implements Updateable {
 			if (stamina < Constants.STARTINGSTAMINA && !checkStatus("blocking"))
 				stamina += Constants.STAMINAREGEN;
 			
+			// update all effect animations at correct time
 			for (Effect e : effects)
 				e.followActor();
 		}
@@ -342,19 +344,23 @@ abstract class Actor extends Collidable implements Updateable {
  */
 class Enemy extends Actor {
 	protected static Rectangle vision;
-    protected float lookX = Constants.ACTORLOOKX; //  the range that the enemy can see
-    protected float lookY = Constants.ACTORLOOKY; // 
+    protected int lookX = Constants.ACTORLOOKX; //  the range that the enemy can see
+    protected int lookY = Constants.ACTORLOOKY; // 
+    protected int patrolRange = Constants.DEFAULTPATROLRANGE;
     protected float maxSpeed = 0;
     protected float acceleration = 0;
+    protected Vector2f spawnPoint = new Vector2f();
 	protected ArrayList<Trait> mind = new ArrayList<Trait>();
 	protected Line lineOfSight;
-	Actor target;
+	Actor target = null;
 	
 	Enemy(StatCard sc, float x, float y, Trait... t) {
 		super(sc, x, y);
 		target = null;
 		lineOfSight = null;
 		vision = new Rectangle(0, 0, 0, 0);
+		spawnPoint.x = x;
+		spawnPoint.y = y;
 		for (Trait tr: t) {
 			mind.add(tr);
 			tr.doPassive(this);
@@ -373,17 +379,15 @@ class Enemy extends Actor {
         vision.setBounds(
                 getMinX() - lookX / 2,
                 getMinY() - lookY / 2,
-                getWidth() + lookX,
-                getHeight() + lookY
+                getMinX() + lookX / 2,
+                getMinY() + lookY / 2
         );
         
         setTarget(null); // reset enemy vision
+        
         for(Element e: Element.getActiveWithin(vision)) {
             if(Player.class.isAssignableFrom(e.getClass())) {
-                if (getTarget() == null) {
-                    setTarget((Player)e);
-                    lineOfSight = new Line(e.getX(), e.getY(), getX(), getY());
-                }
+            	setTarget((Player)e);
                 if(getTarget().checkStatus("dead")) {
                     setTarget(null);
                     lineOfSight = null;
@@ -394,7 +398,19 @@ class Enemy extends Actor {
                 }
             }
         }
+        
+        // face the target
+        if (getTarget() != null)
+        	if (getTarget().getMinX() > getMinX())
+        		addStatus("right");
+        	else 
+        		addStatus("left");
     }
+	void patrol() {
+		if (getTarget() == null) {
+			
+		}
+	}
 	void setTarget(Actor newTarget) {
         target = newTarget;
     }

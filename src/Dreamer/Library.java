@@ -11,6 +11,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import org.lwjgl.util.vector.Vector3f;
 import org.lwjgl.util.vector.Vector4f;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Image;
@@ -69,6 +70,22 @@ class Library {
 			e.printStackTrace();
 		}
 		return modelList;
+	}
+	static ArrayList<Vector3f> getModelLights(String s, int x, int y, int z) {
+		return getModelLights(s, Constants.DEFAULTMODELSCALE, x, y, z);
+	}
+	static ArrayList<Vector3f> getModelLights(String s, int scale, int x, int y, int z) {
+		ArrayList<Vector3f> lightPointList = null;
+		try {
+			lightPointList = ObjLoader.loadLights(models.get(s), scale, x, y, z);
+		} catch (FileNotFoundException e) { //model not found
+			System.out.println("Model [" + s + "] not found!");
+			e.printStackTrace();
+		} catch (IOException e) {//model not found in a different way
+			System.out.println("IOException while loading model [" + s + "]");
+			e.printStackTrace();
+		}
+		return lightPointList;
 	}
 	static Texture getTexture(String s) {
 		return images.get(s).image.getTexture();
