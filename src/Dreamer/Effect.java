@@ -14,7 +14,7 @@ public abstract class Effect extends Element implements Updateable {
 		super.remove();
 		animation.remove();
 	}
-	public void position() {
+	public void rePosition() {
 		if (actor.isFacing("left")) {
 			animation.direction = LEFT;
 			animation.setPosition(actor.getX() + xOffset, actor.getY() + yOffset, actor.getZ() + zOffset);
@@ -23,5 +23,5 @@ public abstract class Effect extends Element implements Updateable {
 			animation.setPosition(actor.getX() - xOffset, actor.getY() + yOffset, actor.getZ() + zOffset);
 		}
 	}
-	abstract void followActor();
+	abstract void followActor(); // leave function blank if Effect doesn't follow
 }

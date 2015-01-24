@@ -35,20 +35,21 @@ class Level {
 }
 class TestLevel extends Level {
 	void createLevel() {
-		new GradientBackground(Color.blue, new Color(150, 150, 150)).add();
-		new Model("scene", 300, 0, 200, -500).add();
-		new Model("alphaTest", 100, 300, 400, 300).add();
-		new Model("alphaTest", 100, 500, 800, 400).add();
-		new Model("alphaTest", 100, 0, 200, 200).add();
-		new Model("alphaTest", 100, -300, 500, 100).add();
-		new Model("alphaTest", 100, -60000, 50, 300).add();
-		
+		new GradientBackground(new Color(50, 50, 100), new Color(0, 0, 0)).add();
+		new Model("mountainTest", 300, 0, 200, -500).add();
 		
 		Player p = Player.getFirst();
-		p.setCenterBottom(0,  4000);
+		p.setCenterBottom(0,  500);
 		p.add();
 		
-		new Sun().add();
+		e = new NinjaAlt(500, 500, new Speed(0.4f), new Follow());
+		e.add();
+		e = new NinjaAlt(600, 500, new Speed(0.5f), new Follow());
+		e.add();
+		e = new NinjaAlt(650, 500, new Speed(0.6f), new Follow());
+		e.add();
+		
+		//new Sun().add();
 		//new Lamp(p).add();
 		
 		Camera.focus(new ClassFocus(200, Ninja.class));

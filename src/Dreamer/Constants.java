@@ -32,7 +32,8 @@ public class Constants {
 			
 	//these define a box within which vision is active
 	static final float ACTORACCELERATION = 1.7f;
-	static final int ACTORLOOKX = 800, ACTORLOOKY = 200;
+	static final int ACTORLOOKX = 500, ACTORLOOKY = 200;
+	static final int DEFAULTPATROLRANGE = 500;
 	//resolution of collision detection
 	//TODO switch collision methods and deprecate the shit out of this
 	static final int ADJUSTSTEPS = 20;

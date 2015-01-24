@@ -6,11 +6,13 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+
+import org.lwjgl.util.vector.Vector3f;
 import org.newdawn.slick.Color;
 
-public class ObjLoader {	
+public class ObjLoader {		
 	public static ArrayList<Shape3d> loadModel(File f, int scale) throws FileNotFoundException, IOException {
-		BufferedReader reader = new BufferedReader(new FileReader(f));;
+		BufferedReader reader = new BufferedReader(new FileReader(f));
 		ArrayList<Shape3d> modelList = new ArrayList<Shape3d>();
 		Shape3d m = null;
 		Color faceColor = Color.red;
@@ -23,6 +25,10 @@ public class ObjLoader {
 		
 		line = reader.readLine();
 		while (line != null) {
+			float x = 0, 
+				  y = 0, 
+				  z = 0;
+			
 			if (line.startsWith("o ")) {
 				if (m != null)
 					modelList.add(m);
@@ -34,12 +40,12 @@ public class ObjLoader {
 				faceColor = MtlLoader.getColor(line.substring("usemtl ".length(), line.length()));
 			
 			if (line.startsWith("v ")) {
-				float x = Float.valueOf(line.split(" ")[1]) * scale;
-				float y = Float.valueOf(line.split(" ")[2]) * scale;
-				float z = Float.valueOf(line.split(" ")[3]) * scale;
+				x = Float.valueOf(line.split(" ")[1]) * scale;
+				y = Float.valueOf(line.split(" ")[2]) * scale;
+				z = Float.valueOf(line.split(" ")[3]) * scale;
 				m.addVertex(x, y, z);
 				++vertCount;
-			} 
+			} 			
 			
 			if (line.startsWith("f ")) {
 				a = Integer.valueOf(line.split(" ")[1]) - 1;
@@ -54,5 +60,36 @@ public class ObjLoader {
 		modelList.add(m);
 		reader.close();		
 		return modelList;
+	}
+
+	static public ArrayList<Vector3f> loadLights(File f, int scale, int xPos, int yPos, int zPos) throws FileNotFoundException, IOException {
+		ArrayList<Vector3f> lightPoints = new ArrayList<Vector3f>();
+		BufferedReader reader = new BufferedReader(new FileReader(f));
+		String line;
+		boolean lampNext = false;
+	
+		line = reader.readLine();
+		while (line != null) {
+			float x = 0,
+				  y = 0,
+				  z = 0;
+			
+			if (line.startsWith("v ")) {
+				x = Float.valueOf(line.split(" ")[1]) * scale;
+				y = Float.valueOf(line.split(" ")[2]) * scale;
+				z = Float.valueOf(line.split(" ")[3]) * scale;
+			}
+			
+			if (line.contains("lantern")) {
+				lampNext = true;
+			} else if (lampNext) {
+				lightPoints.add(new Vector3f(x + xPos, y + yPos, z + zPos));
+				lampNext = false;
+			}
+			line = reader.readLine();
+		}
+		
+		reader.close();
+		return lightPoints;
 	}
 }

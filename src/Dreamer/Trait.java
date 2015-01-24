@@ -56,15 +56,11 @@ class Follow extends Trait {
 	 * If target is is too far away, follow them
 	 */
 	void doActive(Enemy self) {
-		if (self.target != null) {
-			if (self.target.getX() - self.getX() < -Constants.ENEMYMOTIONBUFFER) {
+		if (self.getTarget() != null) {
+			if (self.getTarget().getMinX() - self.getMinX() < -Constants.ENEMYMOTIONBUFFER) {
 				self.xVel = Math.max(self.xVel -= self.acceleration, -self.maxSpeed);
-				self.addStatus("left");
-				self.removeStatus("right");
-			} else if (self.target.getX() - self.getX() > Constants.ENEMYMOTIONBUFFER) {
+			} else if (self.getTarget().getMinX() - self.getMinX() > Constants.ENEMYMOTIONBUFFER) {
 				self.xVel = Math.min(self.xVel += self.acceleration, self.maxSpeed);
-				self.addStatus("right");
-				self.removeStatus("left");
 			}
 		}
 	}
