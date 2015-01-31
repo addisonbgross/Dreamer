@@ -15,6 +15,7 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Line;
 import org.newdawn.slick.geom.Polygon;
+import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.Vector2f;
 
@@ -168,6 +169,23 @@ public class Element implements Serializable {
 				g.fill(p);
 			else
 				g.draw(p);
+		}
+		
+		// draw enemy vision rectangle
+		if (Enemy.class.isAssignableFrom(this.getClass())) {
+			Polygon p = new Polygon();
+			Rectangle vision = ((Enemy)this).getVision();
+			int i = vision.getPointCount() - 1;
+			while(i >= 0) {
+				p.addPoint(
+						Camera.translate(vision.getPoint(i)[0], vision.getPoint(i)[1], position.z).x,
+						Camera.translate(vision.getPoint(i)[0], vision.getPoint(i)[1], position.z).y
+						);
+				i--;
+			}
+			
+			g.setColor(c);			
+			g.draw(p);
 		}
 	}
 	void drawShape(Shape s, Color c, Graphics g) {

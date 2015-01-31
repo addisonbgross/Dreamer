@@ -1,7 +1,7 @@
 # Blender v2.69 (sub 0) OBJ File: 'mountainTest.blend'
 # www.blender.org
 mtllib mountainTest.mtl
-o lantern_Plane.005
+o Lamp_Plane.005
 v 2.037477 0.570164 2.346951
 v 2.037477 0.570164 2.361583
 v 2.022845 0.570164 2.346951
