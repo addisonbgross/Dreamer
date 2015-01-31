@@ -13,14 +13,22 @@ import java.util.Random;
 abstract class Trait {
 	protected float intensity; // 0.0 -> 1.0
 	Trait() { intensity = 1; }
-	Trait(float i) { intensity = i; }
+	Trait(float i) {
+		if (intensity > 0 && intensity <= 1.0)
+			intensity = i;
+		else
+			intensity = 0.5f;
+	}
 	void doActive(Enemy self){};
 	void doPassive(Enemy self){};
 }
+
 /**
  * Base walking speed
  */
 class Speed extends Trait {	
+	int BASESPEED = 10;
+	
 	Speed() {
 		super(1.0f);
 	}
@@ -30,10 +38,10 @@ class Speed extends Trait {
 	}
 	
 	public String toString() {
-		return "Speed: " + 10 * intensity;
+		return "Speed: " + BASESPEED * intensity;
 	}
 	void doPassive(Enemy self) {
-		self.maxSpeed = 10 * intensity;
+		self.maxSpeed = BASESPEED * intensity;
 		self.acceleration = 2f;
 	}
 }
@@ -57,9 +65,9 @@ class Follow extends Trait {
 	 */
 	void doActive(Enemy self) {
 		if (self.getTarget() != null) {
-			if (self.getTarget().getMinX() - self.getMinX() < -Constants.ENEMYMOTIONBUFFER) {
+			if (self.getTarget().getMinX() - self.getMinX() < -Constants.ENEMYATTACKRANGE) {
 				self.xVel = Math.max(self.xVel -= self.acceleration, -self.maxSpeed);
-			} else if (self.getTarget().getMinX() - self.getMinX() > Constants.ENEMYMOTIONBUFFER) {
+			} else if (self.getTarget().getMinX() - self.getMinX() > Constants.ENEMYATTACKRANGE ) {
 				self.xVel = Math.min(self.xVel += self.acceleration, self.maxSpeed);
 			}
 		}

@@ -7,6 +7,7 @@ import java.util.Set;
 
 import org.lwjgl.util.vector.Vector3f;
 import org.newdawn.slick.geom.Line;
+import org.newdawn.slick.geom.Polygon;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Vector2f;
 
@@ -343,26 +344,24 @@ abstract class Actor extends Collidable implements Updateable {
  *  Enemy --------------------------------------------------------------------------------------------------
  */
 class Enemy extends Actor {
-	protected static Rectangle vision;
+	protected Rectangle vision;
     protected int lookX = Constants.ACTORLOOKX; //  the range that the enemy can see
     protected int lookY = Constants.ACTORLOOKY; // 
     protected int patrolRange = Constants.DEFAULTPATROLRANGE;
     protected float maxSpeed = 0;
     protected float acceleration = 0;
     protected Vector2f spawnPoint = new Vector2f();
-	protected ArrayList<Trait> mind = new ArrayList<Trait>();
-	protected Line lineOfSight;
+	protected ArrayList<Trait> brain;
 	Actor target = null;
 	
-	Enemy(StatCard sc, float x, float y, Trait... t) {
+	Enemy(StatCard sc, float x, float y, ArrayList<Trait> t) {
 		super(sc, x, y);
 		target = null;
-		lineOfSight = null;
 		vision = new Rectangle(0, 0, 0, 0);
 		spawnPoint.x = x;
 		spawnPoint.y = y;
-		for (Trait tr: t) {
-			mind.add(tr);
+		brain = t;
+		for (Trait tr: brain) {
 			tr.doPassive(this);
 		}
 	}
@@ -371,31 +370,26 @@ class Enemy extends Actor {
 	public void update() {	
 		look();
 		if (!checkStatus("damaged"))
-			for (Trait t: mind)
+			for (Trait t: brain)
 				t.doActive(this);
 		super.update(); // collisions and death checking
 	}
 	void look() {
         vision.setBounds(
-                getMinX() - lookX / 2,
-                getMinY() - lookY / 2,
-                getMinX() + lookX / 2,
-                getMinY() + lookY / 2
+                getMinX() - lookX,
+                getMinY() - lookY,
+                 lookX,
+                 lookY
         );
+       vision.setLocation(getX() - lookX / 2, getY());
         
         setTarget(null); // reset enemy vision
         
         for(Element e: Element.getActiveWithin(vision)) {
             if(Player.class.isAssignableFrom(e.getClass())) {
             	setTarget((Player)e);
-                if(getTarget().checkStatus("dead")) {
+                if(getTarget().checkStatus("dead"))
                     setTarget(null);
-                    lineOfSight = null;
-                }
-                else if (Math.abs(e.getMinX() - getMinX()) < Math.abs(getTarget().getMinX() - getMinX())) {
-                    setTarget((Player)e);
-                    lineOfSight = new Line(e.getX(), e.getY(), getX(), getY());
-                }
             }
         }
         
@@ -406,16 +400,14 @@ class Enemy extends Actor {
         	else 
         		addStatus("left");
     }
-	void patrol() {
-		if (getTarget() == null) {
-			
-		}
-	}
 	void setTarget(Actor newTarget) {
         target = newTarget;
     }
     Actor getTarget() {
         return target;
+    }
+    Rectangle getVision() {
+    	return vision; 
     }
 }
 /*
@@ -467,7 +459,7 @@ class Ninja extends Player {
 	}
 }
 class NinjaAlt extends Enemy {
-	NinjaAlt(float x, float y, Trait... t) {
+	NinjaAlt(float x, float y, ArrayList<Trait> t) {
 		super(new StatCard("e_ninja_", 40, 70), x, y, t);
 	}
 }

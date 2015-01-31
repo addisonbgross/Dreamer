@@ -42,11 +42,11 @@ class TestLevel extends Level {
 		p.setCenterBottom(0,  500);
 		p.add();
 		
-		e = new NinjaAlt(500, 500, new Speed(0.4f), new Follow());
+		e = new NinjaAlt(500, 500, Brains.makeSoldier());
 		e.add();
-		e = new NinjaAlt(600, 500, new Speed(0.5f), new Follow());
+		e = new NinjaAlt(600, 500, Brains.makeSoldier());
 		e.add();
-		e = new NinjaAlt(650, 500, new Speed(0.6f), new Follow());
+		e = new NinjaAlt(650, 500, Brains.makeSoldier());
 		e.add();
 		
 		//new Sun().add();
@@ -88,7 +88,7 @@ class SimpleLevel extends Level {
 class BirdLevel extends Level {	
 	@Override
 	void createLevel () {
-		new NinjaAlt(500, 300, new Speed(0.7f), new Follow(0.6f), new Jumpy()).add();
+		new NinjaAlt(500, 300, Brains.makeSoldier()).add();
 		Random r = new Random();
 		new MousePointer().add();
 		new MouseLight().add();
@@ -172,7 +172,7 @@ class ForestLevel extends Level {
 		one.add();
 		w.add();
 		
-		Enemy en = new NinjaAlt(500, 300, new Duelist(), new Violent(), new Follow());
+		Enemy en = new NinjaAlt(500, 300, Brains.makeSoldier());
 		w = new Katana(en);
 		en.add();
 		w.add();

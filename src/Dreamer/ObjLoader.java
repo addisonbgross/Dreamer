@@ -80,7 +80,7 @@ public class ObjLoader {
 				z = Float.valueOf(line.split(" ")[3]) * scale;
 			}
 			
-			if (line.contains("lantern")) {
+			if (line.contains("Lamp")) {
 				lampNext = true;
 			} else if (lampNext) {
 				lightPoints.add(new Vector3f(x + xPos, y + yPos, z + zPos));
