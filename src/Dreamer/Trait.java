@@ -41,20 +41,24 @@ class Speed extends Trait {
 		return "Speed: " + BASESPEED * intensity;
 	}
 	void doPassive(Enemy self) {
-		self.maxSpeed = BASESPEED * intensity;
-		self.acceleration = 2f;
+		self.setMaxSpeed(BASESPEED * intensity);
+		self.setAcceleration(2f);
 	}
 }
 /**
  * Allows the NPC to follow its target
  */
 class Follow extends Trait {
+	Random r;
+	int followDistance;
 	Follow() {
-		super(1.0f);
+		this(1.0f);
 	}
 	
 	Follow(float i) {
 		super(i);
+		r = new Random();
+		followDistance = 10 * r.nextInt(10);
 	}
 	
 	public String toString() {
@@ -64,12 +68,15 @@ class Follow extends Trait {
 	 * If target is is too far away, follow them
 	 */
 	void doActive(Enemy self) {
+		Random r = new Random();
 		if (self.getTarget() != null) {
-			if (self.getTarget().getMinX() - self.getMinX() < -Constants.ENEMYATTACKRANGE) {
-				self.xVel = Math.max(self.xVel -= self.acceleration, -self.maxSpeed);
-			} else if (self.getTarget().getMinX() - self.getMinX() > Constants.ENEMYATTACKRANGE ) {
-				self.xVel = Math.min(self.xVel += self.acceleration, self.maxSpeed);
+			if (self.getTarget().getMinX() - self.getMinX() < -Constants.ENEMYATTACKRANGE + followDistance) {
+				self.xVel = Math.max(self.xVel -= self.getAcceleration(), -self.getMaxSpeed());
+			} else if (self.getTarget().getMinX() - self.getMinX() > Constants.ENEMYATTACKRANGE + followDistance) {
+				self.xVel = Math.min(self.xVel += self.getAcceleration(), self.getMaxSpeed());
 			}
+		} else {
+			self.xVel = 0;
 		}
 	}
 }
@@ -89,9 +96,9 @@ class Jumpy extends Trait {
 		return "Jumpy";
 	}	
 	void doActive(Enemy self) {
-		if (self.target != null)
-			if(self.findDistanceTo(self.target) < Constants.ENEMYJUMPRANGEX)
-					if(self.target.getMinY() > self.getMinY() + Constants.JUMPBUFFER && !self.checkStatus("jumping"))
+		if (self.getTarget() != null)
+			if(self.findDistanceTo(self.getTarget()) < Constants.ENEMYJUMPRANGEX)
+					if(self.getTarget().getMinY() > self.getMinY() + Constants.JUMPBUFFER && !self.checkStatus("jumping"))
 						if(self.checkStatus("grounded")) {
 							self.addStatus("jumping");
 							self.adjustVel(0, Constants.PLAYERJUMPVEL);
@@ -115,15 +122,17 @@ class Violent extends Trait {
 		return "Violent";
 	}
 	void doActive(Enemy self) {
-		if (self.target != null) {
-			if (self.findDistanceTo(self.target) < Constants.ENEMYATTACKRANGE) {
+		if (self.getTarget() != null) {
+			if (self.findDistanceTo(self.getTarget()) < Constants.ENEMYATTACKRANGE) {
 				--attackTime;
 				if (attackTime <= 0) {
 					self.addStatus("attacking");
 					attackTime = Constants.ENEMYATTACKWAIT;
 				}
-			} else
+			} else {
 				self.removeStatus("attacking");
+				attackTime = Constants.ENEMYATTACKWAIT;
+			}
 		}
 	}
 }
@@ -165,26 +174,26 @@ class Duelist extends Trait {
 	void doActive(Enemy self) {
 		// randomize duel distance
 		currentRange = stanceRange + r.nextInt(150);
-		if (self.target != null && !self.checkStatus("attacking") && self.isFacing(self.target)) {
-			distance = Math.abs(self.target.getX() - self.getX());
+		if (self.getTarget() != null && !self.checkStatus("attacking") && self.isFacing(self.getTarget())) {
+			distance = Math.abs(self.getTarget().getX() - self.getX());
 			// if not within duel range
 			if (distance > currentRange) {
-				if (self.target.getX() > self.getX()) {
-					self.xVel = Math.max(self.xVel += self.acceleration, self.maxSpeed);
+				if (self.getTarget().getX() > self.getX()) {
+					self.xVel = Math.max(self.xVel += self.getAcceleration(), self.getMaxSpeed());
 					self.addStatus("right");
 					self.removeStatus("left");
 				} else {
-					self.xVel = Math.max(self.xVel -= self.acceleration, -self.maxSpeed);
+					self.xVel = Math.max(self.xVel -= self.getAcceleration(), -self.getMaxSpeed());
 					self.addStatus("left");
 					self.removeStatus("right");
 				}
 			} else {
-				if (self.target.getX() > self.getX()) {
-					self.xVel = Math.max(self.xVel -= self.acceleration, -self.maxSpeed);
+				if (self.getTarget().getX() > self.getX()) {
+					self.xVel = Math.max(self.xVel -= self.getAcceleration(), -self.getMaxSpeed());
 					self.addStatus("right");
 					self.removeStatus("left");
 				} else {
-					self.xVel = Math.max(self.xVel += self.acceleration, self.maxSpeed);
+					self.xVel = Math.max(self.xVel += self.getAcceleration(), self.getMaxSpeed());
 					self.addStatus("left");
 					self.removeStatus("right");
 				}

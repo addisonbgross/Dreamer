@@ -172,9 +172,9 @@ public class Element implements Serializable {
 		}
 		
 		// draw enemy vision rectangle
-		if (Enemy.class.isAssignableFrom(this.getClass())) {
+		if (Enemy.class.isAssignableFrom(this.getClass())) {				
 			Polygon p = new Polygon();
-			Rectangle vision = ((Enemy)this).getVision();
+			Rectangle vision = ((Enemy)this).getVision();			
 			int i = vision.getPointCount() - 1;
 			while(i >= 0) {
 				p.addPoint(
@@ -184,7 +184,10 @@ public class Element implements Serializable {
 				i--;
 			}
 			
-			g.setColor(c);			
+			if (((Enemy)this).getTarget() == null)
+				g.setColor(c);			
+			else
+				g.setColor(new Color(1f, 0, 0, 1f));
 			g.draw(p);
 		}
 	}

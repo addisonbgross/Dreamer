@@ -40,14 +40,23 @@ class TestLevel extends Level {
 		
 		Player p = Player.getFirst();
 		p.setCenterBottom(0,  500);
+		w = new Katana(p);
+		w.add();
 		p.add();
 		
-		e = new NinjaAlt(500, 500, Brains.makeSoldier());
-		e.add();
-		e = new NinjaAlt(600, 500, Brains.makeSoldier());
-		e.add();
-		e = new NinjaAlt(650, 500, Brains.makeSoldier());
-		e.add();
+		NinjaAlt a;
+		a = new NinjaAlt(500, 500, Brains.makeSoldier());
+		w = new Katana(a);
+		w.add();
+		a.add();
+		a = new NinjaAlt(700, 500, Brains.makeSoldier());
+		w = new Katana(a);
+		w.add();
+		a.add();
+		a = new NinjaAlt(850, 500, Brains.makeSoldier());
+		w = new Katana(a);
+		w.add();
+		a.add();
 		
 		//new Sun().add();
 		//new Lamp(p).add();
