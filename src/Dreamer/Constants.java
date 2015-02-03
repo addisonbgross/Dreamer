@@ -38,9 +38,9 @@ public class Constants {
 	//TODO switch collision methods and deprecate the shit out of this
 	static final int ADJUSTSTEPS = 20;
 	static final float AIRFRICTION = 0.02f,
-			TERRAINFRICTION = 0.25f,
-			GROUNDFRICTION = 0.4f, 
-			STATICFRICTION = 0.8f;
+					  TERRAINFRICTION = 0.25f,
+					  GROUNDFRICTION = 0.4f, 
+				      STATICFRICTION = 0.8f;
 	//buffer for detecting collisions and fidelity of collision detection
 	static final int COLLISIONINTERVAL = 30;
 	static final int ENEMYMOTIONBUFFER = 80;

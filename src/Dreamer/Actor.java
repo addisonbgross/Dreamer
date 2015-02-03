@@ -7,19 +7,19 @@ import java.util.Set;
 
 import org.lwjgl.util.vector.Vector3f;
 import org.newdawn.slick.geom.Line;
-import org.newdawn.slick.geom.Polygon;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Vector2f;
 
 abstract class Actor extends Collidable implements Updateable {
-	//vision is a disposable rectangle used for activating objects, mostly
-	protected static Rectangle vision = new Rectangle(0, 0, 0, 0);
+	//rangeFinder is a disposable rectangle used for activating objects, mostly
+	protected static Rectangle rangeFinder = new Rectangle(0, 0, 0, 0);
 	protected Collidable motion = null;
 	protected float xVel = 0, yVel = 0;
 	private HashSet<String> status = new HashSet<String>();
 	float health = Constants.STARTINGHEALTH;
 	float stamina = Constants.STARTINGSTAMINA;
 	private Set<Collidable> collisionSet = new HashSet<Collidable>();
+	private Vector2f spawnPoint = new Vector2f();
 	private Collidable success = null;
 	protected Vector3f lastPosition = new Vector3f();
 	StatCard stats;
@@ -40,6 +40,8 @@ abstract class Actor extends Collidable implements Updateable {
 		status.add("right");
 		stats = sc;
 		body = new Body(stats.prefix, this);
+		spawnPoint.x = x;
+		spawnPoint.y = y;
 		
 		// effects
 		sweat = new Sweat(this);
@@ -213,7 +215,7 @@ abstract class Actor extends Collidable implements Updateable {
 	}
 	Set<Collidable> findCollisions(Set<Collidable> foundCollisions) {
 		
-		vision.setBounds(
+		rangeFinder.setBounds(
 				getMinX() + xVel - (Constants.COLLISIONINTERVAL), 
 				getMinY() + yVel - (Constants.COLLISIONINTERVAL), 
 				getWidth() + 2 * (Constants.COLLISIONINTERVAL + Math.abs(xVel)), 
@@ -221,7 +223,7 @@ abstract class Actor extends Collidable implements Updateable {
 		);
 		
 		foundCollisions.clear();
-		for(Element e: Element.getActiveWithin(vision)) {
+		for(Element e: Element.getActiveWithin(rangeFinder)) {
 			//very important to not compare this to itself, infinite loop
 			if(Collidable.class.isAssignableFrom(e.getClass()) && e != this) {
 				 foundCollisions.add((Collidable)e);
@@ -293,6 +295,9 @@ abstract class Actor extends Collidable implements Updateable {
 		addStatus("dead");
 		remove();
 	}
+	void reset() {
+		this.reset(spawnPoint.x, spawnPoint.y);
+	}
 	void reset(float x, float y) {
 		remove();
 		setVelocity(0,0);
@@ -344,22 +349,19 @@ abstract class Actor extends Collidable implements Updateable {
  *  Enemy --------------------------------------------------------------------------------------------------
  */
 class Enemy extends Actor {
-	protected Rectangle vision;
-    protected int lookX = Constants.ACTORLOOKX; //  the range that the enemy can see
-    protected int lookY = Constants.ACTORLOOKY; // 
-    protected int patrolRange = Constants.DEFAULTPATROLRANGE;
-    protected float maxSpeed = 0;
-    protected float acceleration = 0;
-    protected Vector2f spawnPoint = new Vector2f();
-	protected ArrayList<Trait> brain;
-	Actor target = null;
+	private Rectangle vision;
+    private int lookX = Constants.ACTORLOOKX; //  the range that the enemy can see
+    private int lookY = Constants.ACTORLOOKY; // 
+    private int patrolRange = Constants.DEFAULTPATROLRANGE;
+    private float maxSpeed = 0;
+    private float acceleration = 0;
+    protected ArrayList<Trait> brain;
+	private Actor target = null;
 	
 	Enemy(StatCard sc, float x, float y, ArrayList<Trait> t) {
 		super(sc, x, y);
 		target = null;
-		vision = new Rectangle(0, 0, 0, 0);
-		spawnPoint.x = x;
-		spawnPoint.y = y;
+		vision = new Rectangle(getMinX(), getMinY(), 0, 0);
 		brain = t;
 		for (Trait tr: brain) {
 			tr.doPassive(this);
@@ -381,25 +383,51 @@ class Enemy extends Actor {
                  lookX,
                  lookY
         );
-       vision.setLocation(getX() - lookX / 2, getY());
         
-        setTarget(null); // reset enemy vision
+        // vision in direction of enemy facingte
+        if (checkStatus("right"))
+        	vision.setLocation((getMinX() + vision.getWidth() / 3) - lookX / 2, getY());
+        else
+        	vision.setLocation((getMinX() - vision.getWidth() / 3) - lookX / 2, getY());
         
-        for(Element e: Element.getActiveWithin(vision)) {
-            if(Player.class.isAssignableFrom(e.getClass())) {
-            	setTarget((Player)e);
-                if(getTarget().checkStatus("dead"))
-                    setTarget(null);
+        // reset enemy vision
+        target = null;
+
+        // if any Player's within vision: set to target ? null
+        // TODO: make this not terrible
+        for(Element e: Element.activeSet) {
+        	if (e instanceof Player) {
+        		if (e.getMinX() >= vision.getCenterX() - vision.getWidth() / 2 && 
+        			e.getMinX() <= vision.getCenterX() + vision.getWidth() / 2 &&
+        			e.getMinY() <= vision.getCenterY() + vision.getHeight() / 2 &&
+        			e.getMinY() <= vision.getCenterY() + vision.getHeight() / 2) {
+		            	target = (Player)e;
+		                if(target.checkStatus("dead"))
+		                    target = null;
+        		} 
             }
         }
         
         // face the target
-        if (getTarget() != null)
-        	if (getTarget().getMinX() > getMinX())
+        if (target != null)
+        	if (target.getMinX() > getMinX())
         		addStatus("right");
         	else 
         		addStatus("left");
-    }
+        
+        /*
+         * I'm not sure why this method did not work. Checking through
+         * the full active set is not optimal
+         */
+        // if any Player's within vision: set to target ? set null
+//        for(Element e: Element.getActiveWithin(vision)) {
+//            if (e instanceof Player) {
+//            	target = (Player)e;
+//                if(target.checkStatus("dead"))
+//                    target = null;
+//            }
+//        }
+	}
 	void setTarget(Actor newTarget) {
         target = newTarget;
     }
@@ -408,6 +436,18 @@ class Enemy extends Actor {
     }
     Rectangle getVision() {
     	return vision; 
+    }
+    void setAcceleration(float newAcc) {
+    	acceleration = newAcc;
+    }
+    float getAcceleration() {
+    	return acceleration;
+    }
+    void setMaxSpeed(float speed) {
+    	maxSpeed = speed;
+    }
+    float getMaxSpeed() {
+    	return maxSpeed;
     }
 }
 /*
@@ -445,9 +485,6 @@ class Player extends Actor {
 			if(p.checkStatus("dead"))
 				return false;
 		return true;
-	}
-	void reset() {
-		super.reset(Constants.STARTX * Player.list.indexOf(this), Constants.STARTY);
 	}
 }
 /*

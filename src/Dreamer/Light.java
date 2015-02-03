@@ -44,24 +44,6 @@ abstract public class Light extends Element {
 			g.draw(e);
 		}
 	}
-	// This is used redundantly in the Lamp (Shape3d) class. A way to generalize this is needed
-	@Override
-	boolean isVisible() {
-		float lightSpan = Constants.LIGHTDISTANCE * 1.4f;
-		if(ambient)
-			return true;
-		else if(Camera.isPointVisible(getX(), getY(), getZ()))
-			return true;
-		else if (Camera.isPointVisible(getX() + lightSpan, getY() + lightSpan, getZ()))
-			return true;
-		else if (Camera.isPointVisible(getX() + lightSpan, getY() - lightSpan, getZ()))
-			return true;
-		else if (Camera.isPointVisible(getX() - lightSpan, getY() + lightSpan, getZ()))
-			return true;
-		else if (Camera.isPointVisible(getX() - lightSpan, getY() - lightSpan, getZ()))
-			return true;
-		return false;
-	}
 	void flicker() {
 		range = r.nextInt(200) + 800;
 	}
