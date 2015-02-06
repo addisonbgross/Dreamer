@@ -10,5 +10,6 @@ public class Foreground extends Element {
 	@Override
 	void remove() {
 		foreground.remove(this);
+		int x = 0;
 	}
 }

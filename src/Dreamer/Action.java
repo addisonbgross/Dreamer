@@ -1,29 +1,42 @@
 package Dreamer;
 
 class Action {
+	String command = "";
+	Object object;
+	
+	Action() {
+		this(null, "none");
+	}
+	Action(Object o){
+		this(o, "none");
+	}
+	Action(Object o, String s){
+		object = o;
+		command = s;
+	}
+	
 	void perform() {}
 	void stop() {}
 	void perform(Actor a) {}
 }
 
 class KeyedActorAction extends Action {
-	String command = "";
-	Actor actor;
-	
 	KeyedActorAction(Actor a, String s) {
-		command = s;
-		actor = a;
+		super(a, s);
 	}
-	
-	void perform() {actor.addStatus(command);}
-	void stop() {actor.removeStatus(command);}
+	void perform() {((Actor)object).addStatus(command);}
+	void stop() {((Actor)object).removeStatus(command);}
 }
-
+class MenuAction extends Action {
+	MenuAction(Menu m, String s) {
+		super(m, s);
+	}
+	void perform() {((Menu)object).command(command);}
+}
 class CameraAction extends Action {
-	String command = "";
-	
-	CameraAction(String s) {command = s;}
-	
+	CameraAction(String s) {
+		super(s);
+	}
 	void perform() {Camera.move(command);}
 	void stop() {Camera.move("stop");}
 }

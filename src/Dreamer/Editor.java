@@ -20,19 +20,22 @@ public class Editor {
 	Marker origin;
 	BufferedWriter bw;
 	String path = Constants.RESPATH + Constants.LEVELPATH;
+	ShadowedMessage instructions 
+		= new ShadowedMessage("Type 'options' to see submenu", 0, 200);
 	ShadowedMessage console = new ShadowedMessage("", 0, 0);
 	
 	Editor() {}
 	
 	void start() {
 		Level.clear();
+		KeyHandler.openEditorKeys(this);
 		
 		Theme mono = new Theme();
 		mono.addColor("light", 200, 200, 200);
 		mono.addColor("dark", 25, 25, 25);
 		mono.addColor("font", 225, 225, 225);
-		
 		Theme.current = mono;
+		
 		pointer = new MousePointer();
 		pointer.add();
 		origin = new Marker("origin", 0, 0);
@@ -41,10 +44,47 @@ public class Editor {
 		Level.clear();
 		read("test");
 		console.add();
-		ShadowedMessage test = new ShadowedMessage("tets", 0, 100);
-		test.add();
+		instructions.add();
 	}
-
+	
+	void command(String s) {
+		switch(s) {
+			
+			case "menu":
+				new MainMenu();
+				break;
+				
+			case "add":
+				new Block3d(Color.red, 0, 0, 0, 50, 50, 50).add();
+				break;
+				
+			case "options":
+				Menu m = new Menu();
+				m.addOption(
+						"ADD BLOCK",
+						new Action() {
+							void perform() {
+								new Block3d(Color.red, -200, 0, 0, 500, 500, 500).add();
+							}
+						}
+						);
+				m.addOption(
+						"ADD OTHER BLOCK",
+						new Action() {
+							void perform() {
+								new Block3d(Color.blue, 200, 0, 0, 500, 500, 500).add();
+							}
+						}
+						);
+				m.addOption(
+						"EXIT MENU",
+						new MenuAction(m, "exit")
+						);
+				m.display();
+				break;
+		}
+	}
+	
 	void write(String s, Element... e) {
 		ObjectOutputStream out;
 		try {

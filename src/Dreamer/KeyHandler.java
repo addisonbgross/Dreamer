@@ -25,6 +25,7 @@ abstract public class KeyHandler {
 			};
 	static Map<String, Integer>keyMap = new HashMap<String, Integer>();
 	static Map<Integer, Action>actionMap = new HashMap<Integer, Action>();
+	static Map<Integer, Action>savedKeys = new HashMap<Integer, Action>();
 	static String keyBuffer = "";
 
 	public KeyHandler() {}
@@ -38,6 +39,12 @@ abstract public class KeyHandler {
 	public static void clearKeys() {
 		actionMap.clear();
 	}
+	public static void saveKeys() {
+		savedKeys.putAll(actionMap);
+	}
+	public static void restoreKeys() {
+		actionMap.putAll(savedKeys);
+	}
 	public static boolean addKey(Integer i, Action a) {
 		actionMap.put(i, a);
 		return true;
@@ -45,7 +52,7 @@ abstract public class KeyHandler {
 	public static boolean addKey(char c, Action a) {
 		return addKey(keyMap.get(c + ""), a);
 	}
-	
+	//handles all keyboard events in the game
 	public static void getKeys() {
 		while (Keyboard.next()) {
 			Integer keyNum = Keyboard.getEventKey();
@@ -78,31 +85,23 @@ abstract public class KeyHandler {
 		new FunctionKeys().add();
 		new WASDKeys(Player.getFirst()).add();
 	}
-	public static void openMenuKeys() {
+	public static void openEditorKeys(Editor e) {
 		clearKeys();
-		addKey(
+		new EditorKeys(e).add();
+	}
+	public static void openMenuKeys(Menu m) {
+		clearKeys();
+		KeyHandler.addKey(
 				Keyboard.KEY_UP,
-				new Action() {
-					void perform() {
-						MainMenu.move("up");
-					}
-				}
+				new MenuAction(m, "up")
 		);
-		addKey(
+		KeyHandler.addKey(
 				Keyboard.KEY_DOWN,
-				new Action() {
-					void perform() {
-						MainMenu.move("down");
-					}
-				}
+				new MenuAction(m, "down")
 		);
-		addKey(
-				'k',
-				new Action() {
-					void perform() {
-						openGameKeys();
-					}
-				}
+		KeyHandler.addKey(
+				Keyboard.KEY_RETURN,
+				new MenuAction(m, "select")
 		);
 	}
 }
@@ -215,6 +214,7 @@ class EditorKeys extends KeyHandler {
 			Keyboard.KEY_RETURN, 
 			new Action() {
 				void perform() {
+					editor.command(KeyHandler.keyBuffer);
 					KeyHandler.keyBuffer = "";
 					editor.console.name = KeyHandler.keyBuffer;
 				}
@@ -275,45 +275,42 @@ class WASDKeys extends KeyHandler {
 	}
 	
 	void add() {
-		
-		{
-			addKey(
-					' ',
-					new KeyedActorAction(subject, "tryjump")
-			);
-			addKey(
-					'd',
-					new KeyedActorAction(subject, "tryright")
-			);
-			addKey(
-					'a',
-					new KeyedActorAction(subject, "tryleft")
-			);
-			addKey(
-					'w',
-					new KeyedActorAction(subject, "up")
-			);
-			addKey(
-					's',
-					new KeyedActorAction(subject, "down")
-			);
-			addKey(
-					'k',
-					new KeyedActorAction(subject, "tryattack")
-			);
-			addKey(
-					Keyboard.KEY_LSHIFT,
-					new KeyedActorAction(subject, "trysprint")
-			);
-			addKey(
-					'e',
-					new KeyedActorAction(subject, "acting")
-			);
-			addKey(
-					'l',
-					new KeyedActorAction(subject, "blocking")
-			);
-		}
+		addKey(
+				' ',
+				new KeyedActorAction(subject, "tryjump")
+		);
+		addKey(
+				'd',
+				new KeyedActorAction(subject, "tryright")
+		);
+		addKey(
+				'a',
+				new KeyedActorAction(subject, "tryleft")
+		);
+		addKey(
+				'w',
+				new KeyedActorAction(subject, "up")
+		);
+		addKey(
+				's',
+				new KeyedActorAction(subject, "down")
+		);
+		addKey(
+				'k',
+				new KeyedActorAction(subject, "tryattack")
+		);
+		addKey(
+				Keyboard.KEY_LSHIFT,
+				new KeyedActorAction(subject, "trysprint")
+		);
+		addKey(
+				'e',
+				new KeyedActorAction(subject, "acting")
+		);
+		addKey(
+				'l',
+				new KeyedActorAction(subject, "blocking")
+		);
 	}
 }
 

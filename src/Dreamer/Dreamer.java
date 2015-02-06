@@ -59,13 +59,9 @@ public class Dreamer {
 		}
 		
 		new Ninja(0, 0).addToGame();
-		KeyHandler.openMenuKeys();
 		
 		origin.add();
 		new MainMenu();
-		//Editor editor = new Editor();
-		//new EditorKeys(editor).add();
-		//editor.start();
 		
 		try {
 			play();
