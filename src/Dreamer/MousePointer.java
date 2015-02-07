@@ -30,7 +30,7 @@ public class MousePointer extends Element implements Updateable {
 			}	
 		} else if(leftClickAction) {
 			leftClickAction = false;
-			new Block3d(
+			Block3d b = new Block3d(
 					Color.gray,
 					getX(), 
 					getY(),
@@ -38,7 +38,9 @@ public class MousePointer extends Element implements Updateable {
 					2 * Math.abs(getX() - lastX), 
 					2 * Math.abs(getY() - lastY),
 					100
-					).add();
+					);
+			b.generateMotionTracks();
+			b.add();
 		}
 		if(Mouse.isButtonDown(1)) {
 			if(!rightClickAction) {
@@ -53,7 +55,10 @@ public class MousePointer extends Element implements Updateable {
 	}
 	@Override
 	void draw(Graphics g) {
+		drawCursor("MousePointer", getX(), getY(), getZ(), g);
+		/*
 		if(Element.debug)
 			drawCursor("MousePointer", getX(), getY(), getZ(), g);
+			*/
 	}
 }

@@ -40,9 +40,11 @@ abstract public class KeyHandler {
 		actionMap.clear();
 	}
 	public static void saveKeys() {
+		savedKeys.clear();
 		savedKeys.putAll(actionMap);
 	}
 	public static void restoreKeys() {
+		actionMap.clear();
 		actionMap.putAll(savedKeys);
 	}
 	public static boolean addKey(Integer i, Action a) {
