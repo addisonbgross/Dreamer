@@ -1,6 +1,7 @@
 package Dreamer;
 
 public class MainMenu extends Level {
+	Menu main = new Menu();	
 	
 	void createLevel() {
 		Element.debug = false;
@@ -11,8 +12,7 @@ public class MainMenu extends Level {
 		mono.addColor("dark", 25, 25, 25);
 		mono.addColor("font", 225, 225, 225);
 		Theme.current = mono;
-		
-		Menu main = new Menu();	
+	
 		main.addOption(
 				"START", 				
 				new Action() {
@@ -30,7 +30,7 @@ public class MainMenu extends Level {
 						e.start();
 					}
 				});
-		main.display();
+		main.open();
 		
 		new Background("space").add();
 		new Block3d(0, -250, -200, 800, 20, 600).add();
@@ -47,17 +47,13 @@ class Menu {
 	int spacing = 40, position = 200;
 	int currentOption = 0;
 	
-	Menu() {
-		//adds keys to control menu
-		KeyHandler.saveKeys();
-		KeyHandler.openMenuKeys(this);
-	}
-	
 	void addOption(String s, Action a) {
 		optionList.add(new MenuOption(s, a, position -= spacing));
 	}
 	
-	void display() {
+	void open() {
+		KeyHandler.saveKeys();
+		KeyHandler.openMenuKeys(this);
 		optionList.get(currentOption).shadowMessage.highlight = true;
 		for(MenuOption mo: optionList)
 			mo.shadowMessage.add();
@@ -83,7 +79,6 @@ class Menu {
 				break;
 				
 			case "exit":
-				KeyHandler.clearKeys();
 				KeyHandler.restoreKeys();
 				for(MenuOption mo: optionList) {
 					mo.shadowMessage.remove();

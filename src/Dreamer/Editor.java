@@ -21,10 +21,55 @@ public class Editor {
 	BufferedWriter bw;
 	String path = Constants.RESPATH + Constants.LEVELPATH;
 	ShadowedMessage instructions 
-		= new ShadowedMessage("Type 'options' to see submenu", 0, 200);
+		= new ShadowedMessage("Type 'options' or 'menu'", 0, 200);
 	ShadowedMessage console = new ShadowedMessage("", 0, 0);
+	Menu editorMenu = new Menu();
 	
-	Editor() {}
+	Editor() {
+		editorMenu.addOption(
+				"ADD BLOCK",
+				new Action() {
+					void perform() {
+						Block3d b = new Block3d(Color.red, -200, 0, 0, 200, 200, 200);
+						b.generateMotionTracks();
+						b.add();
+					}
+				}
+				);
+		editorMenu.addOption(
+				"ADD OTHER BLOCK",
+				new Action() {
+					void perform() {
+						Block3d b = new Block3d(Color.blue, 200, 0, 0, 200, 200, 200);
+						b.generateMotionTracks();
+						b.add();
+					}
+				}
+				);
+		editorMenu.addOption(
+				"ADD SUN",
+				new Action() {
+					void perform() {
+						new Sun().add();
+					}
+				}
+				);
+		editorMenu.addOption(
+				"PLAY",
+				new Action() {
+					void perform() {
+						Player.getFirst().add();
+						KeyHandler.openGameKeys();
+						Camera.focus(Player.getFirst());
+						Element.foreground.clear();
+					}
+				}
+				);
+		editorMenu.addOption(
+				"EXIT MENU",
+				new MenuAction(editorMenu, "exit")
+				);
+	}
 	
 	void start() {
 		Level.clear();
@@ -37,14 +82,15 @@ public class Editor {
 		Theme.current = mono;
 		
 		pointer = new MousePointer();
-		pointer.add();
 		origin = new Marker("origin", 0, 0);
 		origin.add();
 		write("test");
 		Level.clear();
 		read("test");
+		
 		console.add();
 		instructions.add();
+		pointer.add();
 	}
 	
 	void command(String s) {
@@ -54,33 +100,8 @@ public class Editor {
 				new MainMenu();
 				break;
 				
-			case "add":
-				new Block3d(Color.red, 0, 0, 0, 50, 50, 50).add();
-				break;
-				
 			case "options":
-				Menu m = new Menu();
-				m.addOption(
-						"ADD BLOCK",
-						new Action() {
-							void perform() {
-								new Block3d(Color.red, -200, 0, 0, 500, 500, 500).add();
-							}
-						}
-						);
-				m.addOption(
-						"ADD OTHER BLOCK",
-						new Action() {
-							void perform() {
-								new Block3d(Color.blue, 200, 0, 0, 500, 500, 500).add();
-							}
-						}
-						);
-				m.addOption(
-						"EXIT MENU",
-						new MenuAction(m, "exit")
-						);
-				m.display();
+				editorMenu.open();
 				break;
 		}
 	}
