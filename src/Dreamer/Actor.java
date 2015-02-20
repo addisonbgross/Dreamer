@@ -73,6 +73,12 @@ abstract class Actor extends Collidable implements Updateable {
 		for(Effect e: effects)
 			e.remove();
 	}
+	@Override
+	void setCenterBottom(float x, float y) {
+		super.remove();
+		super.setCenterBottom(x, y);
+		super.add();
+	}
 	public void update() {
 		if(health <= 0)
 			die();
