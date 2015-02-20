@@ -6,6 +6,10 @@ Dreamer
 By Addison Bellamy-Gross
    & Max Prokopenko
 
+would not be possible without
+	lwjgl.org lightweight java game library (using V2)
+	slick.ninjacave.com Slick2D
+
 OS X 64-bit:
 	clone repository
 	start new project (I use Eclipse)
