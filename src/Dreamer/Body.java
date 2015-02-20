@@ -76,17 +76,17 @@ public class Body extends Element implements Updateable {
 				dmgCounter = 0;
 			}
 		} else {	
-			if (Math.abs(actor.xVel) > 1 && !climbing) {
+			if (Math.abs(actor.dynamics.getXVel()) > 1 && !climbing) {
 				legs.selectRow(jumping ? 2 : 1);
-				legs.setSpeed(jumping ? LEGSPEED : LEGSPEED * 6 / Math.abs(actor.xVel + 1));
+				legs.setSpeed(jumping ? LEGSPEED : LEGSPEED * 6 / Math.abs(actor.dynamics.getXVel() + 1));
 				legs.start();
 			} else if ((actor.checkStatus("up") || actor.checkStatus("down")) && climbing) {
 				legs.selectRow(3);
-				legs.setSpeed(Math.abs(actor.yVel + 1) * (Constants.VEL / 200));
+				legs.setSpeed(Math.abs(actor.dynamics.getYVel() + 1) * (Constants.VEL / 200));
 				legs.start();
 			} else if (climbing) {
 				legs.selectRow(3);
-				legs.setSpeed(Math.abs(actor.yVel + 1) * (Constants.VEL / 200));
+				legs.setSpeed(Math.abs(actor.dynamics.getYVel() + 1) * (Constants.VEL / 200));
 				legs.stop();
 			} else {
 				legs.selectRow(0);
@@ -113,20 +113,20 @@ public class Body extends Element implements Updateable {
 					body.setSpeed(BODYSPEED);
 					body.start();
 				}
-			} else if (jumping || Math.abs(actor.xVel) > 1) {
+			} else if (jumping || Math.abs(actor.dynamics.getXVel()) > 1) {
 				carryWeapon();
 				body.setLooping(true);
 				body.selectRow(1);
 				if (jumping)
-					body.setSpeed(Math.abs(1200 / Math.abs(actor.yVel + 1)));
+					body.setSpeed(Math.abs(1200 / Math.abs(actor.dynamics.getYVel() + 1)));
 				else
-					body.setSpeed(Math.abs(800 / Math.abs(actor.xVel + 1)));
+					body.setSpeed(Math.abs(800 / Math.abs(actor.dynamics.getXVel() + 1)));
 				body.start();
 			} else if (climbing) {
 				carryWeapon();
 				body.setLooping(true);
 				body.selectRow(3);
-				body.setSpeed(Math.abs(actor.yVel + 1) / (Constants.VEL / 200));
+				body.setSpeed(Math.abs(actor.dynamics.getYVel() + 1) / (Constants.VEL / 200));
 				body.stop();
 			} else {
 				carryWeapon();
@@ -141,7 +141,7 @@ public class Body extends Element implements Updateable {
 				head.start();
 			} else if ((actor.checkStatus("up") || actor.checkStatus("down")) && climbing) {
 				head.selectRow(3);
-				head.setSpeed(Math.abs(actor.yVel + 1) / (Constants.VEL / 200));
+				head.setSpeed(Math.abs(actor.dynamics.getYVel() + 1) / (Constants.VEL / 200));
 				head.start();
 			} else {
 				if (blinkCounter > 0){

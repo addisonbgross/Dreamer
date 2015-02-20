@@ -151,8 +151,8 @@ public class Element implements Serializable {
 	float getMinZ() {return position.z - depth / 2;}
 	float getMaxZ() {return position.z + depth / 2;}
 	float getZ() {return position.z;}
-	Vector2f getCenterBottom() {
-		return new Vector2f(getMinX() + getWidth() / 2, getMinY());
+	Vector3f getCenterBottom() {
+		return new Vector3f(getMinX() + getWidth() / 2, getMinY(), getMinZ());
 	}
 	float getX() {return position.x + (width / 2);}
 	float getY() {return position.y + (height / 2);}

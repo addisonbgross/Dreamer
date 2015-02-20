@@ -31,16 +31,17 @@ public class MotionTrack extends Collidable {
 	
 	@Override 
 	boolean collide(Actor a) {
-		if(a.getVelocityVector().dot(normal) < 0)
+		Vector2f temp = new Vector2f(a.dynamics.getXVel(), a.dynamics.getYVel());
+		if(temp.dot(normal) < 0)
 			if(suggestedTrajectory.intersect(track, true, suggestedPosition)) {
 				
-				if(a.xVel > 0) {
+				if(temp.x > 0) {
 					suggestedVelocity.projectOntoUnit(right, suggestedVelocity);
 				} else {
 					suggestedVelocity.projectOntoUnit(left, suggestedVelocity); 
 				}
 				suggestedVelocity.scale(
-						1 - Constants.AIRFRICTION - Constants.GROUNDFRICTION * Math.abs(normal.dot(a.getVelocityVector().copy().normalise()))
+						1 - Constants.AIRFRICTION - Constants.GROUNDFRICTION * Math.abs(normal.dot(a.dynamics.getVelocity2f().copy().normalise()))
 						);
 				if(suggestedVelocity.length() < Constants.STATICFRICTION)
 					suggestedVelocity.set(0, 0);
@@ -151,7 +152,11 @@ class LadderTrack extends Collidable {
 				} else {
 					suggestedVelocity.y = 0;
 				}
-				suggestedTrajectory.set(a.getCenterBottom(), a.getCenterBottom().copy().add(suggestedVelocity));
+				Vector2f temp = new Vector2f(
+						a.getCenterBottom().x,
+						a.getCenterBottom().y
+						);
+				suggestedTrajectory.set(temp, temp.add(suggestedVelocity));
 				a.addStatus("grounded");
 				a.removeStatus("jumping");
 				return true;

@@ -127,7 +127,7 @@ class BirdLevel extends Level {
 		new RovingGround(new Color(127, 20, 127, 127), new Color(192, 223, 255, 127), 0, -10000).add();			
 		
 		Player one = Player.getFirst();
-		one.setVelocity(0, 0);
+		one.dynamics.setVelocity(0, 0, 0);
 		one.setCenterBottom(-100, 100);
 		new Lamp(one).add();
 		Lamp l = new Lamp(500, 200, 0);

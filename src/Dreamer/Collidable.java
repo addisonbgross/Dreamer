@@ -2,6 +2,7 @@ package Dreamer;
 
 import java.util.Comparator;
 
+import org.lwjgl.util.vector.Vector3f;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Line;
@@ -92,7 +93,19 @@ class Collidable extends Element {
 			lookahead.setLocation(a.getMinX() + xVelTemp, a.getMinY() + yVelTemp);
 		}
 		suggestedVelocity.set(xVelTemp, yVelTemp);
-		suggestedTrajectory.set(a.getCenterBottom(), a.getCenterBottom().copy().add(suggestedVelocity));
+		Vector3f temp = new Vector3f(
+				a.getCenterBottom().x + suggestedVelocity.x,
+				a.getCenterBottom().y + suggestedVelocity.y,
+				0
+				);
+				
+		suggestedPosition.set(temp.x, temp.y);
+		suggestedTrajectory.set(
+				a.getCenterBottom().x,
+				a.getCenterBottom().y,
+				suggestedPosition.x,
+				suggestedPosition.y
+				);
 		//suggestedVelocity.scale(1 - Constants.TERRAINFRICTION);
 		//restore lookahead(it is the Actor's collision box after all)
 		lookahead.setLocation(a.getMinX(), a.getMinY());

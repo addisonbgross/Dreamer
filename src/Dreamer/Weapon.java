@@ -59,15 +59,16 @@ abstract class Weapon extends Shape3d implements Updateable {
 			//very important to not compare this to itself, infinite loop
 			if(Actor.class.isAssignableFrom(e.getClass()) && e != actor) {
 				temp = (Actor)e;
+				float dir = (temp.checkStatus("left"))? 1: -1;
+				
 				if (temp.getCollisionShape().intersects(s) && 
 					temp.checkStatus("blocking")) {
-						temp.xVel += (temp.checkStatus("left"))?2:-2;
-						actor.xVel += (temp.checkStatus("left"))?-7:7;
+						temp.dynamics.adjustVel(2 * dir, 0);
+						actor.dynamics.adjustVel(-7 * dir, 0);
 				} else if(temp.getCollisionShape().intersects(s) && !temp.checkStatus("damaged")) {
 					temp.takeDamage(this.damage, s.getCenterX());
-					temp.yVel = 30;
 					temp.addStatus("damaged");
-					temp.xVel += (temp.checkStatus("left"))?8:-8;
+					temp.dynamics.adjustVel(8 * dir, 0);
 				}	
 			}
 		}

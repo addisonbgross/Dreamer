@@ -17,12 +17,12 @@ abstract class Actor extends Collidable implements Updateable {
 	
 	//rangeFinder is a disposable rectangle used for activating objects, mostly
 	protected static Rectangle rangeFinder = new Rectangle(0, 0, 0, 0);
-	protected float xVel = 0, yVel = 0;
 	private HashSet<String> status = new HashSet<String>();
 	float health = Constants.STARTINGHEALTH;
 	float stamina = Constants.STARTINGSTAMINA;
 	private Vector2f spawnPoint = new Vector2f();
 	
+	Dynamics dynamics;
 	StatCard stats;
 	Body body;
 	HashSet<Effect> effects = new HashSet<Effect>();
@@ -37,6 +37,7 @@ abstract class Actor extends Collidable implements Updateable {
 		body = new Body(stats.prefix, this);
 		spawnPoint.x = x;
 		spawnPoint.y = y;
+		dynamics = new Dynamics();
 		
 		// effects	
 		effects.add(new Sweat(this));
@@ -74,12 +75,17 @@ abstract class Actor extends Collidable implements Updateable {
 			die();
 		
 		if (!checkStatus("dead")) {
-			applyGravity();
+			dynamics.applyGravity();
 			collisionSet = findCollisions(collisionSet);
 			
 			suggestedTrajectory 
-				= new Line(getCenterBottom(), getCenterBottom().copy().add(getVelocityVector()));
-			suggestedVelocity = getVelocityVector().copy();
+				= new Line(
+						getCenterBottom().x,
+						getCenterBottom().y,
+						getCenterBottom().x + dynamics.getXVel(),
+						getCenterBottom().y + dynamics.getYVel()
+						);
+			suggestedVelocity.set(dynamics.getXVel(), dynamics.getYVel());
 			
 			//this recursively checks all collisions to ensure that
 			//the suggestedTrajectory is within bounds of all
@@ -95,7 +101,7 @@ abstract class Actor extends Collidable implements Updateable {
 				}
 			} while (success != null);
 			
-			setVelocity(suggestedVelocity);
+			dynamics.setVelocity(suggestedVelocity.x, suggestedVelocity.y, 0);
 			setCenterBottom(suggestedTrajectory.getEnd());
 			getCollisionShape().setLocation(getMinX(), getMinY());			
 			
@@ -122,20 +128,22 @@ abstract class Actor extends Collidable implements Updateable {
 				scaledJumpVel = 0.4f;
 			
 			// left and right sequences
+			float xVel = dynamics.getXVel(), yVel = dynamics.getYVel();
 			if(checkStatus("tryright")) {
 				addStatus("right");
 				if (xVel < currentVel)
 					xVel += (xVel < 5) ? 2 * scaledJumpVel : Constants.ACTORACCELERATION * scaledJumpVel;
 				else 
-					setXVel(currentVel);
+					xVel = currentVel;
 			}
 			if(checkStatus("tryleft")) {
 				addStatus("left");
 				if (xVel > -currentVel)
 					xVel -= (xVel > -5) ? 2 * scaledJumpVel : Constants.ACTORACCELERATION * scaledJumpVel;
 				else 
-					setXVel(-currentVel);
+					xVel = -currentVel;
 			}  
+			dynamics.setVelocity(xVel, yVel, 0);
 			
 			// attack sequence
 			if (checkStatus("tryattack") && !checkStatus("attacking") && weapon != null) {
@@ -157,7 +165,7 @@ abstract class Actor extends Collidable implements Updateable {
 				if (checkStatus("grounded")) {
 					airborne = true;
 					addStatus("jumping");
-					adjustVel(0, Constants.PLAYERJUMPVEL);
+					dynamics.adjustVel(0, Constants.PLAYERJUMPVEL);
 				}
 			} else if (!checkStatus("tryjump") && checkStatus("grounded"))
 				airborne = false;
@@ -179,15 +187,13 @@ abstract class Actor extends Collidable implements Updateable {
 		
 		//apply friction from air
 		if(checkStatus("jumping"))
-			applyFriction(Constants.AIRFRICTION);
+			dynamics.applyFriction(Constants.AIRFRICTION);
 	}
 	void takeDamage(int damage, float weaponX) {
 		if (weaponX > getX()) {
-			yVel = 0.5f * damage;
-			xVel = 0.8f * -damage;
+			dynamics.setVelocity(0.8f * -damage, 0.5f * damage, 0);
 		} else {
-			yVel = 0.5f * damage;
-			xVel = 0.8f * damage;
+			dynamics.setVelocity(0.8f * damage, 0.5f * damage, 0);
 		}
 		health -= damage;		
 	}
@@ -199,10 +205,10 @@ abstract class Actor extends Collidable implements Updateable {
 	Set<Collidable> findCollisions(Set<Collidable> foundCollisions) {
 		
 		rangeFinder.setBounds(
-				getMinX() + xVel - (Constants.COLLISIONINTERVAL), 
-				getMinY() + yVel - (Constants.COLLISIONINTERVAL), 
-				getWidth() + 2 * (Constants.COLLISIONINTERVAL + Math.abs(xVel)), 
-				getHeight() + 2 *(Constants.COLLISIONINTERVAL + Math.abs(yVel))
+				getMinX() + dynamics.getXVel() - (Constants.COLLISIONINTERVAL), 
+				getMinY() + dynamics.getYVel() - (Constants.COLLISIONINTERVAL), 
+				getWidth() + 2 * (Constants.COLLISIONINTERVAL + Math.abs(dynamics.getXVel())), 
+				getHeight() + 2 *(Constants.COLLISIONINTERVAL + Math.abs(dynamics.getYVel()))
 		);
 		
 		foundCollisions.clear();
@@ -215,28 +221,7 @@ abstract class Actor extends Collidable implements Updateable {
 		}
 		return foundCollisions;
 	}
-	Vector2f getVelocityVector() {
-		return new Vector2f(xVel, yVel);
-	}
-	void setVelocity(Vector2f v) {
-		setVelocity(v.x, v.y);
-	}
-	//TODO switch all velocities to vectors
-	public Vector2f getVel() {
-		return new Vector2f(xVel, yVel);
-	}
-	public void setVelocity(float x, float y) {
-		xVel = x;
-		yVel = y;
-	}
-	public void setXVel(float f)
-	{
-		this.xVel = f;
-	}
-	public void setYVel(float f)
-	{
-		this.yVel = f;
-	}
+
 	// status methods
 	public boolean checkStatus(String s) {	
 		return status.contains(s);
@@ -283,29 +268,13 @@ abstract class Actor extends Collidable implements Updateable {
 	}
 	void reset(float x, float y) {
 		remove();
-		setVelocity(0,0);
+		dynamics.setVelocity(0, 0, 0);
 		health = Constants.STARTINGHEALTH;
 		stamina = Constants.STARTINGSTAMINA;
 		clearStatus();
 		addStatus("initialized");
 		setPosition(x, y, 0);
 		add();
-	}
-	// movement and physics
-	void applyGravity() {	
-		yVel -= Constants.GRAVITY;
-	}
-	void adjustVel(float xInc, float yInc){
-		xVel += xInc;
-		xVel = Math.min(xVel, Constants.PLAYERMAXVEL);
-		yVel += yInc;
-		yVel = Math.min(yVel, Constants.PLAYERJUMPVEL);
-	}
-	void applyFriction(double d) {
-		d = Math.min(1, d);
-		d = 1 - d;
-		xVel *= d;
-		yVel *= d;
 	}
 	public boolean isFacing(String s) {
 		if (s == "left" && checkStatus("left"))
@@ -325,7 +294,7 @@ abstract class Actor extends Collidable implements Updateable {
 			return false;
 	}
 	public String toString() {
-		return super.toString() + " vel (" + (int)xVel + ", " + (int)yVel + ") health " + health;
+		return super.toString() + " vel (" + (int)dynamics.getXVel() + ", " + (int)dynamics.getYVel() + ") health " + health;
 	}
 }
 /*

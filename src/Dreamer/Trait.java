@@ -69,15 +69,19 @@ class Follow extends Trait {
 	 */
 	void doActive(Enemy self) {
 		Random r = new Random();
-		if (self.getTarget() != null) {
+		
+		float xVel = self.dynamics.getXVel();
+		
+		if (self.getTarget() != null) {		
 			if (self.getTarget().getMinX() - self.getMinX() < -Constants.ENEMYATTACKRANGE + followDistance) {
-				self.xVel = Math.max(self.xVel -= self.getAcceleration(), -self.getMaxSpeed());
+				xVel = Math.max(xVel -= self.getAcceleration(), -self.getMaxSpeed());
 			} else if (self.getTarget().getMinX() - self.getMinX() > Constants.ENEMYATTACKRANGE + followDistance) {
-				self.xVel = Math.min(self.xVel += self.getAcceleration(), self.getMaxSpeed());
+				xVel = Math.min(xVel += self.getAcceleration(), self.getMaxSpeed());
 			}
 		} else {
-			self.xVel = 0;
+			xVel = 0;
 		}
+		self.dynamics.setXVel(xVel);
 	}
 }
 /**
@@ -101,7 +105,7 @@ class Jumpy extends Trait {
 					if(self.getTarget().getMinY() > self.getMinY() + Constants.JUMPBUFFER && !self.checkStatus("jumping"))
 						if(self.checkStatus("grounded")) {
 							self.addStatus("jumping");
-							self.adjustVel(0, Constants.PLAYERJUMPVEL);
+							self.dynamics.adjustVel(0, Constants.PLAYERJUMPVEL);
 							self.removeStatus("grounded");
 						}
 	}
@@ -175,29 +179,34 @@ class Duelist extends Trait {
 		currentRange = stanceRange + r.nextInt(150);
 		if (self.getTarget() != null && !self.checkStatus("attacking") && self.isFacing(self.getTarget())) {
 			distance = Math.abs(self.getTarget().getX() - self.getX());
+			
 			// if not within duel range
+			float xVel = self.dynamics.getXVel();
+			
 			if (distance > currentRange) {
 				if (self.getTarget().getX() > self.getX()) {
-					self.xVel = Math.max(self.xVel += self.getAcceleration(), self.getMaxSpeed());
+					xVel = Math.max(xVel += self.getAcceleration(), self.getMaxSpeed());
 					self.addStatus("right");
 					self.removeStatus("left");
 				} else {
-					self.xVel = Math.max(self.xVel -= self.getAcceleration(), -self.getMaxSpeed());
+					xVel = Math.max(xVel -= self.getAcceleration(), -self.getMaxSpeed());
 					self.addStatus("left");
 					self.removeStatus("right");
 				}
 			} else {
 				if (self.getTarget().getX() > self.getX()) {
-					self.xVel = Math.max(self.xVel -= self.getAcceleration(), -self.getMaxSpeed());
+					xVel = Math.max(xVel -= self.getAcceleration(), -self.getMaxSpeed());
 					self.addStatus("right");
 					self.removeStatus("left");
 				} else {
-					self.xVel = Math.max(self.xVel += self.getAcceleration(), self.getMaxSpeed());
+					xVel = Math.max(xVel += self.getAcceleration(), self.getMaxSpeed());
 					self.addStatus("left");
 					self.removeStatus("right");
 				}
 				self.addStatus("blocking");
 			}
+			
+			self.dynamics.setXVel(xVel);
 		} else
 			self.removeStatus("blocking");
 	}
