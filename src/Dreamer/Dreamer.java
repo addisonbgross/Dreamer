@@ -194,7 +194,6 @@ public class Dreamer {
 		if(Level.freezeCounter > 0) {
 			Level.freezeCounter--;
 		} else {
-			Light.lightActive();
 			Element.drawActive(g);
 		}
 		

@@ -29,7 +29,6 @@ abstract class Actor extends Collidable implements Updateable {
 	Weapon weapon;
 	public boolean airborne = false;
 
-	Actor() {}
 	Actor(StatCard sc, float x, float y) {
 		status.add("initialized");
 		status.add("right");

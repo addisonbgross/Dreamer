@@ -50,14 +50,13 @@ abstract public class Light extends Element {
 	static void clearAll() {
 		lightList.clear();
 	}
-	static void lightActive() {
+	static void light (Element e) {
 		firstLight = true;
 		for(Light l: lightList) {
 			if(l.isVisible()) {
-				for(Element e: activeSet)
-					if(e instanceof Lightable) {
-						((Lightable) e).light(l);
-					}
+				if(e instanceof Lightable) {
+					((Lightable) e).light(l);
+				}
 				firstLight = false;
 			}
 		}

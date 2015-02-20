@@ -12,6 +12,7 @@ import org.newdawn.slick.geom.Vector2f;
 public class MotionTrack extends Collidable {
 	Line track;
 	Vector2f normal;
+	static Vector2f temp = new Vector2f();
 	Vector2f left, right;
 	
 	MotionTrack() {}
@@ -31,7 +32,9 @@ public class MotionTrack extends Collidable {
 	
 	@Override 
 	boolean collide(Actor a) {
-		Vector2f temp = new Vector2f(a.dynamics.getXVel(), a.dynamics.getYVel());
+		
+		temp.set(a.dynamics.getXVel(), a.dynamics.getYVel());
+		
 		if(temp.dot(normal) < 0)
 			if(suggestedTrajectory.intersect(track, true, suggestedPosition)) {
 				

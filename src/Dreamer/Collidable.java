@@ -17,6 +17,7 @@ class Collidable extends Element {
 	static Vector2f suggestedPosition = new Vector2f();
 	static Vector2f suggestedVelocity = new Vector2f();
 	static Line suggestedTrajectory = null;
+	static Vector3f temp = new Vector3f();
 	
 	private Shape collisionShape;
 	
@@ -93,7 +94,7 @@ class Collidable extends Element {
 			lookahead.setLocation(a.getMinX() + xVelTemp, a.getMinY() + yVelTemp);
 		}
 		suggestedVelocity.set(xVelTemp, yVelTemp);
-		Vector3f temp = new Vector3f(
+		temp = new Vector3f(
 				a.getCenterBottom().x + suggestedVelocity.x,
 				a.getCenterBottom().y + suggestedVelocity.y,
 				0
