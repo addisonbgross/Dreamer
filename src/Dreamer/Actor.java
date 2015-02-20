@@ -22,17 +22,11 @@ abstract class Actor extends Collidable implements Updateable {
 	float health = Constants.STARTINGHEALTH;
 	float stamina = Constants.STARTINGSTAMINA;
 	private Vector2f spawnPoint = new Vector2f();
-	protected Vector3f lastPosition = new Vector3f();
+	
 	StatCard stats;
 	Body body;
-	
 	HashSet<Effect> effects = new HashSet<Effect>();
-	Sweat sweat;
-	JumpDust jumpDust;
-	SprintDust sprintDust;
-	
 	Weapon weapon;
-	public int weaponStage = 0;
 	public boolean airborne = false;
 
 	Actor() {}
@@ -44,14 +38,10 @@ abstract class Actor extends Collidable implements Updateable {
 		spawnPoint.x = x;
 		spawnPoint.y = y;
 		
-		// effects
-		sweat = new Sweat(this);
-		jumpDust = new JumpDust(this);
-		sprintDust = new SprintDust(this);
-		
-		effects.add(sweat);
-		effects.add(jumpDust);
-		effects.add(sprintDust);
+		// effects	
+		effects.add(new Sweat(this));
+		effects.add(new JumpDust(this));
+		effects.add(new SprintDust(this));
 		
 		setCollisionShape(new Rectangle(x, y, stats.width, stats.height));
 		setPosition(x, y, 0);
@@ -73,7 +63,7 @@ abstract class Actor extends Collidable implements Updateable {
 		for(Effect e: effects)
 			e.remove();
 	}
-	@Override
+	@Override // this is necessary to update position
 	void setCenterBottom(float x, float y) {
 		super.remove();
 		super.setCenterBottom(x, y);
@@ -104,20 +94,7 @@ abstract class Actor extends Collidable implements Updateable {
 						success = c;
 				}
 			} while (success != null);
-			//for debugging the trajectory
-			if(lastPosition == null)
-				lastPosition.set(getX(), getY(),getZ());
-			else if(
-					!(Math.abs(lastPosition.x - getX()) < 0.05f)
-					||
-					!(Math.abs(lastPosition.y - getY()) < 0.05f)
-					||
-					!(Math.abs(lastPosition.z - getZ()) < 0.05f)
-					) {
-				//adds trajectory lines for debugging
-				new PermanentLine(suggestedTrajectory).add();
-			} 
-			lastPosition.set(getX(), getY(),getZ());
+			
 			setVelocity(suggestedVelocity);
 			setCenterBottom(suggestedTrajectory.getEnd());
 			getCollisionShape().setLocation(getMinX(), getMinY());			
@@ -420,19 +397,6 @@ class Enemy extends Actor {
         		addStatus("right");
         	else 
         		addStatus("left");
-        
-        /*
-         * I'm not sure why this method did not work. Checking through
-         * the full active set is not optimal
-         */
-        // if any Player's within vision: set to target ? set null
-//        for(Element e: Element.getActiveWithin(vision)) {
-//            if (e instanceof Player) {
-//            	target = (Player)e;
-//                if(target.checkStatus("dead"))
-//                    target = null;
-//            }
-//        }
 	}
 	void setTarget(Actor newTarget) {
         target = newTarget;

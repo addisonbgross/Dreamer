@@ -142,58 +142,6 @@ public class Element implements Serializable {
 	
 	//only method subclasses must implement, even if just for debugging
 	void draw(Graphics g) {}
-	
-	void drawShape(Shape s, Color c, Graphics g, boolean filled) {
-		if(Line.class.equals(s.getClass())) {
-			Line l = (Line)s;
-			l = new Line(	
-					Camera.translate(l.getX1(), l.getY1(), 0).x,
-					Camera.translate(l.getX1(), l.getY1(), 0).y,
-					Camera.translate(l.getX2(), l.getY2(), 0).x,
-					Camera.translate(l.getX2(), l.getY2(), 0).y
-					);
-			g.setColor(c);
-			g.draw(l);
-		} else {
-			Polygon p = new Polygon();
-			int i = s.getPointCount() - 1;
-			while(i >= 0) {
-				p.addPoint(
-						Camera.translate(s.getPoint(i)[0], s.getPoint(i)[1], position.z).x,
-						Camera.translate(s.getPoint(i)[0], s.getPoint(i)[1], position.z).y
-						);
-				i--;
-			}
-			g.setColor(c);
-			if(filled)
-				g.fill(p);
-			else
-				g.draw(p);
-		}
-		
-		// draw enemy vision rectangle
-		if (Enemy.class.isAssignableFrom(this.getClass())) {				
-			Polygon p = new Polygon();
-			Rectangle vision = ((Enemy)this).getVision();			
-			int i = vision.getPointCount() - 1;
-			while(i >= 0) {
-				p.addPoint(
-						Camera.translate(vision.getPoint(i)[0], vision.getPoint(i)[1], position.z).x,
-						Camera.translate(vision.getPoint(i)[0], vision.getPoint(i)[1], position.z).y
-						);
-				i--;
-			}
-			
-			if (((Enemy)this).getTarget() == null)
-				g.setColor(c);			
-			else
-				g.setColor(new Color(1f, 0, 0, 1f));
-			g.draw(p);
-		}
-	}
-	void drawShape(Shape s, Color c, Graphics g) {
-		drawShape(s, c, g, true);
-	}
 
 	//getters and printing
 	float getMinX() {return position.x;}
@@ -546,23 +494,6 @@ class Marker extends Element {
 		{
 			drawCursor(name+"@("+(int)getMinX()+", "+(int)getMinY()+")", getX(), getY(), getZ(), g);
 		}
-	}
-}
-class PermanentLine extends Element {
-	Line l;
-	PermanentLine(Line l) {
-		this.l = l;
-		setMinX(l.getMinX());
-		setMinY(l.getMinY());
-		setWidth(l.getWidth());
-		setWidth(l.getHeight());
-	}
-	@Override
-	void draw(Graphics g) {
-		if(Element.debug)
-			drawShape(l, Library.defaultFontColor, g);
-		else
-			remove();
 	}
 }
 

@@ -402,7 +402,7 @@ class Temple {
 		s.add();
 		new Block3d(Color.white, x, y + CEILINGHEIGHT + FLOORTHICKNESS * 3 / 2, z, size, FLOORTHICKNESS, DEPTH).add();
 		new Pillar(x + size / 2 - PILLARSIZE , y + FLOORTHICKNESS + CEILINGHEIGHT / 2, z - DEPTH / 2 + PILLARSIZE, NUMSIDES, PILLARSIZE / 2, CEILINGHEIGHT).add();
-		new Pyramid3d(x, y + CEILINGHEIGHT  + 2 * FLOORTHICKNESS, z, size, CEILINGHEIGHT / 3, DEPTH, Color.white).add();
+		new Pyramid3d(x, y + CEILINGHEIGHT  + 2 * FLOORTHICKNESS, z, size, CEILINGHEIGHT / 3, DEPTH).add();
 	}
 }
 class SpinningJewel extends Shape3d implements Updateable {

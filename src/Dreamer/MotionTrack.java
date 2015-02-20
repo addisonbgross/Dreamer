@@ -56,7 +56,7 @@ public class MotionTrack extends Collidable {
 	void draw(Graphics g) {
 		super.draw(g);
 		if(Element.debug)
-			drawShape(
+			Drawer.drawShape(
 					new Line(
 							track.getCenterX(),
 							track.getCenterY(),

@@ -113,7 +113,7 @@ class BirdLevel extends Level {
 			b = new Block3d(new Color(r.nextInt()), BLOCKWIDTH * i, 	BLOCKHEIGHT / 4 * i, BLOCKWIDTH, BLOCKWIDTH, BLOCKHEIGHT / 2 * i, BLOCKWIDTH);
 			b.add();
 		}
-		Pyramid3d p = new Pyramid3d(-1000, 0, 0, 200, 200, Color.blue);
+		Pyramid3d p = new Pyramid3d(-1000, 0, 0, 200, 200);
 		p.generateMotionTracks();
 		p.add();
 		new Temple(-2000, 0, 0, 300);

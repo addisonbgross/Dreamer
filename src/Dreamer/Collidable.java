@@ -29,7 +29,7 @@ class Collidable extends Element {
 	void draw(Graphics g) {
 		if(Element.debug && collisionShape != null) {	
 			try {
-				drawShape(collisionShape, Color.yellow, g, false);
+				Drawer.drawShape(collisionShape, Color.yellow, g, false);
 			} catch(java.lang.IndexOutOfBoundsException e) {
 				e.printStackTrace();
 				print();

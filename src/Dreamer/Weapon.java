@@ -39,7 +39,7 @@ abstract class Weapon extends Shape3d implements Updateable {
 		super.draw(g);
 		if(Element.debug)
 			if(weaponLine != null)
-				drawShape(weaponLine, Color.black, g);
+				Drawer.drawShape(weaponLine, Color.black, g);
 	}	
 	void makeFace() {
 		f = new Face(Library.getTexture(name), new Color(1, 1, 1, 1.0f), 0, 1, 2, 3);

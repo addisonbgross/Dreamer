@@ -135,9 +135,9 @@ class Mountain extends Background {
 	}
 	
 	void draw(Graphics g) {
-		drawShape(shape, mountainColor, g);
-		drawShape(shadow, shadowColor, g);
-		drawShape(snow, snowColor, g);
+		Drawer.drawShape(shape, mountainColor, g);
+		Drawer.drawShape(shadow, shadowColor, g);
+		Drawer.drawShape(snow, snowColor, g);
 	}
 }
 
