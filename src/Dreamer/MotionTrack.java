@@ -45,13 +45,9 @@ public class MotionTrack extends Collidable {
 					suggestedVelocity.set(0, 0);
 				suggestedPosition.y += 0.1f;
 				suggestedTrajectory.set(suggestedTrajectory.getStart(), suggestedPosition.copy().add(suggestedVelocity));
-				a.motion = this;
 				a.addStatus("grounded");
 				a.removeStatus("jumping");
 				return true;
-			}
-			else {
-				a.motion = null;
 			}
 		return false;
 	}
@@ -155,14 +151,12 @@ class LadderTrack extends Collidable {
 					suggestedVelocity.y = 0;
 				}
 				suggestedTrajectory.set(a.getCenterBottom(), a.getCenterBottom().copy().add(suggestedVelocity));
-				a.motion = this;
 				a.addStatus("grounded");
 				a.removeStatus("jumping");
 				return true;
 			}
 			else {
 				a.removeStatus("climbing");
-				a.motion = null;
 			}
 		return false;
 	}

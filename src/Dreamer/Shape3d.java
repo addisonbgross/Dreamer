@@ -338,7 +338,7 @@ class Block3d extends Shape3d {
 	}
 
 	Block3d(float x, float y, float z, float w, float h, float d) {
-		this(Theme.current.getColor("light"), x, y, z, w, h, d);
+		this(Theme.current.getColor(Theme.Default.LIGHT), x, y, z, w, h, d);
 	}
 }
 class Weird extends Shape3d {
@@ -413,7 +413,7 @@ class SpinningJewel extends Shape3d implements Updateable {
 		manhattanRadius.set(size, size, size);
 		
 		setRotationAxis(0, 1, 0);
-		Color c = Theme.current.getColor("light");
+		Color c = Theme.current.getColor(Theme.Default.LIGHT);
 		angle = 0;
 		angleIncrement = 0.01f;
 		
@@ -473,9 +473,9 @@ class Island extends Shape3d {
 		for(float theta = 0; theta < (2 * Math.PI); theta += (2 * Math.PI) / numPoints)
 			addVertex(radius * (float)Math.cos(theta), 0, radius * (float)Math.sin(theta));
 		addVertex(0, -radius, 0);
-		addFace(Theme.current.getColor("light"), 0, 1, 2, 3, 4, 5, 6, 7); //top
+		addFace(Theme.current.getColor(Theme.Default.LIGHT), 0, 1, 2, 3, 4, 5, 6, 7); //top
 		for(int i = 0; i < numPoints; i++)
-			addFace(Theme.current.getColor("dark"), 9, (i + 1) % numPoints, i);
+			addFace(Theme.current.getColor(Theme.Default.DARK), 9, (i + 1) % numPoints, i);
 		generateMotionTrack(0);
 	}
 }

@@ -103,7 +103,6 @@ class Jumpy extends Trait {
 							self.addStatus("jumping");
 							self.adjustVel(0, Constants.PLAYERJUMPVEL);
 							self.removeStatus("grounded");
-							self.motion = null;
 						}
 	}
 }

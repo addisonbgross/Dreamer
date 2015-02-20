@@ -11,16 +11,17 @@ import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Vector2f;
 
 abstract class Actor extends Collidable implements Updateable {
+	
+	private static Set<Collidable> collisionSet = new HashSet<Collidable>();
+	private static Collidable success = null;
+	
 	//rangeFinder is a disposable rectangle used for activating objects, mostly
 	protected static Rectangle rangeFinder = new Rectangle(0, 0, 0, 0);
-	protected Collidable motion = null;
 	protected float xVel = 0, yVel = 0;
 	private HashSet<String> status = new HashSet<String>();
 	float health = Constants.STARTINGHEALTH;
 	float stamina = Constants.STARTINGSTAMINA;
-	private Set<Collidable> collisionSet = new HashSet<Collidable>();
 	private Vector2f spawnPoint = new Vector2f();
-	private Collidable success = null;
 	protected Vector3f lastPosition = new Vector3f();
 	StatCard stats;
 	Body body;
@@ -127,7 +128,6 @@ abstract class Actor extends Collidable implements Updateable {
 				} else {
 					if (!checkStatus("sweating"))
 						addStatus("sweating");
-					
 					removeStatus("sprinting");
 				}
 			} else

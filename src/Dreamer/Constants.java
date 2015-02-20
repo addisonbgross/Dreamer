@@ -4,7 +4,7 @@ import org.newdawn.slick.Color;
 
 //sorted alphabetically
 public class Constants {
-	static int screenWidth = 1920, screenHeight = 1080;
+	static int screenWidth = 800, screenHeight = 600;
 
 	public static int ladderWidth = 50;
 	

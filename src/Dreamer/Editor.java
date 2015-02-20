@@ -75,11 +75,7 @@ public class Editor {
 		Level.clear();
 		KeyHandler.openEditorKeys(this);
 		
-		Theme mono = new Theme();
-		mono.addColor("light", 200, 200, 200);
-		mono.addColor("dark", 25, 25, 25);
-		mono.addColor("font", 225, 225, 225);
-		Theme.current = mono;
+		Theme.current = Theme.mono;
 		
 		pointer = new MousePointer();
 		origin = new Marker("origin", 0, 0);

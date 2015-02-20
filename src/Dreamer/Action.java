@@ -37,6 +37,6 @@ class CameraAction extends Action {
 	CameraAction(String s) {
 		super(s);
 	}
-	void perform() {Camera.move(command);}
-	void stop() {Camera.move("stop");}
+	void perform() {Camera.command(command);}
+	void stop() {Camera.command("stop");}
 }

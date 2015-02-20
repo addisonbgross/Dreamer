@@ -161,15 +161,7 @@ class ForestLevel extends Level {
 		new GradientBackground(new Color(63, 63, 255), new Color(220, 220, 255)).add();
 		new Sun().add();
 		
-		Theme ice = new Theme();
-		ice.addColor("light", 70, 180, 255);
-		ice.addColor("dark", 30, 75, 150);
-		
-		Theme fire = new Theme();
-		fire.addColor("light", 255, 180, 40);
-		fire.addColor("dark", 150, 75, 30);
-		
-		Theme.current = ice;
+		Theme.current = Theme.ice;
 		
 		// create a terrain mesh
 		MeshMaker.diceMesh(Library.getImage(Constants.MAPPATH + "madness_elevation"), Library.getImage(Constants.MAPPATH + "madness_colour"), 35000, 0, 0);
@@ -205,7 +197,7 @@ class ForestLevel extends Level {
 		new Island(200, 200, -1500, 100).add();
 		new Island(1000, 700, -1000f, 100).add();	
 
-		Theme.current = fire;
+		Theme.current = Theme.fire;
 		
 		new ActionJewel(-1000, 1040, 0, new Action() {void perform() {new BirdLevel();}}).add();
 		new ActionJewel(-1000, 50, 0, new Action() {
@@ -215,7 +207,7 @@ class ForestLevel extends Level {
 		}).add();
 		new ActionJewel(-800, 50, 0, new KeyedActorAction(Player.getFirst(), "tryjump")).add();
 		
-		Theme.current.setTransparency(50);
+		Theme.current = Theme.transparentFire;
 		
 		new SpinningJewel(0, 100, -1000, 400).add();
 		new SpinningJewel(2000, 2500, -2500, 400).add();

@@ -223,7 +223,7 @@ public class Camera {
 		s = s.concat(" maxY: "+getMaxY());
 		System.out.println(s);
 	}
-	public static void move(String s) {
+	public static void command(String s) {
 		nextMovement = s;
 	}
 }

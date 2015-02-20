@@ -15,8 +15,8 @@ class ShadowedMessage extends Foreground {
 	{
 		setPosition(x, y, 0);
 		name = s;	
-		shadowColor = Theme.current.getColor("dark");
-		textColor = Theme.current.getColor("font");
+		shadowColor = Theme.current.getColor(Theme.Default.DARK);
+		textColor = Theme.current.getColor(Theme.Default.FONT);
 	}
 
 	@Override
