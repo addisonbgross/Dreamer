@@ -7,7 +7,7 @@ import java.util.Random;
 
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
-import org.lwjgl.util.vector.Vector4f;
+import org.lwjgl.util.vector.Vector3f;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Polygon;
@@ -16,12 +16,12 @@ import org.newdawn.slick.geom.Rectangle;
 public class Shape3d extends Element implements Lightable {
 	static Random r = new Random();
 	static Vector3f tempV3f =  new Vector3f();
-	static Vector4f tempV4f =  new Vector4f();
+	static Vector3f tempV4f =  new Vector3f();
 	static Color tempColor;
 	boolean initialized = false;
 	
 	Vector3f manhattanRadius = new Vector3f();
-	ArrayList<Vector4f> vertices = new ArrayList<Vector4f>();
+	ArrayList<Vector3f> vertices = new ArrayList<Vector3f>();
 	private ArrayList<Face> faces = new ArrayList<Face>();
 	
 	boolean fading = false;
@@ -34,7 +34,7 @@ public class Shape3d extends Element implements Lightable {
 	Shape3d(float x, float y, float z) {
 		this.setPosition(x, y, z);
 	}
-	Shape3d(ArrayList<Vector4f> v, ArrayList<Face> f, float x, float y, float z) {
+	Shape3d(ArrayList<Vector3f> v, ArrayList<Face> f, float x, float y, float z) {
 		this(x, y, z);
 		faces.addAll(f);
 		vertices.addAll(v);
@@ -45,7 +45,7 @@ public class Shape3d extends Element implements Lightable {
 		//does not copy rotational or fading characteristics
 		Shape3d copy = new Shape3d(position.x, position.y, position.z);
 		copy.manhattanRadius = Vector.copy(manhattanRadius);
-		for(Vector4f v: vertices ) {
+		for(Vector3f v: vertices ) {
 			copy.addVertex(v.x, v.y, v.z);
 		}
 		for(Face f: faces) {
@@ -108,13 +108,13 @@ public class Shape3d extends Element implements Lightable {
 	void setFaces(ArrayList<Face> f) {
 		faces = f;
 	}
-	void setVertices(ArrayList<Vector4f> v) {
+	void setVertices(ArrayList<Vector3f> v) {
 		vertices = v;
 	}
 	ArrayList<Face> getFaces() {
 		return faces;
 	}
-	ArrayList<Vector4f> getVertices() {
+	ArrayList<Vector3f> getVertices() {
 		return vertices;
 	}
 	void setRotationAxis(float x, float y, float z) {
@@ -122,8 +122,8 @@ public class Shape3d extends Element implements Lightable {
 	}
 	//adds a vertex and updates the current radius in each cardinal direction
 	//vertices 
-	Vector4f addVertex(float x, float y, float z) {
-		Vector4f v = new Vector4f(x, y, z, 1);
+	Vector3f addVertex(float x, float y, float z) {
+		Vector3f v = new Vector3f(x, y, z);
 		vertices.add(v);
 		manhattanRadius.x = Math.max(Math.abs(x), manhattanRadius.x);
 		manhattanRadius.y = Math.max(Math.abs(y), manhattanRadius.y);
@@ -132,7 +132,7 @@ public class Shape3d extends Element implements Lightable {
 	}
 	public ArrayList<Vector2f> generateIntersectionPoints() {
 		ArrayList<Vector2f> points = new ArrayList<Vector2f>();
-		Vector4f pointA = new Vector4f(), pointB = new Vector4f(), line = new Vector4f();
+		Vector3f pointA = new Vector3f(), pointB = new Vector3f(), line = new Vector3f();
 		boolean[][] edgeGraph = new boolean[vertices.size()][vertices.size()];
 	
 		for(Face f: faces) {
@@ -145,12 +145,12 @@ public class Shape3d extends Element implements Lightable {
 					//mark edge as checked
 					edgeGraph[v1][v2] = true;
 					edgeGraph[v2][v1] = true;
-					Vector4f.add(vertices.get(v1), getPosition4f(), pointA);
-					Vector4f.add(vertices.get(v2), getPosition4f(), pointB);
+					Vector3f.add(vertices.get(v1), getPosition3f(), pointA);
+					Vector3f.add(vertices.get(v2), getPosition3f(), pointB);
 					//if line intersects the z-plane
 					if((pointA.z >=  0 && pointB.z <= 0) || (pointB.z >=  0 && pointA.z <= 0) ) {
 						//find intersection point
-						Vector4f.sub(pointB, pointA, line);
+						Vector3f.sub(pointB, pointA, line);
 						float t = -pointA.z /  line.z; 
 						Float x = line.x * t + pointA.x;
 						Float y = line.y * t + pointA.y;
@@ -161,9 +161,9 @@ public class Shape3d extends Element implements Lightable {
 		}
 		return points;
 	}
-	public Vector4f getTranslatedVertex(int i, Vector4f v) {
+	public Vector3f getTranslatedVertex(int i, Vector3f v) {
 		try {
-			return Vector4f.add(vertices.get(i), getPosition4f(), v);
+			return Vector3f.add(vertices.get(i), getPosition3f(), v);
 		} catch(Exception e) {
 			e.printStackTrace();
 			return null;
@@ -171,18 +171,18 @@ public class Shape3d extends Element implements Lightable {
 	}
 	public ArrayList<Vector2f> generateIntersectionPairs() {
 		ArrayList<Vector2f> points = new ArrayList<Vector2f>();
-		Vector4f pointA, pointB, line = new Vector4f();
+		Vector3f pointA, pointB, line = new Vector3f();
 		for(Face f: faces) {
 			int sides = f.vertexIndex.length;
 			for(int i = 0; i < sides; i ++) {
 				int v1 = f.vertexIndex[i];
 				int v2 = f.vertexIndex[(i + 1) % sides];
-				pointA = Vector4f.add(vertices.get(v1), getPosition4f(), null);
-				pointB = Vector4f.add(vertices.get(v2), getPosition4f(), null);
+				pointA = Vector3f.add(vertices.get(v1), getPosition3f(), null);
+				pointB = Vector3f.add(vertices.get(v2), getPosition3f(), null);
 				//if line intersects the z-plane
 				if((pointA.z >=  0 && pointB.z <= 0) || (pointB.z >=  0 && pointA.z <= 0) ) {
 					//find intersection point
-					Vector4f.sub(pointB, pointA, line);
+					Vector3f.sub(pointB, pointA, line);
 					float t = -pointA.z /  line.z; 
 					Float x = line.x * t + pointA.x;
 					Float y = line.y * t + pointA.y;
@@ -195,8 +195,8 @@ public class Shape3d extends Element implements Lightable {
 	void addFace(Face f) {
 		f.masterShape = this;
 		f.normal = Vector.crossNormalized(
-				Vector4f.sub(this.vertices.get(f.vertexIndex[0]), this.vertices.get(f.vertexIndex[1]), null), 
-				Vector4f.sub(this.vertices.get(f.vertexIndex[2]), this.vertices.get(f.vertexIndex[1]), null)
+				Vector3f.sub(this.vertices.get(f.vertexIndex[0]), this.vertices.get(f.vertexIndex[1]), null), 
+				Vector3f.sub(this.vertices.get(f.vertexIndex[2]), this.vertices.get(f.vertexIndex[1]), null)
 				);
 		faces.add(f);
 	}
@@ -206,7 +206,7 @@ public class Shape3d extends Element implements Lightable {
 		addFace(new Face(c, i));
 	}
 	final public void light(Light l) {
-		Vector4f direction;
+		Vector3f direction;
 		float amount;
 		//starts from black during first round of lighting,
 		//then progressively adds to the colour
@@ -216,14 +216,14 @@ public class Shape3d extends Element implements Lightable {
 				//get the current vertex 
 				getTranslatedVertex(f.vertexIndex[i], tempV4f);
 				//find direction of light to vertex
-				direction = Vector4f.sub(l.getPosition4f(), tempV4f, null).normalise(null);
+				direction = Vector3f.sub(l.getPosition3f(), tempV4f, null).normalise(null);
 				//product of direction of light and surface normal
-				float orthogonality = l.orthogonality * Vector4f.dot(direction, f.normal);
+				float orthogonality = l.orthogonality * Vector3f.dot(direction, f.normal);
 				//calculate light based on distance
 				if(l.ambient)
 					amount = 1;
 				else
-					amount = Vector.getManhattanDistance(tempV4f, l.getPosition4f());
+					amount = Vector.getManhattanDistance(tempV4f, l.getPosition3f());
 				if(amount < l.range)
 					amount =  1- amount / l.range; 
 				else 
@@ -231,7 +231,7 @@ public class Shape3d extends Element implements Lightable {
 				try { 
 					//if rotation axis set compute rotated normal
 					if(rotationAxis != null)
-						tempV4f = Vector.rotate(rotationAxis, f.normal, angle);
+						tempV3f.set(Vector.rotate(rotationAxis, f.normal, angle));
 					f.vertexColor[i] = new Color(
 							f.vertexColor[i].r * accumulate + f.faceColor[i].r * amount * (1 + orthogonality) * l.color.r,
 							f.vertexColor[i].g * accumulate + f.faceColor[i].g * amount * (1 + orthogonality) * l.color.g,
@@ -256,10 +256,10 @@ public class Shape3d extends Element implements Lightable {
 	}
 	public void generateMotionTracks() {
 		for(Face f: faces)
-			MotionTrack.generateMotionTrack(f, vertices, getPosition4f());
+			MotionTrack.generateMotionTrack(f, vertices, getPosition3f());
 	}		
 	public void generateMotionTrack(int i) {
-		MotionTrack.generateMotionTrack(faces.get(i), vertices, getPosition4f());
+		MotionTrack.generateMotionTrack(faces.get(i), vertices, getPosition3f());
 	}
 	public void generateCollidable() {
 		Polygon p = generateCollisionShape();
@@ -406,7 +406,7 @@ class Temple {
 	}
 }
 class SpinningJewel extends Shape3d implements Updateable {
-	ArrayList<Vector4f> modelVertices = new ArrayList<Vector4f>();
+	ArrayList<Vector3f> modelVertices = new ArrayList<Vector3f>();
 
 	SpinningJewel(float x, float y, float z, float size) {
 		super(x, y, z);
@@ -436,7 +436,7 @@ class SpinningJewel extends Shape3d implements Updateable {
 
 	public void update() {
 		for(int i = 0; i < vertices.size(); i++) {
-			vertices.set(i, Vector.rotate(rotationAxis, modelVertices.get(i), angle));
+			vertices.set(i, new Vector3f(Vector.rotate(rotationAxis, modelVertices.get(i), angle)));
 		}
 		angle += angleIncrement;
 	}

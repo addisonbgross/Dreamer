@@ -43,7 +43,7 @@ public class Face {
 	Color[] vertexColor; //the color of the vertex at any point in time
 	Color[] faceColor; //the ideal unlit faceColor
 	Texture texture;
-	Vector4f normal;
+	Vector3f normal;
 	Shape3d masterShape; //the shape this Face belongs to
 	
 	Vector4f tempV4f = new Vector4f();
@@ -160,8 +160,8 @@ public class Face {
 	}
 	private static Vector3f v = new Vector3f();
 	private static Color c;
-	public static void drawColoredPoint(Vector4f position, Color color) {
-		Camera.translate(position, v);
+	public static void drawColoredPoint(Vector3f vector3f, Color color) {
+		Camera.translate(vector3f, v);
 		c = color;
 		glColor4f(c.r, c.g, c.b, c.a);
 		glVertex3f(v.x, v.y, v.z);	
@@ -211,8 +211,8 @@ public class Face {
 		texturedDrawList.clear();
 		drawList.clear();
 	}
-	Vector4f getVertex(int i) {
-		return Vector4f.add(masterShape.vertices.get(i), masterShape.getPosition4f(), null);
+	Vector3f getVertex(int i) {
+		return Vector3f.add(masterShape.vertices.get(i), masterShape.getPosition3f(), null);
 	}
 }
 class FaceTextureComparator implements Comparator<Face> {

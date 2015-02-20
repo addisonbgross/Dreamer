@@ -33,7 +33,6 @@ public class Camera {
 	static float tempDistance;
 	static Vector4f rotated = new Vector4f();
 	static Vector3f tempV3f = new Vector3f();
-	static Vector4f tempV4f = new Vector4f();
 	static Vector3f translated = new Vector3f();
 	
 	static void draw(Graphics g)
@@ -177,29 +176,28 @@ public class Camera {
 						return true;
 		return false;
 	}
-	static Vector4f translateMouse(int x, int y) {
-		return new Vector4f(
+	static Vector3f translateMouse(int x, int y) {
+		return new Vector3f(
 				((float)x / Constants.screenWidth * getWidth()) + getMinX(),
 				((float)y / Constants.screenHeight * getHeight()) + getMinY(),
-				0,
-				1
+				0
 				);
 	}
 	//this is the master translate method, this vector should be used ASAP after returning
 	static Vector3f translate(float x, float y, float z, Vector3f result) {
-		tempV4f.set(x - getCenterX(), y - getCenterY(), z - getCenterZ(), 1);
-		tempDistance = tempV4f.x + tempV4f.y + tempV4f.z;
+		tempV3f.set(x - getCenterX(), y - getCenterY(), z - getCenterZ());
+		tempDistance = tempV3f.x + tempV3f.y + tempV3f.z;
 		switch(mode) {
 			case NEW:
-				rotated = Vector.rotate(0, 1, 0, tempV4f, angle);
+				rotated = Vector.rotate(0, 1, 0, tempV3f, angle);
 				z = Math.abs(focalLength / rotated.z);
 				x = rotated.x * z * tempDistance / focalLength;
 				y = rotated.y * z * tempDistance / focalLength;
 				break;
 			default: 
-				z = Math.abs(focalLength / tempV4f.z);
-				x = tempV4f.x * z;
-				y = tempV4f.y * z;
+				z = Math.abs(focalLength / tempV3f.z);
+				x = tempV3f.x * z;
+				y = tempV3f.y * z;
 				break;
 		}
 		result.set(			
@@ -212,8 +210,8 @@ public class Camera {
 	static Vector3f translate(float x, float y, float z) {
 			return translate(x, y, z, translated);
 	}
-	static Vector3f translate(Vector4f v, Vector3f result) {
-		return translate(v.x, v.y, v.z, result);
+	static Vector3f translate(Vector3f vector3f, Vector3f result) {
+		return translate(vector3f.x, vector3f.y, vector3f.z, result);
 	}
 	public static void print() {
 		String s = "camera: ";

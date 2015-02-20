@@ -2,6 +2,7 @@ package Dreamer;
 
 import java.util.ArrayList;
 
+import org.lwjgl.util.vector.Vector3f;
 import org.lwjgl.util.vector.Vector4f;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Line;
@@ -66,7 +67,7 @@ public class MotionTrack extends Collidable {
 					g
 					);
 	}
-	public static void generateMotionTrack(Face f, ArrayList<Vector4f> vertices, Vector4f translation) {
+	public static void generateMotionTrack(Face f, ArrayList<Vector3f> vertices, Vector3f vector3f) {
 		int sides = f.vertexIndex.length;
 		Vector4f line, intersectLine;
 		Vector2f firstPoint = null;
@@ -75,8 +76,8 @@ public class MotionTrack extends Collidable {
 			int v1 = f.vertexIndex[i];
 			int v2 = f.vertexIndex[(i +  1) % sides];
 	
-			Vector4f pointA = Vector4f.add(vertices.get(v1), translation, null);
-			Vector4f pointB = Vector4f.add(vertices.get(v2), translation, null);
+			Vector3f pointA = Vector3f.add(vertices.get(v1), vector3f, null);
+			Vector3f pointB = Vector3f.add(vertices.get(v2), vector3f, null);
 			//if line intersects the z-plane
 			
 			if((pointA.z >=  0 && pointB.z <= 0) || (pointB.z >=  0 && pointA.z <= 0) ) {

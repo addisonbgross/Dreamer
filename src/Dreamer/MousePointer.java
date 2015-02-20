@@ -2,6 +2,7 @@ package Dreamer;
 
 import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Mouse;
+import org.lwjgl.util.vector.Vector3f;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
@@ -53,6 +54,11 @@ public class MousePointer extends Element implements Updateable {
 		}
 		add();
 	}
+	public void setPosition(Vector3f translateMouse) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	@Override
 	void draw(Graphics g) {
 		drawCursor("MousePointer", getX(), getY(), getZ(), g);

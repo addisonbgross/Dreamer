@@ -26,7 +26,7 @@ abstract class Actor extends Collidable implements Updateable {
 	StatCard stats;
 	Body body;
 	
-	ArrayList<Effect> effects = new ArrayList<Effect>();
+	HashSet<Effect> effects = new HashSet<Effect>();
 	Sweat sweat;
 	JumpDust jumpDust;
 	SprintDust sprintDust;
@@ -49,6 +49,10 @@ abstract class Actor extends Collidable implements Updateable {
 		jumpDust = new JumpDust(this);
 		sprintDust = new SprintDust(this);
 		
+		effects.add(sweat);
+		effects.add(jumpDust);
+		effects.add(sprintDust);
+		
 		setCollisionShape(new Rectangle(x, y, stats.width, stats.height));
 		setPosition(x, y, 0);
 	}
@@ -57,13 +61,8 @@ abstract class Actor extends Collidable implements Updateable {
 		if(!checkStatus("dead")) {
 			super.add();
 			body.add();
-			sweat.add();
-			jumpDust.add();
-			sprintDust.add();
-			
-			effects.add(sweat);
-			effects.add(jumpDust);
-			effects.add(sprintDust);
+			for(Effect e: effects)
+				e.add();
 		} else
 			//TODO procedure for after dying
 			System.out.println(getClass() + " has died! Cannot add to lists.");
@@ -71,7 +70,8 @@ abstract class Actor extends Collidable implements Updateable {
 	void remove() {
 		super.remove();
 		body.remove();
-		sweat.remove();
+		for(Effect e: effects)
+			e.remove();
 	}
 	public void update() {
 		if(health <= 0)
@@ -110,7 +110,7 @@ abstract class Actor extends Collidable implements Updateable {
 					) {
 				//adds trajectory lines for debugging
 				new PermanentLine(suggestedTrajectory).add();
-			}
+			} 
 			lastPosition.set(getX(), getY(),getZ());
 			setVelocity(suggestedVelocity);
 			setCenterBottom(suggestedTrajectory.getEnd());

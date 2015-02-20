@@ -56,7 +56,7 @@ public class Element implements Serializable {
 	
 	//each subclass's constructor should set x, y, width, height, and depth
 	//TODO sort out positioning once and for all... confusing mix of variables
-	Vector4f position = new Vector4f();
+	Vector3f position = new Vector3f();
 	private float width, height, depth = 0;
 	protected boolean mutable = true;
 	//set to false to turn off info
@@ -231,9 +231,6 @@ public class Element implements Serializable {
 	Vector3f getPosition3f() {
 		return new Vector3f(getX(), getY(), getZ());
 	}
-	Vector4f getPosition4f() {
-		return new Vector4f(getX(), getY(), getZ(), 1);
-	}
 	
 	public boolean contains(String... strings) {
 		for (String s: strings)
@@ -241,12 +238,11 @@ public class Element implements Serializable {
 					return false;
 		return true;
 	}
-	void setPosition(Vector4f v)
-	{
-		setPosition(v.x, v.y, v.z);
-	}
 	void setDimensions(float w, float h, float d) {
 		width = w; height = h; depth = d;
+	}
+	public void setPosition(Vector3f v) {
+		setPosition(v.x, v.y, v.z);
 	}
 	public void setPosition(float x, float y, float z)
 	{
@@ -260,10 +256,8 @@ public class Element implements Serializable {
 	}
 	//pretty sure this routine is causing a java.util.ConcurrentModificationException exception when called from Ninja.class
 	void setCenterBottom(float x, float y) {
-		remove();
 		setMinX(x - getWidth() / 2);
 		setMinY(y);
-		add();
 	}
 	void setCenter(float x, float y) 
 	{

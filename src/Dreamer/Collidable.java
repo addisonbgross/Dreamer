@@ -25,6 +25,19 @@ class Collidable extends Element {
 		setCollisionShape(s);
 	}
 
+	///////////// HORRID MESS
+	@Override
+	void setCenterBottom(float x, float y) {
+		removeCollision();
+		super.setCenterBottom(x, y);
+		addCollision();
+	}
+	void addCollision() {
+		add();
+	}
+	void removeCollision() {
+		remove();
+	}
 	@Override
 	void draw(Graphics g) {
 		if(Element.debug && collisionShape != null) {	

@@ -88,7 +88,7 @@ final class LampLight extends Light implements Updateable {
 		flickerRange = 600;
 	}
 	public LampLight(Shape3d shape) {
-		setPosition(shape.getPosition4f());
+		setPosition(shape.getPosition3f());
 		s = shape;
 	}
 	public void update() {

@@ -13,6 +13,7 @@ public class Vector {
 	static float x, y, z;
 	static Matrix4f mIndentity = new Matrix4f(); 
 	static Matrix4f mRotation = new Matrix4f();
+	static Vector4f temp = new Vector4f(0, 0, 0, 1);
 	
 	static Vector3f getMinimum(Vector3f[] points) {
 		for(Vector3f v: points) {
@@ -93,19 +94,19 @@ public class Vector {
 	public static float getManhattanDistance(Vector3f v1, Vector3f v2) {
 		return getManhattanDistance(v1.x, v1.y, v1.z, v2.x, v2.y, v2.z);
 	}
-	public static Vector4f crossNormalized(Vector4f v1, Vector4f v2) {
-		return new Vector4f(
-				(v1.y * v2.z) - (v1.z * v2.y),
-				- (v1.x * v2.z) + (v1.z * v2.x),
-				(v1.x * v2.y) - (v1.y * v2.x),
-				0
+	public static Vector3f crossNormalized(Vector3f vector3f, Vector3f vector3f2) {
+		return new Vector3f(
+				(vector3f.y * vector3f2.z) - (vector3f.z * vector3f2.y),
+				- (vector3f.x * vector3f2.z) + (vector3f.z * vector3f2.x),
+				(vector3f.x * vector3f2.y) - (vector3f.y * vector3f2.x)
 				).normalise(null);
 	}
-	public static Vector4f rotate(Vector3f rotationAxis, Vector4f v, float angle) {
+	public static Vector4f rotate(Vector3f rotationAxis, Vector3f normal, float angle) {
+		temp.set(normal.x, normal.y, normal.z);
 		mIndentity.rotate(angle, rotationAxis, mRotation);
-		return	Matrix4f.transform(mRotation, v, null);
+		return Matrix4f.transform(mRotation, temp, null);
 	}
-	public static Vector4f rotate(float x, float y, float z, Vector4f v, float angle) {
-		return	rotate(new Vector3f(x, y, z), v, angle);
+	public static Vector4f rotate(float x, float y, float z, Vector3f v, float angle) {
+		return rotate(new Vector3f(x, y, z), v, angle);
 	}
 }

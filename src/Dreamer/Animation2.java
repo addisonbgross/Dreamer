@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.lwjgl.Sys;
 import org.lwjgl.util.vector.Vector2f;
+import org.lwjgl.util.vector.Vector3f;
 import org.lwjgl.util.vector.Vector4f;
 import org.newdawn.slick.Color;
 
@@ -24,7 +25,7 @@ public class Animation2 extends Shape3d implements Updateable {
 	{
 		//vertices that define the corners of the animation
 		for(int i = 0; i < 4; i++)
-			vertices.add(new Vector4f());
+			vertices.add(new Vector3f());
 	}
 	
 	Animation2(String s, int columns, int rows, int speed) {
