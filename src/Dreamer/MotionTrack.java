@@ -59,7 +59,7 @@ public class MotionTrack extends Collidable {
 	@Override 
 	void draw(Graphics g) {
 		super.draw(g);
-		if(Element.debug)
+		if(Element.debug && this.getCollisionShape() != null) {
 			Drawer.drawShape(
 					new Line(
 							track.getCenterX(),
@@ -70,6 +70,8 @@ public class MotionTrack extends Collidable {
 					Constants.COLLISIONCOLOUR,
 					g
 					);
+			
+		}
 	}
 	public static void generateMotionTrack(Face f, ArrayList<Vector3f> vertices, Vector3f vector3f) {
 		int sides = f.vertexIndex.length;

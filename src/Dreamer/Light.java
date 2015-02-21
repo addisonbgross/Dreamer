@@ -158,7 +158,27 @@ final class SunLight extends Light {
 		setPosition(x, y, z);
 	}
 }
-final class Sun extends Background {
+final class SunsetLight extends Light {
+	{
+		orthogonality = 0.8f;
+		color = new Color(200, 100, 100);
+		ambient = true;
+	}
+	SunsetLight(float x, float y, float z) {
+		setPosition(x, y, z);
+	}
+}
+class Sunset extends Sun {
+	Sunset() {
+		super();
+		light = new SunsetLight(-2000, 100, 100);
+		
+		outerSunColor = new Color(255, 100, 63, 63);
+		middleSunColor = new Color(255, 100, 31, 127);
+		innerSunColor = new Color(255, 100, 0, 191);
+	}
+}
+class Sun extends Background {
 	Polygon outer = new Polygon();
 	Polygon middle = new Polygon();
 	Polygon inner = new Polygon();
@@ -166,7 +186,12 @@ final class Sun extends Background {
 	float outerRadius = 80, middleRadius = 65, innerRadius = 50;
 	int numOuterSpikes = 48, numMiddleSpikes = 36, numInnerSpikes = 24;
 	int spiky = 10;
-	SunLight light = new SunLight(-8000, 2000, 2000);
+	
+	Color outerSunColor = new Color(255, 255, 63, 63);
+	Color middleSunColor = new Color(255, 255, 31, 127);
+	Color innerSunColor = new Color(255, 255, 0, 191);
+	
+	Light light = new SunLight(-8000, 2000, 2000);
 
 	Sun() {
 		float angle = 0;
@@ -215,11 +240,11 @@ final class Sun extends Background {
 		outer.setLocation(200 - Camera.getCenterX() / 100, 200 - Camera.getCenterY() / 100);
 		inner.setLocation(200 - Camera.getCenterX() / 100, 200 - Camera.getCenterY() / 100);
 		middle.setLocation(200 - Camera.getCenterX() / 100, 200 - Camera.getCenterY() / 100);
-		g.setColor(new Color(255, 255, 63, 63));
+		g.setColor(outerSunColor);
 		g.fill(outer.transform(Transform.createRotateTransform(outerAngularMotion, outer.getCenterX(), outer.getCenterY())));
-		g.setColor(new Color(255, 255, 31, 127));
+		g.setColor(middleSunColor);
 		g.fill(middle.transform(Transform.createRotateTransform(middleAngularMotion, middle.getCenterX(), middle.getCenterY())));
-		g.setColor(new Color(255, 255, 0, 191));
+		g.setColor(innerSunColor);
 		g.fill(inner.transform(Transform.createRotateTransform(innerAngularMotion, inner.getCenterX(), inner.getCenterY())));
 		innerAngularMotion += 0.005;
 		middleAngularMotion += 0.003;
