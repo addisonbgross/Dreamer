@@ -26,8 +26,8 @@ public class Element implements Serializable {
 	// called
 	// they are removed from this list by calling their .remove() method
 	protected static HashSet<Element> masterList = new HashSet<Element>(2000);
-	protected static PriorityQueue<Element> activeSet = new PriorityQueue<Element>(
-			2000, new zComparator());
+	protected static PriorityQueue<Element> activeSet 
+		= new PriorityQueue<Element>(2000, new zComparator());
 
 	// each Collidable is placed in these maps according to it's x and y
 	// position
@@ -64,8 +64,7 @@ public class Element implements Serializable {
 	// set to false to turn off info
 	public static boolean debug = false;
 
-	protected Element() {
-	}
+	protected Element() {}
 
 	/**
 	 * add: maps multiple keys to each element for fast retrieval

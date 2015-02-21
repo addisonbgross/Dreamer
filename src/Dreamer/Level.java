@@ -226,6 +226,8 @@ class ForestLevel extends Level {
 		b.add();
 		c.add();
 		
+		new MovingMotionTrack(-300, 300, -200, 300).add();
+		
 		/**
 		 * Focus camera on player
 		 */
@@ -233,6 +235,17 @@ class ForestLevel extends Level {
 	}
 }
 
+class EmptyLevel extends Level {
+	@Override
+	void createLevel() {
+		
+		Theme.current = Theme.fire;
+		
+		Block3d b = new Block3d(0, 0, 0, 100, 100, 100);
+		b.add();
+		Camera.focus(b);
+	}
+}
 
 
 

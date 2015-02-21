@@ -26,6 +26,15 @@ public class MainMenu extends Level {
 						e.start();
 					}
 				});
+		main.addOption(
+				"DEBUG LEVEL",
+				new Action() {
+					void perform() {
+						KeyHandler.openGameKeys();
+						Element.debug = true;
+						new EmptyLevel();
+					}
+				});
 		main.open();
 		
 		new Background("space").add();

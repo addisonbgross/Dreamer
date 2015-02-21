@@ -7,8 +7,8 @@ class Action {
 	Action() {
 		this(null, "none");
 	}
-	Action(Object o){
-		this(o, "none");
+	Action(String s){
+		this(null, s);
 	}
 	Action(Object o, String s){
 		object = o;

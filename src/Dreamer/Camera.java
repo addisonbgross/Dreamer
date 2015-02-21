@@ -55,7 +55,9 @@ public class Camera {
 		}
 	}
 	static void update() {
-		switch (nextMovement) {	
+		
+		switch (nextMovement) {
+		
 	        case	"zoom_in":
 	    		nudge(0, 0, velocity);
 	    		zoomLength--;

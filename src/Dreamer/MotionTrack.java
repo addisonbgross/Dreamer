@@ -171,3 +171,23 @@ class LadderTrack extends Collidable {
 	}
 }
 
+class MovingMotionTrack extends MotionTrack implements Updateable {
+
+	float angle, angleincrement = 0.1f, dX;
+	
+	MovingMotionTrack(float sx, float sy, float ex, float ey) {
+		super(sx, sy, ex, ey);
+	}
+	
+	@Override
+	public void update() {
+		angle += angleincrement;
+		angle = angle % (2 * 3.141592f);
+		dX = 200 * (float)Math.sin(angle);
+		remove();
+		track.setLocation(track.getX() + dX, track.getY());
+		setCollisionShape(track);
+		add();
+	}
+}
+

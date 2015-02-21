@@ -32,9 +32,7 @@ import org.newdawn.slick.opengl.TextureImpl;
 public class Face {
 	private static ArrayList<Face> drawList = new ArrayList<Face>(5000); 
 	private static TreeSet<Face> texturedDrawList = new  TreeSet<Face>(new FaceTextureComparator());
-	
-	static ArrayList<Face> tempFaces = new ArrayList<Face>();  
-	
+		
 	ArrayList<int[]> subTriangleVertexIndex;
 	ArrayList<int[]> subTriangleColorIndex;
 	int[] vertexIndex;
@@ -105,17 +103,29 @@ public class Face {
 				}
 		} 	
 	}
+	
 	private int index, start, end;
+	
 	public void drawWireFrame() {
 		for(start = 0; start < vertexIndex.length;  start++) {
-			tempV3f = getVertex(index, tempV3f);
+			
 			index = vertexIndex[start];
+			tempV3f = getVertex(index, tempV3f);
+			
+			System.out.println("s: " + tempV3f.toString());
+			
 			drawColoredPoint(tempV3f, vertexColor[start]);
+			
 			end = (start + 1) % vertexIndex.length;
 			index = vertexIndex[end];
+			tempV3f = getVertex(index, tempV3f);
+			
 			drawColoredPoint(tempV3f, vertexColor[end]);
+			
+			System.out.println("e: " + tempV3f.toString());
 		}
 	}
+	
 	//only works for convex polygons
 	public void triangulate() {
 		subTriangleVertexIndex = new ArrayList<int[]>();
@@ -160,13 +170,15 @@ public class Face {
 			new Vector2f(u2, v2)
 		};
 	}
+	
 	private static Vector3f v = new Vector3f();
 	private static Color c;
-	public static void drawColoredPoint(Vector3f vector3f, Color color) {
-		Camera.translate(vector3f, v);
+	public static void drawColoredPoint(Vector3f position, Color color) {
+		Camera.translate(position, v);
 		c = color;
-		glColor4f(c.r, c.g, c.b, c.a);
-		glVertex3f(v.x, v.y, v.z);	
+		//glColor4f(c.r, c.g, c.b, c.a);
+		glColor4f(1, 1, 1, 0);
+		glVertex3f(v.x, v.y, 1);	
 	}
 	public static void drawFaces() {
 		if(Element.debug) {
