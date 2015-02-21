@@ -20,6 +20,12 @@ abstract public class Light extends Element {
 	float range = Constants.LIGHTDISTANCE;
 	float orthogonality = 0;
 	boolean ambient = false;
+	float distance;
+	
+	// for calculations in light(Face f)
+	static Vector3f direction  = new Vector3f(), tempV3f = new Vector3f(), tempV3f2  = new Vector3f();
+	static float lightAmount, faceOrthogonality;
+	static int accumulate;
 	
 	@Override
 	void add() {
@@ -47,17 +53,62 @@ abstract public class Light extends Element {
 	void flicker() {
 		range = r.nextInt(200) + 800;
 	}
+	
 	static void clearAll() {
 		lightList.clear();
 	}
 	static void light (Element e) {
-		firstLight = true;
-		for(Light l: lightList) {
-			if(l.isVisible()) {
-				if(e instanceof Lightable) {
+		
+		if(e instanceof Lightable) {
+			firstLight = true;
+			for(Light l: lightList) {
+				if(l.isVisible()) {
 					((Lightable) e).light(l);
+					firstLight = false;
 				}
-				firstLight = false;
+			}
+		}
+	}
+	
+	void light(Face f) {
+		// starts from black during first round of lighting,
+		// then progressively adds to the color
+		accumulate = (Light.firstLight == false) ? 1 : 0;
+		
+		tempV3f = f.masterShape.getTranslatedNormal(f, tempV3f);
+		
+		if(tempV3f.z > -0.3f) { // culls faces pointing away?
+			for (int i = 0; i < f.vertexIndex.length; i++) {
+				// get the current vertex
+				tempV3f2 = f.masterShape.getTranslatedVertex(f.vertexIndex[i], tempV3f2);
+				
+				// find direction of light to vertex
+				direction = Vector3f.sub(getPosition3f(), tempV3f2, null)
+						.normalise(null);
+				// product of direction of light and surface normal
+				faceOrthogonality = orthogonality * Vector3f.dot(direction, tempV3f);
+				// calculate light based on distance
+				if (ambient)
+					lightAmount = 1;
+				else
+					lightAmount = Vector.getManhattanDistance(tempV3f2, getPosition3f());
+				if (lightAmount < range)
+					lightAmount = 1 - lightAmount / range;
+				else
+					lightAmount = 0;
+				try {
+					f.vertexColor[i] = new Color(f.vertexColor[i].r
+							* accumulate + f.faceColor[i].r * lightAmount
+							* (1 + faceOrthogonality) * color.r,
+							f.vertexColor[i].g * accumulate + f.faceColor[i].g
+									* lightAmount * (1 + faceOrthogonality) * color.g,
+							f.vertexColor[i].b * accumulate + f.faceColor[i].b
+									* lightAmount * (1 + faceOrthogonality) * color.b,
+							f.vertexColor[i].a);
+				} catch (ArrayIndexOutOfBoundsException e) {
+					// e.printStackTrace();
+					// this should not happen. but it does?
+				}
 			}
 		}
 	}

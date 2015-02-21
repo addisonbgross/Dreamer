@@ -86,7 +86,8 @@ public class Face {
 							);
 					if(texture != null)
 						glTexCoord2f(texturePoints[colorIndex[j]].x, texturePoints[colorIndex[j]].y);
-					Camera.translate(getVertex(triangleIndex[j]), tempV3f);
+					tempV3f = getVertex(triangleIndex[j], tempV3f);
+					Camera.translate(tempV3f, tempV3f);
 					glVertex3f(
 							tempV3f.x,
 							tempV3f.y,
@@ -107,11 +108,12 @@ public class Face {
 	private int index, start, end;
 	public void drawWireFrame() {
 		for(start = 0; start < vertexIndex.length;  start++) {
+			tempV3f = getVertex(index, tempV3f);
 			index = vertexIndex[start];
-			drawColoredPoint(getVertex(index), vertexColor[start]);
+			drawColoredPoint(tempV3f, vertexColor[start]);
 			end = (start + 1) % vertexIndex.length;
 			index = vertexIndex[end];
-			drawColoredPoint(getVertex(index), vertexColor[end]);
+			drawColoredPoint(tempV3f, vertexColor[end]);
 		}
 	}
 	//only works for convex polygons
@@ -211,8 +213,8 @@ public class Face {
 		texturedDrawList.clear();
 		drawList.clear();
 	}
-	Vector3f getVertex(int i) {
-		return Vector3f.add(masterShape.vertices.get(i), masterShape.getPosition3f(), null);
+	Vector3f getVertex(int i, Vector3f destination) {
+		return masterShape.getTranslatedVertex(i, destination);
 	}
 }
 class FaceTextureComparator implements Comparator<Face> {

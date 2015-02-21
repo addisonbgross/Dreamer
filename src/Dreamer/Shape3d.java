@@ -15,19 +15,15 @@ import org.newdawn.slick.geom.Rectangle;
 
 public class Shape3d extends Element implements Lightable {
 	static Random r = new Random();
-	static Vector3f tempV3f = new Vector3f();
-	static Vector3f tempV4f = new Vector3f();
-	static Color tempColor;
 	boolean initialized = false;
 
 	Vector3f manhattanRadius = new Vector3f();
 	ArrayList<Vector3f> vertices = new ArrayList<Vector3f>();
 	private ArrayList<Face> faces = new ArrayList<Face>();
+	protected ArrayList<Transformer> transformers = new ArrayList<Transformer>();
 
 	boolean fading = false;
-	Vector3f rotationAxis;
-	float angle = 0;
-	float angleIncrement = 0;
+	
 	float[] pow2 = { 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048 };
 
 	Shape3d() {
@@ -136,10 +132,6 @@ public class Shape3d extends Element implements Lightable {
 		return 1;
 	}
 
-	void setRotationAxis(float x, float y, float z) {
-		rotationAxis = new Vector3f(x, y, z).normalise(rotationAxis);
-	}
-
 	// adds a vertex and updates the current radius in each cardinal direction
 	// vertices
 	Vector3f addVertex(float x, float y, float z) {
@@ -184,13 +176,23 @@ public class Shape3d extends Element implements Lightable {
 		return points;
 	}
 
-	public Vector3f getTranslatedVertex(int i, Vector3f v) {
+	public Vector3f getTranslatedVertex(int i, Vector3f destination) {
 		try {
-			return Vector3f.add(vertices.get(i), getPosition3f(), v);
+			destination.set(vertices.get(i));
+			for(Transformer tx: transformers)
+				tx.transform(destination, destination);
+			return Vector3f.add(destination, getPosition3f(), destination);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}
+	}
+	
+	public Vector3f getTranslatedNormal(Face f, Vector3f destination) {
+		destination.set(f.normal);
+		for(Transformer tx: transformers)
+			tx.transform(destination, destination);
+		return destination;
 	}
 
 	public ArrayList<Vector2f> generateIntersectionPairs() {
@@ -235,49 +237,8 @@ public class Shape3d extends Element implements Lightable {
 	}
 
 	final public void light(Light l) {
-		Vector3f direction;
-		float amount;
-		// starts from black during first round of lighting,
-		// then progressively adds to the colour
-		int accumulate = (Light.firstLight == false) ? 1 : 0;
 		for (Face f : faces) {
-			for (int i = 0; i < f.vertexIndex.length; i++) {
-				// get the current vertex
-				getTranslatedVertex(f.vertexIndex[i], tempV4f);
-				// find direction of light to vertex
-				direction = Vector3f.sub(l.getPosition3f(), tempV4f, null)
-						.normalise(null);
-				// product of direction of light and surface normal
-				float orthogonality = l.orthogonality
-						* Vector3f.dot(direction, f.normal);
-				// calculate light based on distance
-				if (l.ambient)
-					amount = 1;
-				else
-					amount = Vector.getManhattanDistance(tempV4f,
-							l.getPosition3f());
-				if (amount < l.range)
-					amount = 1 - amount / l.range;
-				else
-					amount = 0;
-				try {
-					// if rotation axis set compute rotated normal
-					if (rotationAxis != null)
-						tempV3f.set(Vector
-								.rotate(rotationAxis, f.normal, angle));
-					f.vertexColor[i] = new Color(f.vertexColor[i].r
-							* accumulate + f.faceColor[i].r * amount
-							* (1 + orthogonality) * l.color.r,
-							f.vertexColor[i].g * accumulate + f.faceColor[i].g
-									* amount * (1 + orthogonality) * l.color.g,
-							f.vertexColor[i].b * accumulate + f.faceColor[i].b
-									* amount * (1 + orthogonality) * l.color.b,
-							f.vertexColor[i].a);
-				} catch (ArrayIndexOutOfBoundsException e) {
-					// e.printStackTrace();
-					// this should not happen. but it does?
-				}
-			}
+			l.light(f);
 		}
 	}
 
@@ -316,6 +277,94 @@ public class Shape3d extends Element implements Lightable {
 				p.addPoint(v.x, v.y);
 			return p;
 		}
+	}
+}
+
+abstract class Transformer implements Updateable {
+	
+	public abstract Vector3f transform(Vector3f v, Vector3f destination);
+}
+
+class Pulsar extends Transformer {
+	
+	float angle, increment, pulseAmount;
+	
+	Pulsar(float amount, float speed) {
+		pulseAmount = amount;
+		increment = 0.1f * speed;
+	}
+	
+	public void update() {
+		angle += increment;
+		angle = angle % (2 * 3.1415692f);
+	}
+	public Vector3f transform(Vector3f v, Vector3f destination) {
+		float scale = pulseAmount * (float)Math.sin(angle) + 1;
+		destination.set(scale * v.x, scale * v.y, scale * v.z);
+		return destination;
+	}
+}
+
+class Rotator extends Transformer {
+	
+	Vector3f rotationAxis;
+	float angle, increment;
+	
+	Rotator(float x, float y, float z, float speed) {
+		setRotationAxis(x, y, z);
+		increment = 0.1f * speed;
+	}
+	
+	void setRotationAxis(float x, float y, float z) {
+		rotationAxis = new Vector3f(x, y, z).normalise(rotationAxis);
+	}
+	public void update() {
+		angle += increment;
+		angle = angle % (2 * 3.1415692f);
+	}
+	public Vector3f transform(Vector3f v, Vector3f destination) {
+		destination.set(Vector.rotate(rotationAxis, v, angle));
+		return destination;
+	}
+}
+
+class DynamicShape3d extends Shape3d implements Updateable {
+	
+	DynamicShape3d(float x, float y, float z) {
+		super(x, y, z);
+	}
+	
+	public void update() {
+		for(Transformer tx: transformers)
+			tx.update();
+	}
+}
+
+class SpinningJewel extends DynamicShape3d implements Updateable {
+	
+	SpinningJewel(float x, float y, float z, float size) {
+		super(x, y, z);
+		transformers.add(new Rotator(0, 1, 0, 100 / size));
+		transformers.add(new Pulsar(0.05f, 1));
+		manhattanRadius.set(size, size, size);
+
+		Color c = Theme.current.getColor(Theme.Default.LIGHT);
+
+		addVertex(-size, 0, 0);
+		addVertex(0, size, 0);
+		addVertex(size, 0, 0);
+		addVertex(0, -size, 0);
+		addVertex(0, 0, size);
+		addVertex(0, 0, -size);
+
+		addFace(c, 0, 1, 4);
+		addFace(c, 1, 2, 4);
+		addFace(c, 2, 3, 4);
+		addFace(c, 3, 0, 4);
+		addFace(c, 1, 0, 5);
+		addFace(c, 0, 3, 5);
+		addFace(c, 3, 2, 5);
+		addFace(c, 2, 1, 5);
 	}
 }
 
@@ -480,46 +529,6 @@ class Temple {
 	}
 }
 
-class SpinningJewel extends Shape3d implements Updateable {
-	ArrayList<Vector3f> modelVertices = new ArrayList<Vector3f>();
-
-	SpinningJewel(float x, float y, float z, float size) {
-		super(x, y, z);
-		manhattanRadius.set(size, size, size);
-
-		setRotationAxis(0, 1, 0);
-		Color c = Theme.current.getColor(Theme.Default.LIGHT);
-		angle = 0;
-		angleIncrement = 0.01f;
-
-		modelVertices.add(addVertex(-size, 0, 0));
-		modelVertices.add(addVertex(0, size, 0));
-		modelVertices.add(addVertex(size, 0, 0));
-		modelVertices.add(addVertex(0, -size, 0));
-		modelVertices.add(addVertex(0, 0, size));
-		modelVertices.add(addVertex(0, 0, -size));
-
-		addFace(c, 0, 1, 4);
-		addFace(c, 1, 2, 4);
-		addFace(c, 2, 3, 4);
-		addFace(c, 3, 0, 4);
-		addFace(c, 1, 0, 5);
-		addFace(c, 0, 3, 5);
-		addFace(c, 3, 2, 5);
-		addFace(c, 2, 1, 5);
-	}
-
-	public void update() {
-		for (int i = 0; i < vertices.size(); i++) {
-			vertices.set(
-					i,
-					new Vector3f(Vector.rotate(rotationAxis,
-							modelVertices.get(i), angle)));
-		}
-		angle += angleIncrement;
-	}
-}
-
 class ActionJewel extends SpinningJewel {
 	int size = 20;
 	Level level;
@@ -543,10 +552,13 @@ class ActionJewel extends SpinningJewel {
 	}
 }
 
-class Island extends Shape3d {
+class Island extends DynamicShape3d {
+	
 	Island(float x, float y, float z, float radius) {
 		super(x, y, z);
 		create(radius);
+		transformers.add(new Rotator(0, 1, 0, 5 / radius));
+		transformers.add(new Pulsar(0.05f, 0.4f));
 	}
 
 	void create(float radius) {
@@ -711,3 +723,4 @@ class Ziggurat {
 		}
 	}
 }
+;
