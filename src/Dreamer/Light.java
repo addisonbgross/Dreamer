@@ -12,7 +12,7 @@ import org.newdawn.slick.geom.Ellipse;
 import org.newdawn.slick.geom.Polygon;
 import org.newdawn.slick.geom.Transform;
 
-abstract public class Light extends Element {
+abstract public class Light extends Positionable {
 	static public ArrayList<Light> lightList = new ArrayList<Light>();
 	static boolean firstLight = true;
 	static Random r = new Random();

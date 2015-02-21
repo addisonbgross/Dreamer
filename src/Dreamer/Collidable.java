@@ -9,7 +9,7 @@ import org.newdawn.slick.geom.Line;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.Vector2f;
 
-class Collidable extends Element {	
+class Collidable extends Positionable {	
 	static boolean collision = false;
 	static Shape lookahead;
 	static float xVelTemp, yVelTemp, xIncTemp, yIncTemp;
@@ -27,6 +27,28 @@ class Collidable extends Element {
 		setCollisionShape(s);
 	}
 
+	@Override
+	void add() {
+		super.add();
+		Element.xRange.add(getMinX(), this);
+		Element.yRange.add(getMinY(), this);
+		for (float offset = getWidth(); offset >= 0; offset -= Constants.COLLISIONINTERVAL)
+			Element.xRange.add(getMinX() + offset, this);
+		for (float offset = getHeight(); offset >= 0; offset -= Constants.COLLISIONINTERVAL)
+			Element.yRange.add(getMinY() + offset, this);
+	}
+	
+	@Override
+	void remove() {
+		super.remove();
+		Element.xRange.remove(getMinX(), this);
+		Element.yRange.remove(getMinY(), this);
+		for (float offset = getWidth(); offset >= 0; offset -= Constants.COLLISIONINTERVAL)
+			Element.xRange.remove(getMinX() + offset, this);
+		for (float offset = getHeight(); offset >= 0; offset -= Constants.COLLISIONINTERVAL)
+			Element.yRange.remove(getMinY() + offset, this);
+	}
+	
 	@Override
 	void draw(Graphics g) {
 		if(Element.debug && collisionShape != null) {	

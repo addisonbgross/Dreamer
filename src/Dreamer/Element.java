@@ -26,8 +26,7 @@ public class Element implements Serializable {
 	// called
 	// they are removed from this list by calling their .remove() method
 	protected static HashSet<Element> masterList = new HashSet<Element>(2000);
-	protected static PriorityQueue<Element> activeSet 
-		= new PriorityQueue<Element>(2000, new zComparator());
+	protected static HashSet<Element> activeSet = new HashSet<Element>(2000);
 
 	// each Collidable is placed in these maps according to it's x and y
 	// position
@@ -37,8 +36,8 @@ public class Element implements Serializable {
 	// which entails .remove()ing it before modifying it's position and calling
 	// .add() to place it back on this list, as it's critical for efficient
 	// collisions
-	private static ElementMap<Float, HashSet<Element>> xRange = new ElementMap<Float, HashSet<Element>>();
-	private static ElementMap<Float, HashSet<Element>> yRange = new ElementMap<Float, HashSet<Element>>();
+	protected static ElementMap<Float, HashSet<Element>> xRange = new ElementMap<Float, HashSet<Element>>();
+	protected static ElementMap<Float, HashSet<Element>> yRange = new ElementMap<Float, HashSet<Element>>();
 	// for cleanup of empty containers (cleaning them up on-the fly introduces
 	// concurrent errors)
 	private static HashSet<Float> deathSet = new HashSet<Float>();
@@ -56,14 +55,9 @@ public class Element implements Serializable {
 	public static ArrayList<Element> background = new ArrayList<Element>();
 	public static ArrayList<Element> foreground = new ArrayList<Element>();
 
-	// each subclass's constructor should set x, y, width, height, and depth
-	// TODO sort out positioning once and for all... confusing mix of variables
-	Vector3f position = new Vector3f();
-	private float width, height, depth = 0;
-	protected boolean mutable = true;
 	// set to false to turn off info
 	public static boolean debug = false;
-
+	
 	protected Element() {}
 
 	/**
@@ -82,31 +76,13 @@ public class Element implements Serializable {
 	void add() {
 		if (this instanceof Updateable)
 			updateBirthSet.add((Updateable) this);
-		if (Collidable.class.isAssignableFrom(getClass())) {
-			mutable = false;
-			xRange.add(getMinX(), this);
-			yRange.add(getMinY(), this);
-			for (float offset = getWidth(); offset >= 0; offset -= Constants.COLLISIONINTERVAL)
-				xRange.add(getMinX() + offset, this);
-			for (float offset = getHeight(); offset >= 0; offset -= Constants.COLLISIONINTERVAL)
-				yRange.add(getMinY() + offset, this);
-		}
 		masterList.add(this);
 	}
 
 	void remove() {
 		if (this instanceof Updateable)
 			updateDeathSet.add((Updateable) this);
-		if (Collidable.class.isAssignableFrom(getClass())) {
-			xRange.remove(getMinX(), this);
-			yRange.remove(getMinY(), this);
-			for (float offset = getWidth(); offset >= 0; offset -= Constants.COLLISIONINTERVAL)
-				xRange.remove(getMinX() + offset, this);
-			for (float offset = getHeight(); offset >= 0; offset -= Constants.COLLISIONINTERVAL)
-				yRange.remove(getMinY() + offset, this);
-		}
 		masterList.remove(this);
-		mutable = true;
 	}
 
 	boolean isVisible() {
@@ -114,99 +90,11 @@ public class Element implements Serializable {
 		return true;
 	}
 
-	@Override
-	public String toString() {
-
-		String s = getClass().toString() + "@";
-		s = s.concat("(" + (int) position.x);
-		s = s.concat(", " + (int) position.y + ") ");
-		s = s.concat(" w " + (int) width);
-		s = s.concat(" h " + (int) height);
-		return s;
-	}
-
 	// only method subclasses must implement, even if just for debugging
-	void draw(Graphics g) {
-	}
-
-	// getters and printing
-	float getMinX() {
-		return position.x;
-	}
-
-	float getMaxX() {
-		return position.x + width;
-	}
-
-	float getMinY() {
-		return position.y;
-	}
-
-	float getMaxY() {
-		return position.y + height;
-	}
-
-	float getMinZ() {
-		return position.z - depth / 2;
-	}
-
-	float getMaxZ() {
-		return position.z + depth / 2;
-	}
-
-	float getZ() {
-		return position.z;
-	}
-
-	Vector3f getCenterBottom() {
-		return new Vector3f(getMinX() + getWidth() / 2, getMinY(), getMinZ());
-	}
-
-	float getX() {
-		return position.x + (width / 2);
-	}
-
-	float getY() {
-		return position.y + (height / 2);
-	}
-
-	float getWidth() {
-		return width;
-	}
-
-	float getHeight() {
-		return height;
-	}
-
-	float getDepth() {
-		return depth;
-	}
+	void draw(Graphics g) {}
 
 	void print() {
 		System.out.println(this.toString());
-	}
-
-	float findDistanceTo(Element e) {
-		return findDistanceTo(e.getX(), e.getY(), e.getZ());
-	}
-
-	float findDistanceTo(float x, float y, float z) {
-		float dX = this.getX() - x;
-		float dY = this.getY() - y;
-		float dZ = this.getZ() - z;
-		return (float) Math.sqrt(Math.pow(dX, 2) + Math.pow(dY, 2)
-				+ Math.pow(dZ, 2));
-	}
-
-	float findBottomDistanceTo(Element e) {
-		return findDistanceTo(e.getX(), e.getMinY(), e.getZ());
-	}
-
-	// setters and mutators
-	// all these require mutable = true
-	// Elements should be removed before modification
-	Vector3f getPosition3f() {
-		return new Vector3f(getX(), getY(), getZ());
 	}
 
 	public boolean contains(String... strings) {
@@ -214,103 +102,6 @@ public class Element implements Serializable {
 			if (!getClass().toString().toLowerCase().contains(s.toLowerCase()))
 				return false;
 		return true;
-	}
-
-	void setDimensions(float w, float h, float d) {
-		width = w;
-		height = h;
-		depth = d;
-	}
-
-	public void setPosition(Vector3f v) {
-		setPosition(v.x, v.y, v.z);
-	}
-
-	public void setPosition(float x, float y, float z) {
-		if (!mutable)
-			throw new NotMutableException();
-		this.position.x = x;
-		this.position.y = y;
-		this.position.z = z;
-	}
-
-	void setCenterBottom(Vector2f v) {
-		setCenterBottom(v.x, v.y);
-	}
-
-	// pretty sure this routine is causing a
-	// java.util.ConcurrentModificationException exception when called from
-	// Ninja.class
-	void setCenterBottom(float x, float y) {
-		setMinX(x - getWidth() / 2);
-		setMinY(y);
-	}
-
-	void setCenter(float x, float y) {
-		if (!mutable)
-			throw new NotMutableException();
-		this.position.x = x - width / 2;
-		this.position.y = y - height / 2;
-	}
-
-	void setCenterX(float x) {
-		if (!mutable)
-			throw new NotMutableException();
-		this.position.x = x - width / 2;
-	}
-
-	void setCenterY(float y) {
-		if (!mutable)
-			throw new NotMutableException();
-		this.position.y = y - width / 2;
-	}
-
-	void setMinX(float x) {
-		if (!mutable)
-			throw new NotMutableException();
-		this.position.x = x;
-	}
-
-	void setMinY(float y) {
-		if (!mutable)
-			throw new NotMutableException();
-		this.position.y = y;
-	}
-
-	void setMaxX(float x) {
-		if (!mutable)
-			throw new NotMutableException();
-		this.width = x - getMinX();
-	}
-
-	void setMaxY(float y) {
-		if (!mutable)
-			throw new NotMutableException();
-		this.height = y - getMinY();
-	}
-
-	void setZ(float z) {
-		if (!mutable)
-			throw new NotMutableException();
-		this.position.z = z;
-	}
-
-	void setHeight(float height) {
-		if (!mutable)
-			throw new NotMutableException();
-		this.height = height;
-	}
-
-	void setWidth(float width) {
-		if (!mutable)
-			throw new NotMutableException();
-		this.width = width;
-	}
-
-	void setDepth(float depth) {
-		if (!mutable)
-			throw new NotMutableException();
-		this.depth = depth;
 	}
 
 	/*
@@ -368,11 +159,7 @@ public class Element implements Serializable {
 		}
 		return tempActive;
 	}
-
-	static HashSet<Element> getMasterList() {
-		return masterList;
-	}
-
+	
 	static ElementMap<Float, HashSet<Element>> getXRange() {
 		return xRange;
 	}
@@ -381,40 +168,11 @@ public class Element implements Serializable {
 		return yRange;
 	}
 
-	public static ArrayList<Element> getBackground() {
-		return background;
-	}
-
-	public static void addBackground(Element e) {
-		background.add(e);
-	}
-
-	static void printAll() {
-		System.out.println("ALL ELEMENTS");
-		System.out.println("BACKGROUND");
-		for (Element e : background)
-			e.print();
-		printMasterList();
-	}
-
-	static void printMasterList() {
-		System.out.println("MASTERLIST");
-		for (Element e : masterList)
-			e.print();
-	}
-
 	static void printActive() {
 		System.out.println("ACTIVE ELEMENTS");
 		for (Element e : activeSet) {
 			e.print();
 		}
-	}
-
-	static void drawAll(Graphics g) {
-		for (Element e : background)
-			e.draw(g);
-		for (Element e : masterList)
-			e.draw(g);
 	}
 
 	static void drawActive(Graphics g) {
@@ -558,27 +316,11 @@ class ElementMap<K, V> extends TreeMap<K, HashSet<Element>> {
 		}
 	}
 }
-
-class Marker extends Element {
-	String name;
-
-	Marker(String s, float x, float y) {
-		setPosition(x, y, 0);
-		name = s;
-	}
-
-	@Override
-	void draw(Graphics g) {
-		if (Element.debug) {
-			Drawer.drawCursor(name + "@(" + (int) getMinX() + ", " + (int) getMinY()
-					+ ")", getX(), getY(), getZ(), g);
-		}
-	}
-}
-
+/*
 class zComparator implements Comparator<Element> {
 	@Override
 	public int compare(Element a, Element b) {
 		return a.getZ() > b.getZ() ? 1 : (a.getZ() == b.getZ()) ? 0 : -1;
 	}
 }
+*/

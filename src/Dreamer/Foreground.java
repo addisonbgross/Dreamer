@@ -1,6 +1,6 @@
 package Dreamer;
 
-public class Foreground extends Element {
+public class Foreground extends Positionable {
 	private static final long serialVersionUID = -8726863549786269562L;
 	
 	@Override

@@ -7,7 +7,7 @@ import org.newdawn.slick.fills.GradientFill;
 import org.newdawn.slick.geom.Polygon;
 import org.newdawn.slick.geom.Rectangle;
 
-class Background extends Element {
+class Background extends Positionable {
 	static float BACKGROUNDMOTION = 10;
 	static float FOREGROUNDMOTION = 100;
 	static final float ANGULARVELOCITY = 0.5f;

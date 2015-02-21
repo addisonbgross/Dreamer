@@ -4,16 +4,16 @@ import java.util.ArrayList;
 
 import org.newdawn.slick.Graphics;
 
-class ClassFocus extends Element implements Updateable {
-	ArrayList<Element> classElements = new ArrayList<Element>();
+class ClassFocus extends Positionable implements Updateable {
+	ArrayList<Positionable> classElements = new ArrayList<Positionable>();
 	float maxDistance = 0;
 	int yOffset = 0;
 	
 	<T> ClassFocus(Class<?>... c) {
 		for(Class<?> cn: c)
 			for (Element e : masterList)
-				if (e.getClass() == cn)
-					classElements.add(e);
+				if ((e.getClass() == cn) && (Positionable.class.isAssignableFrom(e.getClass())))
+					classElements.add((Positionable)e);
 	}
 	<T> ClassFocus(int y, Class<?>... c) {
 		this(c);
@@ -38,28 +38,29 @@ class ClassFocus extends Element implements Updateable {
 		double minZ = 0;
 		double maxZ = 0;
 		int i = 0;
-		for (Element e : classElements)
+		for (Positionable p : classElements) {
 			try {
 				if(minX == 0 && maxX == 0 && minY == 0 && maxY == 0) {
-					minX = e.getX();
-					maxX = e.getX();
-					minY = e.getY();
-					maxY = e.getY();
-					minZ = e.getZ();
-					maxZ = e.getZ();
+					minX = p.getX();
+					maxX = p.getX();
+					minY = p.getY();
+					maxY = p.getY();
+					minZ = p.getZ();
+					maxZ = p.getZ();
 				}
 				else {
-					minX = Math.min(minX, e.getX());
-					maxX = Math.max(maxX, e.getX());
-					minY = Math.min(minY, e.getY());
-					maxY = Math.max(maxY, e.getY());
-					minZ = Math.min(minZ, e.getZ());
-					maxZ = Math.max(maxZ, e.getZ());
+					minX = Math.min(minX, p.getX());
+					maxX = Math.max(maxX, p.getX());
+					minY = Math.min(minY, p.getY());
+					maxY = Math.max(maxY, p.getY());
+					minZ = Math.min(minZ, p.getZ());
+					maxZ = Math.max(maxZ, p.getZ());
 				}
-				setPosition(e.getX() + getX(), e.getY() + getY(), e.getZ() + getZ());
+				setPosition(p.getX() + getX(), p.getY() + getY(), p.getZ() + getZ());
 				i++;
 			} catch(NullPointerException ex) {
-			//class is empty, focus is on origin
+				//class is empty, focus is on origin
+			}
 		}
 		if(i != 0 ) {
 			setPosition(getX() / i, (getY() / i) + yOffset, getZ() / i);

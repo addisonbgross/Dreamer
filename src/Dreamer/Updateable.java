@@ -5,6 +5,7 @@ import java.util.Comparator;
 public interface Updateable {
 	public void update();
 }
+
 class UpdateComparator implements Comparator<Updateable> {
 	boolean a, b;
 	@Override

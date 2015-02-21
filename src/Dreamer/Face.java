@@ -110,12 +110,13 @@ public class Face {
 	private int index, start, end;
 	
 	public void drawWireFrame() {
+		
 		for(start = 0; start < vertexIndex.length;  start++) {
 			
 			index = vertexIndex[start];
 			tempV3f = getVertex(index, tempV3f);
 			
-			System.out.println("s: " + tempV3f.toString());
+			// System.out.println("s: " + tempV3f.toString());
 			
 			drawColoredPoint(tempV3f, vertexColor[start]);
 			
@@ -125,7 +126,7 @@ public class Face {
 			
 			drawColoredPoint(tempV3f, vertexColor[end]);
 			
-			System.out.println("e: " + tempV3f.toString());
+			// System.out.println("e: " + tempV3f.toString());
 		}
 	}
 	
@@ -184,9 +185,8 @@ public class Face {
 	public static void drawColoredPoint(Vector3f position, Color color) {
 		Camera.translate(position, v);
 		c = color;
-		//glColor4f(c.r, c.g, c.b, c.a);
-		glColor4f(1, 1, 1, 0);
-		glVertex3f(v.x, v.y, 1);	
+		glColor4f(c.r, c.g, c.b, c.a);
+		glVertex3f(v.x, v.y, v.x);	
 	}
 	
 	public static void drawFaces() {

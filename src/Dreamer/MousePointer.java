@@ -6,7 +6,7 @@ import org.lwjgl.util.vector.Vector3f;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 
-public class MousePointer extends Element implements Updateable {
+public class MousePointer extends Positionable implements Updateable {
 	boolean leftClickAction = false, rightClickAction = false;
 	float lastX, lastY;
 	

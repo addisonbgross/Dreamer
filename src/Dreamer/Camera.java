@@ -16,7 +16,7 @@ public class Camera {
 	private static Rectangle scene = prescaledScene;
 	private static float centerX, centerY, centerZ = 2000;
 	private static float scale = 1, focalLength = 2000;
-	private static Element target;
+	private static Positionable target;
 	static boolean zoom = false;
 	private static String nextMovement = "stop";
 	private static int velocity = 0;
@@ -97,15 +97,15 @@ public class Camera {
 	 * distance between the farthest apart objects of those classes and
 	 * will be used to scale the camera
 	 * 
-	 * @param e element to focus on
+	 * @param p element to focus on
 	 * @return this camera(why? no good reason)
 	 */
-	static void focus(Element e) {	
+	static void focus(Positionable p) {	
 		
 		if(!zoom) {
 			
 			try {
-				ClassFocus cf = (ClassFocus)e;
+				ClassFocus cf = (ClassFocus)p;
 				if ((cf.maxDistance + Constants.VIEWMARGIN) > Constants.screenHeight)
 					scale = Constants.screenHeight / (cf.maxDistance + Constants.VIEWMARGIN);
 				else 
@@ -116,9 +116,9 @@ public class Camera {
 			}
 			
 			try {
-					target = e;
-					centerX = e.getX();
-					centerY = e.getY();
+					target = p;
+					centerX = p.getX();
+					centerY = p.getY();
 			} catch(NullPointerException n) {
 				System.err.println("Camera not focused before updating!");
 			}

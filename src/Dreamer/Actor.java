@@ -348,10 +348,11 @@ class Enemy extends Actor {
         // TODO: make this not terrible
         for(Element e: Element.activeSet) {
         	if (e instanceof Player) {
-        		if (e.getMinX() >= vision.getCenterX() - vision.getWidth() / 2 && 
-        			e.getMinX() <= vision.getCenterX() + vision.getWidth() / 2 &&
-        			e.getMinY() <= vision.getCenterY() + vision.getHeight() / 2 &&
-        			e.getMinY() <= vision.getCenterY() + vision.getHeight() / 2) {
+        		Player p = (Player)e;
+        		if (p.getMinX() >= vision.getCenterX() - vision.getWidth() / 2 && 
+        			p.getMinX() <= vision.getCenterX() + vision.getWidth() / 2 &&
+        			p.getMinY() <= vision.getCenterY() + vision.getHeight() / 2 &&
+        			p.getMinY() <= vision.getCenterY() + vision.getHeight() / 2) {
 		            	target = (Player)e;
 		                if(target.checkStatus("dead"))
 		                    target = null;

@@ -13,7 +13,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Polygon;
 import org.newdawn.slick.geom.Rectangle;
 
-public class Shape3d extends Element implements Lightable {
+public class Shape3d extends Positionable implements Lightable {
 	static Random r = new Random();
 	boolean initialized = false;
 

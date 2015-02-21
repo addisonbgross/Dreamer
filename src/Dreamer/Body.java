@@ -6,7 +6,7 @@ import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 import org.newdawn.slick.Graphics;
 
-public class Body extends Element implements Updateable { 	
+public class Body extends Positionable implements Updateable { 	
 	Animation2 legs, body, head;
 	Actor actor;
 	int direction;

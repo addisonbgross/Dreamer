@@ -32,7 +32,7 @@ public final class Trajectory implements Updateable {
 		lastPosition.set(position);
 	}
 	
-	private final class PermanentLine extends Element {
+	private final class PermanentLine extends Positionable {
 		Line l;
 		
 		PermanentLine(float ax, float ay, float az, float bx, float by, float bz) {
