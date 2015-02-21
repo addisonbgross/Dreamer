@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.lwjgl.util.vector.Vector3f;
-import org.lwjgl.util.vector.Vector4f;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.TrueTypeFont;
@@ -51,6 +50,16 @@ class Library {
 	static Image getImage(String s) {
 		return images.get(s).original();
 	}
+	
+	/**
+	 * Create new Model object composed of Shape3d objects
+	 * 
+	 * @param s name of Obj file
+	 * @param x x origin of model
+	 * @param y y origin of model
+	 * @param z z origin of model
+	 * @return ArrayList of Shape3d objects that compose model
+	 */
 	static ArrayList<Shape3d> getModel(String s, int x, int y, int z) {
 		return getModel(s, Constants.DEFAULTMODELSCALE, x, y, z);
 	}
@@ -71,6 +80,17 @@ class Library {
 		}
 		return modelList;
 	}
+	
+	/**
+	 * Gather a list of points within the specified Obj file where new light objects
+	 * should be placed
+	 * 
+	 * @param s name of Obj file
+	 * @param x x origin of model
+	 * @param y y origin of model
+	 * @param z z origin of model
+	 * @return ArrayList of points where light objects will be created
+	 */
 	static ArrayList<Vector3f> getModelLights(String s, int x, int y, int z) {
 		return getModelLights(s, Constants.DEFAULTMODELSCALE, x, y, z);
 	}
@@ -170,23 +190,4 @@ class ImageTracker {
 		return scaledImage;
 	}
 	Image original() {return image;}
-}
-class ModelGhost {
-	ArrayList<Vector4f> verts;
-	ArrayList<Face> faces;
-	
-	ModelGhost() {}
-	
-	void addVert(Vector4f v) {
-		verts.add(v);
-	}
-	void addFace(Face f) {
-		faces.add(f);
-	}
-	ArrayList<Vector4f> getVerts() {
-		return verts;
-	}
-	ArrayList<Face> getFaces() {
-		return faces;
-	}
 }
