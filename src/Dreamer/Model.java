@@ -3,9 +3,9 @@ package Dreamer;
 import java.util.ArrayList;
 
 import org.lwjgl.util.vector.Vector3f;
-import org.newdawn.slick.Graphics;
 
 public class Model extends Element {
+    private static final long serialVersionUID = 1L;
 	private ArrayList<Shape3d> models;
 	private ArrayList<Vector3f> lights;
 	
@@ -23,9 +23,5 @@ public class Model extends Element {
 	void add() {
 		for (Shape3d s : models)
 			s.add();
-	}
-	@Override
-	void draw(Graphics g) {
-		// naw dog
 	}
 }
