@@ -21,6 +21,7 @@ public class MousePointer extends Element implements Updateable {
 	
 	public void update() {
 		remove();
+		// setPosition(Mouse.getX(), Mouse.getY(), 0);
 		setPosition(Camera.translateMouse(Mouse.getX(), Mouse.getY()));
 		//draw a block defined by the mouse left click dragging region
 		if(Mouse.isButtonDown(0)) {
@@ -53,10 +54,6 @@ public class MousePointer extends Element implements Updateable {
 			rightClickAction = false;
 		}
 		add();
-	}
-	public void setPosition(Vector3f translateMouse) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
