@@ -30,14 +30,10 @@ public class Positionable extends Element {
 		float getMaxY() {return position.y + height;}
 		float getMinZ() {return position.z - depth / 2;}
 		float getMaxZ() {return position.z + depth / 2;}
-		float getZ() {return position.z;}
-
-		Vector3f getCenterBottom() {
-			return new Vector3f(getMinX() + getWidth() / 2, getMinY(), getMinZ());
-		}
 
 		float getX() {return position.x + (width / 2);}
 		float getY() {return position.y + (height / 2);}
+		float getZ() {return position.z;}
 		float getWidth() {return width;}
 		float getHeight() {return height;}
 		float getDepth() {return depth;}
@@ -54,8 +50,8 @@ public class Positionable extends Element {
 					+ Math.pow(dZ, 2));
 		}
 
-		float findBottomDistanceTo(Positionable e) {
-			return findDistanceTo(e.getX(), e.getMinY(), e.getZ());
+		Vector3f getCenterBottom() {
+			return new Vector3f(getMinX() + getWidth() / 2, getMinY(), getMinZ());
 		}
 		
 		Vector3f getPosition3f() {
@@ -80,9 +76,6 @@ public class Positionable extends Element {
 			this.position.z = z;
 		}
 		
-		// pretty sure this routine is causing a
-		// java.util.ConcurrentModificationException exception when called from
-		// Ninja.class
 		void setCenterBottom(float x, float y) {
 			setMinX(x - getWidth() / 2);
 			setMinY(y);

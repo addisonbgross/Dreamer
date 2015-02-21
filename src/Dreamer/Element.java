@@ -19,7 +19,6 @@ import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.Vector2f;
 
-//TODO make setPosition etc throw an exception
 public class Element implements Serializable {
 	private static final long serialVersionUID = 1384182428126670525L;
 	// the masterList contains all Elements that have had their .add() method
@@ -126,6 +125,7 @@ public class Element implements Serializable {
 	 * @return Set of elements within a given bounds
 	 */
 	static Set<Element> getActiveWithin(Shape s) {
+		
 		Set<Map.Entry<Float, HashSet<Element>>> temp = new HashSet<Map.Entry<Float, HashSet<Element>>>();
 		Set<Element> tempActive = new HashSet<Element>();
 
@@ -159,14 +159,6 @@ public class Element implements Serializable {
 		}
 		return tempActive;
 	}
-	
-	static ElementMap<Float, HashSet<Element>> getXRange() {
-		return xRange;
-	}
-
-	static ElementMap<Float, HashSet<Element>> getYRange() {
-		return yRange;
-	}
 
 	static void printActive() {
 		System.out.println("ACTIVE ELEMENTS");
@@ -193,21 +185,10 @@ public class Element implements Serializable {
 			e.draw(g);
 	}
 
-	static int numberActive() {
-		return activeSet.size();
-	}
-
-	static int numberXRangeSets() {
-		return xRange.size();
-	}
-
-	static int numberYRangeSets() {
-		return yRange.size();
-	}
-
-	static int numberTotal() {
-		return masterList.size();
-	}
+	static int numberActive() {return activeSet.size();}
+	static int numberXRangeSets() {return xRange.size();}
+	static int numberYRangeSets() {return yRange.size();}
+	static int numberTotal() {return masterList.size();}
 
 	static void clearAll() {
 		updateSet.clear();
