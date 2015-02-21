@@ -68,8 +68,10 @@ public class Face {
 		else
 			texturedDrawList.add(this);
 	}
+	
 	static int[] triangleIndex;
 	static int[] colorIndex;
+	
 	public void draw() {
 		for(int i = 0; i < subTriangleVertexIndex.size(); i++) {
 			triangleIndex = subTriangleVertexIndex.get(i);
@@ -94,6 +96,7 @@ public class Face {
 				}
 		} 
 	}
+	
 	public void iterateTriangles() {
 		for(int i = 0; i < subTriangleVertexIndex.size(); i++) {
 			triangleIndex = subTriangleVertexIndex.get(i);
@@ -138,6 +141,7 @@ public class Face {
 			subTriangleColorIndex.add(triangleColorIndex);
 		}
 	}
+	
 	public void setVertices(int... v) {
 		vertexIndex = new int[v.length];
 		int iter = 0;
@@ -146,6 +150,7 @@ public class Face {
 			iter++;
 		}
 	}
+	
 	public void setColor(Color desired) {
 		vertexColor = new Color[vertexIndex.length];
 		faceColor = new Color[vertexIndex.length];
@@ -154,6 +159,7 @@ public class Face {
 			faceColor[i] =new Color(desired.r, desired.g, desired.b, desired.a);
 		}
 	}
+	
 	public void setColors(Color... desired) {
 		vertexColor = new Color[vertexIndex.length];
 		faceColor = new Color[vertexIndex.length];
@@ -162,6 +168,7 @@ public class Face {
 			faceColor[i] = new Color(desired[i].r, desired[i].g, desired[i].b, desired[i].a);
 		}
 	}
+	
 	void setTexturePoints(float u1, float v1, float u2, float v2) {
 		texturePoints = new Vector2f[]{
 			new Vector2f(u1, v2),
@@ -173,6 +180,7 @@ public class Face {
 	
 	private static Vector3f v = new Vector3f();
 	private static Color c;
+	
 	public static void drawColoredPoint(Vector3f position, Color color) {
 		Camera.translate(position, v);
 		c = color;
@@ -180,6 +188,7 @@ public class Face {
 		glColor4f(1, 1, 1, 0);
 		glVertex3f(v.x, v.y, 1);	
 	}
+	
 	public static void drawFaces() {
 		if(Element.debug) {
 			glBegin(GL11.GL_LINES);
@@ -225,10 +234,12 @@ public class Face {
 		texturedDrawList.clear();
 		drawList.clear();
 	}
+	
 	Vector3f getVertex(int i, Vector3f destination) {
 		return masterShape.getTranslatedVertex(i, destination);
 	}
 }
+
 class FaceTextureComparator implements Comparator<Face> {
 	//groups textures by texture ID integer
 	public int compare(Face arg0, Face arg1) {

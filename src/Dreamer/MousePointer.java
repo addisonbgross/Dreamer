@@ -25,12 +25,14 @@ public class MousePointer extends Element implements Updateable {
 		setPosition(Camera.translateMouse(Mouse.getX(), Mouse.getY()));
 		//draw a block defined by the mouse left click dragging region
 		if(Mouse.isButtonDown(0)) {
+			
 			if(!leftClickAction) {
 				lastX = getX();
 				lastY = getY();
 				leftClickAction = true;
 			}	
 		} else if(leftClickAction) {
+			
 			leftClickAction = false;
 			Block3d b = new Block3d(
 					Color.gray,
@@ -44,6 +46,7 @@ public class MousePointer extends Element implements Updateable {
 			b.generateMotionTracks();
 			b.add();
 		}
+		
 		if(Mouse.isButtonDown(1)) {
 			if(!rightClickAction) {
 				lastX = getX();
@@ -53,12 +56,13 @@ public class MousePointer extends Element implements Updateable {
 		} else if(rightClickAction) {
 			rightClickAction = false;
 		}
+		
 		add();
 	}
 
 	@Override
 	void draw(Graphics g) {
-		drawCursor("MousePointer", getX(), getY(), getZ(), g);
+		Drawer.drawCursor("MousePointer", getX(), getY(), getZ(), g);
 		/*
 		if(Element.debug)
 			drawCursor("MousePointer", getX(), getY(), getZ(), g);

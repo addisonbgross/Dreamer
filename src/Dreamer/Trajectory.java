@@ -4,7 +4,7 @@ import org.lwjgl.util.vector.Vector3f;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Line;
 
-public final class Trajectory implements Updateable{
+public final class Trajectory implements Updateable {
 	
 	private Vector3f lastPosition = new Vector3f(), position = new Vector3f();
 	private Actor actor;

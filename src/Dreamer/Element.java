@@ -125,17 +125,6 @@ public class Element implements Serializable {
 		return s;
 	}
 
-	void drawCursor(String s, float x, float y, float z, Graphics g) {
-		Vector3f v = Camera.translate(x, y, z);
-		g.setColor(Library.defaultFontColor);
-		g.setFont(Library.defaultFont);
-		g.drawString(s, v.x, v.y);
-		g.drawLine(v.x - Constants.MARKERSIZE, v.y, v.x + Constants.MARKERSIZE,
-				v.y);
-		g.drawLine(v.x, v.y - Constants.MARKERSIZE, v.x, v.y
-				+ Constants.MARKERSIZE);
-	}
-
 	// only method subclasses must implement, even if just for debugging
 	void draw(Graphics g) {
 	}
@@ -581,7 +570,7 @@ class Marker extends Element {
 	@Override
 	void draw(Graphics g) {
 		if (Element.debug) {
-			drawCursor(name + "@(" + (int) getMinX() + ", " + (int) getMinY()
+			Drawer.drawCursor(name + "@(" + (int) getMinX() + ", " + (int) getMinY()
 					+ ")", getX(), getY(), getZ(), g);
 		}
 	}

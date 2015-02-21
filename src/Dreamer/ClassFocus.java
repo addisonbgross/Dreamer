@@ -24,7 +24,7 @@ class ClassFocus extends Element implements Updateable {
 	void draw(Graphics g) {
 		if(Element.debug) {
 			String s = "ClassFocus@("+(int)getMinX()+", "+(int)getMinY()+")";
-			drawCursor(s, getX(), getY(), getZ(), g);
+			Drawer.drawCursor(s, getX(), getY(), getZ(), g);
 		}
 	}
 	public void update() {

@@ -1,5 +1,6 @@
 package Dreamer;
 
+import org.lwjgl.util.vector.Vector3f;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Line;
@@ -10,6 +11,7 @@ import org.newdawn.slick.geom.Shape;
 public class Drawer {
 	
 	static void drawShape(Shape s, Color c, Graphics g, boolean filled) {
+		
 		if(Line.class.equals(s.getClass())) {
 			Line l = (Line)s;
 			l = new Line(	
@@ -19,7 +21,6 @@ public class Drawer {
 					Camera.translate(l.getX2(), l.getY2(), 0).y
 					);
 			g.setColor(c);
-			g.draw(l);
 		} else {
 			Polygon p = new Polygon();
 			int i = s.getPointCount() - 1;
@@ -31,6 +32,7 @@ public class Drawer {
 				i--;
 			}
 			g.setColor(c);
+			
 			if(filled)
 				g.fill(p);
 			else
@@ -60,7 +62,19 @@ public class Drawer {
 		}
 		*/
 	}
+	
 	static void drawShape(Shape s, Color c, Graphics g) {
 		drawShape(s, c, g, true);
+	}
+	
+	static void drawCursor(String s, float x, float y, float z, Graphics g) {
+		Vector3f v = Camera.translate(x, y, z);
+		g.setColor(Library.defaultFontColor);
+		g.setFont(Library.defaultFont);
+		g.drawString(s, v.x, v.y);
+		g.drawLine(v.x - Constants.MARKERSIZE, v.y, v.x + Constants.MARKERSIZE,
+				v.y);
+		g.drawLine(v.x, v.y - Constants.MARKERSIZE, v.x, v.y
+				+ Constants.MARKERSIZE);
 	}
 }

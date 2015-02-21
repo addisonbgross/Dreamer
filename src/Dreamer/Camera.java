@@ -8,11 +8,6 @@ import org.newdawn.slick.geom.Rectangle;
 
 public class Camera {
 	
-	public enum Function {
-		ORIGINAL, NEW
-	}
-	public static Function mode = Function.ORIGINAL;
-	private static float angle = 0f;
 	private static Rectangle prescaledScene  = new Rectangle(
 			-Constants.screenWidth / 2, 
 			-Constants.screenHeight / 2, 
@@ -20,23 +15,18 @@ public class Camera {
 			Constants.screenHeight);
 	private static Rectangle scene = prescaledScene;
 	private static float centerX, centerY, centerZ = 2000;
-	private static float scale = 1;
-	static float focalLength = 2000;
+	private static float scale = 1, focalLength = 2000;
 	private static Element target;
 	static boolean zoom = false;
 	private static String nextMovement = "stop";
 	private static int velocity = 0;
 	
-	static int zoomLength;
-	
-	//Matrix4f projectionMatrix = new Matrix4f();
-	static float tempDistance;
 	static Vector4f rotated = new Vector4f();
 	static Vector3f tempV3f = new Vector3f();
 	static Vector3f translated = new Vector3f();
 	
-	static void draw(Graphics g)
-	{	
+	static void draw(Graphics g){	
+		
 		try {
 			//print out the camera info and focus box
 			g.setColor(Library.defaultFontColor);
@@ -54,19 +44,18 @@ public class Camera {
 			//camera unfocused
 		}
 	}
+	
 	static void update() {
 		
 		switch (nextMovement) {
 		
 	        case	"zoom_in":
 	    		nudge(0, 0, velocity);
-	    		zoomLength--;
 	    		velocity++;
 				break;
 				
 	        case	"zoom_out":
 	    		nudge(0, 0, -velocity);
-	    		zoomLength++;
 	    		velocity++;
 				break;
 				
@@ -95,16 +84,11 @@ public class Camera {
 	        	break;
 		}
 		
-		if(target != null) {
+		if(target  !=  null) {
 			focus(target);
 			if(target instanceof Updateable)
 				((Updateable) target).update();
 		}
-		if(Keyboard.isKeyDown(Keyboard.KEY_RBRACKET))
-			angle += 0.000002f;
-		if(Keyboard.isKeyDown(Keyboard.KEY_LBRACKET))
-			angle -= 0.000002f;
-		angle = angle % (float)(2 * Math.PI);
 	}
 	/**focuses the camera on a specific element
 	 * 
@@ -117,7 +101,9 @@ public class Camera {
 	 * @return this camera(why? no good reason)
 	 */
 	static void focus(Element e) {	
+		
 		if(!zoom) {
+			
 			try {
 				ClassFocus cf = (ClassFocus)e;
 				if ((cf.maxDistance + Constants.VIEWMARGIN) > Constants.screenHeight)
@@ -128,19 +114,11 @@ public class Camera {
 				//not a valid classFocus, normal scaling in effect
 				scale = 1;
 			}
+			
 			try {
-				switch(mode) {
-				case NEW:
-					target = e;
-					angle = -(float)Math.atan2(centerX - e.getX(), centerZ - e.getZ());
-					centerY = e.getY();
-					break; 
-				default: 
 					target = e;
 					centerX = e.getX();
 					centerY = e.getY();
-					break;
-				}
 			} catch(NullPointerException n) {
 				System.err.println("Camera not focused before updating!");
 			}
@@ -178,6 +156,7 @@ public class Camera {
 						return true;
 		return false;
 	}
+	
 	static Vector3f translateMouse(int x, int y) {
 		return new Vector3f(
 				((float)x / Constants.screenWidth * getWidth()) + getMinX(),
@@ -187,34 +166,28 @@ public class Camera {
 	}
 	//this is the master translate method, this vector should be used ASAP after returning
 	static Vector3f translate(float x, float y, float z, Vector3f result) {
-		tempV3f.set(x - getCenterX(), y - getCenterY(), z - getCenterZ());
-		tempDistance = tempV3f.x + tempV3f.y + tempV3f.z;
-		switch(mode) {
-			case NEW:
-				rotated = Vector.rotate(0, 1, 0, tempV3f, angle);
-				z = Math.abs(focalLength / rotated.z);
-				x = rotated.x * z * tempDistance / focalLength;
-				y = rotated.y * z * tempDistance / focalLength;
-				break;
-			default: 
-				z = Math.abs(focalLength / tempV3f.z);
-				x = tempV3f.x * z;
-				y = tempV3f.y * z;
-				break;
-		}
+		
+		z = Math.abs(focalLength / (z - getCenterZ()));
+		x = (x - getCenterX()) * z;
+		y = (y - getCenterY()) * z;
+		
 		result.set(			
 				x + Constants.screenWidth / 2,
 				-y + Constants.screenHeight / 2,
 				Math.min(1, Math.max(1 - z / 10000, 0))
 				);
+		
 		return result;
 	}
+	
 	static Vector3f translate(float x, float y, float z) {
 			return translate(x, y, z, translated);
 	}
+	
 	static Vector3f translate(Vector3f vector3f, Vector3f result) {
 		return translate(vector3f.x, vector3f.y, vector3f.z, result);
 	}
+	
 	public static void print() {
 		String s = "camera: ";
 		s = s.concat("minX: "+getMinX());
@@ -223,6 +196,7 @@ public class Camera {
 		s = s.concat(" maxY: "+getMaxY());
 		System.out.println(s);
 	}
+	
 	public static void command(String s) {
 		nextMovement = s;
 	}
