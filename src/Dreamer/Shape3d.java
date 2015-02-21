@@ -180,7 +180,7 @@ public class Shape3d extends Element implements Lightable {
 		try {
 			destination.set(vertices.get(i));
 			for(Transformer tx: transformers)
-				tx.transform(destination, destination);
+				tx.transformVertex(destination, destination);
 			return Vector3f.add(destination, getPosition3f(), destination);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -191,7 +191,7 @@ public class Shape3d extends Element implements Lightable {
 	public Vector3f getTranslatedNormal(Face f, Vector3f destination) {
 		destination.set(f.normal);
 		for(Transformer tx: transformers)
-			tx.transform(destination, destination);
+			tx.transformNormal(destination, destination);
 		return destination;
 	}
 
@@ -277,54 +277,6 @@ public class Shape3d extends Element implements Lightable {
 				p.addPoint(v.x, v.y);
 			return p;
 		}
-	}
-}
-
-abstract class Transformer implements Updateable {
-	
-	public abstract Vector3f transform(Vector3f v, Vector3f destination);
-}
-
-class Pulsar extends Transformer {
-	
-	float angle, increment, pulseAmount;
-	
-	Pulsar(float amount, float speed) {
-		pulseAmount = amount;
-		increment = 0.1f * speed;
-	}
-	
-	public void update() {
-		angle += increment;
-		angle = angle % (2 * 3.1415692f);
-	}
-	public Vector3f transform(Vector3f v, Vector3f destination) {
-		float scale = pulseAmount * (float)Math.sin(angle) + 1;
-		destination.set(scale * v.x, scale * v.y, scale * v.z);
-		return destination;
-	}
-}
-
-class Rotator extends Transformer {
-	
-	Vector3f rotationAxis;
-	float angle, increment;
-	
-	Rotator(float x, float y, float z, float speed) {
-		setRotationAxis(x, y, z);
-		increment = 0.1f * speed;
-	}
-	
-	void setRotationAxis(float x, float y, float z) {
-		rotationAxis = new Vector3f(x, y, z).normalise(rotationAxis);
-	}
-	public void update() {
-		angle += increment;
-		angle = angle % (2 * 3.1415692f);
-	}
-	public Vector3f transform(Vector3f v, Vector3f destination) {
-		destination.set(Vector.rotate(rotationAxis, v, angle));
-		return destination;
 	}
 }
 

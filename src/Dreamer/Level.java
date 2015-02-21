@@ -213,6 +213,19 @@ class ForestLevel extends Level {
 		new SpinningJewel(2000, 2500, -2500, 400).add();
 		new SpinningJewel(1000, 2700, -2200, 700).add();
 		
+		Theme.current = Theme.fire;
+		
+		Test a = new Test(-200, 300, 50, 20, 200, 20);
+		Test b = new Test(0, 500, 0, 20, 100, 20);
+		Test c = new Test(0, 600, 0, 20, 200, 20);
+		c.link = b;
+		b.link = a;
+		c.wig.increment = 0.03f;
+		a.wig.increment = 0.01f;
+		a.add();
+		b.add();
+		c.add();
+		
 		/**
 		 * Focus camera on player
 		 */
