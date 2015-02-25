@@ -169,10 +169,14 @@ public class Shape3d extends Positionable implements Lightable {
 	Vector3f addVertex(float x, float y, float z) {
 		Vector3f v = new Vector3f(x, y, z);
 		vertices.add(v);
-		manhattanRadius.x = Math.max(Math.abs(x), manhattanRadius.x);
-		manhattanRadius.y = Math.max(Math.abs(y), manhattanRadius.y);
-		manhattanRadius.z = Math.max(Math.abs(z), manhattanRadius.z);
+		manhattanRadius = updateBounds(v, manhattanRadius);
 		return v;
+	}
+	Vector3f updateBounds(Vector3f v, Vector3f bounds) {
+		manhattanRadius.x = Math.max(Math.abs(v.x), manhattanRadius.x);
+		manhattanRadius.y = Math.max(Math.abs(v.y), manhattanRadius.y);
+		manhattanRadius.z = Math.max(Math.abs(v.z), manhattanRadius.z);
+		return bounds;
 	}
 	
 	Vector3f findCenter() {
@@ -334,6 +338,10 @@ public class Shape3d extends Positionable implements Lightable {
 		}
 		return this;
 	}
+	
+	DynamicShape3d makeDynamic() {
+		return new DynamicShape3d(this);
+	}
 }
 
 class DynamicShape3d extends Shape3d implements Updateable {
@@ -354,6 +362,11 @@ class DynamicShape3d extends Shape3d implements Updateable {
 	public void update() {
 		for (Transformer tx : transformers)
 			tx.update();
+	}
+
+	DynamicShape3d addTransformer(Transformer t) {
+		transformers.add(t);
+		return this;
 	}
 }
 

@@ -27,12 +27,15 @@ public class MainMenu extends Level {
 					}
 				});
 		main.addOption(
-				"DEBUG LEVEL",
+				"RUN TEST",
 				new Action() {
 					void perform() {
-						KeyHandler.openGameKeys();
-						Element.debug = true;
-						new EmptyLevel();
+						OnDemandLoader.Start();
+						Resource r = new Resource("space", FileType.IMG);
+						r.getResource();
+						// KeyHandler.openGameKeys();
+						//Element.debug = true;
+						//new EmptyLevel();
 					}
 				});
 		main.open();

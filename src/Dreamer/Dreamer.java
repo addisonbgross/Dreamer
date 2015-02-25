@@ -60,7 +60,6 @@ public class Dreamer {
 		
 		new Ninja(0, 0).addToGame();
 		
-		origin.add();
 		new MainMenu();
 		
 		try {

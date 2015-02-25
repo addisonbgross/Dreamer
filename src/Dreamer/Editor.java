@@ -30,17 +30,16 @@ public class Editor {
 				"TEST SHAPEMAKER",
 				new Action() {
 					void perform() {
-						Shape3d s;
-						s = ShapeMaker
+						ShapeMaker
 							.make("block")
-							.scale(3, 3, 3)
+							.scale(3, 2, 3)
 							.setColor(new Color(Shape3d.r.nextInt()))
 							.randomize(0.8f)
 							.rotate(0, 1, 1, 45)
+							.makeDynamic()
+							.addTransformer(new Rotator(0, 1, 3, 0.3f))
+							.add();
 							; 
-						DynamicShape3d ds = new DynamicShape3d(s);
-						ds.transformers.add(new Rotator(0, 1, 3, 0.3f));
-						ds.add();
 					}
 				}
 				);

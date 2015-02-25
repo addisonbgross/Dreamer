@@ -30,6 +30,22 @@ class Library {
 	static Color defaultFontColor = Color.black;
     static boolean messages = false;
 	
+    static Object get(String s, FileType ft) {
+    	if(ft == FileType.IMG) {
+    		return getImage(s);
+    		/*
+    		static void loadImage(String file) {
+				String referenceName = file.substring(0, file.toString().lastIndexOf("."));
+	    		referenceName = referenceName.replace(Constants.RESPATH, "");
+	
+				ImageTracker tempImage = new ImageTracker(referenceName);
+	    		images.put(referenceName, tempImage);
+			}
+    		*/
+    	}
+    	return null;
+    }
+    
 	//main tests loading the current images 
 	public static void test() throws IOException {
 		System.out.println("Initializing Library");
@@ -122,11 +138,11 @@ class Library {
         }
 	}
 	static void loadImage(String file) {
-		String referrenceName = file.substring(0, file.toString().lastIndexOf("."));
-    	referrenceName = referrenceName.replace(Constants.RESPATH, "");
+		String referenceName = file.substring(0, file.toString().lastIndexOf("."));
+    	referenceName = referenceName.replace(Constants.RESPATH, "");
 
-		ImageTracker tempImage = new ImageTracker(referrenceName);
-    	images.put(referrenceName, tempImage);
+		ImageTracker tempImage = new ImageTracker(referenceName);
+    	images.put(referenceName, tempImage);
 	}
 	static void importArt() throws IOException {
 		Files.walk(Paths.get(Constants.RESPATH)).forEach(filePath -> {
