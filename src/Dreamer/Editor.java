@@ -78,6 +78,7 @@ public class Editor {
 		pointer = new MousePointer();
 		origin = new Marker("origin", 0, 0);
 		origin.add();
+		ShapeMaker.make("block").add();
 		write("test");
 		Level.clear();
 		read("test");
@@ -102,7 +103,7 @@ public class Editor {
 		}
 	}
 	
-	void write(String s, Element... e) {
+	void write(String s) {
 		ObjectOutputStream out;
 		try {
 			out = new ObjectOutputStream(new FileOutputStream(path + s + ".level"));

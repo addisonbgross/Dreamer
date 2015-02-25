@@ -15,15 +15,14 @@ import org.newdawn.slick.geom.Rectangle;
 
 public class Shape3d extends Positionable implements Lightable {
 	static Random r = new Random();
-	boolean initialized = false;
 
-	Vector3f manhattanRadius = new Vector3f();
+	transient Vector3f manhattanRadius = new Vector3f();
 	ArrayList<Vector3f> vertices = new ArrayList<Vector3f>();
 	protected ArrayList<Face> faces = new ArrayList<Face>();
 	protected ArrayList<Transformer> transformers = new ArrayList<Transformer>();
 
-	boolean fading = false;
-	
+	// boolean fading = false; // implement in future?
+
 	float[] pow2 = { 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048 };
 
 	Shape3d() {
@@ -31,12 +30,6 @@ public class Shape3d extends Positionable implements Lightable {
 
 	Shape3d(float x, float y, float z) {
 		this.setPosition(x, y, z);
-	}
-
-	Shape3d(ArrayList<Vector3f> v, ArrayList<Face> f, float x, float y, float z) {
-		this(x, y, z);
-		faces.addAll(f);
-		vertices.addAll(v);
 	}
 
 	// TODO improve seperation of copy from master
@@ -125,41 +118,44 @@ public class Shape3d extends Positionable implements Lightable {
 	}
 
 	Shape3d scale(float f) {
-		
-		for(Vector3f v: this.vertices) {
+
+		for (Vector3f v : this.vertices) {
 			v.scale(f);
 		}
 		return this;
 	}
+
 	Shape3d scale(float x, float y, float z) {
-		
-		for(Vector3f v: this.vertices) {
+
+		for (Vector3f v : this.vertices) {
 			v.x *= x;
 			v.y *= y;
 			v.z *= z;
 		}
 		return this;
 	}
+
 	Shape3d setColor(Color c) {
-		
-		for(Face f: faces) {
+
+		for (Face f : faces) {
 			f.setColor(c);
 		}
 		return this;
 	}
+
 	Shape3d randomize(float f) {
-	
-		for(Vector3f v: this.vertices) {
+
+		for (Vector3f v : this.vertices) {
 			v.x *= f + 0.5f - r.nextFloat();
 			v.y *= f + 0.5f - r.nextFloat();
 			v.z *= f + 0.5f - r.nextFloat();
 		}
-		for(Face fa: faces) {
+		for (Face fa : faces) {
 			fa.calculateNormal();
 		}
 		return this;
 	}
-	
+
 	float textureStretch(int dimension) {
 		for (int i = 0; i < pow2.length; i++) {
 			if (dimension <= pow2[i])
@@ -177,6 +173,22 @@ public class Shape3d extends Positionable implements Lightable {
 		manhattanRadius.y = Math.max(Math.abs(y), manhattanRadius.y);
 		manhattanRadius.z = Math.max(Math.abs(z), manhattanRadius.z);
 		return v;
+	}
+	
+	Vector3f findCenter() {
+		// TODO: this!
+		manhattanRadius.set(0, 0, 0);
+		Vector3f center = new Vector3f();
+		
+		for(Vector3f v: vertices) {
+			center = Vector3f.add(center, v, center);
+			manhattanRadius.x = Math.max(Math.abs(v.x), manhattanRadius.x);
+			manhattanRadius.y = Math.max(Math.abs(v.y), manhattanRadius.y);
+			manhattanRadius.z = Math.max(Math.abs(v.z), manhattanRadius.z);
+		}
+		
+		center.scale(1 / vertices.size());
+		return center;
 	}
 
 	public ArrayList<Vector2f> generateIntersectionPoints() {
@@ -215,7 +227,7 @@ public class Shape3d extends Positionable implements Lightable {
 	public Vector3f getTranslatedVertex(int i, Vector3f destination) {
 		try {
 			destination.set(vertices.get(i));
-			for(Transformer tx: transformers)
+			for (Transformer tx : transformers)
 				tx.transformVertex(destination, destination);
 			return Vector3f.add(destination, getPosition3f(), destination);
 		} catch (Exception e) {
@@ -223,10 +235,10 @@ public class Shape3d extends Positionable implements Lightable {
 			return null;
 		}
 	}
-	
+
 	public Vector3f getTranslatedNormal(Face f, Vector3f destination) {
 		destination.set(f.normal);
-		for(Transformer tx: transformers)
+		for (Transformer tx : transformers)
 			tx.transformNormal(destination, destination);
 		return destination;
 	}
@@ -310,14 +322,14 @@ public class Shape3d extends Positionable implements Lightable {
 			return p;
 		}
 	}
-	
+
 	Shape3d rotate(float x, float y, float z, float theta) {
 		Vector3f axis = new Vector3f(x, y, z);
-		
-		for(Vector3f v: vertices) {
+
+		for (Vector3f v : vertices) {
 			Transformer.rotate(v, axis, theta, v);
 		}
-		for(Face f: faces) {
+		for (Face f : faces) {
 			f.calculateNormal();
 		}
 		return this;
@@ -325,28 +337,28 @@ public class Shape3d extends Positionable implements Lightable {
 }
 
 class DynamicShape3d extends Shape3d implements Updateable {
-	
+
 	DynamicShape3d(float x, float y, float z) {
 		super(x, y, z);
 	}
-	
+
 	DynamicShape3d(Shape3d s) {
 		this.manhattanRadius = s.manhattanRadius;
 		this.position = s.position;
-		for(Vector3f v: s.vertices)
+		for (Vector3f v : s.vertices)
 			this.addVertex(v.x, v.y, v.z);
-		for(Face f: s.faces)
+		for (Face f : s.faces)
 			this.addFace(f);
 	}
 
 	public void update() {
-		for(Transformer tx: transformers)
+		for (Transformer tx : transformers)
 			tx.update();
 	}
 }
 
 class SpinningJewel extends DynamicShape3d implements Updateable {
-	
+
 	SpinningJewel(float x, float y, float z, float size) {
 		super(x, y, z);
 		transformers.add(new Rotator(0, 1, 0, 100 / size));
@@ -517,12 +529,12 @@ class Temple {
 		s = new Pillar(x - size / 2 + PILLARSIZE, y + FLOORTHICKNESS
 				+ CEILINGHEIGHT / 2, z + DEPTH / 2 - PILLARSIZE, NUMSIDES,
 				PILLARSIZE / 2, CEILINGHEIGHT);
-		s.fading = true;
+		// s.fading = true;
 		s.add();
 		s = new Pillar(x + size / 2 - PILLARSIZE, y + FLOORTHICKNESS
 				+ CEILINGHEIGHT / 2, z + DEPTH / 2 - PILLARSIZE, NUMSIDES,
 				PILLARSIZE / 2, CEILINGHEIGHT);
-		s.fading = true;
+		// s.fading = true;
 		s.add();
 		new Block3d(Color.white, x, y + CEILINGHEIGHT + FLOORTHICKNESS * 3 / 2,
 				z, size, FLOORTHICKNESS, DEPTH).add();
@@ -558,7 +570,7 @@ class ActionJewel extends SpinningJewel {
 }
 
 class Island extends DynamicShape3d {
-	
+
 	Island(float x, float y, float z, float radius) {
 		super(x, y, z);
 		create(radius);
@@ -727,5 +739,4 @@ class Ziggurat {
 			b.add();
 		}
 	}
-}
-;
+};
