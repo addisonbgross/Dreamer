@@ -27,22 +27,20 @@ public class Editor {
 	
 	Editor() {
 		editorMenu.addOption(
-				"ADD BLOCK",
+				"TEST SHAPEMAKER",
 				new Action() {
 					void perform() {
-						Block3d b = new Block3d(Color.red, -200, 0, 0, 200, 200, 200);
-						b.generateMotionTracks();
-						b.add();
-					}
-				}
-				);
-		editorMenu.addOption(
-				"ADD OTHER BLOCK",
-				new Action() {
-					void perform() {
-						Block3d b = new Block3d(Color.blue, 200, 0, 0, 200, 200, 200);
-						b.generateMotionTracks();
-						b.add();
+						Shape3d s;
+						s = ShapeMaker
+							.make("block")
+							.scale(3, 3, 3)
+							.setColor(new Color(Shape3d.r.nextInt()))
+							.randomize(0.8f)
+							.rotate(0, 1, 1, 45)
+							; 
+						DynamicShape3d ds = new DynamicShape3d(s);
+						ds.transformers.add(new Rotator(0, 1, 3, 0.3f));
+						ds.add();
 					}
 				}
 				);
@@ -87,6 +85,8 @@ public class Editor {
 		console.add();
 		instructions.add();
 		pointer.add();
+		
+		editorMenu.open();
 	}
 	
 	void command(String s) {

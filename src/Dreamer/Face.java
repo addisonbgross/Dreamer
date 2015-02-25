@@ -107,6 +107,14 @@ public class Face {
 		} 	
 	}
 	
+	public void calculateNormal() {
+		normal = Vector.crossNormalized(
+				Vector3f.sub(masterShape.vertices.get(vertexIndex[0]),
+						masterShape.vertices.get(vertexIndex[1]), null),
+				Vector3f.sub(masterShape.vertices.get(vertexIndex[2]),
+						masterShape.vertices.get(vertexIndex[1]), null));
+	}
+	
 	private int index, start, end;
 	
 	public void drawWireFrame() {

@@ -19,7 +19,7 @@ public class Shape3d extends Positionable implements Lightable {
 
 	Vector3f manhattanRadius = new Vector3f();
 	ArrayList<Vector3f> vertices = new ArrayList<Vector3f>();
-	private ArrayList<Face> faces = new ArrayList<Face>();
+	protected ArrayList<Face> faces = new ArrayList<Face>();
 	protected ArrayList<Transformer> transformers = new ArrayList<Transformer>();
 
 	boolean fading = false;
@@ -124,6 +124,42 @@ public class Shape3d extends Positionable implements Lightable {
 		return false;
 	}
 
+	Shape3d scale(float f) {
+		
+		for(Vector3f v: this.vertices) {
+			v.scale(f);
+		}
+		return this;
+	}
+	Shape3d scale(float x, float y, float z) {
+		
+		for(Vector3f v: this.vertices) {
+			v.x *= x;
+			v.y *= y;
+			v.z *= z;
+		}
+		return this;
+	}
+	Shape3d setColor(Color c) {
+		
+		for(Face f: faces) {
+			f.setColor(c);
+		}
+		return this;
+	}
+	Shape3d randomize(float f) {
+	
+		for(Vector3f v: this.vertices) {
+			v.x *= f + 0.5f - r.nextFloat();
+			v.y *= f + 0.5f - r.nextFloat();
+			v.z *= f + 0.5f - r.nextFloat();
+		}
+		for(Face fa: faces) {
+			fa.calculateNormal();
+		}
+		return this;
+	}
+	
 	float textureStretch(int dimension) {
 		for (int i = 0; i < pow2.length; i++) {
 			if (dimension <= pow2[i])
@@ -222,11 +258,7 @@ public class Shape3d extends Positionable implements Lightable {
 
 	void addFace(Face f) {
 		f.masterShape = this;
-		f.normal = Vector.crossNormalized(
-				Vector3f.sub(this.vertices.get(f.vertexIndex[0]),
-						this.vertices.get(f.vertexIndex[1]), null),
-				Vector3f.sub(this.vertices.get(f.vertexIndex[2]),
-						this.vertices.get(f.vertexIndex[1]), null));
+		f.calculateNormal();
 		faces.add(f);
 	}
 
@@ -278,6 +310,18 @@ public class Shape3d extends Positionable implements Lightable {
 			return p;
 		}
 	}
+	
+	Shape3d rotate(float x, float y, float z, float theta) {
+		Vector3f axis = new Vector3f(x, y, z);
+		
+		for(Vector3f v: vertices) {
+			Transformer.rotate(v, axis, theta, v);
+		}
+		for(Face f: faces) {
+			f.calculateNormal();
+		}
+		return this;
+	}
 }
 
 class DynamicShape3d extends Shape3d implements Updateable {
@@ -286,6 +330,15 @@ class DynamicShape3d extends Shape3d implements Updateable {
 		super(x, y, z);
 	}
 	
+	DynamicShape3d(Shape3d s) {
+		this.manhattanRadius = s.manhattanRadius;
+		this.position = s.position;
+		for(Vector3f v: s.vertices)
+			this.addVertex(v.x, v.y, v.z);
+		for(Face f: s.faces)
+			this.addFace(f);
+	}
+
 	public void update() {
 		for(Transformer tx: transformers)
 			tx.update();

@@ -8,13 +8,13 @@ public abstract class Transformer implements Updateable {
 	public abstract Vector3f transformVertex(Vector3f v, Vector3f destination);
 	public abstract Vector3f transformNormal(Vector3f v, Vector3f destination);
 	
-	public Vector3f rotate(Vector3f v, Vector3f rotationAxis, float angle, Vector3f destination) {
+	public static  Vector3f rotate(Vector3f v, Vector3f rotationAxis, float angle, Vector3f destination) {
 		return destination.set(Vector.rotate(rotationAxis, v, angle));
 	}
-	public Vector3f translate(Vector3f v, Vector3f translation, Vector3f destination) {
+	public static Vector3f translate(Vector3f v, Vector3f translation, Vector3f destination) {
 		return Vector3f.add(v, translation, destination);
 	}
-	public Vector3f untranslate(Vector3f v, Vector3f translation, Vector3f destination) {
+	public static Vector3f untranslate(Vector3f v, Vector3f translation, Vector3f destination) {
 		return Vector3f.sub(v, translation, destination);
 	}
 }

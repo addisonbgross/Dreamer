@@ -3,7 +3,9 @@ package Dreamer;
 import java.util.Comparator;
 
 public interface Updateable {
-	public void update();
+	default public void update() {
+		((Shape3d)this).mutable = false;
+	};
 }
 
 class UpdateComparator implements Comparator<Updateable> {
