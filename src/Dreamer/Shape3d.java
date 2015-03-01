@@ -16,7 +16,7 @@ import org.newdawn.slick.geom.Rectangle;
 public class Shape3d extends Positionable implements Lightable {
 	static Random r = new Random();
 
-	transient Vector3f manhattanRadius = new Vector3f();
+	protected Vector3f manhattanRadius = new Vector3f();
 	ArrayList<Vector3f> vertices = new ArrayList<Vector3f>();
 	protected ArrayList<Face> faces = new ArrayList<Face>();
 	protected ArrayList<Transformer> transformers = new ArrayList<Transformer>();
