@@ -36,7 +36,7 @@ class Level {
 class TestLevel extends Level {
 	void createLevel() {
 		new GradientBackground(new Color(50, 50, 100), new Color(0, 0, 0)).add();
-		new Model("mountainTest", 300, 0, 200, -500).add();
+		new Model("mountainTest", 300, 0, -200, -100).add();
 		
 		Player p = Player.getFirst();
 		p.setCenterBottom(0,  500);
@@ -58,8 +58,9 @@ class TestLevel extends Level {
 		w.add();
 		a.add();
 		
-		//new Sun().add();
-		//new Lamp(p).add();
+		new Sun().add();
+		
+		new ActionJewel(-1500, -125, 0, new Action() {void perform() {new Dusk_1();}}).add();
 		
 		Camera.focus(new ClassFocus(200, Ninja.class));
 	}
@@ -247,7 +248,60 @@ class EmptyLevel extends Level {
 	}
 }
 
+/** Dusk Level **/
+class Dusk_1 extends Level {
+	void createLevel() {
+		new GradientBackground(new Color(50, 50, 100), new Color(0, 0, 0)).add();
+		new Model("dusk_1", 200, 0, 0, 0).add();
+		
+		Player p = Player.getFirst();
+		p.setCenterBottom(1400, 50);
+		w = new Katana(p);
+		w.add();
+		p.add();
+		
+		new Sunset().add();
+		new ActionJewel(-1300, 125, 0, new Action() {void perform() {new Dusk_2();}}).add();
+		
+		Camera.focus(new ClassFocus(200, Ninja.class));
+	}
+}
 
+class Dusk_2 extends Level {
+	void createLevel() {
+		new GradientBackground(new Color(50, 50, 100), new Color(0, 0, 0)).add();
+		new Model("dusk_2", 200, 0, 0, 0).add();
+		
+		Player p = Player.getFirst();
+		p.setCenterBottom(1300,  50);
+		w = new Katana(p);
+		w.add();
+		p.add();
+		
+		new Sunset().add();
+		new ActionJewel(-1400, 30, 0, new Action() {void perform() {new Dusk_3();}}).add();
+		
+		Camera.focus(new ClassFocus(200, Ninja.class));
+	}
+}
+
+class Dusk_3 extends Level {
+	void createLevel() {
+		new GradientBackground(new Color(50, 50, 100), new Color(0, 0, 0)).add();
+		new Model("dusk_3", 200, 0, 0, 0).add();
+		
+		Player p = Player.getFirst();
+		p.setCenterBottom(1450,  -550);
+		w = new Katana(p);
+		w.add();
+		p.add();
+		
+		new Sunset().add();
+		new Lamp(p).add();
+		
+		Camera.focus(new ClassFocus(200, Ninja.class));
+	}
+}
 
 
 
