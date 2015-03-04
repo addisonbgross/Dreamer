@@ -122,6 +122,9 @@ public class Shape3d extends Positionable implements Lightable {
 		for (Vector3f v : this.vertices) {
 			v.scale(f);
 		}
+		
+		manhattanRadius.scale(f);
+		
 		return this;
 	}
 
@@ -132,6 +135,11 @@ public class Shape3d extends Positionable implements Lightable {
 			v.y *= y;
 			v.z *= z;
 		}
+		
+		manhattanRadius.x *= x;
+		manhattanRadius.y *= y;
+		manhattanRadius.z *= z;
+		
 		return this;
 	}
 
