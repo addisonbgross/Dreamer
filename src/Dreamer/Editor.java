@@ -13,6 +13,8 @@ import java.util.HashSet;
 import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.Color;
 
+import apple.laf.JRSUIConstants.Focused;
+
 public class Editor {
 	Class<?> c;
 	//considering how to automate this
@@ -50,18 +52,16 @@ public class Editor {
 					}
 				}
 				);
-		creationMenu.addOption(
-				"ROTATE", 
-				new Action() {
-					void perform() {
-						pointer.onMove = new Action() {
-							void perform() {
-								focus.rotate(1, 0, 0, pointer.getX() / 1000);
-							}
-						};
-					}
-				}
-				);
+		creationMenu.addOption("ROTATE", new Action() {
+			void perform() {
+				// focus.rotate(1, 0, 0, pointer.getX() / 1000);
+				focus.remove();
+				focus.makeDynamic()
+					.clearTransformers()
+					.addTransformer(new Rotator(1, 0, 0, 0.1f))
+					.add();
+			}
+		});
 		creationMenu.addOption(
 				"SCALE", 
 				new Action() {

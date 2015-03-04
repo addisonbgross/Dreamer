@@ -195,6 +195,7 @@ public class Face implements java.io.Serializable {
 	
 	public static void drawFaces() {
 		if(Element.debug) {
+			
 			glBegin(GL11.GL_LINES);
 			for(Face face: texturedDrawList) {
 				face.drawWireFrame();
@@ -203,7 +204,9 @@ public class Face implements java.io.Serializable {
 				face.drawWireFrame();
 			}
 	 		glEnd();
+		
 		} else {
+			
 			glEnable(GL11.GL_CULL_FACE);
 			glEnable(GL_DEPTH_TEST);
 	 		
@@ -228,8 +231,10 @@ public class Face implements java.io.Serializable {
 			TextureImpl.bindNone();
 			GL11.glDisable(GL11.GL_TEXTURE);
 			glBegin(GL_TRIANGLES);
-			for(Face f: drawList)
+			for(Face f: drawList) {
 				f.draw();
+				System.out.println(f.toString());
+			}
 	 		glEnd();
 	 		
 			glDisable(GL_DEPTH_TEST);
@@ -241,6 +246,16 @@ public class Face implements java.io.Serializable {
 	
 	Vector3f getVertex(int i, Vector3f destination) {
 		return masterShape.getTranslatedVertex(i, destination);
+	}
+	
+	@Override
+	public String toString() {
+		String s = "";
+		s += "Face #" + masterShape.faces.indexOf(this) + "\nnormal " + normal.toString();
+		for(Vector3f v: masterShape.vertices) {
+			s += "\npoint " + v.toString();
+		}
+		return s;
 	}
 }
 
