@@ -124,8 +124,6 @@ public class Face implements java.io.Serializable {
 			index = vertexIndex[start];
 			tempV3f = getVertex(index, tempV3f);
 			
-			// System.out.println("s: " + tempV3f.toString());
-			
 			drawColoredPoint(tempV3f, vertexColor[start]);
 			
 			end = (start + 1) % vertexIndex.length;
@@ -133,8 +131,6 @@ public class Face implements java.io.Serializable {
 			tempV3f = getVertex(index, tempV3f);
 			
 			drawColoredPoint(tempV3f, vertexColor[end]);
-			
-			// System.out.println("e: " + tempV3f.toString());
 		}
 	}
 	
@@ -191,10 +187,10 @@ public class Face implements java.io.Serializable {
 	private static Color c;
 	
 	public static void drawColoredPoint(Vector3f position, Color color) {
-		Camera.translate(position, v);
+		v = Camera.translate(position, v);
 		c = color;
 		glColor4f(c.r, c.g, c.b, c.a);
-		glVertex3f(v.x, v.y, v.x);	
+		glVertex3f(v.x, v.y, v.z);	
 	}
 	
 	public static void drawFaces() {
