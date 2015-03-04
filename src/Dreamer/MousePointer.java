@@ -9,13 +9,13 @@ import org.newdawn.slick.Graphics;
 public class MousePointer extends Positionable implements Updateable {
 	boolean leftClickAction = false, rightClickAction = false;
 	float lastX, lastY;
-	Action onMove = new Action(), 
+	Action onMove = new Action(),
 			onRightClick = new Action(),
 			onLeftClick = new Action(),
 			onRightClickRelease = new Action(),
 			onLeftClickRelease = new Action()
 			;
-	Positionable focus;
+	Shape3d focus;
 	
 	MousePointer() {
 		try {

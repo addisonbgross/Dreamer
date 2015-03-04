@@ -373,6 +373,11 @@ class DynamicShape3d extends Shape3d implements Updateable {
 		transformers.add(t);
 		return this;
 	}
+	
+	DynamicShape3d clearTransformers() {
+		transformers.clear();
+		return this;
+	}
 }
 
 class SpinningJewel extends DynamicShape3d implements Updateable {
@@ -461,7 +466,7 @@ class Block3d extends Shape3d {
 		addFace(c, 4, 5, 6, 7);
 		addFace(c, 1, 2, 6, 5);
 		addFace(c, 7, 6, 2, 3);
-		addFace(c, 3, 7, 4, 0);
+		addFace(c, 0, 4, 7, 3);
 		addFace(c, 0, 1, 5, 4);
 	}
 
