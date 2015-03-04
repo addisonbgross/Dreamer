@@ -1,0 +1,7 @@
+worflow for editing
+	open level
+	for each desired shape:
+		select .obj file
+			object appears at cursor
+			prompt for modifications
+

@@ -24,8 +24,27 @@ public class Editor {
 		= new ShadowedMessage("Type 'options' or 'menu'", 0, 200);
 	ShadowedMessage console = new ShadowedMessage("", 0, 0);
 	Menu editorMenu = new Menu();
+	Menu creationMenu = new Menu();
 	
 	Editor() {
+		creationMenu.addOption(
+				"TEST", 
+				new Action() {
+					void perform() {
+						new ShadowedMessage("OKAYY", 0, 0).add();
+					}
+				}
+				);
+		
+		editorMenu.addOption(
+				"OPEN CREATION MENU",
+				new Action() {
+					void perform() {
+						editorMenu.command("exit");
+						creationMenu.open();
+					}
+				}
+				);
 		editorMenu.addOption(
 				"TEST SHAPEMAKER",
 				new Action() {
@@ -38,7 +57,7 @@ public class Editor {
 							.rotate(0, 1, 1, 45)
 							.makeDynamic()
 							.addTransformer(new Rotator(0, 1, 3, 0.3f))
-							.add();
+							.add()
 							; 
 					}
 				}

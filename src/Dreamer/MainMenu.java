@@ -30,12 +30,22 @@ public class MainMenu extends Level {
 				"RUN TEST",
 				new Action() {
 					void perform() {
+						ShadowedMessage sm;
+						sm = new ShadowedMessage("LEFT", -Constants.screenWidth / 2, 0);
+						sm.justification = Justification.LEFT;
+						sm.add();
+						sm = new ShadowedMessage("CENTER", 0, 0);
+						sm.justification = Justification.CENTER;
+						sm.add();
+						sm = new ShadowedMessage("RIGHT", Constants.screenWidth / 2, 0);
+						sm.justification = Justification.RIGHT;
+						sm.add();
+						Library.getModel("sphere", 100, 0, 0, 0).get(0).add();
+						/*
 						OnDemandLoader.Start();
 						Resource r = new Resource("space", FileType.IMG);
 						r.getResource();
-						// KeyHandler.openGameKeys();
-						//Element.debug = true;
-						//new EmptyLevel();
+						*/
 					}
 				});
 		main.open();
@@ -51,12 +61,19 @@ public class MainMenu extends Level {
 }
 
 class Menu {
+	
+	Menu (Justification j, float xPosition) {
+		justification = j;
+		xposition = 0;
+	}
+	
 	java.util.List<MenuOption> optionList = new java.util.ArrayList<MenuOption>();
-	int spacing = 40, position = 200;
+	Justification justification = Justification.LEFT;
+	int spacing = 40, xposition = 0, yposition = 100;
 	int currentOption = 0;
 	
 	void addOption(String s, Action a) {
-		optionList.add(new MenuOption(s, a, position -= spacing));
+		optionList.add(new MenuOption(s, a, xposition, yposition -= spacing));
 	}
 	
 	void open() {
@@ -87,10 +104,7 @@ class Menu {
 				break;
 				
 			case "exit":
-				KeyHandler.restoreKeys();
-				for(MenuOption mo: optionList) {
-					mo.shadowMessage.remove();
-				}
+				exit();
 				break;
 		}
 		
@@ -99,12 +113,19 @@ class Menu {
 		}
 	}
 	
+	void exit() {
+		KeyHandler.restoreKeys();
+		for(MenuOption mo: optionList) {
+			mo.shadowMessage.remove();
+		}
+	}
+	
 	private class MenuOption {
 		Action action;
 		ShadowedMessage shadowMessage;
-		MenuOption(String s, Action a, int i) {
+		MenuOption(String s, Action a, int x, int y) {
 			action = a;
-			shadowMessage = new ShadowedMessage(s, 0, i);
+			shadowMessage = new ShadowedMessage(s, x, y);
 		}
 	}
 }

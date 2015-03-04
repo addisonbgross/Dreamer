@@ -173,25 +173,22 @@ public class Shape3d extends Positionable implements Lightable {
 		return v;
 	}
 	Vector3f updateBounds(Vector3f v, Vector3f bounds) {
-		manhattanRadius.x = Math.max(Math.abs(v.x), manhattanRadius.x);
-		manhattanRadius.y = Math.max(Math.abs(v.y), manhattanRadius.y);
-		manhattanRadius.z = Math.max(Math.abs(v.z), manhattanRadius.z);
+		bounds.x = Math.max(Math.abs(v.x), bounds.x);
+		bounds.y = Math.max(Math.abs(v.y), bounds.y);
+		bounds.z = Math.max(Math.abs(v.z), bounds.z);
 		return bounds;
 	}
 	
 	Vector3f findCenter() {
 		// TODO: this!
-		manhattanRadius.set(0, 0, 0);
 		Vector3f center = new Vector3f();
 		
 		for(Vector3f v: vertices) {
 			center = Vector3f.add(center, v, center);
-			manhattanRadius.x = Math.max(Math.abs(v.x), manhattanRadius.x);
-			manhattanRadius.y = Math.max(Math.abs(v.y), manhattanRadius.y);
-			manhattanRadius.z = Math.max(Math.abs(v.z), manhattanRadius.z);
 		}
 		
 		center.scale(1 / vertices.size());
+		
 		return center;
 	}
 
