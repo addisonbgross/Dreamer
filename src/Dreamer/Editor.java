@@ -34,8 +34,19 @@ public class Editor {
 							focus.remove();	
 						}
 						focus = ShapeMaker.make("block");
-						pointer.focus = focus;
 						focus.add();
+					}
+				}
+				);
+		creationMenu.addOption(
+				"TRANSLATE", 
+				new Action() {
+					void perform() {
+						pointer.onMove = new Action() {
+							void perform() {
+								focus.setPosition(pointer.getX(), pointer.getMaxY(), 0);
+							}
+						};
 					}
 				}
 				);
@@ -43,7 +54,11 @@ public class Editor {
 				"ROTATE", 
 				new Action() {
 					void perform() {
-						focus.rotate(0, 0, 1, 0.1f);
+						pointer.onMove = new Action() {
+							void perform() {
+								focus.rotate(1, 0, 0, pointer.getX() / 1000);
+							}
+						};
 					}
 				}
 				);
@@ -93,7 +108,7 @@ public class Editor {
 						creationMenu.open();
 					}
 				}
-				);
+				 );
 		editorMenu.addOption(
 				"ADD SUN",
 				new Action() {

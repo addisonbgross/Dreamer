@@ -9,6 +9,12 @@ import org.newdawn.slick.Graphics;
 public class MousePointer extends Positionable implements Updateable {
 	boolean leftClickAction = false, rightClickAction = false;
 	float lastX, lastY;
+	Action onMove = new Action(), 
+			onRightClick = new Action(),
+			onLeftClick = new Action(),
+			onRightClickRelease = new Action(),
+			onLeftClickRelease = new Action()
+			;
 	Positionable focus;
 	
 	MousePointer() {
@@ -22,10 +28,10 @@ public class MousePointer extends Positionable implements Updateable {
 	
 	public void update() {
 		remove();
-		// setPosition(Mouse.getX(), Mouse.getY(), 0);
 		setPosition(Camera.translateMouse(Mouse.getX(), Mouse.getY()));
-		if(focus != null)
-			focus.setPosition(getX(), getY(), getZ());
+		
+		onMove.perform();
+		
 		//draw a block defined by the mouse left click dragging region
 		if(Mouse.isButtonDown(0)) {
 			
@@ -33,21 +39,12 @@ public class MousePointer extends Positionable implements Updateable {
 				lastX = getX();
 				lastY = getY();
 				leftClickAction = true;
+				onLeftClick.perform();
 			}	
 		} else if(leftClickAction) {
 			
 			leftClickAction = false;
-			Block3d b = new Block3d(
-					Color.gray,
-					getX(), 
-					getY(),
-					getZ(),
-					2 * Math.abs(getX() - lastX), 
-					2 * Math.abs(getY() - lastY),
-					100
-					);
-			b.generateMotionTracks();
-			b.add();
+			onLeftClickRelease.perform();
 		}
 		
 		if(Mouse.isButtonDown(1)) {
@@ -55,9 +52,11 @@ public class MousePointer extends Positionable implements Updateable {
 				lastX = getX();
 				lastY = getY();
 				rightClickAction = true;
+				onRightClick.perform();
 			}	
 		} else if(rightClickAction) {
 			rightClickAction = false;
+			onRightClickRelease.perform();
 		}
 		
 		add();

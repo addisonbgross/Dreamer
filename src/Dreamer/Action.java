@@ -40,3 +40,8 @@ class CameraAction extends Action {
 	void perform() {Camera.command(command);}
 	void stop() {Camera.command("stop");}
 }
+class MouseAction extends Action {
+	MouseAction(MousePointer mp, String s) {
+		super(mp, s);
+	}
+}
