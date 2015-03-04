@@ -233,7 +233,6 @@ public class Face implements java.io.Serializable {
 			glBegin(GL_TRIANGLES);
 			for(Face f: drawList) {
 				f.draw();
-				System.out.println(f.toString());
 			}
 	 		glEnd();
 	 		
@@ -252,8 +251,8 @@ public class Face implements java.io.Serializable {
 	public String toString() {
 		String s = "";
 		s += "Face #" + masterShape.faces.indexOf(this) + "\nnormal " + normal.toString();
-		for(Vector3f v: masterShape.vertices) {
-			s += "\npoint " + v.toString();
+		for(int i: vertexIndex) {
+			s += "\npoint " + i + " " + masterShape.vertices.get(i).toString();
 		}
 		return s;
 	}
