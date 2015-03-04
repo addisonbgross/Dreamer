@@ -146,9 +146,9 @@ public class Shape3d extends Positionable implements Lightable {
 	Shape3d randomize(float f) {
 
 		for (Vector3f v : this.vertices) {
-			v.x *= f + 0.5f - r.nextFloat();
-			v.y *= f + 0.5f - r.nextFloat();
-			v.z *= f + 0.5f - r.nextFloat();
+			v.x *= 1 + f * (0.5f - r.nextFloat());
+			v.y *= 1 + f * (0.5f - r.nextFloat());
+			v.z *= 1 + f * (0.5f - r.nextFloat());
 		}
 		for (Face fa : faces) {
 			fa.calculateNormal();

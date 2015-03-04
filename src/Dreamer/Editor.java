@@ -20,32 +20,50 @@ public class Editor {
 	Marker origin;
 	BufferedWriter bw;
 	String path = Constants.RESPATH + Constants.LEVELPATH;
-	ShadowedMessage instructions 
-		= new ShadowedMessage("Type 'options' or 'menu'", 0, 200);
 	ShadowedMessage console = new ShadowedMessage("", 0, 0);
-	Menu editorMenu = new Menu();
-	Menu creationMenu = new Menu();
+	Menu editorMenu = new Menu(Justification.LEFT, -Constants.screenWidth / 2, 200);
+	Menu creationMenu = new Menu(Justification.LEFT, -Constants.screenWidth / 2, 200);
+	Shape3d focus = null;
 	
 	Editor() {
 		creationMenu.addOption(
-				"TEST", 
+				"MAKE", 
 				new Action() {
 					void perform() {
-						new ShadowedMessage("OKAYY", 0, 0).add();
+						if(focus != null) {
+							focus.remove();	
+						}
+						focus = ShapeMaker.make("block");
+						pointer.focus = focus;
+						focus.add();
 					}
 				}
 				);
-		
-		editorMenu.addOption(
-				"OPEN CREATION MENU",
+		creationMenu.addOption(
+				"ROTATE", 
 				new Action() {
 					void perform() {
-						editorMenu.command("exit");
-						creationMenu.open();
+						focus.rotate(0, 0, 1, 0.1f);
 					}
 				}
 				);
-		editorMenu.addOption(
+		creationMenu.addOption(
+				"SCALE", 
+				new Action() {
+					void perform() {
+						focus.scale(2);
+					}
+				}
+				);
+		creationMenu.addOption(
+				"RANDOM", 
+				new Action() {
+					void perform() {
+						focus.randomize(0.5f);
+					}
+				}
+				);
+		creationMenu.addOption(
 				"TEST SHAPEMAKER",
 				new Action() {
 					void perform() {
@@ -59,6 +77,20 @@ public class Editor {
 							.addTransformer(new Rotator(0, 1, 3, 0.3f))
 							.add()
 							; 
+					}
+				}
+				);
+		creationMenu.addOption(
+				"EXIT MENU",
+				new MenuAction(creationMenu, "exit")
+				);
+		
+		editorMenu.addOption(
+				"OPEN CREATION MENU",
+				new Action() {
+					void perform() {
+						editorMenu.command("exit");
+						creationMenu.open();
 					}
 				}
 				);
@@ -96,13 +128,11 @@ public class Editor {
 		pointer = new MousePointer();
 		origin = new Marker("origin", 0, 0);
 		origin.add();
-		ShapeMaker.make("block").add();
 		write("test");
 		Level.clear();
 		read("test");
 		
 		console.add();
-		instructions.add();
 		pointer.add();
 		
 		editorMenu.open();

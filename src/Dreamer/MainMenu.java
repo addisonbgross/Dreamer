@@ -1,7 +1,7 @@
 package Dreamer;
 
 public class MainMenu extends Level {
-	Menu main = new Menu();	
+	Menu main = new Menu(Justification.CENTER, 0, 0);	
 	
 	void createLevel() {
 		Element.debug = false;
@@ -57,75 +57,5 @@ public class MainMenu extends Level {
 		//new Sun().add();
 		new BorderedForeground().add();
 		Camera.focus(Dreamer.origin);
-	}
-}
-
-class Menu {
-	
-	Menu (Justification j, float xPosition) {
-		justification = j;
-		xposition = 0;
-	}
-	
-	java.util.List<MenuOption> optionList = new java.util.ArrayList<MenuOption>();
-	Justification justification = Justification.LEFT;
-	int spacing = 40, xposition = 0, yposition = 100;
-	int currentOption = 0;
-	
-	void addOption(String s, Action a) {
-		optionList.add(new MenuOption(s, a, xposition, yposition -= spacing));
-	}
-	
-	void open() {
-		KeyHandler.saveKeys();
-		KeyHandler.openMenuKeys(this);
-		optionList.get(currentOption).shadowMessage.highlight = true;
-		for(MenuOption mo: optionList)
-			mo.shadowMessage.add();
-	}
-	
-	void command(String s) {
-		int size = optionList.size();
-		
-		switch(s) {
-		
-			case "up":
-				if(currentOption > 0)
-					currentOption--;
-				break;
-				
-			case "down":
-				if(currentOption < size-1)
-					currentOption++;
-				break;
-				
-			case "select":
-				optionList.get(currentOption).action.perform();
-				break;
-				
-			case "exit":
-				exit();
-				break;
-		}
-		
-		for(int i = 0; i < size; i++) {
-			optionList.get(i).shadowMessage.highlight = (i == currentOption)? true : false;
-		}
-	}
-	
-	void exit() {
-		KeyHandler.restoreKeys();
-		for(MenuOption mo: optionList) {
-			mo.shadowMessage.remove();
-		}
-	}
-	
-	private class MenuOption {
-		Action action;
-		ShadowedMessage shadowMessage;
-		MenuOption(String s, Action a, int x, int y) {
-			action = a;
-			shadowMessage = new ShadowedMessage(s, x, y);
-		}
 	}
 }

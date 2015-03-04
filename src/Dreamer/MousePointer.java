@@ -9,6 +9,7 @@ import org.newdawn.slick.Graphics;
 public class MousePointer extends Positionable implements Updateable {
 	boolean leftClickAction = false, rightClickAction = false;
 	float lastX, lastY;
+	Positionable focus;
 	
 	MousePointer() {
 		try {
@@ -23,6 +24,8 @@ public class MousePointer extends Positionable implements Updateable {
 		remove();
 		// setPosition(Mouse.getX(), Mouse.getY(), 0);
 		setPosition(Camera.translateMouse(Mouse.getX(), Mouse.getY()));
+		if(focus != null)
+			focus.setPosition(getX(), getY(), getZ());
 		//draw a block defined by the mouse left click dragging region
 		if(Mouse.isButtonDown(0)) {
 			
