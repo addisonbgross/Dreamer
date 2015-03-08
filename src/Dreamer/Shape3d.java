@@ -7,7 +7,6 @@ import java.util.Random;
 
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
-import org.lwjgl.util.vector.Vector3f;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Polygon;
@@ -30,21 +29,6 @@ public class Shape3d extends Positionable implements Lightable {
 
 	Shape3d(float x, float y, float z) {
 		this.setPosition(x, y, z);
-	}
-
-	// TODO improve seperation of copy from master
-	Shape3d copy() {
-		// does not copy rotational or fading characteristics
-		Shape3d copy = new Shape3d(position.x, position.y, position.z);
-		copy.manhattanRadius = Vector.copy(manhattanRadius);
-		for (Vector3f v : vertices) {
-			copy.addVertex(v.x, v.y, v.z);
-		}
-		for (Face f : faces) {
-			// TODO realize a genuine copy method for faces
-			copy.addFace(f);
-		}
-		return copy;
 	}
 
 	@Override
@@ -236,13 +220,19 @@ public class Shape3d extends Positionable implements Lightable {
 	public Vector3f getTranslatedVertex(int i, Vector3f destination) {
 		try {
 			destination.set(vertices.get(i));
-			for (Transformer tx : transformers)
-				tx.transformVertex(destination, destination);
+			transformVertex(destination, destination);
 			return Vector3f.add(destination, getPosition3f(), destination);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}
+	}
+	
+	public Vector3f transformVertex(Vector3f v, Vector3f destination) {
+		for (Transformer tx : transformers) {
+			destination.set(tx.transformVertex(v, destination));
+		}
+		return destination;
 	}
 
 	public Vector3f getTranslatedNormal(Face f, Vector3f destination) {
@@ -356,14 +346,32 @@ class DynamicShape3d extends Shape3d implements Updateable {
 	}
 
 	DynamicShape3d(Shape3d s) {
-		this.manhattanRadius = s.manhattanRadius;
-		this.position = s.position;
+		this.manhattanRadius.set(s.manhattanRadius);
+		this.position.set(s.position);
 		for (Vector3f v : s.vertices)
 			this.addVertex(v.x, v.y, v.z);
 		for (Face f : s.faces)
 			this.addFace(f);
 	}
 
+	Shape3d makeStatic() {
+		Shape3d s = new Shape3d(); {
+			
+			s.manhattanRadius.set(manhattanRadius);
+			s.position.set(position);
+			System.out.println(toString());
+			for (Vector3f v: vertices) {
+				Vector3f t = new Vector3f();
+				t = transformVertex(v, t);
+				s.addVertex(t.x, t.y, t.z);
+			}
+			for (Face f : faces)
+				s.addFace(f);
+		}
+		return s;
+	}
+
+	
 	public void update() {
 		for (Transformer tx : transformers)
 			tx.update();

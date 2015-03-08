@@ -28,6 +28,7 @@ public class Editor {
 	Shape3d focus = null;
 	
 	Editor() {
+		
 		creationMenu.addOption(
 				"MAKE", 
 				new Action() {
@@ -37,6 +38,15 @@ public class Editor {
 						}
 						focus = ShapeMaker.make("block");
 						focus.add();
+						
+						pointer.onLeftClick = new Action() {
+							void perform() {
+								Shape3d s;
+								s = ((DynamicShape3d)focus).makeStatic();
+								s.add();
+								focus.remove();
+							}
+						};
 					}
 				}
 				);
@@ -56,10 +66,12 @@ public class Editor {
 			void perform() {
 				// focus.rotate(1, 0, 0, pointer.getX() / 1000);
 				focus.remove();
-				focus.makeDynamic()
+				focus = focus
+					.makeDynamic()
 					.clearTransformers()
 					.addTransformer(new Rotator(1, 0, 0, 0.1f))
-					.add();
+					;
+				focus.add();
 			}
 		});
 		creationMenu.addOption(

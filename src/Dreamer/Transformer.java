@@ -63,13 +63,19 @@ class Rotator extends Transformer {
 		angle += increment;
 		angle = angle % (2 * 3.1415692f);
 	}
+	@Override
 	public Vector3f transformVertex(Vector3f v, Vector3f destination) {
 		untranslate(v, rotationPoint, destination);
 		rotate(v, rotationAxis, angle, destination);
-		return translate(v, rotationPoint, destination);
+		return translate(destination, rotationPoint, destination);	
 	}
+	@Override
 	public Vector3f transformNormal(Vector3f v, Vector3f destination) {
 		return rotate(v, rotationAxis, angle, destination);
+	}
+	@Override
+	public String toString() {
+		return "Rotating at " + increment + " rad/update, current angle " + angle;
 	}
 }
 
