@@ -337,6 +337,21 @@ public class Shape3d extends Positionable implements Lightable {
 	DynamicShape3d makeDynamic() {
 		return new DynamicShape3d(this);
 	}
+	
+	Shape3d getCopy() {
+		Shape3d s = new Shape3d(); {
+			
+			s.manhattanRadius.set(manhattanRadius);
+			s.position.set(position);
+			System.out.println(toString());
+			for (Vector3f v: vertices) {
+				s.addVertex(v.x, v.y, v.z);
+			}
+			for (Face f : faces)
+				s.addFace(f);
+		}
+		return s;
+	}
 }
 
 class DynamicShape3d extends Shape3d implements Updateable {
@@ -371,7 +386,6 @@ class DynamicShape3d extends Shape3d implements Updateable {
 		return s;
 	}
 
-	
 	public void update() {
 		for (Transformer tx : transformers)
 			tx.update();

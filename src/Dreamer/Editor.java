@@ -11,6 +11,7 @@ import java.io.ObjectOutputStream;
 import java.util.HashSet;
 
 import org.lwjgl.input.Keyboard;
+import org.lwjgl.util.vector.Vector3f;
 import org.newdawn.slick.Color;
 
 import apple.laf.JRSUIConstants.Focused;
@@ -42,9 +43,16 @@ public class Editor {
 						pointer.onLeftClick = new Action() {
 							void perform() {
 								Shape3d s;
-								s = ((DynamicShape3d)focus).makeStatic();
-								s.add();
-								focus.remove();
+								try {
+									s = ((DynamicShape3d)focus).makeStatic();
+									s.add();
+									focus.remove();
+								} catch(ClassCastException cce) {
+									s = focus.getCopy();
+									s.add();
+									focus.remove();
+								}
+								pointer.onMove = new Action();
 							}
 						};
 					}
@@ -64,7 +72,30 @@ public class Editor {
 				);
 		creationMenu.addOption("ROTATE", new Action() {
 			void perform() {
-				// focus.rotate(1, 0, 0, pointer.getX() / 1000);
+				pointer.onMove = new Action() {
+					void perform() {
+						Vector3f v = new Vector3f(
+								pointer.getX(),
+								pointer.getY(),
+								1
+								);
+						Vector3f n = new Vector3f(
+								pointer.lastX,
+								pointer.lastY,
+								1
+								);
+						v = Vector3f.cross(v, n, v);
+						v.normalise();
+						focus.rotate(
+								v.x, 
+								v.y, 
+								v.z, 
+								0.01f * (pointer.lastXVel + pointer.lastYVel)
+								);
+					}
+				};
+				
+				/*
 				focus.remove();
 				focus = focus
 					.makeDynamic()
@@ -72,6 +103,7 @@ public class Editor {
 					.addTransformer(new Rotator(1, 0, 0, 0.1f))
 					;
 				focus.add();
+				*/
 			}
 		});
 		creationMenu.addOption(

@@ -8,7 +8,7 @@ import org.newdawn.slick.Graphics;
 
 public class MousePointer extends Positionable implements Updateable {
 	boolean leftClickAction = false, rightClickAction = false;
-	float lastX, lastY;
+	float lastX, lastY, lastXVel, lastYVel;
 	Action onMove = new Action(),
 			onRightClick = new Action(),
 			onLeftClick = new Action(),
@@ -29,6 +29,8 @@ public class MousePointer extends Positionable implements Updateable {
 	public void update() {
 		remove();
 		setPosition(Camera.translateMouse(Mouse.getX(), Mouse.getY()));
+		lastXVel = Mouse.getDX();
+		lastYVel = Mouse.getDY();
 		
 		onMove.perform();
 		

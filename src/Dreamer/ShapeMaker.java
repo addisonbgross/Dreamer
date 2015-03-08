@@ -1,5 +1,7 @@
 package Dreamer;
 
+import java.util.Random;
+
 import org.newdawn.slick.Color;
 
 public class ShapeMaker {
@@ -7,7 +9,8 @@ public class ShapeMaker {
 	static Shape3d make(String name) {
 		
 		if(name.equals("block")) {
-			return new Block3d(Color.red, 0, 0, 0, 100, 100, 100);
+			java.util.Random r = new java.util.Random();
+			return new Block3d(new Color(r.nextInt()), 0, 0, 0, 100, 100, 100);
 		}
 		
 		return null;
