@@ -14,6 +14,8 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.util.vector.Vector3f;
 import org.newdawn.slick.Color;
 
+import com.sun.org.apache.xml.internal.security.Init;
+
 import apple.laf.JRSUIConstants.Focused;
 
 public class Editor {
@@ -27,10 +29,22 @@ public class Editor {
 	Menu editorMenu = new Menu(Justification.LEFT, -Constants.screenWidth / 2, 200);
 	Menu creationMenu = new Menu(Justification.LEFT, -Constants.screenWidth / 2, 200);
 	Shape3d focus = null;
+	EditorKeys e = new EditorKeys(this);
 	
-	Editor() {
-		
-		creationMenu.addOption(
+	Editor() { 
+		init();
+	}
+	
+	void init() {
+		editorMenu.addOption(
+				"COMMAND",
+				new Action() {
+					void perform() {
+						e.add();
+					}
+				}
+				);
+		editorMenu.addOption(
 				"MAKE", 
 				new Action() {
 					void perform() {
@@ -58,7 +72,7 @@ public class Editor {
 					}
 				}
 				);
-		creationMenu.addOption(
+		editorMenu.addOption(
 				"TRANSLATE", 
 				new Action() {
 					void perform() {
@@ -70,7 +84,7 @@ public class Editor {
 					}
 				}
 				);
-		creationMenu.addOption("ROTATE", new Action() {
+		editorMenu.addOption("ROTATE", new Action() {
 			void perform() {
 				pointer.onMove = new Action() {
 					void perform() {
@@ -106,7 +120,7 @@ public class Editor {
 				*/
 			}
 		});
-		creationMenu.addOption(
+		editorMenu.addOption(
 				"SCALE", 
 				new Action() {
 					void perform() {
@@ -114,7 +128,7 @@ public class Editor {
 					}
 				}
 				);
-		creationMenu.addOption(
+		editorMenu.addOption(
 				"RANDOM", 
 				new Action() {
 					void perform() {
@@ -122,7 +136,7 @@ public class Editor {
 					}
 				}
 				);
-		creationMenu.addOption(
+		editorMenu.addOption(
 				"TEST SHAPEMAKER",
 				new Action() {
 					void perform() {
@@ -136,28 +150,6 @@ public class Editor {
 							.addTransformer(new Rotator(0, 1, 3, 0.3f))
 							.add()
 							; 
-					}
-				}
-				);
-		creationMenu.addOption(
-				"EXIT MENU",
-				new MenuAction(creationMenu, "exit")
-				);
-		
-		editorMenu.addOption(
-				"OPEN CREATION MENU",
-				new Action() {
-					void perform() {
-						editorMenu.command("exit");
-						creationMenu.open();
-					}
-				}
-				 );
-		editorMenu.addOption(
-				"ADD SUN",
-				new Action() {
-					void perform() {
-						new Sun().add();
 					}
 				}
 				);
@@ -176,6 +168,7 @@ public class Editor {
 				"EXIT MENU",
 				new MenuAction(editorMenu, "exit")
 				);
+
 	}
 	
 	void start() {
@@ -183,6 +176,8 @@ public class Editor {
 		KeyHandler.openEditorKeys(this);
 		
 		Theme.current = Theme.mono;
+	
+		new Sun().add();
 		
 		pointer = new MousePointer();
 		origin = new Marker("origin", 0, 0);
@@ -198,14 +193,21 @@ public class Editor {
 	}
 	
 	void command(String s) {
+
+		KeyHandler.clearKeys();
+		editorMenu.open();
+		
 		switch(s) {
-			
 			case "menu":
 				new MainMenu();
 				break;
 				
-			case "options":
+			case "exit":
 				editorMenu.open();
+				break;
+				
+			default:
+				System.out.println("invalid command");
 				break;
 		}
 	}
