@@ -157,11 +157,11 @@ public class Camera {
 		return false;
 	}
 	
-	static Vector3f translateMouse(int x, int y) {
+	static Vector3f translateMouse(float x, float y, float f) {
 		return new Vector3f(
 				((float)x / Constants.screenWidth * getWidth()) + getMinX(),
 				((float)y / Constants.screenHeight * getHeight()) + getMinY(),
-				0
+				f
 				);
 	}
 	//this is the master translate method, this vector should be used ASAP after returning

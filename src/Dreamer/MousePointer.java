@@ -28,7 +28,7 @@ public class MousePointer extends Positionable implements Updateable {
 	
 	public void update() {
 		remove();
-		setPosition(Camera.translateMouse(Mouse.getX(), Mouse.getY()));
+		setPosition(Camera.translateMouse(Mouse.getX(), Mouse.getY(), getZ()));
 		lastXVel = Mouse.getDX();
 		lastYVel = Mouse.getDY();
 		
@@ -66,7 +66,7 @@ public class MousePointer extends Positionable implements Updateable {
 
 	@Override
 	void draw(Graphics g) {
-		Drawer.drawCursor("MousePointer", getX(), getY(), getZ(), g);
+		Drawer.drawCursor("MousePointer (" + getX() + " " + getY() + " " + getZ() + ")", getX(), getY(), getZ(), g);
 		/*
 		if(Element.debug)
 			drawCursor("MousePointer", getX(), getY(), getZ(), g);

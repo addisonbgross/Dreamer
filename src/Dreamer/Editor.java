@@ -98,7 +98,20 @@ public class Editor {
 					void perform() {
 						pointer.onMove = new Action() {
 							void perform() {
-								focus.setPosition(pointer.getX(), pointer.getMaxY(), 0);
+								focus.setPosition(pointer.getX(), pointer.getMaxY(), pointer.getZ());
+							}
+						};
+					}
+				}
+				);
+		editorMenu.addOption(
+				"CHANGE Z", 
+				new Action() {
+					void perform() {
+						pointer.onMove = new Action() {
+							void perform() {
+								pointer.setZ(pointer.getZ() + pointer.lastXVel);
+								focus.setPosition(focus.getX(), focus.getY(), pointer.getZ());
 							}
 						};
 					}

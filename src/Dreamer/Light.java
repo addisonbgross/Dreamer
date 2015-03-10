@@ -126,7 +126,7 @@ final class MouseLight extends Light implements Updateable {
 		trackMouse();
 	}
 	public void trackMouse() {
-		setPosition(Camera.translateMouse(Mouse.getX(), Mouse.getY()));
+		setPosition(Camera.translateMouse(Mouse.getX(), Mouse.getY(), 0));
 	}
 }
 final class LampLight extends Light implements Updateable {
