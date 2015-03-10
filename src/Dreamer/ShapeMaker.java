@@ -13,6 +13,11 @@ public class ShapeMaker {
 			return new Block3d(new Color(r.nextInt()), 0, 0, 0, 100, 100, 100);
 		}
 		
+		if(name.equals("island")) {
+			java.util.Random r = new java.util.Random();
+			return new Island(0, 0, 0, 100);
+		}
+		
 		return null;
 	}
 }

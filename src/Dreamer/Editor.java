@@ -40,6 +40,7 @@ public class Editor {
 	Mode mode = Mode.COMMAND;
 	Action currentAction = new Action();
 	ArrayList<Float> numericInput = new ArrayList<Float>();
+	String lastCommand = "";
 	
 	Editor() { 
 		init();
@@ -47,20 +48,10 @@ public class Editor {
 	
 	void init() {
 		editorMenu.addOption(
-				"COMMAND",
+				"ADD MOTIONTRACKS",
 				new Action() {
 					void perform() {
-						mode = Mode.COMMAND;
-						editorKeys.add();
-					}
-				}
-				);
-		editorMenu.addOption(
-				"NUMERIC",
-				new Action() {
-					void perform() {
-						mode = Mode.NUMERIC;
-						editorKeys.add();
+						focus.generateMotionTracks();
 					}
 				}
 				);
@@ -71,22 +62,32 @@ public class Editor {
 						if(focus != null) {
 							focus.remove();	
 						}
-						focus = ShapeMaker.make("block");
-						focus.add();
+						
+						mode = Mode.COMMAND;
+						editorKeys.add();
+						
+						currentAction = new Action() {
+							void perform() {
+								focus = ShapeMaker.make(lastCommand);
+								focus.add();
+							}
+						};
 						
 						pointer.onLeftClick = new Action() {
 							void perform() {
-								Shape3d s;
-								try {
-									s = ((DynamicShape3d)focus).makeStatic();
-									s.add();
-									focus.remove();
-								} catch(ClassCastException cce) {
-									s = focus.getCopy();
-									s.add();
-									focus.remove();
+								if(focus != null) {
+									Shape3d s;
+									try {
+										s = ((DynamicShape3d)focus).makeStatic();
+										s.add();
+										focus.remove();
+									} catch(ClassCastException cce) {
+										s = focus.getCopy();
+										s.add();
+										focus.remove();
+									}
+									pointer.onMove = new Action();
 								}
-								pointer.onMove = new Action();
 							}
 						};
 					}
@@ -248,7 +249,9 @@ public class Editor {
 				}
 			}
 			currentAction.perform();
-		} else {
+		} else if (mode == Mode.COMMAND) {
+			lastCommand = s;
+			
 			switch(s) {
 				case "menu":
 					new MainMenu();
@@ -259,9 +262,11 @@ public class Editor {
 					break;
 					
 				default:
-					System.out.println("invalid command");
+					if(focus == null)
+						System.out.println("invalid command");
 					break;
 			}
+			currentAction.perform();
 		}
 		
 		KeyHandler.clearKeys();
