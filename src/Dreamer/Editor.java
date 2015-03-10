@@ -8,17 +8,24 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.HashSet;
 
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.util.vector.Vector3f;
 import org.newdawn.slick.Color;
 
+import quicktime.streaming.EditEntry;
+
+import com.sun.j3d.utils.scenegraph.io.state.javax.media.j3d.ModelClipState;
 import com.sun.org.apache.xml.internal.security.Init;
 
 import apple.laf.JRSUIConstants.Focused;
 
 public class Editor {
+	
+	enum Mode {NUMERIC, COMMAND};
 	Class<?> c;
 	//considering how to automate this
 	MousePointer pointer;
@@ -29,7 +36,10 @@ public class Editor {
 	Menu editorMenu = new Menu(Justification.LEFT, -Constants.screenWidth / 2, 200);
 	Menu creationMenu = new Menu(Justification.LEFT, -Constants.screenWidth / 2, 200);
 	Shape3d focus = null;
-	EditorKeys e = new EditorKeys(this);
+	EditorKeys editorKeys = new EditorKeys(this);
+	Mode mode = Mode.COMMAND;
+	Action currentAction = new Action();
+	ArrayList<Float> numericInput = new ArrayList<Float>();
 	
 	Editor() { 
 		init();
@@ -40,7 +50,17 @@ public class Editor {
 				"COMMAND",
 				new Action() {
 					void perform() {
-						e.add();
+						mode = Mode.COMMAND;
+						editorKeys.add();
+					}
+				}
+				);
+		editorMenu.addOption(
+				"NUMERIC",
+				new Action() {
+					void perform() {
+						mode = Mode.NUMERIC;
+						editorKeys.add();
 					}
 				}
 				);
@@ -124,7 +144,18 @@ public class Editor {
 				"SCALE", 
 				new Action() {
 					void perform() {
-						focus.scale(2);
+						mode = Mode.NUMERIC;
+						editorKeys.add();
+						
+						currentAction = new Action() {
+							void perform() {
+								try {
+									focus.scale(numericInput.get(0));
+								} catch (Exception e) {
+									// bad input
+								}
+							}
+						};
 					}
 				}
 				);
@@ -194,22 +225,34 @@ public class Editor {
 	
 	void command(String s) {
 
+		if(mode == Mode.NUMERIC) {
+			numericInput.clear();
+			for(String st: s.split("[, ]")) {
+				try {
+					numericInput.add(Float.parseFloat(st + "f"));
+				} catch(NumberFormatException nfe) {
+					// bad number input
+				}
+			}
+			currentAction.perform();
+		} else {
+			switch(s) {
+				case "menu":
+					new MainMenu();
+					break;
+					
+				case "exit":
+					editorMenu.open();
+					break;
+					
+				default:
+					System.out.println("invalid command");
+					break;
+			}
+		}
+		
 		KeyHandler.clearKeys();
 		editorMenu.open();
-		
-		switch(s) {
-			case "menu":
-				new MainMenu();
-				break;
-				
-			case "exit":
-				editorMenu.open();
-				break;
-				
-			default:
-				System.out.println("invalid command");
-				break;
-		}
 	}
 	
 	void write(String s) {
