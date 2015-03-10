@@ -1,27 +1,16 @@
 package Dreamer;
 
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.HashSet;
 
-import org.lwjgl.input.Keyboard;
 import org.lwjgl.util.vector.Vector3f;
 import org.newdawn.slick.Color;
-
-import quicktime.streaming.EditEntry;
-
-import com.sun.j3d.utils.scenegraph.io.state.javax.media.j3d.ModelClipState;
-import com.sun.org.apache.xml.internal.security.Init;
-
-import apple.laf.JRSUIConstants.Focused;
 
 public class Editor {
 	
@@ -69,7 +58,9 @@ public class Editor {
 						currentAction = new Action() {
 							void perform() {
 								focus = ShapeMaker.make(lastCommand);
-								focus.add();
+								if(focus != null)
+									focus.add();
+								editorMenu.open();
 							}
 						};
 						
@@ -168,6 +159,7 @@ public class Editor {
 								} catch (Exception e) {
 									// bad input
 								}
+								editorMenu.open();
 							}
 						};
 					}
@@ -268,9 +260,6 @@ public class Editor {
 			}
 			currentAction.perform();
 		}
-		
-		KeyHandler.clearKeys();
-		editorMenu.open();
 	}
 	
 	void write(String s) {

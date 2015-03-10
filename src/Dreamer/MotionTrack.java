@@ -75,7 +75,8 @@ public class MotionTrack extends Collidable {
 	}
 	public static void generateMotionTrack(Face f, ArrayList<Vector3f> vertices, Vector3f vector3f) {
 		int sides = f.vertexIndex.length;
-		Vector4f line, intersectLine;
+		Vector3f line;
+		Vector4f intersectLine;
 		Vector2f firstPoint = null;
 		
 		for(int i = 0; i < sides; i ++) {
@@ -98,18 +99,17 @@ public class MotionTrack extends Collidable {
 					try {
 						//this line is to extend the motiontracks enough so that the travel is seamless
 						//TODO move this into the constructor
-						line = new Vector4f(x - firstPoint.x, y - firstPoint.y, 0, 0);
+						line = new Vector3f(x - firstPoint.x, y - firstPoint.y, 0);
 						line.normalise();
 						//if the direction of the face normal is upwards or downwards...
 						//if you do some basic logic reduction on the statement below i will give you a present
+						
+						
 						boolean swapPoints = true;
-						if(firstPoint.x < x && f.normal.y > 0) {
-							swapPoints = false;
-						} else if(firstPoint.x > x && f.normal.y > 0) {
-							swapPoints = true;
-						} else if(firstPoint.y > y && f.normal.x > 0) {
+						if(Vector3f.cross(line, f.normal, null).z > 0) {
 							swapPoints = false;
 						}
+						
 						if(swapPoints) {
 							new MotionTrack(
 									x + line.x,

@@ -20,6 +20,8 @@ public class Drawer {
 					Camera.translate(l.getX2(), l.getY2(), 0).y
 					);
 			g.setColor(c);
+			g.draw(l);
+			
 		} else {
 			Polygon p = new Polygon();
 			int i = s.getPointCount() - 1;

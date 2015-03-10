@@ -376,7 +376,7 @@ class DynamicShape3d extends Shape3d implements Updateable {
 			s.position.set(position);
 			System.out.println(toString());
 			for (Vector3f v: vertices) {
-				Vector3f t = new Vector3f();
+				Vector3f t = new Vector3f(v);
 				t = transformVertex(v, t);
 				s.addVertex(t.x, t.y, t.z);
 			}
@@ -616,9 +616,15 @@ class ActionJewel extends SpinningJewel {
 
 class Island extends DynamicShape3d {
 
+	Island(float x, float y, float z) {
+		super(x, y, z);
+		create(100);
+	}
+	
 	Island(float x, float y, float z, float radius) {
 		super(x, y, z);
 		create(radius);
+		generateTopTrack();
 		transformers.add(new Rotator(0, 1, 0, 5 / radius));
 		transformers.add(new Pulsar(0.05f, 0.4f));
 	}
@@ -635,6 +641,8 @@ class Island extends DynamicShape3d {
 		for (int i = 0; i < numPoints; i++)
 			addFace(Theme.current.getColor(Theme.Default.DARK), 9, (i + 1)
 					% numPoints, i);
+	}
+	void generateTopTrack() {
 		generateMotionTrack(0);
 	}
 }
