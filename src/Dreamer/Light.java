@@ -168,6 +168,22 @@ final class SunsetLight extends Light {
 		setPosition(x, y, z);
 	}
 }
+final class FlareLight extends Light {
+	float flickerRange;
+	{
+		orthogonality = 0.8f;
+		color = new Color(255, 200, 200);
+		ambient = true;
+	}
+	FlareLight(float x, float y, float z) {
+		setPosition(x, y, z);
+	}
+	
+	public void update() {
+		range = flickerRange + 1000;
+		range = r.nextInt((int)range / 5) + range; 
+	}
+}
 class Sunset extends Sun {
 	Sunset() {
 		super();

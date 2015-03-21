@@ -5,3 +5,10 @@ worflow for editing
 			object appears at cursor
 			prompt for modifications
 
+level flow:
+	World class
+		multiple Levels in a World
+			use World as a Level manager:
+				- get next level
+				- goto specific level
+				- manipulate character state and gear

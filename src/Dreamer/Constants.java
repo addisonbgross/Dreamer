@@ -64,7 +64,7 @@ public class Constants {
 	static final float SPRINTVEL = 25;
 	static final float SPRINTSTAMINA = 0.1f;
 	static final int VIEWMARGIN = 100;
-	static final int FALLRESET = -2000;
+	static final int FALLRESET = -10000;
 	static final float STARTINGHEALTH = 100;
 	static final float STARTINGSTAMINA = 100;
 	static final float STAMINAREGEN = 0.20f;

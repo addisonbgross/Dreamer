@@ -35,15 +35,18 @@ class Level {
 }
 class TestLevel extends Level {
 	void createLevel() {
-		new GradientBackground(new Color(50, 50, 100), new Color(0, 0, 0)).add();
-		new Model("mountainTest", 300, 0, -200, -100).add();
+		new Dusk_1();
 		
+		/*
+		new SolidBackground(new Color(0, 0, 0)).add();
+		new Model("mountainTest", 300, 0, -200, -100).add();
+	
 		Player p = Player.getFirst();
-		p.setCenterBottom(0,  500);
+		p.setCenterBottom(100,  100);
 		w = new Katana(p);
 		w.add();
 		p.add();
-		
+
 		NinjaAlt a;
 		a = new NinjaAlt(500, 500, Brains.makeSoldier());
 		w = new Katana(a);
@@ -57,12 +60,13 @@ class TestLevel extends Level {
 		w = new Katana(a);
 		w.add();
 		a.add();
-		
+
 		new Sun().add();
 		
 		new ActionJewel(-1500, -125, 0, new Action() {void perform() {new Dusk_1();}}).add();
 		
 		Camera.focus(new ClassFocus(200, Ninja.class));
+		*/
 	}
 }
 class SimpleLevel extends Level {	
@@ -266,7 +270,6 @@ class Dusk_1 extends Level {
 		Camera.focus(new ClassFocus(200, Ninja.class));
 	}
 }
-
 class Dusk_2 extends Level {
 	void createLevel() {
 		new GradientBackground(new Color(50, 50, 100), new Color(0, 0, 0)).add();
@@ -284,7 +287,6 @@ class Dusk_2 extends Level {
 		Camera.focus(new ClassFocus(200, Ninja.class));
 	}
 }
-
 class Dusk_3 extends Level {
 	void createLevel() {
 		new GradientBackground(new Color(50, 50, 100), new Color(0, 0, 0)).add();
@@ -298,14 +300,60 @@ class Dusk_3 extends Level {
 		
 		new Sunset().add();
 		new Lamp(p).add();
+		new ActionJewel(-1400, 1400, 0, new Action() {void perform() {new Dusk_4();}}).add();
 		
 		Camera.focus(new ClassFocus(200, Ninja.class));
 	}
 }
-
-
-
-
-
-
-
+class Dusk_4 extends Level {
+	void createLevel() {
+		new GradientBackground(new Color(50, 50, 100), new Color(0, 0, 0)).add();
+		new Model("dusk_4", 500, 0, 0, 0).add();
+		
+		Player p = Player.getFirst();
+		p.setCenterBottom(3500,  50);
+		w = new Katana(p);
+		w.add();
+		p.add();
+		
+		new Sunset().add();
+		new Lamp(p).add();
+		new ActionJewel(-1900, 100, 0, new Action() {void perform() {new Dusk_5();}}).add();
+		new ActionJewel(-1950, 100, 0, new Action() {void perform() {new Dusk_5();}}).add();
+		
+		Camera.focus(new ClassFocus(200, Ninja.class));
+	}
+}
+class Dusk_5 extends Level {
+	void createLevel() {
+		new SolidBackground(new Color(0, 0, 0)).add();
+		new Model("dusk_5", 500, 0, 0, 0).add();
+		
+		Player p = Player.getFirst();
+		p.setCenterBottom(5700,  2025);
+		w = new Katana(p);
+		w.add();
+		p.add();
+		
+		new Lamp(p).add();
+		new ActionJewel(-2950, -3900, 0, new Action() {void perform() {new Dusk_6();}}).add();
+		
+		Camera.focus(new ClassFocus(200, Ninja.class));
+	}
+}
+class Dusk_6 extends Level {
+	void createLevel() {
+		new SolidBackground(new Color(0, 0, 0)).add();
+		new Model("dusk_6", 500, 0, 0, 0).add();
+		
+		Player p = Player.getFirst();
+		p.setCenterBottom(-1200,  -900);
+		w = new Katana(p);
+		w.add();
+		p.add();
+		
+		new Lamp(p).add();
+		
+		Camera.focus(new ClassFocus(200, Ninja.class));
+	}
+}
