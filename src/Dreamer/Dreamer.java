@@ -72,11 +72,11 @@ public class Dreamer {
 	static void init() {
 		try {
 			//initialize GL and open window
-			Display.setDisplayMode(new DisplayMode(Constants.screenWidth,Constants.screenHeight));
+			//Display.setDisplayMode(new DisplayMode(Constants.screenWidth,Constants.screenHeight));
 			/*
 				To set fullscreen mode uncomment the following line and comment the preceding one
 			 */
-			// Display.setFullscreen(true);
+			Display.setFullscreen(true);
 			DisplayMode dm = Display.getDisplayMode();
 			Constants.screenWidth = dm.getWidth();
 			Constants.screenHeight = dm.getHeight();
@@ -127,7 +127,7 @@ public class Dreamer {
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 			render();
 			// update screen
-			Display.sync(60);
+			Display.sync(70);
 			Display.update(false);
 			
 			if (Display.isCloseRequested() || Keyboard.isKeyDown(Keyboard.KEY_ESCAPE))

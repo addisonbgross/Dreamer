@@ -683,6 +683,50 @@ class GreyRoom extends Shape3d {
 	}
 }
 
+class Flare extends Shape3d implements Updateable {
+	FlareLight light;
+	
+	Flare(float x, float y, float z) {
+		super(x, y, z);
+		light = new FlareLight(x, y, z);
+	}
+	
+	@Override
+	void add() {
+		super.add();
+		light.add();
+	}
+
+	@Override
+	void remove() {
+		super.remove();
+		light.remove();
+	}
+
+	@Override
+	boolean isVisible() {
+		if (Camera.isPointVisible(getX(), getY(), getZ()))
+			return true;
+		else if (Camera.isPointVisible(getX() + Constants.LIGHTDISTANCE, getY()
+				+ Constants.LIGHTDISTANCE, getZ()))
+			return true;
+		else if (Camera.isPointVisible(getX() + Constants.LIGHTDISTANCE, getY()
+				- Constants.LIGHTDISTANCE, getZ()))
+			return true;
+		else if (Camera.isPointVisible(getX() - Constants.LIGHTDISTANCE, getY()
+				+ Constants.LIGHTDISTANCE, getZ()))
+			return true;
+		else if (Camera.isPointVisible(getX() - Constants.LIGHTDISTANCE, getY()
+				- Constants.LIGHTDISTANCE, getZ()))
+			return true;
+		return false;
+	}
+
+	public void update() {
+		light.update();
+	}
+}
+
 class Lamp extends Shape3d implements Updateable {
 	Actor actor;
 	Color glass = new Color(1.0f, 1.0f, 1.0f, 1f);

@@ -218,18 +218,18 @@ public class Face implements java.io.Serializable {
 			glEnable(GL11.GL_ALPHA_TEST);
 			GL11.glAlphaFunc(GL11.GL_GREATER, 0);
 			
-			GL11.glEnable( GL11.GL_TEXTURE );
+			//GL11.glEnable( GL11.GL_TEXTURE );
 			for(Face f: texturedDrawList) {
 				f.texture.bind();
 				glBegin(GL_TRIANGLES);
 				f.draw();
 				glEnd();
 			}
-			GL11.glDisable(GL11.GL_TEXTURE);
+			//GL11.glDisable(GL11.GL_TEXTURE);
 			
 			//draw coloured non-textured triangles
 			TextureImpl.bindNone();
-			GL11.glDisable(GL11.GL_TEXTURE);
+			//GL11.glDisable(GL11.GL_TEXTURE);
 			glBegin(GL_TRIANGLES);
 			for(Face f: drawList) {
 				f.draw();
