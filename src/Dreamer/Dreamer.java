@@ -72,11 +72,11 @@ public class Dreamer {
 	static void init() {
 		try {
 			//initialize GL and open window
-			//Display.setDisplayMode(new DisplayMode(Constants.screenWidth,Constants.screenHeight));
+			Display.setDisplayMode(new DisplayMode(Constants.screenWidth,Constants.screenHeight));
 			/*
 				To set fullscreen mode uncomment the following line and comment the preceding one
 			 */
-			Display.setFullscreen(true);
+			//Display.setFullscreen(true);
 			DisplayMode dm = Display.getDisplayMode();
 			Constants.screenWidth = dm.getWidth();
 			Constants.screenHeight = dm.getHeight();

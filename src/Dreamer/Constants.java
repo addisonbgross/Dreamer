@@ -45,7 +45,7 @@ public class Constants {
 	static final int COLLISIONINTERVAL = 30;
 	static final int ENEMYMOTIONBUFFER = 80;
 	static final int ENEMYJUMPRANGEX = 200;
-	static final int ENEMYATTACKRANGE = 200;
+	static final int ENEMYATTACKRANGE = 80;
 	public static final int ENEMYATTACKWAIT = 30;
 	static final int EXISTENCEBUFFER = 500;
 	static final float GRAVITY = 2f;
