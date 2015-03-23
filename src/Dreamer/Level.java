@@ -264,6 +264,11 @@ class Dusk_1 extends Level {
 		w.add();
 		p.add();
 		
+		e = new NinjaAlt(0, 100, Brains.makeSoldier());
+		w = new Katana(e);
+		w.add();
+		e.add();
+		
 		new Sunset().add();
 		new ActionJewel(-1300, 125, 0, new Action() {void perform() {new Dusk_2();}}).add();
 		

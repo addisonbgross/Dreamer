@@ -158,7 +158,7 @@ abstract class Actor extends Collidable implements Updateable {
 					stamina -= weapon.getWeight();
 				} 
 			}
-			
+
 			// jump sequence
 			if (checkStatus("tryjump") && !airborne) {
 				if (checkStatus("grounded")) {
@@ -166,10 +166,11 @@ abstract class Actor extends Collidable implements Updateable {
 					addStatus("jumping");
 					dynamics.adjustVel(0, Constants.PLAYERJUMPVEL);
 				}
-			} else if (!checkStatus("tryjump") && checkStatus("grounded"))
+			} else if (!checkStatus("tryjump") && checkStatus("grounded")) {
 				airborne = false;
-			else
+			} else {
 				removeStatus("tryjump");
+			}
 			
 			// regenerate stamina
 			if (stamina < Constants.STARTINGSTAMINA && !checkStatus("blocking"))
@@ -275,6 +276,19 @@ abstract class Actor extends Collidable implements Updateable {
 		setPosition(x, y, 0);
 		add();
 	}
+	void clearMovementStatus() {
+		removeStatus("tryleft");
+		removeStatus("tryright");
+		removeStatus("trysprint");
+		removeStatus("tryjump");
+	}
+	void switchFacing() {
+		if (checkStatus("left")) {
+			addStatus("tryright");
+		} else {
+			addStatus("tryleft");
+		}
+	}
 	public boolean isFacing(String s) {
 		if (s == "left" && checkStatus("left"))
 			return true;
@@ -322,9 +336,20 @@ class Enemy extends Actor {
 	@Override
 	public void update() {	
 		look();
-		if (!checkStatus("damaged"))
-			for (Trait t: brain)
+		
+		// think clearly
+		if (!checkStatus("damaged")) { 
+			for (Trait t: brain) {
 				t.doActive(this);
+			}
+		// turn to face the usurper
+		} else {	
+			if (getTarget() == null) {
+				switchFacing();
+			}
+		}
+
+		clearMovementStatus();
 		super.update(); // collisions and death checking
 	}
 	void look() {
@@ -344,7 +369,7 @@ class Enemy extends Actor {
         // reset enemy vision
         target = null;
 
-        // if any Player's within vision: set to target ? null
+        // [if any Player's within vision : set to target ? null]
         // TODO: make this not terrible
         for(Element e: Element.activeSet) {
         	if (e instanceof Player) {
@@ -354,8 +379,9 @@ class Enemy extends Actor {
         			p.getMinY() <= vision.getCenterY() + vision.getHeight() / 2 &&
         			p.getMinY() <= vision.getCenterY() + vision.getHeight() / 2) {
 		            	target = (Player)e;
-		                if(target.checkStatus("dead"))
+		                if(target.checkStatus("dead")) {
 		                    target = null;
+		                }
         		} 
             }
         }

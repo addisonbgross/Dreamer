@@ -58,8 +58,22 @@ class Collidable extends Positionable {
 				e.printStackTrace();
 				print();
 			}	
+			
+			// draw Enemy vision
+			if (this instanceof Enemy) {
+				try {
+					Drawer.drawShape(((Enemy)this).getVision(), 
+							(((Enemy)this).getTarget() == null) ? Color.white : Color.red, 
+							g, 
+							false);
+				} catch(java.lang.IndexOutOfBoundsException e) {
+					e.printStackTrace();
+					print();
+				}	
+			}
 		}
 	}	
+
 	boolean collide(Actor a) {
 	
 		watchDog = 0;
