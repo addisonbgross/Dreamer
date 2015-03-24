@@ -343,7 +343,6 @@ public class Shape3d extends Positionable implements Lightable {
 			
 			s.manhattanRadius.set(manhattanRadius);
 			s.position.set(position);
-			System.out.println(toString());
 			for (Vector3f v: vertices) {
 				s.addVertex(v.x, v.y, v.z);
 			}
@@ -374,7 +373,6 @@ class DynamicShape3d extends Shape3d implements Updateable {
 			
 			s.manhattanRadius.set(manhattanRadius);
 			s.position.set(position);
-			System.out.println(toString());
 			for (Vector3f v: vertices) {
 				Vector3f t = new Vector3f(v);
 				t = transformVertex(v, t);

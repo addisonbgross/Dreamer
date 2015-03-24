@@ -33,54 +33,31 @@ public class Editor {
 	
 	Editor() { 
 		init();
+		ShapeMaker.init();
 	}
 	
 	void init() {
 		editorMenu.addOption(
-				"ADD MOTIONTRACKS",
+				"MAKE",
 				new Action() {
 					void perform() {
-						focus.generateMotionTracks();
+						ShapeMaker.menu.parent = editorMenu;
+						ShapeMaker.menu.open();
+						
+						pointer.onLeftClick = new Action() {
+							void perform() {
+								ShapeMaker.addFocus();
+								pointer.onMove = new Action();
+							}
+						};
 					}
 				}
 				);
 		editorMenu.addOption(
-				"MAKE", 
+				"ADD MOTIONTRACKS",
 				new Action() {
 					void perform() {
-						if(focus != null) {
-							focus.remove();	
-						}
-						
-						mode = Mode.COMMAND;
-						editorKeys.add();
-						
-						currentAction = new Action() {
-							void perform() {
-								focus = ShapeMaker.make(lastCommand);
-								if(focus != null)
-									focus.add();
-								editorMenu.open();
-							}
-						};
-						
-						pointer.onLeftClick = new Action() {
-							void perform() {
-								if(focus != null) {
-									Shape3d s;
-									try {
-										s = ((DynamicShape3d)focus).makeStatic();
-										s.add();
-										focus.remove();
-									} catch(ClassCastException cce) {
-										s = focus.getCopy();
-										s.add();
-										focus.remove();
-									}
-									pointer.onMove = new Action();
-								}
-							}
-						};
+						ShapeMaker.focus.generateMotionTracks();
 					}
 				}
 				);
@@ -90,7 +67,7 @@ public class Editor {
 					void perform() {
 						pointer.onMove = new Action() {
 							void perform() {
-								focus.setPosition(pointer.getX(), pointer.getMaxY(), pointer.getZ());
+								ShapeMaker.focus.setPosition(pointer.getX(), pointer.getMaxY(), pointer.getZ());
 							}
 						};
 					}
@@ -103,7 +80,11 @@ public class Editor {
 						pointer.onMove = new Action() {
 							void perform() {
 								pointer.setZ(pointer.getZ() + pointer.lastXVel);
-								focus.setPosition(focus.getX(), focus.getY(), pointer.getZ());
+								ShapeMaker.focus.setPosition(
+										ShapeMaker.focus.getX(), 
+										ShapeMaker.focus.getY(), 
+										pointer.getZ()
+										);
 							}
 						};
 					}
@@ -125,7 +106,7 @@ public class Editor {
 								);
 						v = Vector3f.cross(v, n, v);
 						v.normalise();
-						focus.rotate(
+						ShapeMaker.focus.rotate(
 								v.x, 
 								v.y, 
 								v.z, 
@@ -133,16 +114,6 @@ public class Editor {
 								);
 					}
 				};
-				
-				/*
-				focus.remove();
-				focus = focus
-					.makeDynamic()
-					.clearTransformers()
-					.addTransformer(new Rotator(1, 0, 0, 0.1f))
-					;
-				focus.add();
-				*/
 			}
 		});
 		editorMenu.addOption(
@@ -155,7 +126,7 @@ public class Editor {
 						currentAction = new Action() {
 							void perform() {
 								try {
-									focus.scale(numericInput.get(0));
+									ShapeMaker.focus.scale(numericInput.get(0));
 								} catch (Exception e) {
 									// bad input
 								}
@@ -169,7 +140,7 @@ public class Editor {
 				"RANDOM", 
 				new Action() {
 					void perform() {
-						focus.randomize(0.5f);
+						ShapeMaker.focus.randomize(0.5f);
 					}
 				}
 				);
@@ -201,11 +172,7 @@ public class Editor {
 					}
 				}
 				);
-		editorMenu.addOption(
-				"EXIT MENU",
-				new MenuAction(editorMenu, "exit")
-				);
-
+		editorMenu.addExitOption();
 	}
 	
 	void start() {
@@ -238,6 +205,7 @@ public class Editor {
 					numericInput.add(Float.parseFloat(st + "f"));
 				} catch(NumberFormatException nfe) {
 					// bad number input
+					System.err.println("Incorrect numeric input");
 				}
 			}
 			currentAction.perform();
@@ -255,7 +223,7 @@ public class Editor {
 					
 				default:
 					if(focus == null)
-						System.out.println("invalid command");
+						System.err.println("Invalid command");
 					break;
 			}
 			currentAction.perform();
