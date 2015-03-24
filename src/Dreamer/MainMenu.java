@@ -23,6 +23,7 @@ public class MainMenu extends Level {
 					void perform() {
 						KeyHandler.clearKeys();
 						Editor e = new Editor();
+						Level.clear();
 						e.start();
 					}
 				});

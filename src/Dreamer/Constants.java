@@ -10,7 +10,10 @@ public class Constants {
 	
 	static String LEVELPATH = System
 			.getProperty("os.name")
-			.startsWith("W") ? "levels\\" : "levels/";
+			.startsWith("W") ? "res\\levels\\" : "res/levels/";
+	static String SHAPE3DPATH = System
+			.getProperty("os.name")
+			.startsWith("W") ? "res\\shape3d\\" : "res/shape3d/";
 	static String MAPPATH = System
 			.getProperty("os.name")
 			.startsWith("W") ? "maps\\" : "maps/";

@@ -1,7 +1,5 @@
 package Dreamer;
 
-import jdk.nashorn.internal.runtime.options.Options;
-
 public class Menu {
 	
 	Menu (Justification j, float xPosition, float yPosition) {
@@ -42,13 +40,11 @@ public class Menu {
 		switch(s) {
 		
 			case "up":
-				if(currentOption > 0)
-					currentOption--;
+				currentOption = (size + currentOption - 1) % size ;
 				break;
 				
 			case "down":
-				if(currentOption < size-1)
-					currentOption++;
+				currentOption = (currentOption + 1) % size;
 				break;
 				
 			case "select":

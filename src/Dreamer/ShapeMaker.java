@@ -51,13 +51,12 @@ public class ShapeMaker {
 			Shape3d s;
 			try {
 				s = ((DynamicShape3d)focus).makeStatic();
-				s.add();
-				focus.remove();
 			} catch(ClassCastException cce) {
 				s = focus.getCopy();
-				s.add();
-				focus.remove();
 			}
+			s.generateMotionTracks();
+			s.add();
+			focus.remove();
 		}
 	}
 }
