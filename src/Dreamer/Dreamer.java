@@ -26,14 +26,18 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.text.NumberFormat;
 
+import org.lwjgl.LWJGLException;
 import org.lwjgl.Sys;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
+import org.lwjgl.opengl.NVBindlessMultiDrawIndirect;
 import org.lwjgl.opengl.PixelFormat;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
+
+import com.sun.xml.internal.ws.api.ha.StickyFeature;
 
 //import Dreamer.runnableExamples.ShaderProgram;
 
@@ -50,36 +54,19 @@ public class Dreamer {
 
 	public static void main(String[] argv) 
 	{		
-		init();	
-		
-		try {
-			Library.load();
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
-		
-		new Ninja(0, 0).addToGame();
-		
-		new MainMenu();
+		// setFullscreen();
+		setResolution(800, 600);	
 		
 		try {
 			play();
 		} catch(SlickException e) {
 			e.printStackTrace();
-		}
+		}		
 	}
 	
 	static void init() {
 		try {
 			//initialize GL and open window
-			Display.setDisplayMode(new DisplayMode(Constants.screenWidth,Constants.screenHeight));
-			/*
-				To set fullscreen mode uncomment the following line and comment the preceding one
-			 */
-			//Display.setFullscreen(true);
-			DisplayMode dm = Display.getDisplayMode();
-			Constants.screenWidth = dm.getWidth();
-			Constants.screenHeight = dm.getHeight();
 			Display.create(new PixelFormat(2, 2, 0, 2));
 			Display.setVSyncEnabled(true);
 
@@ -114,8 +101,17 @@ public class Dreamer {
 		}
 		catch(Exception e) {e.printStackTrace();}
 		
+		try {
+			Library.load();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		
 		KeyHandler.init();
 	    g.setFont(Library.defaultFont);
+	    
+	    new Ninja(0, 0).addToGame();
+		new MainMenu();
 	}
 	static void play() throws SlickException
 	{	
@@ -264,5 +260,31 @@ public class Dreamer {
 		g.setColor(Library.defaultFontColor);
 	    g.drawString("delta: "+measuredDelta+" us(?)" , 20, 160);
 	    g.drawString("screen width: " + Constants.screenWidth + ", screen height: " + Constants.screenHeight, 20, 240);
+	}
+	static void setResolution(int x, int y) { 
+		try {
+			Display.setDisplayMode(new DisplayMode(x, y));
+			Display.destroy();
+			setScreenConstants();
+			init();
+		} catch (LWJGLException e) {
+			setFullscreen();
+		}	
+	}
+	static void setFullscreen() {
+		try {
+			Display.setFullscreen(true);
+			Display.destroy();
+			setScreenConstants();
+			init();
+		} catch (LWJGLException e1) {
+			System.err.println("DISPLAY MODE UNAVAILABLE");
+			e1.printStackTrace();
+		}
+	}
+	static void setScreenConstants() {
+		DisplayMode dm = Display.getDisplayMode();
+		Constants.screenWidth = dm.getWidth();
+		Constants.screenHeight = dm.getHeight();
 	}
 }

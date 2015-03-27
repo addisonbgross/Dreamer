@@ -24,6 +24,8 @@ class ShadowedMessage extends Foreground {
 	@Override
 	void draw(Graphics g) 
 	{
+		Camera.pushPosition();
+		Camera.focus(0, 0, 2000);
 		float j = (justification == Justification.LEFT)? 0: (justification == Justification.RIGHT)? 1: 0.5f; 
 		GL11.glDisable(GL11.GL_DEPTH_TEST);
 		g.setColor(shadowColor);
@@ -40,5 +42,6 @@ class ShadowedMessage extends Foreground {
 				Camera.translate(getMinX() - j * Library.messageFont.getWidth(name) - Constants.SHADOWOFFSET / 2, 0, 0).x, 
 				Camera.translate(0, getMinY() + 0.5f * Library.messageFont.getHeight(name) + Constants.SHADOWOFFSET / 2, 0).y
 		);
+		Camera.popPosition();
 	}
 }

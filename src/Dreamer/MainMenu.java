@@ -1,5 +1,7 @@
 package Dreamer;
 
+import java.io.IOException;
+
 public class MainMenu extends Level {
 	Menu main = new Menu(Justification.CENTER, 0, 0);	
 	
@@ -28,25 +30,18 @@ public class MainMenu extends Level {
 					}
 				});
 		main.addOption(
-				"RUN TEST",
+				"SET FULLSCREEN",
 				new Action() {
 					void perform() {
-						ShadowedMessage sm;
-						sm = new ShadowedMessage("LEFT", -Constants.screenWidth / 2, 0);
-						sm.justification = Justification.LEFT;
-						sm.add();
-						sm = new ShadowedMessage("CENTER", 0, 0);
-						sm.justification = Justification.CENTER;
-						sm.add();
-						sm = new ShadowedMessage("RIGHT", Constants.screenWidth / 2, 0);
-						sm.justification = Justification.RIGHT;
-						sm.add();
-						Library.getModel("sphere", 100, 0, 0, 0).get(0).add();
-						/*
-						OnDemandLoader.Start();
-						Resource r = new Resource("space", FileType.IMG);
-						r.getResource();
-						*/
+						Dreamer.setFullscreen();
+						
+						
+						
+						try {
+							Library.load();
+						} catch (IOException e1) {
+							e1.printStackTrace();
+						}
 					}
 				});
 		main.open();
@@ -57,6 +52,6 @@ public class MainMenu extends Level {
 		//new Model("scene", 200, 100, -200, -1500).add();
 		//new Sun().add();
 		new BorderedForeground().add();
-		Camera.focus(Dreamer.origin);
+		Camera.reset();
 	}
 }
