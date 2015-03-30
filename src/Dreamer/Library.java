@@ -124,7 +124,11 @@ class Library {
 		return lightPointList;
 	}
 	static Texture getTexture(String s) {
-		return images.get(s).image.getTexture();
+		try {
+			return images.get(s).image.getTexture();
+		} catch(Exception e) {
+			return images.get("fail").image.getTexture();
+		}
 	}
 	static private void loadModel(String file) {
 		String referenceName = file.substring(0, file.length());
@@ -139,9 +143,10 @@ class Library {
 	}
 	static void loadImage(String file) {
 		String referenceName = file.substring(0, file.toString().lastIndexOf("."));
-    	referenceName = referenceName.replace(Constants.RESPATH, "");
 
-		ImageTracker tempImage = new ImageTracker(referenceName);
+		ImageTracker tempImage = new ImageTracker(referenceName + ".png");
+		referenceName = referenceName.replace("backgrounds\\", "").replace("backgrounds/", "");
+		referenceName = referenceName.replace("res\\", "").replace("res/", "");
     	images.put(referenceName, tempImage);
 	}
 	static void importArt() throws IOException {
@@ -186,7 +191,7 @@ class ImageTracker {
 	
 	ImageTracker(String s) {
 		try {
-			image =  new Image(Constants.RESPATH+s+".png", true, Image.FILTER_NEAREST);
+			image =  new Image(s, true, Image.FILTER_NEAREST);
 			scaledImage = image.copy();
 			if(Library.messages) System.out.println("Image import of "+s+".png successful");
 		} catch (RuntimeException e) {

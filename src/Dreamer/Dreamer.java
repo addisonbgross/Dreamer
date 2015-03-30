@@ -31,13 +31,10 @@ import org.lwjgl.Sys;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
-import org.lwjgl.opengl.NVBindlessMultiDrawIndirect;
 import org.lwjgl.opengl.PixelFormat;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
-
-import com.sun.xml.internal.ws.api.ha.StickyFeature;
 
 //import Dreamer.runnableExamples.ShaderProgram;
 
