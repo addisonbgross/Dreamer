@@ -27,33 +27,23 @@ import java.io.IOException;
 import java.text.NumberFormat;
 
 import org.lwjgl.LWJGLException;
-import org.lwjgl.Sys;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
-import org.lwjgl.opengl.NVBindlessMultiDrawIndirect;
 import org.lwjgl.opengl.PixelFormat;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 
-import com.sun.xml.internal.ws.api.ha.StickyFeature;
-
-//import Dreamer.runnableExamples.ShaderProgram;
-
 public class Dreamer {
-	//for testing
-	static boolean sampled = true;
-	static int measuredDelta = 0;
+	
 	static int numberOfCollisions = 0;
-	static int numberOfUpdates = 0;
-	//various printing things
 	static BufferedWriter logWriter = null;
 	static Graphics g = new Graphics();
 	static Marker origin = new Marker("Origin", 0, 0);
 
-	public static void main(String[] argv) 
-	{		
+	public static void main(String[] argv) {		
+		
 		// setFullscreen();
 		setResolution(800, 600);	
 		
@@ -63,8 +53,44 @@ public class Dreamer {
 			e.printStackTrace();
 		}		
 	}
+
+	static void play() throws SlickException {	
+		
+		PerformanceMonitor updateMonitor = new PerformanceMonitor("update");
+		PerformanceMonitor renderMonitor = new PerformanceMonitor("render");
+		PerformanceMonitor.addMonitor(updateMonitor, renderMonitor);
+		
+		while (true) {
+			Display.processMessages();
+			
+			updateMonitor.start();
+			update();
+			updateMonitor.stop();
+			
+			renderMonitor.start();
+			render();
+			renderMonitor.stop();
+			
+			PerformanceMonitor.printAll();
+			
+			// update screen
+			Display.sync(70);
+			Display.update(false);
+			
+			
+			if (Display.isCloseRequested() || Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
+				Display.destroy();
+				System.exit(0);
+				try {
+					logWriter.close();
+				}
+				catch(Exception e) {}
+			}
+		}
+	}
 	
 	static void init() {
+		
 		try {
 			//initialize GL and open window
 			Display.create(new PixelFormat(2, 2, 0, 2));
@@ -113,77 +139,22 @@ public class Dreamer {
 	    new Ninja(0, 0).addToGame();
 		new MainMenu();
 	}
-	static void play() throws SlickException
-	{	
-		// main game loop
-		while (true)
-		{
-			Display.processMessages();
-			update();
-			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-			render();
-			// update screen
-			Display.sync(70);
-			Display.update(false);
-			
-			if (Display.isCloseRequested() || Keyboard.isKeyDown(Keyboard.KEY_ESCAPE))
-			{
-				Display.destroy();
-				System.exit(0);
-				try {
-					logWriter.close();
-				}
-				catch(Exception e) {}
-			}
-		}
-	}
+	
 	static void update() {	
-		//writes to log only for the first 200 updates
-		numberOfUpdates++;
-		try {
-			if(numberOfUpdates < 200) {
-				for (Element e: Element.activeSet)
-					logWriter.write(e.getClass() + "  ");
-				logWriter.write("\n");
-			}
-			else
-				logWriter.close();
-		}
-		catch(Exception e) {e.printStackTrace();}
 		
 		numberOfCollisions = 0;
-		
 		Level.updateCurrent();
 		KeyHandler.getKeys();
-		
-		//this counter is to blank the screen during level switches
-		if(Level.freezeCounter == 0);
+		if(Level.freezeCounter == 0); // to blank screen during level transitions
 			Element.updateAll();
 		Camera.update();
-		
-		//activeSet must be cleared each update
 		Element.clearActive();
-		//all elements to be drawn should be active by the end of this function
 		Element.activateVisible();
 	}
+	
 	static void render() {	
 		
-		//EXPERIMENTS IN SWITCHING CAMERA TO OPENGL PROPER
-		
-		//ShaderProgram shader = new ShaderProgram();
-		/*
-		GL11.glOrtho(0, 0, -2000, 2000, zNea, zFar);
-		
-		GL11.glLoadIdentity();
-		GL11.glTranslatef(0, 200, 0f);
-		GL11.glRotatef(1f, 0, 0, 1);
-		GL11.glTranslatef(0, -200, 0f);
-		 */
-		// do the heavy lifting of loading, compiling and linking
-		// the two shaders into a usable shader program
-		//shader.init("src/Dreamer/runnableExamples/simple.vertex", "src/Dreamer/runnableExamples/simple.fragment");		
-		//TODO pass translation and perspective off to graphics card using shaders
-		//GL20.glUseProgram(shader.getProgramId());
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		
 		g.setWorldClip(new Rectangle(0, 0, Constants.screenWidth, Constants.screenHeight));
 		if(Level.freezeCounter > 0) {
@@ -191,48 +162,11 @@ public class Dreamer {
 		} else {
 			Element.drawActive(g);
 		}
-		
-		//TODO seperate this function measurement timer loop out somewhere
-		if(Element.debug)
-		{
-			g.setFont(Library.defaultFont);
-			displayInfo();
-			displayMem();
-			if(!sampled) {
-				//this whole bit runs a function MEASURES*SAMPLES times and computes how long
-				//it takes in nanoseconds for the function to complete
-				measuredDelta = 0;
-				final int MEASURES = 10;
-				final int SAMPLES = 100;
-				long[] timeList = new long[MEASURES];;
-				long[] delta = new long[MEASURES - 1];
-				timeList[0] = Sys.getTime(); 
-				//taking MEASURES measurement consisting of SAMPLES runs of the function
-				for(int i = 1; i < MEASURES; i++) {
-					for(int j = 0; j < SAMPLES; j++)
-						
-						//function to measure goes in here
-						//this will execute MEASURES*SAMPLES times when you press enter!
-						
-						//new Block("brick", i - 1000, j).add();
-						
-					delta[i - 1] = ((timeList[i] = Sys.getTime() * 1000 / Sys.getTimerResolution()) - timeList[i - 1]);
-				}
-				//computing the average
-				for(int i = 1; i < MEASURES - 1; i++)
-					measuredDelta += delta[i];
-				measuredDelta *= (1000 / SAMPLES);
-				measuredDelta /= (MEASURES - 1);
-				sampled = true;
-			}
-			displayTestTime();
-		}
-		else
-			sampled = false;
 	}
+	
 	static void displayInfo() {
+		
 		g.setColor(Library.defaultFontColor);
-		//g.drawString("RUN MODE", 650, 20);
 		g.drawString(
 				Element.numberActive()+" ACTIVE ELEMENTS, "
 				+Element.numberXRangeSets()+" SETS IN X, "
@@ -244,7 +178,9 @@ public class Dreamer {
 		g.drawString(numberOfCollisions+" COLLISIONS CHECKED", 20, 60);
 		Camera.draw(g);
 	}
+	
 	static void displayMem() {
+		
 		g.setColor(Library.defaultFontColor);
 		Runtime runtime = Runtime.getRuntime();
 		NumberFormat format = NumberFormat.getInstance();  
@@ -256,12 +192,9 @@ public class Dreamer {
 	    g.drawString("max memory: " + format.format(maxMemory / 1024),20, 120);
 	    g.drawString("total free memory: " + format.format((freeMemory + (maxMemory - allocatedMemory)) / 1024), 20, 140);
 	}
-	static void displayTestTime() {
-		g.setColor(Library.defaultFontColor);
-	    g.drawString("delta: "+measuredDelta+" us(?)" , 20, 160);
-	    g.drawString("screen width: " + Constants.screenWidth + ", screen height: " + Constants.screenHeight, 20, 240);
-	}
+	
 	static void setResolution(int x, int y) { 
+	
 		try {
 			Display.setDisplayMode(new DisplayMode(x, y));
 			Display.destroy();
@@ -271,7 +204,9 @@ public class Dreamer {
 			setFullscreen();
 		}	
 	}
+	
 	static void setFullscreen() {
+		
 		try {
 			Display.setFullscreen(true);
 			Display.destroy();
@@ -282,7 +217,9 @@ public class Dreamer {
 			e1.printStackTrace();
 		}
 	}
+	
 	static void setScreenConstants() {
+		
 		DisplayMode dm = Display.getDisplayMode();
 		Constants.screenWidth = dm.getWidth();
 		Constants.screenHeight = dm.getHeight();
