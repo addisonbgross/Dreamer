@@ -48,7 +48,12 @@ public class Menu {
 				break;
 				
 			case "select":
-				optionList.get(currentOption).action.perform();
+				Action a = optionList.get(currentOption).action;
+				Doable d = optionList.get(currentOption).doable;
+				if(a != null)
+					a.perform();
+				if(d != null)
+					d.doIt();
 				break;
 				
 			case "exit":
@@ -72,9 +77,15 @@ public class Menu {
 	
 	private class MenuOption {
 		Action action;
+		Doable doable;
 		ShadowedMessage shadowMessage;
+		
 		MenuOption(String s, Action a) {
 			action = a;
+			shadowMessage = new ShadowedMessage(s, 0, 0);
+		}
+		MenuOption(String s, Doable d) {
+			doable = d;
 			shadowMessage = new ShadowedMessage(s, 0, 0);
 		}
 		
@@ -95,4 +106,17 @@ public class Menu {
 				);
 		return this;
 	}
+
+	Menu addOption(String s, Doable d) {
+		optionList.add(
+			new MenuOption(s, d)
+			.setPosition(xposition, yposition -= spacing)
+			.setJustification(justification)
+			);
+		return this;
+	}
+}
+
+interface Doable {
+	void doIt();
 }

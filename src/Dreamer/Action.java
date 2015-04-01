@@ -18,6 +18,25 @@ class Action {
 	void perform() {}
 	void stop() {}
 	void perform(Actor a) {}
+	
+	static void lambda(Performable a, Stoppable s) {
+		a.perform();
+		s.stop();
+	}
+	
+	interface Performable {
+		void perform();
+	}
+	interface Stoppable {
+		void stop();
+	}
+	
+	static void test() {
+		lambda(
+				() -> { System.out.println("YES"); },
+				() -> { System.out.println("YES2"); }
+				);
+	}
 }
 
 class KeyedActorAction extends Action {

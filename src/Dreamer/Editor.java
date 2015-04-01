@@ -29,18 +29,17 @@ public class Editor {
 	}
 
 	void init() {
-		editorMenu.addOption("MAKE", new Action() {
-			void perform() {
-				ShapeMaker.menu.parent = editorMenu;
-				ShapeMaker.menu.open();
+		editorMenu.addOption("MAKE", () -> {
+			
+			ShapeMaker.menu.parent = editorMenu;
+			ShapeMaker.menu.open();
 
-				pointer.onLeftClick = new Action() {
-					void perform() {
-						ShapeMaker.addFocus();
-						pointer.onMove = new Action();
-					}
-				};
-			}
+			pointer.onLeftClick = new Action() {
+				void perform() {
+					ShapeMaker.addFocus();
+					pointer.onMove = new Action();
+				}
+			};
 		});
 		editorMenu.addOption("TRANSLATE", new Action() {
 			void perform() {

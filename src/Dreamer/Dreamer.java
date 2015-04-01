@@ -12,7 +12,7 @@ import org.newdawn.slick.SlickException;
 public class Dreamer {
 
 	public static void main(String[] argv) {		
-		
+
 		// setFullscreen();
 		setResolution(800, 600);	
 		
@@ -22,7 +22,7 @@ public class Dreamer {
 			e.printStackTrace();
 		}		
 	}
-
+	
 	static void play() throws SlickException {	
 		
 		PerformanceMonitor updateMonitor = new PerformanceMonitor("update");
