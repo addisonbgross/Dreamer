@@ -4,9 +4,10 @@ import java.util.Random;
 
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
-import org.newdawn.slick.Graphics;
 
 public class Body extends Positionable implements Updateable { 	
+	
+	private static final long serialVersionUID = -752809389367312382L;
 	Animation2 legs, body, head;
 	Actor actor;
 	int direction;
@@ -199,7 +200,7 @@ public class Body extends Positionable implements Updateable {
 		return false;
 	}
 	@Override
-	void draw(Graphics g) {
+	void draw() {
 		//stupid
 	}
 }

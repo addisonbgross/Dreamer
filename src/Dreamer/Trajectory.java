@@ -1,7 +1,6 @@
 package Dreamer;
 
 import org.lwjgl.util.vector.Vector3f;
-import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Line;
 
 public final class Trajectory implements Updateable {
@@ -33,6 +32,9 @@ public final class Trajectory implements Updateable {
 	}
 	
 	private final class PermanentLine extends Positionable {
+		
+		private static final long serialVersionUID = 1829625227950634231L;
+		
 		Line l;
 		
 		PermanentLine(float ax, float ay, float az, float bx, float by, float bz) {
@@ -48,13 +50,11 @@ public final class Trajectory implements Updateable {
 				position.x, position.y, position.z
 				);
 		}
-		PermanentLine(Line l) {
-			this(l.getX1(), l.getY1(), 0, l.getX2(), l.getY2(), 0);
-		}
+		
 		@Override
-		void draw(Graphics g) {
+		void draw() {
 			if(Element.debug)
-				Drawer.drawShape(l, Library.defaultFontColor, g);
+				Drawer.drawShape(l, Library.defaultFontColor);
 			else
 				remove();
 		}

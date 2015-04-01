@@ -197,7 +197,8 @@ class ForestLevel extends Level {
 		/**
 		 * Level setup
 		 */
-		new GradientBackground(new Color(63, 63, 255), new Color(220, 220, 255)).add();
+		new SolidBackground(new Color(0, 100, 50)).add();
+		// new GradientBackground(new Color(63, 63, 255), new Color(220, 220, 255)).add();
 		new Sun().add();
 		
 		Theme.current = Theme.ice;

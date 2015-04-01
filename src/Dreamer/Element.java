@@ -81,7 +81,9 @@ public class Element implements Serializable {
 	}
 
 	// only method subclasses must implement, even if just for debugging
-	void draw(Graphics g) {}
+	void draw() {
+		System.err.println("No draw method attached to " + this.getClass());
+	}
 
 	void print() {
 		System.out.println(this.toString());
@@ -158,22 +160,22 @@ public class Element implements Serializable {
 		}
 	}
 
-	static void drawActive(Graphics g) {
+	static void drawActive() {
 		
 		for (Element e : background) {
 			Light.light(e);
-			e.draw(g);
+			e.draw();
 		}
 		
 		for (Element o : activeSet) {
 			Light.light(o);
-			o.draw(g);
+			o.draw();
 		}
 		
 		Face.drawFaces();
 		
 		for (Element e : foreground)
-			e.draw(g);
+			e.draw();
 	}
 
 	static int numberActive() {return activeSet.size();}

@@ -4,12 +4,13 @@ import java.util.ArrayList;
 
 import org.lwjgl.util.vector.Vector3f;
 import org.lwjgl.util.vector.Vector4f;
-import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Line;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Vector2f;
 
 public class MotionTrack extends Collidable {
+	
+	private static final long serialVersionUID = -4136972279948096275L;
 	Line track;
 	Vector2f normal;
 	static Vector2f temp = new Vector2f();
@@ -57,20 +58,18 @@ public class MotionTrack extends Collidable {
 		return false;
 	}
 	@Override 
-	void draw(Graphics g) {
-		super.draw(g);
+	void draw() {
+		super.draw();
 		if(Element.debug && this.getCollisionShape() != null) {
-			Drawer.drawShape(
-					new Line(
-							track.getCenterX(),
-							track.getCenterY(),
-							track.getCenterX() + 20 * normal.x,
-							track.getCenterY() + 20 * normal.y
-							),
-					Constants.COLLISIONCOLOUR,
-					g
-					);
-			
+			Drawer.drawLine(
+				Constants.COLLISIONCOLOUR,
+				track.getCenterX(),
+				track.getCenterY(),
+				0,
+				track.getCenterX() + 20 * normal.x,
+				track.getCenterY() + 20 * normal.y,
+				0
+			);	
 		}
 	}
 	public static void generateMotionTrack(Face f, ArrayList<Vector3f> vertices, Vector3f vector3f) {
@@ -134,6 +133,9 @@ public class MotionTrack extends Collidable {
 	}
 }
 class LadderTrack extends Collidable {
+	
+	private static final long serialVersionUID = 4209415364083440118L;
+
 	LadderTrack(float sx, float sy, float ex, float ey) {
 		//super(sx, sy, ex, ey);
 		setCollisionShape(new Rectangle(sx, sy, ex - sx, ey - sy));
@@ -175,6 +177,7 @@ class LadderTrack extends Collidable {
 
 class MovingMotionTrack extends MotionTrack implements Updateable {
 
+	private static final long serialVersionUID = -8954373676646170720L;
 	float angle, angleincrement = 0.1f, dX;
 	
 	MovingMotionTrack(float sx, float sy, float ex, float ey) {

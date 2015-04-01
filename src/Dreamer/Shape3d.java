@@ -288,7 +288,7 @@ public class Shape3d extends Positionable implements Lightable {
 	@Override
 	// for reference, this is how the camera finds the point on the screen
 	// Camera.translate(getVertex(triangleIndex[j]), tempV3f);
-	void draw(Graphics g) {
+	void draw() {
 		if (isVisible())
 			for (Face f : faces)
 				f.addToDrawList();

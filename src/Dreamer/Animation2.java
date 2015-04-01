@@ -5,10 +5,11 @@ import java.util.ArrayList;
 import org.lwjgl.Sys;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
-import org.lwjgl.util.vector.Vector4f;
 import org.newdawn.slick.Color;
 
 public class Animation2 extends Shape3d implements Updateable {
+	
+	private static final long serialVersionUID = -863958778224192478L;
 	Face f;
 	float sheetWidth, sheetHeight;
 	int columns, rows, width, height;

@@ -4,12 +4,13 @@ import java.util.Comparator;
 
 import org.lwjgl.util.vector.Vector3f;
 import org.newdawn.slick.Color;
-import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Line;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.Vector2f;
 
 class Collidable extends Positionable {	
+	
+	private static final long serialVersionUID = -5571044266659765974L;
 	static boolean collision = false;
 	static Shape lookahead;
 	static float xVelTemp, yVelTemp, xIncTemp, yIncTemp;
@@ -50,10 +51,10 @@ class Collidable extends Positionable {
 	}
 	
 	@Override
-	void draw(Graphics g) {
+	void draw() {
 		if(Element.debug && collisionShape != null) {	
 			try {
-				Drawer.drawShape(collisionShape, Color.yellow, g, false);
+				Drawer.drawShape(collisionShape, Color.yellow, false);
 			} catch(java.lang.IndexOutOfBoundsException e) {
 				e.printStackTrace();
 				print();
@@ -63,9 +64,7 @@ class Collidable extends Positionable {
 			if (this instanceof Enemy) {
 				try {
 					Drawer.drawShape(((Enemy)this).getVision(), 
-							(((Enemy)this).getTarget() == null) ? Color.white : Color.red, 
-							g, 
-							false);
+							(((Enemy)this).getTarget() == null) ? Color.white : Color.red, false);
 				} catch(java.lang.IndexOutOfBoundsException e) {
 					e.printStackTrace();
 					print();

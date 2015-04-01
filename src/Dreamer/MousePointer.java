@@ -2,11 +2,11 @@ package Dreamer;
 
 import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Mouse;
-import org.lwjgl.util.vector.Vector3f;
-import org.newdawn.slick.Color;
-import org.newdawn.slick.Graphics;
 
 public class MousePointer extends Positionable implements Updateable {
+	
+	private static final long serialVersionUID = 4399127807182868906L;
+	
 	boolean leftClickAction = false, rightClickAction = false;
 	float lastX, lastY, lastXVel, lastYVel;
 	Action onMove = new Action(),
@@ -75,8 +75,8 @@ public class MousePointer extends Positionable implements Updateable {
 	}
 
 	@Override
-	void draw(Graphics g) {
-		Drawer.drawCursor("MousePointer (" + getX() + " " + getY() + " " + getZ() + ")", getX(), getY(), getZ(), g);
+	void draw() {
+		Drawer.drawCursor("MousePointer (" + getX() + " " + getY() + " " + getZ() + ")", getX(), getY(), getZ());
 		/*
 		if(Element.debug)
 			drawCursor("MousePointer", getX(), getY(), getZ(), g);

@@ -1,7 +1,5 @@
 package Dreamer;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.io.IOException;
 
 import org.lwjgl.LWJGLException;
@@ -29,10 +27,12 @@ public class Dreamer {
 		
 		PerformanceMonitor updateMonitor = new PerformanceMonitor("update");
 		PerformanceMonitor renderMonitor = new PerformanceMonitor("render");
-		PerformanceMonitor.addMonitor(updateMonitor, renderMonitor);
+		PerformanceMonitor otherMonitor = new PerformanceMonitor("other");
+		PerformanceMonitor.addMonitor(updateMonitor, renderMonitor, otherMonitor);
 		
 		while (true) {
 			Display.processMessages();
+			otherMonitor.stop();
 			
 			updateMonitor.start();
 			update();
@@ -42,6 +42,7 @@ public class Dreamer {
 			render();
 			renderMonitor.stop();
 			
+			otherMonitor.start();
 			PerformanceMonitor.printAll();
 			
 			// update screen
@@ -66,7 +67,6 @@ public class Dreamer {
 			//initialize GL and open window
 			Display.create(new PixelFormat(2, 2, 0, 2));
 			Display.setVSyncEnabled(true);
-
 			OpenGL.init();
 		}
 		catch(Exception e) {
@@ -107,7 +107,7 @@ public class Dreamer {
 		if(Level.freezeCounter > 0) {
 			Level.freezeCounter--;
 		} else {
-			Element.drawActive(Drawer.graphics);
+			Element.drawActive();
 		}
 	}
 	

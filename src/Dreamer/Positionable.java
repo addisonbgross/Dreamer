@@ -6,6 +6,8 @@ import org.newdawn.slick.geom.Vector2f;
 
 public class Positionable extends Element {
 	
+	private static final long serialVersionUID = -7005269360412558578L;
+
 	// each subclass's constructor should set x, y, width, height, and depth
 	// TODO sort out positioning once and for all... confusing mix of variables
 	Vector3f position = new Vector3f();
@@ -154,6 +156,9 @@ public class Positionable extends Element {
 }
 
 class Marker extends Positionable {
+	
+	private static final long serialVersionUID = 6813143029134144770L;
+	
 	String name;
 
 	Marker(String s, float x, float y) {
@@ -162,10 +167,10 @@ class Marker extends Positionable {
 	}
 
 	@Override
-	void draw(Graphics g) {
+	void draw() {
 		if (Element.debug) {
 			Drawer.drawCursor(name + "@(" + (int) getMinX() + ", " + (int) getMinY()
-					+ ")", getX(), getY(), getZ(), g);
+					+ ")", getX(), getY(), getZ());
 		}
 	}
 }
