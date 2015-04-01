@@ -4,8 +4,8 @@ import org.newdawn.slick.Color;
 
 //sorted alphabetically
 public class Constants {
+	
 	static int screenWidth = 800, screenHeight = 600;
-
 	public static int ladderWidth = 50;
 	
 	static String LEVELPATH = System

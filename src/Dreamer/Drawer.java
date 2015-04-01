@@ -5,9 +5,12 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Line;
 import org.newdawn.slick.geom.Polygon;
+import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 
 public class Drawer {
+	
+	static Graphics graphics = new Graphics();
 	
 	static void drawShape(Shape s, Color c, Graphics g, boolean filled) {
 		
@@ -77,5 +80,17 @@ public class Drawer {
 				v.y);
 		g.drawLine(v.x, v.y - Constants.MARKERSIZE, v.x, v.y
 				+ Constants.MARKERSIZE);
+	}
+
+	public static void setColor(Color c) {
+		graphics.setColor(c);
+	}
+
+	public static void drawString(String s, int i, int j) {
+		graphics.drawString(s, i, j);
+	}
+
+	public static void setWorldClip(int i, int j, int screenWidth, int screenHeight) {
+		graphics.setWorldClip(new Rectangle(i, j, screenWidth, screenHeight));
 	}
 }

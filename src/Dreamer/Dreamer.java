@@ -1,46 +1,17 @@
 package Dreamer;
 
-import static org.lwjgl.opengl.GL11.GL_BLEND;
-import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
-import static org.lwjgl.opengl.GL11.GL_DEPTH_BUFFER_BIT;
-import static org.lwjgl.opengl.GL11.GL_FRONT;
-import static org.lwjgl.opengl.GL11.GL_LESS;
-import static org.lwjgl.opengl.GL11.GL_MODELVIEW;
-import static org.lwjgl.opengl.GL11.GL_ONE_MINUS_SRC_ALPHA;
-import static org.lwjgl.opengl.GL11.GL_PROJECTION;
-import static org.lwjgl.opengl.GL11.GL_SRC_ALPHA;
-import static org.lwjgl.opengl.GL11.glBlendFunc;
-import static org.lwjgl.opengl.GL11.glClear;
-import static org.lwjgl.opengl.GL11.glClearColor;
-import static org.lwjgl.opengl.GL11.glClearDepth;
-import static org.lwjgl.opengl.GL11.glCullFace;
-import static org.lwjgl.opengl.GL11.glDepthFunc;
-import static org.lwjgl.opengl.GL11.glEnable;
-import static org.lwjgl.opengl.GL11.glLoadIdentity;
-import static org.lwjgl.opengl.GL11.glMatrixMode;
-import static org.lwjgl.opengl.GL11.glOrtho;
-import static org.lwjgl.opengl.GL11.glViewport;
-
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.text.NumberFormat;
 
 import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.PixelFormat;
-import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.geom.Rectangle;
 
 public class Dreamer {
-	
-	static int numberOfCollisions = 0;
-	static BufferedWriter logWriter = null;
-	static Graphics g = new Graphics();
-	static Marker origin = new Marker("Origin", 0, 0);
 
 	public static void main(String[] argv) {		
 		
@@ -82,7 +53,7 @@ public class Dreamer {
 				Display.destroy();
 				System.exit(0);
 				try {
-					logWriter.close();
+					PerformanceMonitor.logWriter.close();
 				}
 				catch(Exception e) {}
 			}
@@ -96,36 +67,12 @@ public class Dreamer {
 			Display.create(new PixelFormat(2, 2, 0, 2));
 			Display.setVSyncEnabled(true);
 
-			glClearColor(1.0f, 1.0f, 1.0f, 0.0f);
-			// clear z buffer to 1
-			glClearDepth(1);
-			
-			// enable alpha blending
-			glEnable(GL_BLEND);
-			// enables depth buffering to draw faces in the appropriate order
-			glDepthFunc(GL_LESS);
-			glCullFace(GL_FRONT);
-			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-			
-			glViewport(0, 0, Constants.screenWidth, Constants.screenHeight);
-			glMatrixMode(GL_MODELVIEW);
-			
-			glMatrixMode(GL_PROJECTION);
-			glLoadIdentity();
-			//NOTE this was the culprit for upside-down drawing
-			glOrtho(0, Constants.screenWidth, Constants.screenHeight, 0, 1, -1);
-			glMatrixMode(GL_MODELVIEW);
+			OpenGL.init();
 		}
 		catch(Exception e) {
 			e.printStackTrace(System.err);
 			System.exit(0);
 		}
-		//init logger
-		try {
-			logWriter = new BufferedWriter(new FileWriter("log.txt"));
-			logWriter.write("debugging log\r\n");
-		}
-		catch(Exception e) {e.printStackTrace();}
 		
 		try {
 			Library.load();
@@ -134,7 +81,7 @@ public class Dreamer {
 		}
 		
 		KeyHandler.init();
-	    g.setFont(Library.defaultFont);
+	    Drawer.graphics.setFont(Library.defaultFont);
 	    
 	    new Ninja(0, 0).addToGame();
 		new MainMenu();
@@ -142,7 +89,7 @@ public class Dreamer {
 	
 	static void update() {	
 		
-		numberOfCollisions = 0;
+		PerformanceMonitor.numberOfCollisions = 0;
 		Level.updateCurrent();
 		KeyHandler.getKeys();
 		if(Level.freezeCounter == 0); // to blank screen during level transitions
@@ -154,43 +101,14 @@ public class Dreamer {
 	
 	static void render() {	
 		
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		OpenGL.clearBuffers();
+		Drawer.setWorldClip(0, 0, Constants.screenWidth, Constants.screenHeight);
 		
-		g.setWorldClip(new Rectangle(0, 0, Constants.screenWidth, Constants.screenHeight));
 		if(Level.freezeCounter > 0) {
 			Level.freezeCounter--;
 		} else {
-			Element.drawActive(g);
+			Element.drawActive(Drawer.graphics);
 		}
-	}
-	
-	static void displayInfo() {
-		
-		g.setColor(Library.defaultFontColor);
-		g.drawString(
-				Element.numberActive()+" ACTIVE ELEMENTS, "
-				+Element.numberXRangeSets()+" SETS IN X, "
-				+Element.numberYRangeSets()+" SETS IN Y",
-				20, 
-				20
-		);
-		g.drawString(Element.numberTotal()+" TOTAL ELEMENTS", 20, 40);
-		g.drawString(numberOfCollisions+" COLLISIONS CHECKED", 20, 60);
-		Camera.draw(g);
-	}
-	
-	static void displayMem() {
-		
-		g.setColor(Library.defaultFontColor);
-		Runtime runtime = Runtime.getRuntime();
-		NumberFormat format = NumberFormat.getInstance();  
-	    long maxMemory = runtime.maxMemory();
-	    long allocatedMemory = runtime.totalMemory();
-	    long freeMemory = runtime.freeMemory();
-	    g.drawString("free memory: " + format.format(freeMemory / 1024), 20, 80);
-	    g.drawString("allocated memory: " + format.format(allocatedMemory / 1024), 20, 100);
-	    g.drawString("max memory: " + format.format(maxMemory / 1024),20, 120);
-	    g.drawString("total free memory: " + format.format((freeMemory + (maxMemory - allocatedMemory)) / 1024), 20, 140);
 	}
 	
 	static void setResolution(int x, int y) { 
@@ -202,6 +120,7 @@ public class Dreamer {
 			init();
 		} catch (LWJGLException e) {
 			setFullscreen();
+			e.printStackTrace();
 		}	
 	}
 	

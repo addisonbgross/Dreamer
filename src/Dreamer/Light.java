@@ -13,6 +13,9 @@ import org.newdawn.slick.geom.Polygon;
 import org.newdawn.slick.geom.Transform;
 
 abstract public class Light extends Positionable {
+	
+	private static final long serialVersionUID = 15616709052981486L;
+	
 	static public ArrayList<Light> lightList = new ArrayList<Light>();
 	static boolean firstLight = true;
 	static Random r = new Random();
@@ -114,6 +117,9 @@ abstract public class Light extends Positionable {
 	}
 }
 final class MouseLight extends Light implements Updateable {
+	
+	private static final long serialVersionUID = 7882373801114220812L;
+	
 	{
 		color = new Color(127, 191, 255);
 		range = 1000;
