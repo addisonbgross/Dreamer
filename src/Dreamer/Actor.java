@@ -212,7 +212,7 @@ abstract class Actor extends Collidable implements Updateable {
 		);
 		
 		foundCollisions.clear();
-		for(Element e: Element.getActiveWithin(rangeFinder)) {
+		for(Element e: Collidable.getActiveWithin(rangeFinder)) {
 			//very important to not compare this to itself, infinite loop
 			if(Collidable.class.isAssignableFrom(e.getClass()) && e != this) {
 				 foundCollisions.add((Collidable)e);

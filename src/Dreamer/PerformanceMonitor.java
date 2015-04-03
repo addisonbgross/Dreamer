@@ -29,7 +29,7 @@ public final class PerformanceMonitor implements Updateable {
 	
 	public static long getTime() {
 	
-		return java.lang.System.nanoTime();// / Sys.getTimerResolution();
+		return java.lang.System.nanoTime();
 	}
 	
 	public static void addMonitor(PerformanceMonitor... pms) {
@@ -68,19 +68,27 @@ public final class PerformanceMonitor implements Updateable {
 				; 
 	}
 	
+	static int numberTotal() {return Element.masterList.size();}
+
+	static int numberYRangeSets() {return Collidable.yRange.size();}
+
+	static int numberXRangeSets() {return Collidable.xRange.size();}
+
+	static int numberActive() {return Element.activeSet.size();}
+
 	static public PerformanceMonitor getGlobal() { return global; }
 	
 	static void displayInfo() {
 		
 		Drawer.setColor(Library.defaultFontColor);
 		Drawer.drawString(
-				Element.numberActive()+" ACTIVE ELEMENTS, "
-				+Element.numberXRangeSets()+" SETS IN X, "
-				+Element.numberYRangeSets()+" SETS IN Y",
+				PerformanceMonitor.numberActive()+" ACTIVE ELEMENTS, "
+				+PerformanceMonitor.numberXRangeSets()+" SETS IN X, "
+				+PerformanceMonitor.numberYRangeSets()+" SETS IN Y",
 				20, 
 				20
 		);
-		Drawer.drawString(Element.numberTotal()+" TOTAL ELEMENTS", 20, 40);
+		Drawer.drawString(PerformanceMonitor.numberTotal()+" TOTAL ELEMENTS", 20, 40);
 		Drawer.drawString(numberOfCollisions + " COLLISIONS CHECKED", 20, 60);
 	}
 	
@@ -89,7 +97,7 @@ public final class PerformanceMonitor implements Updateable {
 		Drawer.setColor(Library.defaultFontColor);
 		Runtime runtime = Runtime.getRuntime();
 		NumberFormat format = NumberFormat.getInstance();  
-	    long maxMemory = runtime.maxMemory();
+		long maxMemory = runtime.maxMemory();
 	    long allocatedMemory = runtime.totalMemory();
 	    long freeMemory = runtime.freeMemory();
 	    Drawer.drawString("free memory: " + format.format(freeMemory / 1024), 20, 80);

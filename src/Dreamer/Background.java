@@ -1,5 +1,7 @@
 package Dreamer;
 
+import java.util.ArrayList;
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.fills.GradientFill;
 import org.newdawn.slick.geom.Polygon;
@@ -13,6 +15,7 @@ class Background extends Positionable {
 	static final float ANGULARVELOCITY = 0.5f;
 	String imageName;
 	float relativeMotion = BACKGROUNDMOTION;
+	public static ArrayList<Element> background = new ArrayList<Element>();
 
 	Background() {
 		imageName = "";
@@ -26,12 +29,12 @@ class Background extends Positionable {
 
 	@Override
 	void add() {
-		background.add(this);
+		Background.background.add(this);
 	}
 
 	@Override
 	void remove() {
-		background.remove(this);
+		Background.background.remove(this);
 	}
 
 	@Override

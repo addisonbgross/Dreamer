@@ -56,7 +56,7 @@ abstract class Weapon extends Shape3d implements Updateable {
 		Actor temp;
 		updateCollision();
 		Shape s = weaponCollision.getCollisionShape();
-		for(Element e: Element.getActiveWithin(s)) {
+		for(Element e: Collidable.getActiveWithin(s)) {
 			//very important to not compare this to itself, infinite loop
 			if(Actor.class.isAssignableFrom(e.getClass()) && e != actor) {
 				temp = (Actor)e;

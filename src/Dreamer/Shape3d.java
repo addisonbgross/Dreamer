@@ -1,18 +1,18 @@
 package Dreamer;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Random;
 
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 import org.newdawn.slick.Color;
-import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Polygon;
 import org.newdawn.slick.geom.Rectangle;
 
 public class Shape3d extends Positionable implements Lightable {
+	
+	private static final long serialVersionUID = -2545062660573860101L;
+
 	static Random r = new Random();
 
 	protected Vector3f manhattanRadius = new Vector3f();
@@ -355,6 +355,8 @@ public class Shape3d extends Positionable implements Lightable {
 
 class DynamicShape3d extends Shape3d implements Updateable {
 
+	private static final long serialVersionUID = -8826293081438535027L;
+
 	DynamicShape3d(float x, float y, float z) {
 		super(x, y, z);
 	}
@@ -429,6 +431,9 @@ class SpinningJewel extends DynamicShape3d implements Updateable {
 }
 
 class LadderPlatform extends Shape3d {
+
+	
+	
 	final float height = 10, depth = 200, space = 20;
 
 	LadderPlatform(float x, float y, float z, float width, boolean flipped) {
@@ -590,6 +595,7 @@ class Temple {
 }
 
 class ActionJewel extends SpinningJewel {
+	
 	int size = 20;
 	Level level;
 	Collidable transporter;

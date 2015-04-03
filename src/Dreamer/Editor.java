@@ -113,7 +113,7 @@ public class Editor {
 				Player.getFirst().add();
 				KeyHandler.openGameKeys();
 				Camera.focus(Player.getFirst());
-				Element.foreground.clear();
+				Foreground.foreground.clear();
 				pointer.remove();
 			}
 		});
