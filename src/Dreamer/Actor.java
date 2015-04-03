@@ -433,7 +433,7 @@ class Player extends Actor {
 		list.add(this);
 	}
 	void removeFromGame() {
-		Element.updateDeathSet.add(this);
+		Updater.updateDeathSet.add(this);
 		this.remove();
 		list.remove(this);
 	}

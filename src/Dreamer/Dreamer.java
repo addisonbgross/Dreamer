@@ -31,6 +31,7 @@ public class Dreamer {
 		PerformanceMonitor.addMonitor(updateMonitor, renderMonitor, otherMonitor);
 		
 		while (true) {
+			
 			Display.processMessages();
 			otherMonitor.stop();
 			
@@ -51,6 +52,7 @@ public class Dreamer {
 			
 			
 			if (Display.isCloseRequested() || Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
+			
 				Display.destroy();
 				System.exit(0);
 				try {
@@ -88,12 +90,12 @@ public class Dreamer {
 	}
 	
 	static void update() {	
-		
+	
 		PerformanceMonitor.numberOfCollisions = 0;
 		Level.updateCurrent();
 		KeyHandler.getKeys();
 		if(Level.freezeCounter == 0); // to blank screen during level transitions
-			Element.updateAll();
+			Updater.updateAll();
 		Camera.update();
 		Element.clearActive();
 		Element.activateVisible();
@@ -109,6 +111,8 @@ public class Dreamer {
 		} else {
 			Element.drawActive();
 		}
+		
+		if(Element.debug) { PerformanceMonitor.displayInfo(); }
 	}
 	
 	static void setResolution(int x, int y) { 

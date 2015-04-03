@@ -11,41 +11,23 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Shape;
 
 public class Element implements Serializable {
+	
 	private static final long serialVersionUID = 1384182428126670525L;
-	// the masterList contains all Elements that have had their .add() method
-	// called
-	// they are removed from this list by calling their .remove() method
+	
 	protected static HashSet<Element> masterList = new HashSet<Element>(2000);
 	protected static HashSet<Element> activeSet = new HashSet<Element>(2000);
 
-	// each Collidable is placed in these maps according to it's x and y
-	// position
-	// from now on, only Collidables need to be on this
-	// this list must have the current positions of the Collidable updated
-	// manually,
-	// which entails .remove()ing it before modifying it's position and calling
-	// .add() to place it back on this list, as it's critical for efficient
-	// collisions
 	protected static ElementMap<Float, HashSet<Element>> xRange = new ElementMap<Float, HashSet<Element>>();
 	protected static ElementMap<Float, HashSet<Element>> yRange = new ElementMap<Float, HashSet<Element>>();
-	// for cleanup of empty containers (cleaning them up on-the fly introduces
-	// concurrent errors)
+	
 	private static HashSet<Float> deathSet = new HashSet<Float>();
-	// the set which all Elements implementing Updateable get added to with
-	// .add()
-	static Set<Updateable> updateSet = new HashSet<Updateable>(100);
-	// to avoid concurrency errors and such
-	static Set<Updateable> updateLaterSet = new HashSet<Updateable>(100);
-	static Set<Updateable> updateBirthSet = new HashSet<Updateable>();
-	static Set<Updateable> updateDeathSet = new HashSet<Updateable>();
+
 	private static Set<Element> xSet = new HashSet<Element>();
 	private static Set<Element> ySet = new HashSet<Element>();
-	// backgrounds are drawn before other elements and still use a variety of
-	// methods to render
+	
 	public static ArrayList<Element> background = new ArrayList<Element>();
 	public static ArrayList<Element> foreground = new ArrayList<Element>();
 
-	// set to false to turn off info
 	public static boolean debug = false;
 	
 	protected Element() {}
@@ -65,13 +47,13 @@ public class Element implements Serializable {
 	 */
 	void add() {
 		if (this instanceof Updateable)
-			updateBirthSet.add((Updateable) this);
+			Updater.add(this);
 		masterList.add(this);
 	}
 
 	void remove() {
 		if (this instanceof Updateable)
-			updateDeathSet.add((Updateable) this);
+			Updater.add(this);
 		masterList.remove(this);
 	}
 
@@ -184,9 +166,8 @@ public class Element implements Serializable {
 	static int numberTotal() {return masterList.size();}
 
 	static void clearAll() {
-		updateSet.clear();
-		updateBirthSet.clear();
-		updateDeathSet.clear();
+		
+		Updater.clear();
 		masterList.clear();
 		xRange.clear();
 		yRange.clear();
@@ -199,46 +180,14 @@ public class Element implements Serializable {
 	}
 
 	static void clearActive() {
+		
 		activeSet.clear();
 		xSet.clear();
 		ySet.clear();
 	}
 
-	/**
-	 * goes through a set of all Elements implementing Updateable interface also
-	 * cleans up the active lists of Elements
-	 */
-	public static void updateAll() {
-
-		updateSet.addAll(updateBirthSet);
-		updateBirthSet.clear();
-
-		Updateable z = null;
-		try {
-			for (Updateable e : updateSet) {
-				if (Actor.class.isAssignableFrom(e.getClass())
-						|| Sweat.class.isAssignableFrom(e.getClass()))
-					e.update();
-				else
-					updateLaterSet.add(e);
-				z = e;
-			}
-		} catch (java.util.ConcurrentModificationException e) {
-			// TODO fix this exception
-			// this is caused by Dreamer.Ninja adding and removing something,
-			// probably a call to .remove() or .add() in update
-			if (z != null)
-				System.out.println(z.getClass().toString());
-			e.printStackTrace();
-		}
-		for (Updateable e : updateLaterSet) {
-			e.update();
-		}
-		updateSet.removeAll(updateDeathSet);
-		updateDeathSet.clear();
-
-		updateLaterSet.clear();
-
+	static void cleanup() {
+		
 		deathSet.clear();
 
 		for (Map.Entry<Float, HashSet<Element>> entry : xRange.entrySet()) {
@@ -257,17 +206,6 @@ public class Element implements Serializable {
 	}
 }
 
-/**
- * ElementMap: allows a key to refer to a set of Element objects and
- * transparently allows addition and removal operations
- * 
- * @author Maxim
- *
- * @param <K>
- *            can be any key
- * @param <V>
- *            must be a HashSet<Element>
- */
 class ElementMap<K, V> extends TreeMap<K, HashSet<Element>> {
 	private static final long serialVersionUID = 186057469873355492L;
 
@@ -284,7 +222,13 @@ class ElementMap<K, V> extends TreeMap<K, HashSet<Element>> {
 
 	boolean remove(K key, Element value) {
 		try {
-			return super.get(key).remove(value);
+			if(super.get(key).remove(value)) {
+				if(super.get(key).size() == 0) {
+					super.remove(key);
+				}	
+				return true;
+			}
+			return false;
 		} catch (Exception e) {
 			return false;
 		}
