@@ -65,10 +65,15 @@ public class Element implements Serializable {
 
 	static void drawActive() {
 		
+		PerformanceMonitor pm = new PerformanceMonitor("drawActive");
+		
+		pm.start();
 		for (Element e : Background.background) {
 			Light.light(e);
 			e.draw();
+			pm.mark(e.toString());
 		}
+		PerformanceMonitor.printAll();
 		
 		for (Element o : activeSet) {
 			Light.light(o);

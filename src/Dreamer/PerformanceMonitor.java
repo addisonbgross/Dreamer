@@ -2,18 +2,29 @@ package Dreamer;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 
-public final class PerformanceMonitor implements Updateable {
-	
+public final class PerformanceMonitor {	
+
+	private class Record {
+		Record(String s, Long l) { content = s; time = l; };
+		String content;
+		Long time;
+		
+		@Override public String toString() {
+			return time + " : " + content;
+		}
+	}
 	
 	private static PerformanceMonitor global = new PerformanceMonitor("global");
 	private static ArrayList<PerformanceMonitor> children = new ArrayList<>();
 	static int numberOfCollisions = 0;
 	static BufferedWriter logWriter = null;
 	
-	private long start, delta;
+	private long delta;
+	private ArrayList<Record> history = new ArrayList<>();
 	private String label = "";
 	
 	public PerformanceMonitor(String s) {
@@ -43,29 +54,49 @@ public final class PerformanceMonitor implements Updateable {
 		
 		global.stop();
 		global.start();
-		System.out.println(
-				"frequency: " +
-				(double)(1000000000 / global.delta) +
-				" Hz"
-				);
-		
+		/*
+			System.out.println(
+					"frequency: " +
+					(double)(1000000000 / global.delta) +
+					" Hz"
+					);
+		*/
 		for(PerformanceMonitor pm: children) {
 			pm.print();
 		}
 	}
 	
-	public void start() { start = getTime(); }
+	public PerformanceMonitor start() { 
+		history.add(new Record("start", getTime())); 
+		return this;
+	}
 	
-	public void stop() { delta = getTime() - start; }
+	public PerformanceMonitor mark(String s) { 
+		history.add(new Record(s, getTime())); 
+		return this;
+	}
 	
-	public void print() { 
-		
-		System.out.println(
-				label + 
-				": " +
-				String.format("%.1f", (double) 100 * delta / global.delta)
-				)
-				; 
+	public PerformanceMonitor stop() { 
+		delta = getTime() - history.get(0).time; 
+		return this;
+	}
+	
+	public PerformanceMonitor print() { 
+		try {
+			
+			logWriter.write(
+					label + 
+					": " +
+					String.format("%.1f", (double) 100 * delta / global.delta)
+					)
+					;
+			
+			for(Record r: history) {logWriter.write(r.toString()); }
+			
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
+		}
+		return this;
 	}
 	
 	static int numberTotal() {return Element.masterList.size();}

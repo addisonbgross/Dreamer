@@ -25,10 +25,12 @@ public class Dreamer {
 	
 	static void play() throws SlickException {	
 		
+		PerformanceMonitor.getGlobal().start();
 		PerformanceMonitor updateMonitor = new PerformanceMonitor("update");
 		PerformanceMonitor renderMonitor = new PerformanceMonitor("render");
 		PerformanceMonitor otherMonitor = new PerformanceMonitor("other");
 		PerformanceMonitor.addMonitor(updateMonitor, renderMonitor, otherMonitor);
+		otherMonitor.start();
 		
 		while (true) {
 			
@@ -44,7 +46,8 @@ public class Dreamer {
 			renderMonitor.stop();
 			
 			otherMonitor.start();
-			PerformanceMonitor.printAll();
+			if(Element.debug)
+				PerformanceMonitor.printAll();
 			
 			// update screen
 			Display.sync(70);
