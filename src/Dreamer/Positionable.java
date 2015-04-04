@@ -1,13 +1,11 @@
 package Dreamer;
 
 import org.lwjgl.util.vector.Vector3f;
-import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Vector2f;
 
 public class Positionable extends Element {
 	
 	private static final long serialVersionUID = -7005269360412558578L;
-
 	// each subclass's constructor should set x, y, width, height, and depth
 	// TODO sort out positioning once and for all... confusing mix of variables
 	Vector3f position = new Vector3f();

@@ -2,6 +2,8 @@ package Dreamer;
 
 
 public class SprintDust extends Effect {
+	
+	private static final long serialVersionUID = 3851748505780547971L;
 	boolean takeOff;
 	
 	SprintDust(Actor a) {

@@ -1,7 +1,6 @@
 	package Dreamer;
 
 import org.lwjgl.util.vector.Vector3f;
-import org.newdawn.slick.Color;
 
 public abstract class Transformer implements Updateable {
 	
@@ -94,50 +93,5 @@ class Wiggler extends Rotator {
 	@Override
 	public Vector3f transformNormal(Vector3f v, Vector3f destination) {
 		return rotate(v, rotationAxis, (float)(0.5f * Math.sin(angle)), destination);
-	}
-}
-
-class Test extends DynamicShape3d {
-
-	Wiggler wig;
-	Test link = null;
-	Vector3f linkPoint;
-	
-	Test(Color c, float x, float y, float z, float w, float h, float d) {
-		super(x, y, z);
-		wig = new Wiggler(0, 0, 1, 2f);
-		wig.setRotationPoint(0, -h/2, 0);
-		transformers.add(wig);
-		linkPoint = new Vector3f(0, getHeight() / 2, 0);
-		
-		addVertex(w / 2, -h / 2, -d / 2);
-		addVertex(w / 2, -h / 2, d / 2);
-		addVertex(-w / 2, -h / 2, d / 2);
-		addVertex(-w / 2, -h / 2, -d / 2);
-		addVertex(w / 2, h / 2, -d / 2);
-		addVertex(w / 2, h / 2, d / 2);
-		addVertex(-w / 2, h / 2, d / 2);
-		addVertex(-w / 2, h / 2, -d / 2);
-
-		addFace(c, 0, 3, 2, 1);
-		addFace(c, 4, 5, 6, 7);
-		addFace(c, 1, 2, 6, 5);
-		addFace(c, 7, 6, 2, 3);
-		addFace(c, 3, 7, 4, 0);
-		addFace(c, 0, 1, 5, 4);
-	}
-	Test(float x, float y, float z, float w, float h, float d) {
-		this(Theme.current.getColor(Theme.Default.LIGHT), x, y, z, w, h, d);
-	}
-	
-	@Override
-	public void update() {
-		super.update();
-		linkPoint.set(0, getHeight() / 2, 0);
-		linkPoint = wig.transformVertex(linkPoint, linkPoint);
-		linkPoint = wig.translate(linkPoint, getPosition3f(), linkPoint);
-		if(link != null) {
-			setPosition(link.linkPoint.x, link.linkPoint.y + getHeight() / 2, link.linkPoint.z);
-		}
 	}
 }

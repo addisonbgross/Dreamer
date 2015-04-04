@@ -405,6 +405,7 @@ class DynamicShape3d extends Shape3d implements Updateable {
 class SpinningJewel extends DynamicShape3d implements Updateable {
 
 	SpinningJewel(float x, float y, float z, float size) {
+		
 		super(x, y, z);
 		transformers.add(new Rotator(0, 1, 0, 100 / size));
 		transformers.add(new Pulsar(0.05f, 1));
@@ -589,21 +590,25 @@ class Temple {
 		new Pillar(x + size / 2 - PILLARSIZE, y + FLOORTHICKNESS
 				+ CEILINGHEIGHT / 2, z - DEPTH / 2 + PILLARSIZE, NUMSIDES,
 				PILLARSIZE / 2, CEILINGHEIGHT).add();
-		new Pyramid3d(x, y + CEILINGHEIGHT + 2 * FLOORTHICKNESS, z, size,
-				CEILINGHEIGHT / 3, DEPTH).add();
 	}
 }
 
 class ActionJewel extends SpinningJewel {
+	
+	private static final long serialVersionUID = -3060451609325778005L;
 	
 	int size = 20;
 	Level level;
 	Collidable transporter;
 
 	ActionJewel(float x, float y, float z, Action action) {
+		
 		super(x, y, z, 20);
 		transporter = new Collidable(new Rectangle(getX() - size / 2, getY()
 				- size / 2, size, size)) {
+
+			private static final long serialVersionUID = -3060451609325778005L;
+
 			boolean collide(Actor a) {
 				if (a.getCollisionShape().intersects(getCollisionShape())) {
 					action.perform(a);
