@@ -63,42 +63,48 @@ public class Shape3d extends Positionable implements Lightable {
 
 	@Override
 	boolean isVisible() {
-		if (Camera.isPointVisible(getX(), getY(), getZ()))
+		boolean huehuehue = true;
+
+		if (!huehuehue) {
+			if (Camera.isPointVisible(getX(), getY(), getZ()))
+				return true;
+	
+			if (getX() >= Camera.getCenterX() && getY() >= Camera.getCenterY()) // Cartesian
+																				// I
+				if (Camera.isPointVisible(getX() - getWidth() / 2, getY()
+						- getHeight() / 2, getZ() - getDepth()))
+					return true;
+				else
+					return false;
+	
+			if (getX() <= Camera.getCenterX() && getY() >= Camera.getCenterY()) // Cartesian
+																				// II
+				if (Camera.isPointVisible(getX() + getWidth() / 2, getY()
+						- getHeight() / 2, getZ() - getDepth()))
+					return true;
+				else
+					return false;
+	
+			if (getX() <= Camera.getCenterX() && getY() <= Camera.getCenterY()) // Cartesian
+																				// III
+				if (Camera.isPointVisible(getX() + getWidth() / 2, getY()
+						+ getHeight() / 2, getZ() - getDepth()))
+					return true;
+				else
+					return false;
+	
+			if (getX() >= Camera.getCenterX() && getY() <= Camera.getCenterY()) // Cartesian
+																				// IV
+				if (Camera.isPointVisible(getX() - getWidth() / 2, getY()
+						+ getHeight() / 2, getZ() - getDepth()))
+					return true;
+				else
+					return false;
+
+			return false;
+		} else {
 			return true;
-
-		if (getX() >= Camera.getCenterX() && getY() >= Camera.getCenterY()) // Cartesian
-																			// I
-			if (Camera.isPointVisible(getX() - getWidth() / 2, getY()
-					- getHeight() / 2, getZ() - getDepth()))
-				return true;
-			else
-				return false;
-
-		if (getX() <= Camera.getCenterX() && getY() >= Camera.getCenterY()) // Cartesian
-																			// II
-			if (Camera.isPointVisible(getX() + getWidth() / 2, getY()
-					- getHeight() / 2, getZ() - getDepth()))
-				return true;
-			else
-				return false;
-
-		if (getX() <= Camera.getCenterX() && getY() <= Camera.getCenterY()) // Cartesian
-																			// III
-			if (Camera.isPointVisible(getX() + getWidth() / 2, getY()
-					+ getHeight() / 2, getZ() - getDepth()))
-				return true;
-			else
-				return false;
-
-		if (getX() >= Camera.getCenterX() && getY() <= Camera.getCenterY()) // Cartesian
-																			// IV
-			if (Camera.isPointVisible(getX() - getWidth() / 2, getY()
-					+ getHeight() / 2, getZ() - getDepth()))
-				return true;
-			else
-				return false;
-
-		return false;
+		}
 	}
 
 	Shape3d scale(float f) {
