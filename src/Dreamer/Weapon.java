@@ -1,12 +1,13 @@
 package Dreamer;
 
 import org.newdawn.slick.Color;
-import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Line;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.Vector2f;
 
 abstract class Weapon extends Shape3d implements Updateable {
+	
+	private static final long serialVersionUID = 4519324822338846058L;	
 	Face f;
 	Actor actor;
 	String name = "";
@@ -35,11 +36,11 @@ abstract class Weapon extends Shape3d implements Updateable {
 		return true;
 	}
 	@Override
-	void draw(Graphics g) {
-		super.draw(g);
+	void draw() {
+		super.draw();
 		if(Element.debug)
 			if(weaponLine != null)
-				Drawer.drawShape(weaponLine, Color.black, g);
+				Drawer.drawShape(weaponLine, Color.black);
 	}	
 	void makeFace() {
 		f = new Face(Library.getTexture(name), new Color(1, 1, 1, 1.0f), 0, 1, 2, 3);
@@ -55,7 +56,7 @@ abstract class Weapon extends Shape3d implements Updateable {
 		Actor temp;
 		updateCollision();
 		Shape s = weaponCollision.getCollisionShape();
-		for(Element e: Element.getActiveWithin(s)) {
+		for(Element e: Collidable.getActiveWithin(s)) {
 			//very important to not compare this to itself, infinite loop
 			if(Actor.class.isAssignableFrom(e.getClass()) && e != actor) {
 				temp = (Actor)e;
@@ -170,6 +171,9 @@ abstract class Weapon extends Shape3d implements Updateable {
 	}
 }
 class Katana extends Weapon {
+	
+	private static final long serialVersionUID = 8042539459172540290L;
+
 	Katana(Actor a) {
 		super(a);
 		name = "katana";
@@ -202,6 +206,9 @@ class Knife extends Weapon {
 	}
 }
 class Battleaxe extends Weapon {	
+	
+	private static final long serialVersionUID = -419016855374838000L;
+
 	Battleaxe(Actor a) {
 		super(a);
 		name = "battleaxe";
@@ -211,6 +218,9 @@ class Battleaxe extends Weapon {
 	}
 }
 class Naginata extends Weapon {
+	
+	private static final long serialVersionUID = 4375430368264040154L;
+	
 	Vector2f block = new Vector2f(-2, -28);
 	Naginata(Actor a) {
 		super(a);
@@ -228,6 +238,10 @@ class Naginata extends Weapon {
 	}
 }
 class WeaponCollision extends Collidable {
+	
+	
+	private static final long serialVersionUID = 4862178711404157907L;
+	
 	Weapon weapon;
 	WeaponCollision(Weapon w) {
 		weapon = w;

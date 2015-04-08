@@ -1,6 +1,7 @@
 package Dreamer;
 
-import org.lwjgl.input.Keyboard;
+import java.util.Stack;
+
 import org.lwjgl.util.vector.Vector3f;
 import org.lwjgl.util.vector.Vector4f;
 import org.newdawn.slick.Graphics;
@@ -14,12 +15,13 @@ public class Camera {
 			Constants.screenWidth, 
 			Constants.screenHeight);
 	private static Rectangle scene = prescaledScene;
-	private static float centerX, centerY, centerZ = 2000;
+	private static Vector3f position = new Vector3f(0, 0, 2000);
 	private static float scale = 1, focalLength = 2000;
 	private static Positionable target;
 	static boolean zoom = false;
 	private static String nextMovement = "stop";
 	private static int velocity = 0;
+	private static Stack<Vector3f> positionStack = new Stack<>();
 	
 	static Vector4f rotated = new Vector4f();
 	static Vector3f tempV3f = new Vector3f();
@@ -86,6 +88,7 @@ public class Camera {
 		
 		if(target  !=  null) {
 			focus(target);
+			// TODO sort this out, some things are updated twice I imagine
 			if(target instanceof Updateable)
 				((Updateable) target).update();
 		}
@@ -117,35 +120,46 @@ public class Camera {
 			
 			try {
 					target = p;
-					centerX = p.getX();
-					centerY = p.getY();
+					position.x = p.getX();
+					position.y = p.getY();
 			} catch(NullPointerException n) {
 				System.err.println("Camera not focused before updating!");
 			}
 		}
 	}
+	static void focus(float x, float y, float z) {
+		// target = null;
+		position.set(x, y, z);
+	}
+	static void reset() {
+		
+		target = null;
+		position.x = 0;
+		position.y = 0;
+		position.z = 2000;
+	}
 	//nudge to adjust camera position
-	static void nudge(float x, float y, float z) {
-		centerX += x;
-		centerY += y;
-		centerZ += z;
+	private static void nudge(float x, float y, float z) {
+		position.x += x;
+		position.y += y;
+		position.z += z;
 	}
 	//getters
-	static float getMinX() {return (scene.getMinX() / scale) + centerX;}
-	static float getMaxX() {return (scene.getMaxX() / scale) + centerX;}
+	static float getMinX() {return (scene.getMinX() / scale) + position.x;}
+	static float getMaxX() {return (scene.getMaxX() / scale) + position.x;}
 	//TODO document what is going on here
 	//since the screen is drawn flipped in the y-dir all kinds of things do not make logical sense
 	//maybe the draw methods could be made more transparent?
-	static float getMinY() {return (scene.getMinY() / scale) + centerY;}
-	static float getMaxY() {return (scene.getMaxY() / scale) + centerY;}
+	static float getMinY() {return (scene.getMinY() / scale) + position.y;}
+	static float getMaxY() {return (scene.getMaxY() / scale) + position.y;}
 	static float getWidth() {return scene.getWidth() / scale;}
 	static float getHeight() {return scene.getHeight() / scale;}
 
 	static float getScale() {return scale;}
 	
-	static float getCenterX() {return centerX;}
-	static float getCenterY() {return centerY;}
-	static float getCenterZ() {return centerZ;}
+	static float getCenterX() {return position.x;}
+	static float getCenterY() {return position.y;}
+	static float getCenterZ() {return position.z;}
 
 	static boolean isPointVisible(float x, float y, float z) {
 		translate(x, y, z, tempV3f);
@@ -199,5 +213,11 @@ public class Camera {
 	
 	public static void command(String s) {
 		nextMovement = s;
+	}
+	public static void pushPosition() {
+		positionStack.push(new Vector3f(position));
+	}
+	public static void popPosition() {
+		position.set(positionStack.pop());
 	}
 }

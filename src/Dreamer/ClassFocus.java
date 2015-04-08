@@ -2,9 +2,9 @@ package Dreamer;
 
 import java.util.ArrayList;
 
-import org.newdawn.slick.Graphics;
-
 class ClassFocus extends Positionable implements Updateable {
+	
+	private static final long serialVersionUID = 2627661786688015225L;
 	ArrayList<Positionable> classElements = new ArrayList<Positionable>();
 	float maxDistance = 0;
 	int yOffset = 0;
@@ -21,10 +21,10 @@ class ClassFocus extends Positionable implements Updateable {
 	}
 
 	@Override
-	void draw(Graphics g) {
+	void draw() {
 		if(Element.debug) {
 			String s = "ClassFocus@("+(int)getMinX()+", "+(int)getMinY()+")";
-			Drawer.drawCursor(s, getX(), getY(), getZ(), g);
+			Drawer.drawCursor(s, getX(), getY(), getZ());
 		}
 	}
 	public void update() {

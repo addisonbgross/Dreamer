@@ -3,24 +3,29 @@ package Dreamer;
 import org.lwjgl.util.vector.Vector3f;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
+import org.newdawn.slick.TrueTypeFont;
+import org.newdawn.slick.geom.Ellipse;
 import org.newdawn.slick.geom.Line;
 import org.newdawn.slick.geom.Polygon;
+import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 
 public class Drawer {
 	
-	static void drawShape(Shape s, Color c, Graphics g, boolean filled) {
+	static Graphics graphics = new Graphics();
+	
+	static void drawLine(Color c, float x1, float y1, float z1, float x2, float y2, float z2) {
+		Vector3f start = new Vector3f(), end = new Vector3f();
+		start = Camera.translate(x1, y1, z1, start);
+		end = Camera.translate(x2, y2, z2, end);
+		graphics.setColor(c);
+		graphics.drawLine(start.x, start.y, end.x, end.y);
+	}
+	
+	static void drawShape(Shape s, Color c, boolean filled) {
 		
 		if(Line.class.equals(s.getClass())) {
-			Line l = (Line)s;
-			l = new Line(	
-					Camera.translate(l.getX1(), l.getY1(), 0).x,
-					Camera.translate(l.getX1(), l.getY1(), 0).y,
-					Camera.translate(l.getX2(), l.getY2(), 0).x,
-					Camera.translate(l.getX2(), l.getY2(), 0).y
-					);
-			g.setColor(c);
-			g.draw(l);
 			
 		} else {
 			Polygon p = new Polygon();
@@ -32,50 +37,60 @@ public class Drawer {
 						);
 				i--;
 			}
-			g.setColor(c);
+			graphics.setColor(c);
 			
 			if(filled)
-				g.fill(p);
+				graphics.fill(p);
 			else
-				g.draw(p);
+				graphics.draw(p);
 		}
-		
-		// TODO: unbreak my heart, say you love me forever...
-		/*
-		// draw enemy vision rectangle
-		if (Enemy.class.isAssignableFrom(this.getClass())) {				
-			Polygon p = new Polygon();
-			Rectangle vision = ((Enemy)this).getVision();			
-			int i = vision.getPointCount() - 1;
-			while(i >= 0) {
-				p.addPoint(
-						Camera.translate(vision.getPoint(i)[0], vision.getPoint(i)[1], position.z).x,
-						Camera.translate(vision.getPoint(i)[0], vision.getPoint(i)[1], position.z).y
-						);
-				i--;
-			}
-			
-			if (((Enemy)this).getTarget() == null)
-				g.setColor(c);			
-			else
-				g.setColor(new Color(1f, 0, 0, 1f));
-			g.draw(p);
-		}
-		*/
 	}
 	
-	static void drawShape(Shape s, Color c, Graphics g) {
-		drawShape(s, c, g, true);
+	static void drawShape(Shape s, Color c) {
+		drawShape(s, c, true);
 	}
 	
-	static void drawCursor(String s, float x, float y, float z, Graphics g) {
+	static void drawCursor(String s, float x, float y, float z) {
 		Vector3f v = Camera.translate(x, y, z);
-		g.setColor(Library.defaultFontColor);
-		g.setFont(Library.defaultFont);
-		g.drawString(s, v.x, v.y);
-		g.drawLine(v.x - Constants.MARKERSIZE, v.y, v.x + Constants.MARKERSIZE,
+		graphics.setColor(Library.defaultFontColor);
+		graphics.setFont(Library.defaultFont);
+		graphics.drawString(s, v.x, v.y);
+		graphics.drawLine(v.x - Constants.MARKERSIZE, v.y, v.x + Constants.MARKERSIZE,
 				v.y);
-		g.drawLine(v.x, v.y - Constants.MARKERSIZE, v.x, v.y
+		graphics.drawLine(v.x, v.y - Constants.MARKERSIZE, v.x, v.y
 				+ Constants.MARKERSIZE);
+	}
+
+	public static void setColor(Color c) {
+		graphics.setColor(c);
+	}
+
+	public static void drawString(String s, float x, float y) {
+		graphics.drawString(s, x, y);
+	}
+
+	public static void setWorldClip(int i, int j, int screenWidth, int screenHeight) {
+		graphics.setWorldClip(new Rectangle(i, j, screenWidth, screenHeight));
+	}
+
+	public static void drawEllipse(float x, float y, int i, int j) {
+		Ellipse e = new Ellipse(x, y, i, j);
+		graphics.draw(e);
+	}
+
+	public static void drawImage(Image image, float x, float y) {
+		graphics.drawImage(image, x, y);
+	}
+
+	public static void setFont(TrueTypeFont ttf) {
+		graphics.setFont(ttf);
+	}
+
+	public static void setBackground(Color c) {
+		graphics.setBackground(c);
+	}
+
+	public static void setLineWidth(float w) {
+		graphics.setLineWidth(w);
 	}
 }

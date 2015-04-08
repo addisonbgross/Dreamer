@@ -2,11 +2,11 @@ package Dreamer;
 
 import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Mouse;
-import org.lwjgl.util.vector.Vector3f;
-import org.newdawn.slick.Color;
-import org.newdawn.slick.Graphics;
 
 public class MousePointer extends Positionable implements Updateable {
+	
+	private static final long serialVersionUID = 4399127807182868906L;
+	
 	boolean leftClickAction = false, rightClickAction = false;
 	float lastX, lastY, lastXVel, lastYVel;
 	Action onMove = new Action(),
@@ -30,7 +30,17 @@ public class MousePointer extends Positionable implements Updateable {
 		remove();
 		setPosition(Camera.translateMouse(Mouse.getX(), Mouse.getY(), getZ()));
 		lastXVel = Mouse.getDX();
-		lastYVel = Mouse.getDY();
+		System.out.println("Mouse: " + Mouse.getX() + ", " + Mouse.getY());
+		if(Mouse.getX() > Constants.screenWidth - 5)
+			Camera.command("right");
+		else if(Mouse.getX() < 5)
+			Camera.command("left");
+		else if(Mouse.getY() > Constants.screenHeight - 5)
+			Camera.command("up");
+		else if(Mouse.getY() < 5)
+			Camera.command("down");
+		else 
+			Camera.command("stop");
 		
 		onMove.perform();
 		
@@ -65,8 +75,8 @@ public class MousePointer extends Positionable implements Updateable {
 	}
 
 	@Override
-	void draw(Graphics g) {
-		Drawer.drawCursor("MousePointer (" + getX() + " " + getY() + " " + getZ() + ")", getX(), getY(), getZ(), g);
+	void draw() {
+		Drawer.drawCursor("MousePointer (" + getX() + " " + getY() + " " + getZ() + ")", getX(), getY(), getZ());
 		/*
 		if(Element.debug)
 			drawCursor("MousePointer", getX(), getY(), getZ(), g);

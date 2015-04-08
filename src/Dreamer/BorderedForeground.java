@@ -1,11 +1,12 @@
 package Dreamer;
 
 import org.newdawn.slick.Color;
-import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 
 public class BorderedForeground extends Foreground{
+	
+	private static final long serialVersionUID = 5512338269048527570L;
 	Shape outline, outlineShadow;
 	final float borderMargin = 4, borderWidth = 10;
 	
@@ -24,13 +25,14 @@ public class BorderedForeground extends Foreground{
 				);
 	}
 
-	void draw(Graphics g) {
-		g.setBackground(new Color(200, 200, 200));
-		g.setLineWidth(borderWidth);
-		g.setColor(Color.gray);
-		g.draw(outlineShadow);
-		g.setColor(Color.black);
-		g.draw(outline);
-		g.setLineWidth(1);
-	}	
+	@Override
+	void draw() {
+		Drawer.graphics.setBackground(new Color(200, 200, 200));
+		Drawer.graphics.setLineWidth(borderWidth);
+		Drawer.graphics.setColor(Color.gray);
+		Drawer.graphics.draw(outlineShadow);
+		Drawer.graphics.setColor(Color.black);
+		Drawer.graphics.draw(outline);
+		Drawer.graphics.setLineWidth(1);
+	}		
 }

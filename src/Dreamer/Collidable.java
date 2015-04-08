@@ -1,15 +1,19 @@
 package Dreamer;
 
 import java.util.Comparator;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 import org.lwjgl.util.vector.Vector3f;
 import org.newdawn.slick.Color;
-import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Line;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.Vector2f;
 
 class Collidable extends Positionable {	
+	
+	private static final long serialVersionUID = -5571044266659765974L;
 	static boolean collision = false;
 	static Shape lookahead;
 	static float xVelTemp, yVelTemp, xIncTemp, yIncTemp;
@@ -20,40 +24,42 @@ class Collidable extends Positionable {
 	static Vector3f temp = new Vector3f();
 	
 	private Shape collisionShape;
+	static Set<Element> ySet = new HashSet<Element>();
+	static Set<Element> xSet = new HashSet<Element>();
+	protected static ElementMap<Float, HashSet<Element>> yRange = new ElementMap<Float, HashSet<Element>>();
+	protected static ElementMap<Float, HashSet<Element>> xRange = new ElementMap<Float, HashSet<Element>>();
 	
 	Collidable() {}
-	Collidable(Shape s) 
-	{
-		setCollisionShape(s);
-	}
+	Collidable(Shape s) { setCollisionShape(s); }
 
 	@Override
 	void add() {
 		super.add();
-		Element.xRange.add(getMinX(), this);
-		Element.yRange.add(getMinY(), this);
+		xRange.add(getMinX(), this);
+		yRange.add(getMinY(), this);
 		for (float offset = getWidth(); offset >= 0; offset -= Constants.COLLISIONINTERVAL)
-			Element.xRange.add(getMinX() + offset, this);
+			xRange.add(getMinX() + offset, this);
 		for (float offset = getHeight(); offset >= 0; offset -= Constants.COLLISIONINTERVAL)
-			Element.yRange.add(getMinY() + offset, this);
+			yRange.add(getMinY() + offset, this);
 	}
 	
 	@Override
 	void remove() {
 		super.remove();
-		Element.xRange.remove(getMinX(), this);
-		Element.yRange.remove(getMinY(), this);
+		xRange.remove(getMinX(), this);
+		yRange.remove(getMinY(), this);
 		for (float offset = getWidth(); offset >= 0; offset -= Constants.COLLISIONINTERVAL)
-			Element.xRange.remove(getMinX() + offset, this);
+			xRange.remove(getMinX() + offset, this);
 		for (float offset = getHeight(); offset >= 0; offset -= Constants.COLLISIONINTERVAL)
-			Element.yRange.remove(getMinY() + offset, this);
+			yRange.remove(getMinY() + offset, this);
 	}
 	
 	@Override
-	void draw(Graphics g) {
+	void draw() {
+		
 		if(Element.debug && collisionShape != null) {	
 			try {
-				Drawer.drawShape(collisionShape, Color.yellow, g, false);
+				Drawer.drawShape(collisionShape, Color.yellow, false);
 			} catch(java.lang.IndexOutOfBoundsException e) {
 				e.printStackTrace();
 				print();
@@ -63,9 +69,7 @@ class Collidable extends Positionable {
 			if (this instanceof Enemy) {
 				try {
 					Drawer.drawShape(((Enemy)this).getVision(), 
-							(((Enemy)this).getTarget() == null) ? Color.white : Color.red, 
-							g, 
-							false);
+							(((Enemy)this).getTarget() == null) ? Color.white : Color.red, false);
 				} catch(java.lang.IndexOutOfBoundsException e) {
 					e.printStackTrace();
 					print();
@@ -148,7 +152,9 @@ class Collidable extends Positionable {
 		lookahead.setLocation(a.getMinX(), a.getMinY());
 		return collision;
 	}
+	
 	public Shape setCollisionShape(Shape s) {
+	
 		if(s != null) {
 			setPosition(s.getMinX(), s.getMinY(), getZ());
 			setWidth(s.getWidth());
@@ -157,13 +163,71 @@ class Collidable extends Positionable {
 		collisionShape = s;
 		return s;
 	}
-	public Shape getCollisionShape() {
-		return collisionShape;
+	
+	public Shape getCollisionShape() { return collisionShape; }
+
+	/**
+	 * getActiveWithin: returns the active set bound within a rectangle of Shape
+	 * width and height
+	 * 
+	 * @param <T>
+	 * 
+	 * @param s
+	 *            Shape x and y extremes
+	 * @return Set of elements within a given bounds
+	 */
+	static Set<Element> getActiveWithin(Shape s) {
+		
+		Set<Map.Entry<Float, HashSet<Element>>> temp = new HashSet<Map.Entry<Float, HashSet<Element>>>();
+		Set<Element> tempActive = new HashSet<Element>();
+	
+		// take all set of elements in the camera scene x range
+		temp.addAll(xRange.subMap(s.getMinX(), true, s.getMaxX(), true)
+				.entrySet());
+	
+		// add each set together in xSet
+		for (Map.Entry<Float, HashSet<Element>> entry : temp) {
+			xSet.addAll(entry.getValue());
+		}
+	
+		temp.clear();
+	
+		// take all the elements in scene y range
+		temp.addAll(yRange.subMap(s.getMinY(), true, s.getMaxY(), true)
+				.entrySet());
+	
+		// add them together in ySet
+		for (Map.Entry<Float, HashSet<Element>> entry : temp) {
+			ySet.addAll(entry.getValue());
+		}
+	
+		// if an element is in both x and y sets then draw it, make it active,
+		// this has the effect of rendering and activating only the elements
+		// that are within the camera scene boundaries
+		for (Element o : xSet) {
+			if (ySet.contains(o)) {
+				tempActive.add(o);
+			}
+		}
+		
+		xSet.clear();
+		ySet.clear();
+		
+		return tempActive;
+	}
+	
+	public static void clear() {
+
+		xRange.clear();
+		yRange.clear();
+		xSet.clear();
+		ySet.clear();
 	}
 }
+
 class CollisionComparator implements Comparator<Collidable> {
+
 	Actor actor;
-	
 	CollisionComparator(Actor a) {actor = a;}
 	
 	public int compare(Collidable a, Collidable b) {

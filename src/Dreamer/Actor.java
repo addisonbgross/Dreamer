@@ -5,13 +5,13 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Set;
 
-import org.lwjgl.util.vector.Vector3f;
 import org.newdawn.slick.geom.Line;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Vector2f;
 
 abstract class Actor extends Collidable implements Updateable {
 	
+	private static final long serialVersionUID = -8711854287889823062L;
 	private static Set<Collidable> collisionSet = new HashSet<Collidable>();
 	private static Collidable success = null;
 	
@@ -208,11 +208,11 @@ abstract class Actor extends Collidable implements Updateable {
 		);
 		
 		foundCollisions.clear();
-		for(Element e: Element.getActiveWithin(rangeFinder)) {
+		for(Element e: Collidable.getActiveWithin(rangeFinder)) {
 			//very important to not compare this to itself, infinite loop
 			if(Collidable.class.isAssignableFrom(e.getClass()) && e != this) {
 				 foundCollisions.add((Collidable)e);
-				Dreamer.numberOfCollisions++;
+				PerformanceMonitor.numberOfCollisions++;
 			}
 		}
 		return foundCollisions;
@@ -310,10 +310,11 @@ abstract class Actor extends Collidable implements Updateable {
  *  Enemy --------------------------------------------------------------------------------------------------
  */
 class Enemy extends Actor {
+	
+	private static final long serialVersionUID = 429443147595796339L;
 	private Rectangle vision;
     private int lookX = Constants.ACTORLOOKX; //  the range that the enemy can see
     private int lookY = Constants.ACTORLOOKY; // 
-    private int patrolRange = Constants.DEFAULTPATROLRANGE;
     private float maxSpeed = 0;
     private float acceleration = 0;
     protected ArrayList<Trait> brain;
@@ -352,8 +353,8 @@ class Enemy extends Actor {
         vision.setBounds(
                 getMinX() - lookX,
                 getMinY() - lookY,
-                 lookX,
-                 lookY
+                lookX,
+                lookY
         );
         
         // vision in direction of enemy facing
@@ -381,6 +382,7 @@ class Enemy extends Actor {
         		} 
             }
         }
+        super.remove();
         
         // face the target
         if (target != null)
@@ -416,6 +418,7 @@ class Enemy extends Actor {
  */
 class Player extends Actor {
 	
+	private static final long serialVersionUID = 6260650017867646859L;
 	static LinkedList<Player> list = new LinkedList<Player>();
 	
 	Player(StatCard sc, float x, float y) { 
@@ -426,8 +429,7 @@ class Player extends Actor {
 		list.add(this);
 	}
 	void removeFromGame() {
-		Element.updateDeathSet.add(this);
-		super.remove();
+		Updater.updateDeathSet.add(this);
 		this.remove();
 		list.remove(this);
 	}
@@ -452,11 +454,15 @@ class Player extends Actor {
  * Characters --------------------------------------------------------------------------------------------------
  */
 class Ninja extends Player {
+	private static final long serialVersionUID = 5602718421775517193L;
+
 	Ninja(float x, float y) {
 		super(new StatCard("e_ninja_", 40, 70), x, y);
 	}
 }
 class NinjaAlt extends Enemy {
+	private static final long serialVersionUID = 3832411639799205188L;
+
 	NinjaAlt(float x, float y, ArrayList<Trait> t) {
 		super(new StatCard("e_ninja_", 40, 70), x, y, t);
 	}

@@ -1,5 +1,11 @@
 package Dreamer;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.HashSet;
 import java.util.Random;
 
 import org.newdawn.slick.Color;
@@ -20,13 +26,41 @@ class Level {
 	static void clear() {
 		Element.clearAll();
 	}
-	//TODO move this function and ArrayList Keys into Keyhandler.java
 	static void updateCurrent() {
 		if(levelChanged) {
 			levelChanged = false;
 			freezeCounter = 2;
 			Element.clearAll();
 			current.createLevel();
+		}
+	}
+	static void write(String s) {
+		ObjectOutputStream out;
+		try {
+			out = new ObjectOutputStream(new FileOutputStream(Constants.LEVELPATH + s + ".level"));
+			/*
+			 	for(Element e: Element.masterList)
+				out.writeObject(e);
+			*/
+			out.writeObject(Element.masterList);
+			out.close();
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
+		}
+	}
+	@SuppressWarnings("unchecked")
+	static void read(String s) {
+		try{ 
+			FileInputStream door = new FileInputStream(Constants.LEVELPATH + s + ".level"); 
+			ObjectInputStream reader = new ObjectInputStream(door); 
+			HashSet<Element> x;
+			x = (HashSet<Element>) reader.readObject();
+			for(Element e: x)
+				e.add();
+			reader.close();
+		} catch (IOException e){ 
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
 		}
 	}
 	void createLevel() {
@@ -163,7 +197,8 @@ class ForestLevel extends Level {
 		/**
 		 * Level setup
 		 */
-		new GradientBackground(new Color(63, 63, 255), new Color(220, 220, 255)).add();
+		new SolidBackground(new Color(0, 100, 50)).add();
+		// new GradientBackground(new Color(63, 63, 255), new Color(220, 220, 255)).add();
 		new Sun().add();
 		
 		Theme.current = Theme.ice;

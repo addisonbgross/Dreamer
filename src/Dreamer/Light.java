@@ -8,11 +8,13 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.vector.Vector3f;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.geom.Ellipse;
 import org.newdawn.slick.geom.Polygon;
 import org.newdawn.slick.geom.Transform;
 
 abstract public class Light extends Positionable {
+	
+	private static final long serialVersionUID = 15616709052981486L;
+	
 	static public ArrayList<Light> lightList = new ArrayList<Light>();
 	static boolean firstLight = true;
 	static Random r = new Random();
@@ -38,16 +40,10 @@ abstract public class Light extends Positionable {
 		lightList.remove(this);
 	}
 	@Override
-	void draw(Graphics g) {
+	void draw() {
 		if(Element.debug) {
 			Vector3f v = Camera.translate(getX(), getY(), getZ());
-			Ellipse e = new Ellipse(
-					v.x, 
-					v.y, 
-					5,
-					5
-					);
-			g.draw(e);
+			Drawer.drawEllipse(v.x, v.y, 5, 5);
 		}
 	}
 	void flicker() {
@@ -114,6 +110,9 @@ abstract public class Light extends Positionable {
 	}
 }
 final class MouseLight extends Light implements Updateable {
+	
+	private static final long serialVersionUID = 7882373801114220812L;
+	
 	{
 		color = new Color(127, 191, 255);
 		range = 1000;
@@ -129,7 +128,10 @@ final class MouseLight extends Light implements Updateable {
 		setPosition(Camera.translateMouse(Mouse.getX(), Mouse.getY(), 0));
 	}
 }
+
 final class LampLight extends Light implements Updateable {
+
+	private static final long serialVersionUID = 3188322324141898573L;
 	Shape3d s;
 	float flickerRange;
 	{
@@ -149,6 +151,8 @@ final class LampLight extends Light implements Updateable {
 	}
 }
 final class SunLight extends Light {
+	
+	private static final long serialVersionUID = -50582640841286336L;
 	{
 		orthogonality = 0.9f;
 		color = new Color(240, 240, 240);	// Original brightness (185, 175, 170);
@@ -159,6 +163,8 @@ final class SunLight extends Light {
 	}
 }
 final class SunsetLight extends Light {
+	
+	private static final long serialVersionUID = -8061974024074695263L;
 	{
 		orthogonality = 0.8f;
 		color = new Color(200, 100, 100);
@@ -169,6 +175,8 @@ final class SunsetLight extends Light {
 	}
 }
 final class FlareLight extends Light {
+	
+	private static final long serialVersionUID = -4870682254855682693L;
 	float flickerRange;
 	{
 		orthogonality = 0.8f;
@@ -185,6 +193,8 @@ final class FlareLight extends Light {
 	}
 }
 class Sunset extends Sun {
+	
+	private static final long serialVersionUID = -3652185159824163938L;
 	Sunset() {
 		super();
 		light = new SunsetLight(-2000, 100, 100);
@@ -195,6 +205,8 @@ class Sunset extends Sun {
 	}
 }
 class Sun extends Background {
+	
+	private static final long serialVersionUID = 8144659238106126455L;
 	Polygon outer = new Polygon();
 	Polygon middle = new Polygon();
 	Polygon inner = new Polygon();

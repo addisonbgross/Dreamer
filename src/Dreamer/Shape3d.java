@@ -1,18 +1,18 @@
 package Dreamer;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Random;
 
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 import org.newdawn.slick.Color;
-import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Polygon;
 import org.newdawn.slick.geom.Rectangle;
 
 public class Shape3d extends Positionable implements Lightable {
+	
+	private static final long serialVersionUID = -2545062660573860101L;
+
 	static Random r = new Random();
 
 	protected Vector3f manhattanRadius = new Vector3f();
@@ -294,7 +294,7 @@ public class Shape3d extends Positionable implements Lightable {
 	@Override
 	// for reference, this is how the camera finds the point on the screen
 	// Camera.translate(getVertex(triangleIndex[j]), tempV3f);
-	void draw(Graphics g) {
+	void draw() {
 		if (isVisible())
 			for (Face f : faces)
 				f.addToDrawList();
@@ -349,7 +349,6 @@ public class Shape3d extends Positionable implements Lightable {
 			
 			s.manhattanRadius.set(manhattanRadius);
 			s.position.set(position);
-			System.out.println(toString());
 			for (Vector3f v: vertices) {
 				s.addVertex(v.x, v.y, v.z);
 			}
@@ -361,6 +360,8 @@ public class Shape3d extends Positionable implements Lightable {
 }
 
 class DynamicShape3d extends Shape3d implements Updateable {
+
+	private static final long serialVersionUID = -8826293081438535027L;
 
 	DynamicShape3d(float x, float y, float z) {
 		super(x, y, z);
@@ -380,7 +381,6 @@ class DynamicShape3d extends Shape3d implements Updateable {
 			
 			s.manhattanRadius.set(manhattanRadius);
 			s.position.set(position);
-			System.out.println(toString());
 			for (Vector3f v: vertices) {
 				Vector3f t = new Vector3f(v);
 				t = transformVertex(v, t);
@@ -437,6 +437,9 @@ class SpinningJewel extends DynamicShape3d implements Updateable {
 }
 
 class LadderPlatform extends Shape3d {
+
+	
+	
 	final float height = 10, depth = 200, space = 20;
 
 	LadderPlatform(float x, float y, float z, float width, boolean flipped) {
@@ -598,6 +601,7 @@ class Temple {
 }
 
 class ActionJewel extends SpinningJewel {
+	
 	int size = 20;
 	Level level;
 	Collidable transporter;
