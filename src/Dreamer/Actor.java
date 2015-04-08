@@ -184,10 +184,6 @@ abstract class Actor extends Collidable implements Updateable {
 		// Reset if fallen off of level
 		if(getMinY() < Constants.FALLRESET)
 			reset(Constants.STARTX, Constants.STARTY);
-		
-		//apply friction from air
-		if(checkStatus("jumping"))
-			dynamics.applyFriction(Constants.AIRFRICTION);
 	}
 	void takeDamage(int damage, float weaponX) {
 		if (weaponX > getX()) {
@@ -345,7 +341,7 @@ class Enemy extends Actor {
 			}
 		// turn to face the usurper
 		} else {	
-			if (getTarget() == null) {
+			if (target == null) {
 				switchFacing();
 			}
 		}
@@ -361,7 +357,7 @@ class Enemy extends Actor {
                 lookY
         );
         
-        // vision in direction of enemy facingte
+        // vision in direction of enemy facing
         if (checkStatus("right"))
         	vision.setLocation((getMinX() + vision.getWidth() / 3) - lookX / 2, getY());
         else
@@ -469,5 +465,15 @@ class NinjaAlt extends Enemy {
 
 	NinjaAlt(float x, float y, ArrayList<Trait> t) {
 		super(new StatCard("e_ninja_", 40, 70), x, y, t);
+	}
+}
+class GrassSoldier extends Enemy {
+	GrassSoldier(float x, float y, ArrayList<Trait> t) {
+		super(new StatCard("e_grasssoldier_", 40, 70), x, y, t);
+	}
+}
+class Skeleton extends Enemy {
+	Skeleton(float x, float y, ArrayList<Trait> t) {
+		super(new StatCard("e_skeleton_", 40, 70), x, y, t);
 	}
 }

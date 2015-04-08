@@ -207,13 +207,13 @@ class ForestLevel extends Level {
 		MeshMaker.diceMesh(Library.getImage(Constants.MAPPATH + "madness_elevation"), Library.getImage(Constants.MAPPATH + "madness_colour"), 35000, 0, 0);
 		
 		Player one = Player.getFirst();
-		w = new Katana(one);
+		w = new Knife(one);
 		one.setCenterBottom(2900, 1551);
 		//new Lamp(one).add();
 		one.add();
 		w.add();
 		
-		Enemy en = new NinjaAlt(500, 300, Brains.makeSoldier());
+		Enemy en = new Skeleton(500, 300, Brains.makeSoldier());
 		w = new Katana(en);
 		en.add();
 		w.add();
@@ -299,7 +299,7 @@ class Dusk_1 extends Level {
 		w.add();
 		p.add();
 		
-		e = new NinjaAlt(0, 100, Brains.makeSoldier());
+		e = new Skeleton(0, 100, Brains.makeSoldier());
 		w = new Katana(e);
 		w.add();
 		e.add();

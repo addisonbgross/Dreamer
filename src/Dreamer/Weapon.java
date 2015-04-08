@@ -177,7 +177,7 @@ class Katana extends Weapon {
 	Katana(Actor a) {
 		super(a);
 		name = "katana";
-		damage = 10;
+		damage = 25;
 		weight = 20;
 		carryHeight = 50;
 		cuttingEdge = 100;
@@ -186,6 +186,22 @@ class Katana extends Weapon {
 		attackAngles = new int[]{250, 275, 310, 325, 60, 95};
 		attackOffsetX = new int[]{48, 15, 22, 24, 22, 15};
 		attackOffsetY = new int[]{-31, -38, -38, -39, -47, -57};
+		makeFace();
+	}
+}
+class Knife extends Weapon {
+	Knife(Actor a) {
+		super(a);
+		name = "knife";
+		damage = 10;
+		weight = 10;
+		carryHeight = 50;
+		cuttingEdge = 100;
+		
+		blockPosition = new Vector2f(-2, -28);
+		attackAngles = new int[]{250, 275, 310, 325, 60, 95};
+		attackOffsetX = new int[]{40, 15, 22, 24, 22, 15};
+		attackOffsetY = new int[]{-50, -38, -38, -39, -47, -57};
 		makeFace();
 	}
 }
