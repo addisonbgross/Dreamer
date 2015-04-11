@@ -34,6 +34,9 @@ public class Dreamer {
 		
 		while (true) {
 			
+			PerformanceMonitor.getGlobal().stop();
+			PerformanceMonitor.getGlobal().start();
+			
 			Display.processMessages();
 			otherMonitor.stop();
 			
@@ -46,22 +49,19 @@ public class Dreamer {
 			renderMonitor.stop();
 			
 			otherMonitor.start();
-			if(Element.debug)
-				PerformanceMonitor.printAll();
 			
 			// update screen
 			Display.sync(70);
-			Display.update(false);
-			
+			Display.update(false);			
 			
 			if (Display.isCloseRequested() || Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
-			
+				Element.performance.log();
 				Display.destroy();
-				System.exit(0);
 				try {
 					PerformanceMonitor.logWriter.close();
 				}
 				catch(Exception e) {}
+				System.exit(0);
 			}
 		}
 	}

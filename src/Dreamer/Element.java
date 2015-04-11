@@ -13,7 +13,9 @@ public class Element implements Serializable {
 	protected static HashSet<Element> masterList = new HashSet<Element>(2000);
 	protected static HashSet<Element> activeSet = new HashSet<Element>(2000);
 
-	public static boolean debug = false;
+	static PerformanceMonitor performance = new PerformanceMonitor("drawActive");
+	static boolean debug = false, drawing = false;
+	static int count = 0;
 	
 	protected Element() {}
 
@@ -64,38 +66,39 @@ public class Element implements Serializable {
 			e.print();
 		}
 	}
-
-	static PerformanceMonitor pm = new PerformanceMonitor("drawActive");
 	
 	static void drawActive() {
 	
-		int count = 0;
+		drawing = true;
+		count = 0;
+		performance.clear();
 		
-		pm.start();
+		performance.start();
 		for (Element e : Background.background) {
 			count++;
 			Light.light(e);
 			e.draw();
-			pm.mark(count + "," + e.toString());
+			performance.mark(count + "," + e.toString());
 		}
 		
 		for (Element o : activeSet) {
 			count++;
 			Light.light(o);
 			o.draw();
-			pm.mark(count + "," + o.toString());
+			performance.mark(count + "," + o.toString());
 		}
 		
 		Face.drawFaces();
-		pm.mark("Faces");
+		performance.mark("Faces");
 		
 		for (Element e : Foreground.foreground) {
 			count++;
 			e.draw();
-			pm.mark(count + "," + e.toString());
+			performance.mark(count + "," + e.toString());
 		}
 		
-		pm.log();
+		performance.sort();
+		drawing = false;
 	}
 
 	static void clearAll() {

@@ -2,14 +2,16 @@ package Dreamer;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Collection;
+
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Collections;
 
 public final class PerformanceMonitor {
 
-	private class Record {
-		
+	private class Record implements Comparable<Record> {
+
 		Record(String s, Long l, Long d) {
 			content = s;
 			time = l;
@@ -21,7 +23,12 @@ public final class PerformanceMonitor {
 
 		@Override
 		public String toString() {
-			return delta + "," + time + "," + content + "\n";
+			return (float)100 * delta / global.delta + "," + time + "," + content + "\n";
+		}
+
+		@Override
+		public int compareTo(Record o) {
+			return o.delta > delta? 1 : -1;
 		}
 	}
 
@@ -60,60 +67,35 @@ public final class PerformanceMonitor {
 		}
 	}
 
-	static public void printAll() {
-
-		global.stop();
-		global.start();
-		/*
-		 * System.out.println( "frequency: " + (double)(1000000000 /
-		 * global.delta) + " Hz" );
-		 */
-		for (PerformanceMonitor pm : children) {
-			pm.print();
-		}
+	public void start() {
+		history.add(new Record("start", getTime(), 0L));		
 	}
 
-	public PerformanceMonitor start() {
-		history.add(new Record("start", getTime(), 0L));
-		return this;
-	}
-
-	public PerformanceMonitor mark(String s) {
+	public void mark(String s) {
 		delta = getTime() - history.get(history.size() - 1).time;
-		history.add(new Record(s, getTime(), delta));
-		return this;
+		history.add(new Record(s, getTime(), delta));		
+	}
+	
+	public void clear() {
+		history.clear();
 	}
 
-	public PerformanceMonitor stop() {
-		delta = getTime() - history.get(0).time;
-		return this;
+	public void stop() {
+		delta = getTime() - history.get(0).time;		
 	}
 
-	public PerformanceMonitor log() {
+	public void log() {
+		for (Record r : history) {
+			log(r.toString());
+		}	
+	}
+	
+	public void log(String s) {
 		try {
-			logWriter.flush();
-			for (Record r : history) {
-				logWriter.write(r.toString());
-			} // r.toString()); }
+			logWriter.write(s);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return this;
-	}
-
-	public PerformanceMonitor print() {
-		try {
-
-			logWriter
-					.write(label
-							+ " : "
-							+ String.format("%.1f", (double) 100 * delta
-									/ global.delta));
-
-		} catch (IOException ioe) {
-			ioe.printStackTrace();
-		}
-		return this;
 	}
 
 	static int numberTotal() {
@@ -139,11 +121,11 @@ public final class PerformanceMonitor {
 	static void displayInfo() {
 
 		Drawer.setColor(Library.defaultFontColor);
-		Drawer.drawString(PerformanceMonitor.numberActive()
-				+ " ACTIVE ELEMENTS, " + PerformanceMonitor.numberXRangeSets()
-				+ " SETS IN X, " + PerformanceMonitor.numberYRangeSets()
+		Drawer.drawString(numberActive()
+				+ " ACTIVE ELEMENTS, " + numberXRangeSets()
+				+ " SETS IN X, " + numberYRangeSets()
 				+ " SETS IN Y", 20, 20);
-		Drawer.drawString(PerformanceMonitor.numberTotal() + " TOTAL ELEMENTS",
+		Drawer.drawString(numberTotal() + " TOTAL ELEMENTS",
 				20, 40);
 		Drawer.drawString(numberOfCollisions + " COLLISIONS CHECKED", 20, 60);
 	}
@@ -167,5 +149,9 @@ public final class PerformanceMonitor {
 				"total free memory: "
 						+ format.format((freeMemory + (maxMemory - allocatedMemory)) / 1024),
 				20, 140);
+	}
+
+	public void sort() {
+		java.util.Collections.sort(history);
 	}
 }
