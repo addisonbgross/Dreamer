@@ -382,7 +382,6 @@ class Enemy extends Actor {
         		} 
             }
         }
-        super.remove();
         
         // face the target
         if (target != null)

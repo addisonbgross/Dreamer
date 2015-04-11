@@ -196,11 +196,11 @@ class ForestLevel extends Level {
 		MeshMaker.diceMesh(Library.getImage(Constants.MAPPATH + "madness_elevation"), Library.getImage(Constants.MAPPATH + "madness_colour"), 35000, 0, 0);
 		
 		Player one = Player.getFirst();
-		// w = new Knife(one);
+		w = new Knife(one);
 		one.setCenterBottom(2900, 1551);
-		//new Lamp(one).add();
+		new Lamp(one).add();
 		one.add();
-		// w.add();
+		w.add();
 	
 		Enemy en = new Skeleton(500, 300, Brains.makeSoldier());
 		w = new Katana(en);

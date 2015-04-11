@@ -3,7 +3,7 @@ package Dreamer;
 import java.io.IOException;
 
 public class MainMenu extends Level {
-	Menu main = new Menu(Justification.CENTER, 0, 0);	
+	Menu main = new Menu(Justification.CENTER, 0, 150);	
 	
 	void createLevel() {
 		Element.debug = false;
@@ -33,6 +33,7 @@ public class MainMenu extends Level {
 				"TEST CHARACTERS",
 				new Action() {
 					void perform() {
+						new GrassSoldier(-100, 0, Brains.makeSoldier()).add();
 						Player.getFirst().add();
 						new Skeleton(100, 0, Brains.makeSoldier()).add();
 					}
