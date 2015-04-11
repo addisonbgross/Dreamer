@@ -121,15 +121,6 @@ class SimpleLevel extends Level {
 		
 		new GradientBackground(new Color(63, 63, 255), new Color(220, 63, 63)).add();
 		
-		//Library.getModel("colourcube", 0, 150, -250).add();
-        
-        //Library.getModel("scene", -500,  0,  0).add();
-		
-		//Library.getModel("monkey", 300, 101, -250).add();
-        
-        //Library.getModel("monkey", 600, 101, -250).add();
-		
-		//new ActionJewel(100, 40, 0, new Action() {void perform() {new ForestLevel();}}).add();
 		Camera.focus(new ClassFocus(200, Ninja.class));
 	}
 }
@@ -205,12 +196,12 @@ class ForestLevel extends Level {
 		MeshMaker.diceMesh(Library.getImage(Constants.MAPPATH + "madness_elevation"), Library.getImage(Constants.MAPPATH + "madness_colour"), 35000, 0, 0);
 		
 		Player one = Player.getFirst();
-		w = new Knife(one);
+		// w = new Knife(one);
 		one.setCenterBottom(2900, 1551);
 		//new Lamp(one).add();
 		one.add();
-		w.add();
-		
+		// w.add();
+	
 		Enemy en = new Skeleton(500, 300, Brains.makeSoldier());
 		w = new Katana(en);
 		en.add();

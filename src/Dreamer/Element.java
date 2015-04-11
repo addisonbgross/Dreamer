@@ -7,17 +7,18 @@ import java.util.TreeMap;
 import com.sun.corba.se.pept.transport.ContactInfo;
 
 public class Element implements Serializable {
-	
+
 	private static final long serialVersionUID = 1384182428126670525L;
-	
+
 	protected static HashSet<Element> masterList = new HashSet<Element>(2000);
 	protected static HashSet<Element> activeSet = new HashSet<Element>(2000);
 
 	static PerformanceMonitor performance = new PerformanceMonitor("drawActive");
 	static boolean debug = false, drawing = false;
 	static int count = 0;
-	
-	protected Element() {}
+
+	protected Element() {
+	}
 
 	/**
 	 * add: maps multiple keys to each element for fast retrieval
@@ -66,13 +67,13 @@ public class Element implements Serializable {
 			e.print();
 		}
 	}
-	
+
 	static void drawActive() {
-	
+
 		drawing = true;
 		count = 0;
 		performance.clear();
-		
+
 		performance.start();
 		for (Element e : Background.background) {
 			count++;
@@ -80,29 +81,29 @@ public class Element implements Serializable {
 			e.draw();
 			performance.mark(count + "," + e.toString());
 		}
-		
+
 		for (Element o : activeSet) {
 			count++;
 			Light.light(o);
 			o.draw();
 			performance.mark(count + "," + o.toString());
 		}
-		
+
 		Face.drawFaces();
 		performance.mark("Faces");
-		
+
 		for (Element e : Foreground.foreground) {
 			count++;
 			e.draw();
 			performance.mark(count + "," + e.toString());
 		}
-		
+
 		performance.sort();
 		drawing = false;
 	}
 
 	static void clearAll() {
-		
+
 		masterList.clear();
 		activeSet.clear();
 		Updater.clear();
@@ -113,17 +114,17 @@ public class Element implements Serializable {
 	}
 
 	static void clearActive() {
-		
+
 		activeSet.clear();
 	}
 }
 
 class ElementMap<K, V> extends TreeMap<K, HashSet<Element>> {
-	
+
 	private static final long serialVersionUID = 186057469873355492L;
 
 	boolean add(K key, Element value) {
-		
+
 		if (super.containsKey(key)) {
 			super.get(key).add(value);
 		} else {
@@ -131,17 +132,17 @@ class ElementMap<K, V> extends TreeMap<K, HashSet<Element>> {
 			a.add(value);
 			super.put(key, a);
 		}
-		
+
 		return true;
 	}
 
 	boolean remove(K key, Element value) {
-	
+
 		try {
-			if(super.get(key).remove(value)) {
-				if(super.get(key).size() == 0) {
+			if (super.get(key).remove(value)) {
+				if (super.get(key).size() == 0) {
 					super.remove(key);
-				}	
+				}
 				return true;
 			}
 			return false;

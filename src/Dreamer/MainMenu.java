@@ -30,6 +30,14 @@ public class MainMenu extends Level {
 					}
 				});
 		main.addOption(
+				"TEST CHARACTERS",
+				new Action() {
+					void perform() {
+						Player.getFirst().add();
+						new Skeleton(100, 0, Brains.makeSoldier()).add();
+					}
+				});
+		main.addOption(
 				"SET FULLSCREEN",
 				new Action() {
 					void perform() {
@@ -47,7 +55,7 @@ public class MainMenu extends Level {
 		main.open();
 		
 		new Background("space").add();
-		new Block3d(0, -250, -200, 800, 20, 600).add();
+		new Block3d(0, -250, -200, 800, 20, 600).generateCollidable().add();
 		new Lamp(-400, -100, 0).add();
 		//new Model("scene", 200, 100, -200, -1500).add();
 		//new Sun().add();

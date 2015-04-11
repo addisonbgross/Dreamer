@@ -63,7 +63,7 @@ public class Shape3d extends Positionable implements Lightable {
 
 	@Override
 	boolean isVisible() {
-		boolean huehuehue = true;
+		boolean huehuehue = false;
 
 		if (!huehuehue) {
 			if (Camera.isPointVisible(getX(), getY(), getZ()))
@@ -310,10 +310,11 @@ public class Shape3d extends Positionable implements Lightable {
 				.generateMotionTrack(faces.get(i), vertices, getPosition3f());
 	}
 
-	public void generateCollidable() {
+	public Shape3d generateCollidable() {
 		Polygon p = generateCollisionShape();
 		if (p != null)
-			new Collidable(generateCollisionShape()).add();
+			new Collidable(p).add();
+		return this;
 	}
 
 	public Polygon generateCollisionShape() {
