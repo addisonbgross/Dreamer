@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.TreeMap;
 
+import com.sun.corba.se.pept.transport.ContactInfo;
+
 public class Element implements Serializable {
 	
 	private static final long serialVersionUID = 1384182428126670525L;
@@ -11,7 +13,9 @@ public class Element implements Serializable {
 	protected static HashSet<Element> masterList = new HashSet<Element>(2000);
 	protected static HashSet<Element> activeSet = new HashSet<Element>(2000);
 
-	public static boolean debug = false;
+	static PerformanceMonitor performance = new PerformanceMonitor("drawActive");
+	static boolean debug = false, drawing = false;
+	static int count = 0;
 	
 	protected Element() {}
 
@@ -62,23 +66,39 @@ public class Element implements Serializable {
 			e.print();
 		}
 	}
-
+	
 	static void drawActive() {
+	
+		drawing = true;
+		count = 0;
+		performance.clear();
 		
+		performance.start();
 		for (Element e : Background.background) {
+			count++;
 			Light.light(e);
 			e.draw();
+			performance.mark(count + "," + e.toString());
 		}
 		
 		for (Element o : activeSet) {
+			count++;
 			Light.light(o);
 			o.draw();
+			performance.mark(count + "," + o.toString());
 		}
 		
 		Face.drawFaces();
+		performance.mark("Faces");
 		
-		for (Element e : Foreground.foreground)
+		for (Element e : Foreground.foreground) {
+			count++;
 			e.draw();
+			performance.mark(count + "," + e.toString());
+		}
+		
+		performance.sort();
+		drawing = false;
 	}
 
 	static void clearAll() {

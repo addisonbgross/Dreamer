@@ -5,9 +5,12 @@ import java.util.HashSet;
 import java.util.Set;
 
 public interface Updateable {
-	default public void update() {
-		((Shape3d)this).mutable = false;
-	};
+	public void update();
+}
+
+class x {
+	HashSet<Updateable> h = new HashSet<>();
+	{ h.add(() -> System.err.println("whoah")); }
 }
 
 class Updater {

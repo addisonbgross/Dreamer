@@ -30,6 +30,8 @@ import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.opengl.TextureImpl;
 
 public class Face implements java.io.Serializable {
+	
+	private static final long serialVersionUID = -7030358503083299426L;
 	private static ArrayList<Face> drawList = new ArrayList<Face>(5000); 
 	private static TreeSet<Face> texturedDrawList = new  TreeSet<Face>(new FaceTextureComparator());
 		

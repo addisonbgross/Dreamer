@@ -112,7 +112,7 @@ public class Editor {
 			void perform() {
 				Player.getFirst().add();
 				KeyHandler.openGameKeys();
-				Camera.focus(Player.getFirst());
+				Camera.focus(new ClassFocus(150, Ninja.class));
 				Foreground.foreground.clear();
 				pointer.remove();
 			}

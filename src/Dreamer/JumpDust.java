@@ -2,6 +2,8 @@ package Dreamer;
 
 
 public class JumpDust extends Effect {
+	
+	private static final long serialVersionUID = 4389369971340447586L;
 	boolean takeOff;
 	
 	JumpDust(Actor a) {
@@ -12,6 +14,7 @@ public class JumpDust extends Effect {
 		zOffset = 5;
 		takeOff = false;
 	}
+	
 	@Override
     public void update() {
 		if (animation.currentIndex == animation.framesWide() - 1) {

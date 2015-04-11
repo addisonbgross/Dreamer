@@ -2,6 +2,9 @@ package Dreamer;
 
 
 public class Sweat extends Effect {	
+
+	private static final long serialVersionUID = 2081696229398023849L;
+
 	Sweat(Actor a) {
 		actor = a;
 		animation = new Animation2("sweat", 9, 1, 100, 20, 30);

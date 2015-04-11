@@ -152,9 +152,7 @@ class BirdLevel extends Level {
 			b = new Block3d(new Color(r.nextInt()), BLOCKWIDTH * i, 	BLOCKHEIGHT / 4 * i, BLOCKWIDTH, BLOCKWIDTH, BLOCKHEIGHT / 2 * i, BLOCKWIDTH);
 			b.add();
 		}
-		Pyramid3d p = new Pyramid3d(-1000, 0, 0, 200, 200);
-		p.generateMotionTracks();
-		p.add();
+		
 		new Temple(-2000, 0, 0, 300);
 		Weird w = new Weird(1000, 200, 0, 200);
 		w.generateMotionTracks();
@@ -254,17 +252,6 @@ class ForestLevel extends Level {
 		new SpinningJewel(1000, 2700, -2200, 700).add();
 		
 		Theme.current = Theme.fire;
-		
-		Test a = new Test(-200, 300, 50, 20, 200, 20);
-		Test b = new Test(0, 500, 0, 20, 100, 20);
-		Test c = new Test(0, 600, 0, 20, 200, 20);
-		c.link = b;
-		b.link = a;
-		c.wig.increment = 0.03f;
-		a.wig.increment = 0.01f;
-		a.add();
-		b.add();
-		c.add();
 		
 		new MovingMotionTrack(-300, 300, -200, 300).add();
 		
