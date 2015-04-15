@@ -4,9 +4,6 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.Collection;
-
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Collections;
 
 public final class PerformanceMonitor {
 
@@ -49,6 +46,7 @@ public final class PerformanceMonitor {
 
 	private long delta;
 	private ArrayList<Record> history = new ArrayList<>();
+	@SuppressWarnings("unused")
 	private String label = "";
 
 	public PerformanceMonitor(String s) {

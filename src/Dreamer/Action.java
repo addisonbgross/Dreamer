@@ -1,6 +1,7 @@
 package Dreamer;
 
 class Action {
+	
 	String command = "";
 	Object object;
 	

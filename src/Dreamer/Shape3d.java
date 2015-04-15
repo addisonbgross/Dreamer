@@ -10,7 +10,7 @@ import org.newdawn.slick.geom.Polygon;
 import org.newdawn.slick.geom.Rectangle;
 
 public class Shape3d extends Positionable implements Lightable {
-	
+
 	private static final long serialVersionUID = -2545062660573860101L;
 
 	static Random r = new Random();
@@ -68,7 +68,7 @@ public class Shape3d extends Positionable implements Lightable {
 		if (!huehuehue) {
 			if (Camera.isPointVisible(getX(), getY(), getZ()))
 				return true;
-	
+
 			if (getX() >= Camera.getCenterX() && getY() >= Camera.getCenterY()) // Cartesian
 																				// I
 				if (Camera.isPointVisible(getX() - getWidth() / 2, getY()
@@ -76,7 +76,7 @@ public class Shape3d extends Positionable implements Lightable {
 					return true;
 				else
 					return false;
-	
+
 			if (getX() <= Camera.getCenterX() && getY() >= Camera.getCenterY()) // Cartesian
 																				// II
 				if (Camera.isPointVisible(getX() + getWidth() / 2, getY()
@@ -84,7 +84,7 @@ public class Shape3d extends Positionable implements Lightable {
 					return true;
 				else
 					return false;
-	
+
 			if (getX() <= Camera.getCenterX() && getY() <= Camera.getCenterY()) // Cartesian
 																				// III
 				if (Camera.isPointVisible(getX() + getWidth() / 2, getY()
@@ -92,7 +92,7 @@ public class Shape3d extends Positionable implements Lightable {
 					return true;
 				else
 					return false;
-	
+
 			if (getX() >= Camera.getCenterX() && getY() <= Camera.getCenterY()) // Cartesian
 																				// IV
 				if (Camera.isPointVisible(getX() - getWidth() / 2, getY()
@@ -112,9 +112,9 @@ public class Shape3d extends Positionable implements Lightable {
 		for (Vector3f v : this.vertices) {
 			v.scale(f);
 		}
-		
+
 		manhattanRadius.scale(f);
-		
+
 		return this;
 	}
 
@@ -125,11 +125,11 @@ public class Shape3d extends Positionable implements Lightable {
 			v.y *= y;
 			v.z *= z;
 		}
-		
+
 		manhattanRadius.x *= x;
 		manhattanRadius.y *= y;
 		manhattanRadius.z *= z;
-		
+
 		return this;
 	}
 
@@ -170,23 +170,24 @@ public class Shape3d extends Positionable implements Lightable {
 		manhattanRadius = updateBounds(v, manhattanRadius);
 		return v;
 	}
+
 	Vector3f updateBounds(Vector3f v, Vector3f bounds) {
 		bounds.x = Math.max(Math.abs(v.x), bounds.x);
 		bounds.y = Math.max(Math.abs(v.y), bounds.y);
 		bounds.z = Math.max(Math.abs(v.z), bounds.z);
 		return bounds;
 	}
-	
+
 	Vector3f findCenter() {
 		// TODO: this!
 		Vector3f center = new Vector3f();
-		
-		for(Vector3f v: vertices) {
+
+		for (Vector3f v : vertices) {
 			center = Vector3f.add(center, v, center);
 		}
-		
+
 		center.scale(1 / vertices.size());
-		
+
 		return center;
 	}
 
@@ -233,7 +234,7 @@ public class Shape3d extends Positionable implements Lightable {
 			return null;
 		}
 	}
-	
+
 	public Vector3f transformVertex(Vector3f v, Vector3f destination) {
 		for (Transformer tx : transformers) {
 			destination.set(tx.transformVertex(v, destination));
@@ -340,17 +341,18 @@ public class Shape3d extends Positionable implements Lightable {
 		}
 		return this;
 	}
-	
+
 	DynamicShape3d makeDynamic() {
 		return new DynamicShape3d(this);
 	}
-	
+
 	Shape3d getCopy() {
-		Shape3d s = new Shape3d(); {
-			
+		Shape3d s = new Shape3d();
+		{
+
 			s.manhattanRadius.set(manhattanRadius);
 			s.position.set(position);
-			for (Vector3f v: vertices) {
+			for (Vector3f v : vertices) {
 				s.addVertex(v.x, v.y, v.z);
 			}
 			for (Face f : faces)
@@ -378,11 +380,12 @@ class DynamicShape3d extends Shape3d implements Updateable {
 	}
 
 	Shape3d makeStatic() {
-		Shape3d s = new Shape3d(); {
-			
+		Shape3d s = new Shape3d();
+		{
+
 			s.manhattanRadius.set(manhattanRadius);
 			s.position.set(position);
-			for (Vector3f v: vertices) {
+			for (Vector3f v : vertices) {
 				Vector3f t = new Vector3f(v);
 				t = transformVertex(v, t);
 				s.addVertex(t.x, t.y, t.z);
@@ -402,7 +405,7 @@ class DynamicShape3d extends Shape3d implements Updateable {
 		transformers.add(t);
 		return this;
 	}
-	
+
 	DynamicShape3d clearTransformers() {
 		transformers.clear();
 		return this;
@@ -411,8 +414,10 @@ class DynamicShape3d extends Shape3d implements Updateable {
 
 class SpinningJewel extends DynamicShape3d implements Updateable {
 
+	private static final long serialVersionUID = -63301507544180102L;
+
 	SpinningJewel(float x, float y, float z, float size) {
-		
+
 		super(x, y, z);
 		transformers.add(new Rotator(0, 1, 0, 100 / size));
 		transformers.add(new Pulsar(0.05f, 1));
@@ -440,8 +445,7 @@ class SpinningJewel extends DynamicShape3d implements Updateable {
 
 class LadderPlatform extends Shape3d {
 
-	
-	
+	private static final long serialVersionUID = 6553557795143965788L;
 	final float height = 10, depth = 200, space = 20;
 
 	LadderPlatform(float x, float y, float z, float width, boolean flipped) {
@@ -483,6 +487,9 @@ class LadderPlatform extends Shape3d {
 }
 
 class Block3d extends Shape3d {
+
+	private static final long serialVersionUID = 5493326931723280867L;
+
 	Block3d(Color c, float x, float y, float z, float w, float h, float d) {
 		super(x, y, z);
 
@@ -509,6 +516,9 @@ class Block3d extends Shape3d {
 }
 
 class Weird extends Shape3d {
+	
+	private static final long serialVersionUID = -6183353239241719999L;
+
 	Weird(float x, float y, float z, float size) {
 		super(x, y, z);
 
@@ -531,6 +541,8 @@ class Weird extends Shape3d {
 }
 
 class Ladder extends Shape3d {
+	
+	private static final long serialVersionUID = 4215874205476965652L;
 	static final Color ladderColor = Color.blue;
 
 	Ladder(float x, float y, float z, float size) {
@@ -553,6 +565,9 @@ class Ladder extends Shape3d {
 }
 
 class Pillar extends Shape3d {
+
+	private static final long serialVersionUID = 4302578383528569249L;
+
 	Pillar(float x, float y, float z, int sides, float radius, float height) {
 		super(x, y, z);
 		for (float angle = 0; angle < 2 * Math.PI; angle += (2 * Math.PI)
@@ -601,15 +616,15 @@ class Temple {
 }
 
 class ActionJewel extends SpinningJewel {
-	
+
 	private static final long serialVersionUID = -3060451609325778005L;
-	
+
 	int size = 20;
 	Level level;
 	Collidable transporter;
 
 	ActionJewel(float x, float y, float z, Action action) {
-		
+
 		super(x, y, z, 20);
 		transporter = new Collidable(new Rectangle(getX() - size / 2, getY()
 				- size / 2, size, size)) {
@@ -632,11 +647,13 @@ class ActionJewel extends SpinningJewel {
 
 class Island extends DynamicShape3d {
 
+	private static final long serialVersionUID = -2120579954145454623L;
+
 	Island(float x, float y, float z) {
 		super(x, y, z);
 		create(100);
 	}
-	
+
 	Island(float x, float y, float z, float radius) {
 		super(x, y, z);
 		create(radius);
@@ -658,55 +675,22 @@ class Island extends DynamicShape3d {
 			addFace(Theme.current.getColor(Theme.Default.DARK), 9, (i + 1)
 					% numPoints, i);
 	}
+
 	void generateTopTrack() {
 		generateMotionTrack(0);
 	}
 }
 
-class GreyRoom extends Shape3d {
-	int size = 500;
-	Color c = Color.gray;
-
-	GreyRoom(int x, int y, int z) {
-		setPosition(x, y, z);
-		addVertex(-size, 0, -size);
-		addVertex(-size, size, -size);
-		addVertex(size, size, -size);
-		addVertex(size, 0, -size);
-
-		addVertex(-size, 0, size);
-		addVertex(-size, size, size);
-		addVertex(size, size, size);
-		addVertex(size, 0, size);
-
-		addVertex(-2 * size, -size, size);
-		addVertex(-2 * size, 2 * size, size);
-		addVertex(2 * size, 2 * size, size);
-		addVertex(2 * size, -size, size);
-
-		addFace(c, 0, 1, 2, 3);
-		addFace(c, 4, 5, 1, 0);
-		addFace(c, 4, 0, 3, 7);
-		addFace(c, 2, 6, 7, 3);
-		addFace(c, 1, 5, 6, 2);
-
-		addFace(c, 5, 9, 10, 6);
-		addFace(c, 6, 10, 11, 7);
-		addFace(c, 7, 11, 8, 4);
-		addFace(c, 4, 8, 9, 5);
-
-		generateMotionTracks();
-	}
-}
-
 class Flare extends Shape3d implements Updateable {
+
+	private static final long serialVersionUID = 5148604594694910887L;
 	FlareLight light;
-	
+
 	Flare(float x, float y, float z) {
 		super(x, y, z);
 		light = new FlareLight(x, y, z);
 	}
-	
+
 	@Override
 	void add() {
 		super.add();
@@ -744,6 +728,8 @@ class Flare extends Shape3d implements Updateable {
 }
 
 class Lamp extends Shape3d implements Updateable {
+	
+	private static final long serialVersionUID = -3317080987984382454L;
 	Actor actor;
 	Color glass = new Color(1.0f, 1.0f, 1.0f, 1f);
 	Color fire = Color.yellow;

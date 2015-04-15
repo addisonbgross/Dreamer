@@ -190,6 +190,9 @@ class Katana extends Weapon {
 }
 
 class Knife extends Weapon {
+
+	private static final long serialVersionUID = 4057635014160746173L;
+
 	Knife(Actor a) {
 		super(a);
 		name = "knife";

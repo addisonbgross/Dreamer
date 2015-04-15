@@ -1,33 +1,13 @@
 package Dreamer;
-import static org.lwjgl.opengl.GL11.GL_CLAMP;
-import static org.lwjgl.opengl.GL11.GL_DEPTH_TEST;
-import static org.lwjgl.opengl.GL11.GL_ONE_MINUS_SRC_ALPHA;
-import static org.lwjgl.opengl.GL11.GL_SRC_ALPHA;
-import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
-import static org.lwjgl.opengl.GL11.GL_TEXTURE_WRAP_S;
-import static org.lwjgl.opengl.GL11.GL_TEXTURE_WRAP_T;
-import static org.lwjgl.opengl.GL11.GL_TRIANGLES;
-import static org.lwjgl.opengl.GL11.glBegin;
-import static org.lwjgl.opengl.GL11.glBlendFunc;
-import static org.lwjgl.opengl.GL11.glColor4f;
-import static org.lwjgl.opengl.GL11.glDisable;
-import static org.lwjgl.opengl.GL11.glEnable;
-import static org.lwjgl.opengl.GL11.glEnd;
-import static org.lwjgl.opengl.GL11.glTexCoord2f;
-import static org.lwjgl.opengl.GL11.glTexParameteri;
-import static org.lwjgl.opengl.GL11.glVertex3f;
-
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.TreeSet;
 
-import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 import org.lwjgl.util.vector.Vector4f;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.Texture;
-import org.newdawn.slick.opengl.TextureImpl;
 
 public class Face implements java.io.Serializable {
 	
@@ -80,21 +60,12 @@ public class Face implements java.io.Serializable {
 			colorIndex =  subTriangleColorIndex.get(i);
 				for(int j = 0; j < 3; j++) {
 					//fading stuff could go here?
-					glColor4f(
-							vertexColor[colorIndex[j]].r, 
-							vertexColor[colorIndex[j]].g, 
-							vertexColor[colorIndex[j]].b, 
-							vertexColor[colorIndex[j]].a
-							);
+					OpenGL.color4f(vertexColor[colorIndex[j]]);
 					if(texture != null)
-						glTexCoord2f(texturePoints[colorIndex[j]].x, texturePoints[colorIndex[j]].y);
+						OpenGL.texCoord2f(texturePoints[colorIndex[j]]);
 					tempV3f = getVertex(triangleIndex[j], tempV3f);
 					Camera.translate(tempV3f, tempV3f);
-					glVertex3f(
-							tempV3f.x,
-							tempV3f.y,
-							tempV3f.z
-							);		
+					OpenGL.vertex3f(tempV3f);		
 				}
 		} 
 	}
@@ -126,13 +97,17 @@ public class Face implements java.io.Serializable {
 			index = vertexIndex[start];
 			tempV3f = getVertex(index, tempV3f);
 			
-			drawColoredPoint(tempV3f, vertexColor[start]);
+			Camera.translate(tempV3f, tempV3f);
+			OpenGL.color4f(vertexColor[start]);
+			OpenGL.vertex3f(tempV3f);
 			
 			end = (start + 1) % vertexIndex.length;
 			index = vertexIndex[end];
 			tempV3f = getVertex(index, tempV3f);
 			
-			drawColoredPoint(tempV3f, vertexColor[end]);
+			Camera.translate(tempV3f, tempV3f);
+			OpenGL.color4f(vertexColor[end]);
+			OpenGL.vertex3f(tempV3f);
 		}
 	}
 	
@@ -185,61 +160,21 @@ public class Face implements java.io.Serializable {
 		};
 	}
 	
-	private static Vector3f v = new Vector3f();
-	private static Color c;
-	
-	public static void drawColoredPoint(Vector3f position, Color color) {
-		v = Camera.translate(position, v);
-		c = color;
-		glColor4f(c.r, c.g, c.b, c.a);
-		glVertex3f(v.x, v.y, v.z);	
-	}
-	
 	public static void drawFaces() {
 		if(Element.debug) {
 			
-			glBegin(GL11.GL_LINES);
+			OpenGL.beginLines();
 			for(Face face: texturedDrawList) {
 				face.drawWireFrame();
 			}
 			for(Face face: drawList) {
 				face.drawWireFrame();
 			}
-	 		glEnd();
+	 		OpenGL.end();
 		
 		} else {
 			
-			glEnable(GL11.GL_CULL_FACE);
-			glEnable(GL_DEPTH_TEST);
-	 		
-	 		//TODO draw all textured triangles in clusters by texture id (already sorted);
-			glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
-			glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
-			glEnable(GL11.GL_BLEND);
-			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-			glEnable(GL11.GL_ALPHA_TEST);
-			GL11.glAlphaFunc(GL11.GL_GREATER, 0);
-			
-			//GL11.glEnable( GL11.GL_TEXTURE );
-			for(Face f: texturedDrawList) {
-				f.texture.bind();
-				glBegin(GL_TRIANGLES);
-				f.draw();
-				glEnd();
-			}
-			//GL11.glDisable(GL11.GL_TEXTURE);
-			
-			//draw coloured non-textured triangles
-			TextureImpl.bindNone();
-			//GL11.glDisable(GL11.GL_TEXTURE);
-			glBegin(GL_TRIANGLES);
-			for(Face f: drawList) {
-				f.draw();
-			}
-	 		glEnd();
-	 		
-			glDisable(GL_DEPTH_TEST);
-			glDisable(GL11.GL_CULL_FACE);
+			OpenGL.draw(texturedDrawList, drawList);
 		}
 		texturedDrawList.clear();
 		drawList.clear();

@@ -467,11 +467,15 @@ class NinjaAlt extends Enemy {
 	}
 }
 class GrassSoldier extends Enemy {
+	private static final long serialVersionUID = -5182787543477320247L;
+
 	GrassSoldier(float x, float y, ArrayList<Trait> t) {
 		super(new StatCard("e_grasssoldier_", 40, 70), x, y, t);
 	}
 }
 class Skeleton extends Enemy {
+	private static final long serialVersionUID = 6662913320740461181L;
+
 	Skeleton(float x, float y, ArrayList<Trait> t) {
 		super(new StatCard("e_skeleton_", 40, 70), x, y, t);
 	}

@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.TreeMap;
 
-import com.sun.corba.se.pept.transport.ContactInfo;
-
 public class Element implements Serializable {
 
 	private static final long serialVersionUID = 1384182428126670525L;
@@ -17,8 +15,7 @@ public class Element implements Serializable {
 	static boolean debug = false, drawing = false;
 	static int count = 0;
 
-	protected Element() {
-	}
+	protected Element() {}
 
 	/**
 	 * add: maps multiple keys to each element for fast retrieval
