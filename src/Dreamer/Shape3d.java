@@ -837,19 +837,3 @@ class Lamp extends Shape3d implements Updateable {
 		light.update();
 	}
 }
-
-class Ziggurat {
-	float layerSize = 50;
-
-	Ziggurat(float x, float y, float z, float size) {
-		Block3d b;
-		int numLayer = (int) (size / layerSize) / 5;
-		for (int i = 0; i < numLayer; ++i) {
-			b = new Block3d(new Color(0.2f, 0.8f, 0.3f), x, y + layerSize * i,
-					z, size / numLayer * (numLayer - i), layerSize, size
-							/ numLayer * (numLayer - i));
-			b.generateCollidable();
-			b.add();
-		}
-	}
-};
