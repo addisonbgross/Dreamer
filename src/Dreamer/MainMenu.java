@@ -30,6 +30,13 @@ public class MainMenu extends Level {
 					}
 				});
 		main.addOption(
+				"TEST MOTIONTRACKS",
+				new Action() {
+					void perform() {
+						new TestLevel();
+					}
+				});
+		main.addOption(
 				"TEST CHARACTERS",
 				new Action() {
 					void perform() {
@@ -42,10 +49,7 @@ public class MainMenu extends Level {
 				"SET FULLSCREEN",
 				new Action() {
 					void perform() {
-						Dreamer.setFullscreen();
-						
-						
-						
+						Dreamer.setFullscreen();		
 						try {
 							Library.load();
 						} catch (IOException e1) {

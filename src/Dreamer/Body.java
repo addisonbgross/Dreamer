@@ -5,6 +5,8 @@ import java.util.Random;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 
+import static Dreamer.Status.*;
+
 public class Body extends Positionable implements Updateable { 	
 	
 	private static final long serialVersionUID = -752809389367312382L;
@@ -13,7 +15,6 @@ public class Body extends Positionable implements Updateable {
 	int direction;
 	Random r = new Random();
 	int blinkCounter;
-	int LEFT = 1, RIGHT = -1;
 	int xOffset, yOffset;
 	int LEGSPEED = 150, BODYSPEED = 40, HEADSPEED = 150; 
 	int dmgCounter;
@@ -35,7 +36,7 @@ public class Body extends Positionable implements Updateable {
 		this.legs = new Animation2(legs, 6, 4, LEGSPEED);
 		this.body = new Animation2(body, 6, 5, BODYSPEED);
 		this.head = new Animation2(head, 6, 4, HEADSPEED);
-		direction = LEFT;
+		turnBody(LEFT);
 		setParts();
 	}
 	// move Animations to match Actor position
@@ -44,27 +45,26 @@ public class Body extends Positionable implements Updateable {
 		body.setPosition(actor.getX(), actor.getY() + bodyAdjust, actor.getZ());
 		head.setPosition(actor.getX(), actor.getY() + headAdjust, actor.getZ() + 0.5f);
 	}
-	void turnBody(int dir) {
-		direction = dir;
+	void turnBody(Status dir) {
 		legs.setDirection(dir);
 		body.setDirection(dir);
 		head.setDirection(dir);
 	}
 	void reactToStatus() {
 		// commonly used variables	
-		boolean attacking = actor.checkStatus("attacking");
-		boolean jumping = actor.checkStatus("jumping");
-		boolean climbing = actor.checkStatus("climbing");
-		boolean blocking = actor.checkStatus("blocking");
+		boolean attacking = actor.checkStatus(ATTACKING);
+		boolean jumping = actor.checkStatus(JUMPING);
+		boolean climbing = actor.checkStatus(CLIMBING);
+		boolean blocking = actor.checkStatus(BLOCKING);
 		
 		if (!blocking) {
-			if (actor.checkStatus("right"))
+			if (actor.checkStatus(Status.RIGHT))
 				turnBody(RIGHT);	
 			else 
 				turnBody(LEFT);
 		} 
 		
-		if (actor.checkStatus("damaged")) {
+		if (actor.checkStatus(DAMAGED)) {
 			carryWeapon();
 			head.selectRow(2);
 			legs.stop();
@@ -73,7 +73,7 @@ public class Body extends Positionable implements Updateable {
 			
 			++dmgCounter;
 			if (dmgCounter > Constants.DAMAGESTUN) {
-				actor.removeStatus("damaged");
+				actor.removeStatus(DAMAGED);
 				dmgCounter = 0;
 			}
 		} else {	
@@ -81,7 +81,7 @@ public class Body extends Positionable implements Updateable {
 				legs.selectRow(jumping ? 2 : 1);
 				legs.setSpeed(jumping ? LEGSPEED : LEGSPEED * 6 / Math.abs(actor.dynamics.getXVel() + 1));
 				legs.start();
-			} else if ((actor.checkStatus("up") || actor.checkStatus("down")) && climbing) {
+			} else if ((actor.checkStatus(UP) || actor.checkStatus(DOWN)) && climbing) {
 				legs.selectRow(3);
 				legs.setSpeed(Math.abs(actor.dynamics.getYVel() + 1) * (Constants.VEL / 200));
 				legs.start();
@@ -105,7 +105,7 @@ public class Body extends Positionable implements Updateable {
 				if (body.currentIndex == body.framesWide() - 1) {
 					++attackCounter;
 					if (attackCounter == attackHoldLength) {
-						actor.removeStatus("attacking");
+						actor.removeStatus(ATTACKING);
 						attackCounter = 0;
 					}
 				} else {
@@ -140,7 +140,7 @@ public class Body extends Positionable implements Updateable {
 			if (attacking || blocking) {
 				head.selectRow(1);
 				head.start();
-			} else if ((actor.checkStatus("up") || actor.checkStatus("down")) && climbing) {
+			} else if ((actor.checkStatus(UP) || actor.checkStatus(DOWN)) && climbing) {
 				head.selectRow(3);
 				head.setSpeed(Math.abs(actor.dynamics.getYVel() + 1) / (Constants.VEL / 200));
 				head.start();

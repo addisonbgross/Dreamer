@@ -96,9 +96,9 @@ class Collidable extends Positionable {
 		{
 			if(yVelTemp < 1) {
 				yVelTemp = 0;
-				a.removeStatus("jumping");
+				a.removeStatus(Status.JUMPING);
 			}
-			a.addStatus("grounded");
+			a.addStatus(Status.GROUNDED);
 			xVelTemp *= 1 - Constants.TERRAINFRICTION;
 			yVelTemp *= 1 - Constants.AIRFRICTION;
 		}
@@ -106,22 +106,18 @@ class Collidable extends Positionable {
 		lookahead.setLocation(a.getMinX() - 1, a.getMinY() + 1);
 		if(collisionShape.intersects(lookahead))
 		{
-			a.addStatus("boundedLeft");
 			if(xVelTemp < 0) 
 				xVelTemp = 0;
 			xIncTemp += 1;
 		} else
-			a.removeStatus("boundedLeft");
 		
 		lookahead.setLocation(a.getMinX() + 1, a.getMinY() + 1);
 		if(collisionShape.intersects(lookahead))
 		{
-			a.addStatus("boundedRight");
 			if(xVelTemp > 0) 
 				xVelTemp = 0;
 			xIncTemp -= 1;
 		} else
-			a.removeStatus("boundedRight");
 		
 		lookahead.setLocation(a.getMinX() + xVelTemp,a.getMinY() + yVelTemp);
 		

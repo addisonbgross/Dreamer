@@ -85,8 +85,8 @@ public class Animation2 extends Shape3d implements Updateable {
 		currentIndex = 0;
 		firstUpdate = true;
 	}
-	void setDirection(int dir) {
-		direction = (dir == LEFT)?LEFT:RIGHT;
+	void setDirection(Status dir) {
+		direction = (dir == Status.LEFT)?1:-1;
 	}
 	void setLooping(boolean value) {
 		looping = value;

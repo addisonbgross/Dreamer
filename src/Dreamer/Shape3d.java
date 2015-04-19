@@ -302,8 +302,11 @@ public class Shape3d extends Positionable implements Lightable {
 	}
 
 	public void generateMotionTracks() {
-		for (Face f : faces)
+		// int i = 0;
+		for (Face f : faces) {
+			// System.out.println("Face # " + i++);
 			MotionTrack.generateMotionTrack(f, vertices, getPosition3f());
+		}
 	}
 
 	public void generateMotionTrack(int i) {

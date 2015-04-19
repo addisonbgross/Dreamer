@@ -68,39 +68,11 @@ class Level {
 	}
 }
 class TestLevel extends Level {
+	@Override
 	void createLevel() {
-		new Dusk_1();
-		
-		/*
-		new SolidBackground(new Color(0, 0, 0)).add();
-		new Model("mountainTest", 300, 0, -200, -100).add();
-	
-		Player p = Player.getFirst();
-		p.setCenterBottom(100,  100);
-		w = new Katana(p);
-		w.add();
-		p.add();
-
-		NinjaAlt a;
-		a = new NinjaAlt(500, 500, Brains.makeSoldier());
-		w = new Katana(a);
-		w.add();
-		a.add();
-		a = new NinjaAlt(700, 500, Brains.makeSoldier());
-		w = new Katana(a);
-		w.add();
-		a.add();
-		a = new NinjaAlt(850, 500, Brains.makeSoldier());
-		w = new Katana(a);
-		w.add();
-		a.add();
-
-		new Sun().add();
-		
-		new ActionJewel(-1500, -125, 0, new Action() {void perform() {new Dusk_1();}}).add();
-		
-		Camera.focus(new ClassFocus(200, Ninja.class));
-		*/
+		Shape3d s = new Block3d(Color.red, 0, 0, 0, 100, 100, 100);
+		s.generateMotionTracks();
+		s.add();
 	}
 }
 class SimpleLevel extends Level {	
@@ -231,10 +203,10 @@ class ForestLevel extends Level {
 		new ActionJewel(-1000, 1040, 0, new Action() {void perform() {new BirdLevel();}}).add();
 		new ActionJewel(-1000, 50, 0, new Action() {
 			void perform(Actor a) {
-				a.addStatus("tryjump");
+				a.addStatus(Status.TRYJUMP);
 			}
 		}).add();
-		new ActionJewel(-800, 50, 0, new KeyedActorAction(Player.getFirst(), "tryjump")).add();
+		new ActionJewel(-800, 50, 0, new KeyedActorAction(Player.getFirst(), Status.TRYJUMP)).add();
 		
 		Theme.current = Theme.transparentFire;
 		

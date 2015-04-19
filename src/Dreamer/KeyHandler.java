@@ -279,39 +279,39 @@ class WASDKeys extends KeyHandler {
 	void add() {
 		addKey(
 				' ',
-				new KeyedActorAction(subject, "tryjump")
+				new KeyedActorAction(subject, Status.TRYJUMP)
 		);
 		addKey(
 				'd',
-				new KeyedActorAction(subject, "tryright")
+				new KeyedActorAction(subject, Status.TRYRIGHT)
 		);
 		addKey(
 				'a',
-				new KeyedActorAction(subject, "tryleft")
+				new KeyedActorAction(subject, Status.TRYLEFT)
 		);
 		addKey(
 				'w',
-				new KeyedActorAction(subject, "up")
+				new KeyedActorAction(subject, Status.UP)
 		);
 		addKey(
 				's',
-				new KeyedActorAction(subject, "down")
+				new KeyedActorAction(subject, Status.DOWN)
 		);
 		addKey(
 				'k',
-				new KeyedActorAction(subject, "tryattack")
+				new KeyedActorAction(subject, Status.TRYATTACK)
 		);
 		addKey(
 				Keyboard.KEY_LSHIFT,
-				new KeyedActorAction(subject, "trysprint")
+				new KeyedActorAction(subject, Status.TRYSPRINT)
 		);
 		addKey(
 				'e',
-				new KeyedActorAction(subject, "acting")
+				new KeyedActorAction(subject, Status.ACTING)
 		);
 		addKey(
 				'l',
-				new KeyedActorAction(subject, "blocking")
+				new KeyedActorAction(subject, Status.BLOCKING)
 		);
 	}
 }

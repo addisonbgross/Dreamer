@@ -41,11 +41,13 @@ class Action {
 }
 
 class KeyedActorAction extends Action {
-	KeyedActorAction(Actor a, String s) {
-		super(a, s);
+	Status status = null;
+	KeyedActorAction(Actor a, Status s) {
+		object = a;
+		status = s;
 	}
-	void perform() {((Actor)object).addStatus(command);}
-	void stop() {((Actor)object).removeStatus(command);}
+	void perform() {((Actor)object).addStatus(status);}
+	void stop() {((Actor)object).removeStatus(status);}
 }
 class MenuAction extends Action {
 	MenuAction(Menu m, String s) {

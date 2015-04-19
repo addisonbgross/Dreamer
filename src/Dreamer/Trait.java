@@ -1,6 +1,7 @@
 package Dreamer;
 
 import java.util.Random;
+import static Dreamer.Status.*;
 
 /**
  * Traits form the intelligence of non-player characters. Each
@@ -85,9 +86,9 @@ class Jumpy extends Trait {
 	void doActive(Enemy self) {
 		if (self.getTarget() != null) {
 			if(self.findDistanceTo(self.getTarget()) < Constants.ENEMYJUMPRANGEX) {
-				if(self.getTarget().getMinY() > self.getMinY() + Constants.JUMPBUFFER && !self.checkStatus("jumping")) {
-					if(self.checkStatus("grounded")) {
-						self.addStatus("tryjump");
+				if(self.getTarget().getMinY() > self.getMinY() + Constants.JUMPBUFFER && !self.checkStatus(JUMPING)) {
+					if(self.checkStatus(GROUNDED)) {
+						self.addStatus(TRYJUMP);
 					}
 				}
 			}
@@ -106,9 +107,9 @@ class Violent extends Trait {
 	void doActive(Enemy self) {
 		if (self.getTarget() != null) {
 			if (self.findDistanceTo(self.getTarget()) < Constants.ENEMYATTACKRANGE) {
-				self.addStatus("tryattack");
+				self.addStatus(TRYATTACK);
 			} else {
-				self.removeStatus("tryattack");
+				self.removeStatus(TRYATTACK);
 			}
 		}
 	}
@@ -146,7 +147,7 @@ class Duelist extends Trait {
 		// randomize duel distance
 		duelRange = stanceRange + r.nextInt(300);
 
-		if (self.getTarget() != null && !self.checkStatus("attacking") && self.isFacing(self.getTarget())) {
+		if (self.getTarget() != null && !self.checkStatus(ATTACKING) && self.isFacing(self.getTarget())) {
 			distanceToTarget = Math.abs(self.getTarget().getX() - self.getX());
 
 			float xVel = self.dynamics.getXVel();
@@ -155,18 +156,18 @@ class Duelist extends Trait {
 			if (distanceToTarget < duelRange) {
 				if (self.getTarget().getX() > self.getX()) {
 					xVel = Math.max(xVel -= self.getAcceleration(), -self.getMaxSpeed());
-					self.addStatus("right");
-					self.removeStatus("left");
+					self.addStatus(RIGHT);
+					self.removeStatus(LEFT);
 				} else {
 					xVel = Math.max(xVel += self.getAcceleration(), self.getMaxSpeed());
-					self.addStatus("left");
-					self.removeStatus("right");
+					self.addStatus(LEFT);
+					self.removeStatus(RIGHT);
 				}
-				self.addStatus("blocking");
+				self.addStatus(BLOCKING);
 			}
 			
 			self.dynamics.setXVel(xVel);
 		} else
-			self.removeStatus("blocking");
+			self.removeStatus(BLOCKING);
 	}
 }

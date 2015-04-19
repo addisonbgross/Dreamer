@@ -20,11 +20,11 @@ public class JumpDust extends Effect {
 		if (animation.currentIndex == animation.framesWide() - 1) {
 			animation.reset();
 			animation.stop();
-		} else if (actor.checkStatus("jumping") && !takeOff) {
+		} else if (actor.checkStatus(Status.JUMPING) && !takeOff) {
 			rePosition();
 			animation.start();
 			takeOff = true;			
-		} else if (!actor.checkStatus("jumping"))
+		} else if (!actor.checkStatus(Status.JUMPING))
 			takeOff = false;
 	}
 	void followActor() { /* stays where the Actor left the ground */ }

@@ -9,6 +9,8 @@ import org.newdawn.slick.geom.Line;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Vector2f;
 
+import static Dreamer.Status.*;
+
 abstract class Actor extends Collidable implements Updateable {
 	
 	private static final long serialVersionUID = -8711854287889823062L;
@@ -17,7 +19,7 @@ abstract class Actor extends Collidable implements Updateable {
 	
 	//rangeFinder is a disposable rectangle used for activating objects, mostly
 	protected static Rectangle rangeFinder = new Rectangle(0, 0, 0, 0);
-	private HashSet<String> status = new HashSet<String>();
+	private HashSet<Status> status = new HashSet<Status>();
 	float health = Constants.STARTINGHEALTH;
 	float stamina = Constants.STARTINGSTAMINA;
 	private Vector2f spawnPoint = new Vector2f();
@@ -30,8 +32,8 @@ abstract class Actor extends Collidable implements Updateable {
 	public boolean airborne = false;
 
 	Actor(StatCard sc, float x, float y) {
-		status.add("initialized");
-		status.add("right");
+		status.add(INITIALIZED);
+		status.add(RIGHT);
 		stats = sc;
 		body = new Body(stats.prefix, this);
 		spawnPoint.x = x;
@@ -48,7 +50,7 @@ abstract class Actor extends Collidable implements Updateable {
 	}
 	// Add to active Elements
 	void add() {
-		if(!checkStatus("dead")) {
+		if(!checkStatus(DEAD)) {
 			super.add();
 			body.add();
 			for(Effect e: effects)
@@ -73,7 +75,7 @@ abstract class Actor extends Collidable implements Updateable {
 		if(health <= 0)
 			die();
 		
-		if (!checkStatus("dead")) {
+		if (!checkStatus(DEAD)) {
 			dynamics.applyGravity();
 			collisionSet = findCollisions(collisionSet);
 			
@@ -105,38 +107,38 @@ abstract class Actor extends Collidable implements Updateable {
 			getCollisionShape().setLocation(getMinX(), getMinY());			
 			
 			// slower velocity if blocking
-			float currentVel = (checkStatus("blocking")) ? Constants.VEL / 2 : Constants.VEL;
+			float currentVel = (checkStatus(BLOCKING)) ? Constants.VEL / 2 : Constants.VEL;
 			
 			// sprint sequence
-			if (checkStatus("trysprint") && !checkStatus("blocking")) {
+			if (checkStatus(TRYSPRINT) && !checkStatus(BLOCKING)) {
 				if (stamina > 0) {
 					currentVel = 2.5f * Constants.VEL;
 					stamina--;
-					addStatus("sprinting");
+					addStatus(SPRINTING);
 				} else {
-					if (!checkStatus("sweating"))
-						addStatus("sweating");
-					removeStatus("sprinting");
+					if (!checkStatus(SWEATING))
+						addStatus(SWEATING);
+					removeStatus(SPRINTING);
 				}
 			} else
-				removeStatus("sprinting");
+				removeStatus(SPRINTING);
 			
 			// Sideways movement!
 			float scaledJumpVel = 1;
-			if (checkStatus("jumping")) 
+			if (checkStatus(JUMPING)) 
 				scaledJumpVel = 0.4f;
 			
 			// left and right sequences
 			float xVel = dynamics.getXVel(), yVel = dynamics.getYVel();
-			if(checkStatus("tryright")) {
-				addStatus("right");
+			if(checkStatus(TRYRIGHT)) {
+				addStatus(RIGHT);
 				if (xVel < currentVel)
 					xVel += (xVel < 5) ? 2 * scaledJumpVel : Constants.ACTORACCELERATION * scaledJumpVel;
 				else 
 					xVel = currentVel;
 			}
-			if(checkStatus("tryleft")) {
-				addStatus("left");
+			if(checkStatus(TRYLEFT)) {
+				addStatus(LEFT);
 				if (xVel > -currentVel)
 					xVel -= (xVel > -5) ? 2 * scaledJumpVel : Constants.ACTORACCELERATION * scaledJumpVel;
 				else 
@@ -145,35 +147,35 @@ abstract class Actor extends Collidable implements Updateable {
 			dynamics.setVelocity(xVel, yVel, 0);
 			
 			// attack sequence
-			if (checkStatus("tryattack") && !checkStatus("attacking") && weapon != null) {
+			if (checkStatus(TRYATTACK) && !checkStatus(ATTACKING) && weapon != null) {
 				if (stamina < weapon.getWeight()) {
-					if (!checkStatus("sweating")) {
-						addStatus("sweating");
+					if (!checkStatus(SWEATING)) {
+						addStatus(SWEATING);
 						body.resetBody();
 					}
-					removeStatus("attacking");
+					removeStatus(ATTACKING);
 				} else {
-					addStatus("attacking");
-					removeStatus("sweating");
+					addStatus(ATTACKING);
+					removeStatus(SWEATING);
 					stamina -= weapon.getWeight();
 				} 
 			}
 
 			// jump sequence
-			if (checkStatus("tryjump") && !airborne) {
-				if (checkStatus("grounded")) {
+			if (checkStatus(TRYJUMP) && !airborne) {
+				if (checkStatus(GROUNDED)) {
 					airborne = true;
-					addStatus("jumping");
+					addStatus(JUMPING);
 					dynamics.adjustVel(0, Constants.PLAYERJUMPVEL);
 				}
-			} else if (!checkStatus("tryjump") && checkStatus("grounded")) {
+			} else if (!checkStatus(TRYJUMP) && checkStatus(GROUNDED)) {
 				airborne = false;
 			} else {
-				removeStatus("tryjump");
+				removeStatus(TRYJUMP);
 			}
 			
 			// regenerate stamina
-			if (stamina < Constants.STARTINGSTAMINA && !checkStatus("blocking"))
+			if (stamina < Constants.STARTINGSTAMINA && !checkStatus(BLOCKING))
 				stamina += Constants.STAMINAREGEN;
 			
 			// update all effect animations at correct time
@@ -219,44 +221,33 @@ abstract class Actor extends Collidable implements Updateable {
 	}
 
 	// status methods
-	public boolean checkStatus(String s) {	
+	public boolean checkStatus(Status s) {	
 		return status.contains(s);
 	}
-	void addStatus(String s) {
-		if(s == "left")
-			removeStatus("right");
-		else if(s == "right")
-			removeStatus("left");
-		else if(s == "attacking")
-			removeStatus("blocking");
-		else if(s == "blocking")
-			removeStatus("attacking");
-		else if(s == "jumping")
-			removeStatus("grounded");
-		else if(s == "grounded")
-			removeStatus("jumping");
+	void addStatus(Status s) {
+		if(s == LEFT)
+			removeStatus(RIGHT);
+		else if(s == RIGHT)
+			removeStatus(LEFT);
+		else if(s == ATTACKING)
+			removeStatus(BLOCKING);
+		else if(s == BLOCKING)
+			removeStatus(ATTACKING);
+		else if(s == JUMPING)
+			removeStatus(GROUNDED);
+		else if(s == GROUNDED)
+			removeStatus(JUMPING);
 		status.add(s);
 	}
-	void removeStatus(String s) {	
+	void removeStatus(Status s) {	
 		status.remove(s);
 	}
 	void clearStatus() {
 		status.clear();
 	}
-	String getStatus() {	
-		String out = "statuses: ";
-		for(String s: status) 
-			out = out.concat(" " + s);
-		return out;
-	}
-	void printStatus() {	
-		for(String s: status) 
-			System.out.print(" " + s);
-		System.out.println();
-	}
 	// reset and death
 	void die() {
-		addStatus("dead");
+		addStatus(DEAD);
 		remove();
 	}
 	void reset() {
@@ -268,36 +259,36 @@ abstract class Actor extends Collidable implements Updateable {
 		health = Constants.STARTINGHEALTH;
 		stamina = Constants.STARTINGSTAMINA;
 		clearStatus();
-		addStatus("initialized");
+		addStatus(INITIALIZED);
 		setPosition(x, y, 0);
 		add();
 	}
 	void clearMovementStatus() {
-		removeStatus("tryleft");
-		removeStatus("tryright");
-		removeStatus("trysprint");
-		removeStatus("tryjump");
+		removeStatus(TRYLEFT);
+		removeStatus(TRYRIGHT);
+		removeStatus(TRYSPRINT);
+		removeStatus(TRYJUMP);
 	}
 	void switchFacing() {
-		if (checkStatus("left")) {
-			addStatus("tryright");
+		if (checkStatus(LEFT)) {
+			addStatus(TRYRIGHT);
 		} else {
-			addStatus("tryleft");
+			addStatus(TRYLEFT);
 		}
 	}
 	public boolean isFacing(String s) {
-		if (s == "left" && checkStatus("left"))
+		if (s == "left" && checkStatus(LEFT))
 			return true;
-		else if (s == "right" && checkStatus("right"))
+		else if (s == "right" && checkStatus(RIGHT))
 			return true;
 		else
 			return false;
 	}
 	public boolean isFacing(Actor a) {
 		assert this != null : "Ya can't check the facing of a null object";
-		if (a.checkStatus("left") && checkStatus("right"))
+		if (a.checkStatus(LEFT) && checkStatus(RIGHT))
 			return true;
-		else if(a.checkStatus("right") && checkStatus("left"))
+		else if(a.checkStatus(RIGHT) && checkStatus(LEFT))
 			return true;
 		else
 			return false;
@@ -335,7 +326,7 @@ class Enemy extends Actor {
 		look();
 		
 		// think clearly
-		if (!checkStatus("damaged")) { 
+		if (!checkStatus(DAMAGED)) { 
 			for (Trait t: brain) {
 				t.doActive(this);
 			}
@@ -358,7 +349,7 @@ class Enemy extends Actor {
         );
         
         // vision in direction of enemy facing
-        if (checkStatus("right"))
+        if (checkStatus(RIGHT))
         	vision.setLocation((getMinX() + vision.getWidth() / 3) - lookX / 2, getY());
         else
         	vision.setLocation((getMinX() - vision.getWidth() / 3) - lookX / 2, getY());
@@ -376,7 +367,7 @@ class Enemy extends Actor {
         			p.getMinY() <= vision.getCenterY() + vision.getHeight() / 2 &&
         			p.getMinY() <= vision.getCenterY() + vision.getHeight() / 2) {
 		            	target = (Player)e;
-		                if(target.checkStatus("dead")) {
+		                if(target.checkStatus(DEAD)) {
 		                    target = null;
 		                }
         		} 
@@ -386,9 +377,9 @@ class Enemy extends Actor {
         // face the target
         if (target != null)
         	if (target.getMinX() > getMinX())
-        		addStatus("right");
+        		addStatus(RIGHT);
         	else 
-        		addStatus("left");
+        		addStatus(LEFT);
 	}
 	void setTarget(Actor newTarget) {
         target = newTarget;
@@ -438,13 +429,13 @@ class Player extends Actor {
 	}
 	static boolean atLeastOneLives() {
 		for(Player p: list)
-			if(!p.checkStatus("dead"))
+			if(!p.checkStatus(DEAD))
 				return true;
 		return false;
 	}
 	static boolean allAlive() {
 		for(Player p: list)
-			if(p.checkStatus("dead"))
+			if(p.checkStatus(DEAD))
 				return false;
 		return true;
 	}

@@ -14,12 +14,12 @@ public class Sweat extends Effect {
 	}
 	@Override
     public void update() {
-		if (actor.checkStatus("sweating")) {
+		if (actor.checkStatus(Status.SWEATING)) {
 			if (!animation.running)
 				animation.start();
 				
 			if (animation.currentIndex == animation.framesWide() - 1) {
-				actor.removeStatus("sweating");
+				actor.removeStatus(Status.SWEATING);
 				animation.reset();
 				animation.stop();
 			}

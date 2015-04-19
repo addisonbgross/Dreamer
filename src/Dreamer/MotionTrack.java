@@ -51,8 +51,8 @@ public class MotionTrack extends Collidable {
 					suggestedVelocity.set(0, 0);
 				suggestedPosition.y += 0.1f;
 				suggestedTrajectory.set(suggestedTrajectory.getStart(), suggestedPosition.copy().add(suggestedVelocity));
-				a.addStatus("grounded");
-				a.removeStatus("jumping");
+				a.addStatus(Status.GROUNDED);
+				a.removeStatus(Status.JUMPING);
 				return true;
 			}
 		return false;
@@ -104,16 +104,14 @@ public class MotionTrack extends Collidable {
 						//TODO move this into the constructor
 						line = new Vector3f(x - firstPoint.x, y - firstPoint.y, 0);
 						line.normalise();
-						//if the direction of the face normal is upwards or downwards...
-						//if you do some basic logic reduction on the statement below i will give you a present
-						
-						
+						//if the direction of the face normal is upwards or downwards...			
 						boolean swapPoints = true;
 						if(Vector3f.cross(line, f.normal, null).z > 0) {
 							swapPoints = false;
 						}
 						
 						if(swapPoints) {
+							// System.out.println("x1: " + x + ", y1: " + y + ", x2: " + firstPoint.x + ", y2: " + firstPoint.y);
 							new MotionTrack(
 									x + line.x,
 									y + line.y,
@@ -121,6 +119,7 @@ public class MotionTrack extends Collidable {
 									firstPoint.y - line.y
 									).add();
 						} else {
+							// System.out.println("x1: " + firstPoint.x + ", y1: " + firstPoint.y + ", x2: " + x + ", y2: " + y);
 							new MotionTrack(
 									firstPoint.x - line.x,
 									firstPoint.y - line.y,
@@ -149,13 +148,13 @@ class LadderTrack extends Collidable {
 	boolean collide(Actor a) {
 		if(true)
 			if(getCollisionShape().contains(suggestedTrajectory)) {
-				a.addStatus("climbing");
-				if(a.checkStatus("up")) {
+				a.addStatus(Status.CLIMBING);
+				if(a.checkStatus(Status.UP)) {
 					if(suggestedPosition.y < getMaxY() - Constants.VEL / 2) {
 						suggestedVelocity.y = Constants.VEL / 2;
 						suggestedVelocity.x = 0;
 					}
-				} else if(a.checkStatus("down")) {
+				} else if(a.checkStatus(Status.DOWN)) {
 					if(suggestedPosition.y > getMinY() + Constants.VEL / 2) {
 						suggestedVelocity.y = -Constants.VEL / 2;
 						suggestedVelocity.x = 0;
@@ -168,12 +167,12 @@ class LadderTrack extends Collidable {
 						a.getCenterBottom().y
 						);
 				suggestedTrajectory.set(temp, temp.add(suggestedVelocity));
-				a.addStatus("grounded");
-				a.removeStatus("jumping");
+				a.addStatus(Status.GROUNDED);
+				a.removeStatus(Status.JUMPING);
 				return true;
 			}
 			else {
-				a.removeStatus("climbing");
+				a.removeStatus(Status.CLIMBING);
 			}
 		return false;
 	}

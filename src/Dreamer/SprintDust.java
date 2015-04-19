@@ -17,13 +17,13 @@ public class SprintDust extends Effect {
 	@Override
     public void update() {
 		if (animation.currentIndex == animation.framesWide() - 1) {
-			actor.removeStatus("sprinting");
+			actor.removeStatus(Status.SPRINTING);
 			animation.reset();
 			animation.stop();
-		} else if (actor.checkStatus("sprinting") && actor.checkStatus("grounded") && !takeOff) {
+		} else if (actor.checkStatus(Status.SPRINTING) && actor.checkStatus(Status.GROUNDED) && !takeOff) {
 			animation.start();
 			takeOff = true;			
-		} else if (!actor.checkStatus("sprinting") && actor.stamina > Constants.STARTINGSTAMINA / 10)
+		} else if (!actor.checkStatus(Status.SPRINTING) && actor.stamina > Constants.STARTINGSTAMINA / 10)
 			takeOff = false;
 	}
 	void followActor() {

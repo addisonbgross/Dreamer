@@ -5,6 +5,8 @@ import org.newdawn.slick.geom.Line;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.Vector2f;
 
+import static Dreamer.Status.*;
+
 abstract class Weapon extends Shape3d implements Updateable {
 
 	private static final long serialVersionUID = 4519324822338846058L;
@@ -12,7 +14,6 @@ abstract class Weapon extends Shape3d implements Updateable {
 	Actor actor;
 	String name = "";
 	int damage, carryHeight, width, height, cuttingEdge, weight;
-	int direction, LEFT = 1, RIGHT = -1;
 	WeaponCollision weaponCollision;
 	Line weaponLine;
 	protected Vector2f blockPosition;
@@ -64,16 +65,16 @@ abstract class Weapon extends Shape3d implements Updateable {
 			// very important to not compare this to itself, infinite loop
 			if (Actor.class.isAssignableFrom(e.getClass()) && e != actor) {
 				temp = (Actor) e;
-				float dir = (temp.checkStatus("left")) ? 1 : -1;
+				float dir = (temp.checkStatus(LEFT)) ? 1 : -1;
 
 				if (temp.getCollisionShape().intersects(s)
-						&& temp.checkStatus("blocking")) {
+						&& temp.checkStatus(BLOCKING)) {
 					temp.dynamics.adjustVel(2 * dir, 0);
 					actor.dynamics.adjustVel(-7 * dir, 0);
 				} else if (temp.getCollisionShape().intersects(s)
-						&& !temp.checkStatus("damaged")) {
+						&& !temp.checkStatus(DAMAGED)) {
 					temp.takeDamage(this.damage, s.getCenterX());
-					temp.addStatus("damaged");
+					temp.addStatus(DAMAGED);
 					temp.dynamics.adjustVel(8 * dir, 0);
 				}
 			}
@@ -111,19 +112,19 @@ abstract class Weapon extends Shape3d implements Updateable {
 
 	public void update() {
 		if (actor != null) {
-			if (actor.checkStatus("dead")) {
+			if (actor.checkStatus(DEAD)) {
 				updateCollision();
 				detach();
 				return;
 			}
 
 			// Set weapon on front or back of Actor depending on ladder
-			setZ((actor.checkStatus("climbing")
-					|| actor.checkStatus("blocking") ? 2f : -10f));
+			setZ((actor.checkStatus(CLIMBING)
+					|| actor.checkStatus(BLOCKING) ? 2f : -10f));
 
 			manhattanRadius.set(100, 100, 0);
 
-			if (actor.checkStatus("attacking"))
+			if (actor.checkStatus(ATTACKING))
 				attack();
 			// Offset this from actor's center
 			int xOffset, yOffset, xBlockOffset = 0, yBlockOffset = 0;
@@ -131,14 +132,14 @@ abstract class Weapon extends Shape3d implements Updateable {
 
 			// Set weapon in direction of actor
 			int direction;
-			if (actor.checkStatus("blocking")) {
-				direction = actor.body.direction;
+			if (actor.checkStatus(BLOCKING)) {
+				direction = (actor.checkStatus(LEFT)) ? 1: -1;
 				xBlockOffset = (int) blockPosition.x;
 				yBlockOffset = (int) blockPosition.y;
 				weaponAngle = -direction * blockAngle;
 			} else {
-				direction = (actor.checkStatus("left")) ? LEFT : RIGHT;
-				if (direction == LEFT)
+				direction = (actor.checkStatus(LEFT)) ? 1: -1;
+				if (direction == 1)
 					f.setTexturePoints(texWidth, 0, 0, texHeight);
 				else
 					f.setTexturePoints(0, 0, texWidth, texHeight);
@@ -258,9 +259,9 @@ class WeaponCollision extends Collidable {
 	boolean collide(Actor a) {
 		if (weapon.actor == null)
 			if (a.getCollisionShape().intersects(getCollisionShape())
-					&& a.checkStatus("acting")) {
+					&& a.checkStatus(ACTING)) {
 				weapon.attach(a);
-				a.removeStatus("acting");
+				a.removeStatus(ACTING);
 				return true;
 			}
 		return false;
