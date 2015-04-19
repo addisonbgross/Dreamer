@@ -3,7 +3,6 @@ package Dreamer;
 import java.util.ArrayList;
 
 import org.lwjgl.util.vector.Vector3f;
-import org.lwjgl.util.vector.Vector4f;
 import org.newdawn.slick.geom.Line;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Vector2f;
@@ -82,7 +81,7 @@ public class MotionTrack extends Collidable {
 	public static void generateMotionTrack(Face f, ArrayList<Vector3f> vertices, Vector3f vector3f) {
 		int sides = f.vertexIndex.length;
 		Vector3f line;
-		Vector4f intersectLine;
+		Vector3f intersectLine;
 		Vector2f firstPoint = null;
 		
 		for(int i = 0; i < sides; i ++) {
@@ -95,7 +94,7 @@ public class MotionTrack extends Collidable {
 			
 			if((pointA.z >=  0 && pointB.z <= 0) || (pointB.z >=  0 && pointA.z <= 0) ) {
 				//find intersection point
-				intersectLine = new Vector4f(pointB.x - pointA.x, pointB.y - pointA.y, pointB.z - pointA.z, 1);
+				intersectLine = new Vector3f(pointB.x - pointA.x, pointB.y - pointA.y, pointB.z - pointA.z);
 				float t = (intersectLine.z == 0) ? 0: -pointA.z /  intersectLine.z; // avoids NaN errors
 				Float x = intersectLine.x * t + pointA.x;
 				Float y = intersectLine.y * t + pointA.y;
