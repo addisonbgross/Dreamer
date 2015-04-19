@@ -1,14 +1,12 @@
 package Dreamer;
 
 import org.lwjgl.util.vector.Vector3f;
-import org.newdawn.slick.geom.Vector2f;
 
 public class Dynamics {
 	
 	private Vector3f velocity = new Vector3f();
 	
 	Vector3f getVelocity() {return velocity;}
-	Vector2f getVelocity2f() {return new Vector2f(velocity.x, velocity.y);}
 	
 	float getXVel() {return velocity.x;}
 	float getYVel() {return velocity.y;}

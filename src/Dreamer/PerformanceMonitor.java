@@ -25,7 +25,7 @@ public final class PerformanceMonitor {
 
 		@Override
 		public int compareTo(Record o) {
-			return o.delta > delta? 1 : -1;
+			return Double.compare(o.delta, delta);
 		}
 	}
 

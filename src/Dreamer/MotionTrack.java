@@ -12,15 +12,15 @@ public class MotionTrack extends Collidable {
 	
 	private static final long serialVersionUID = -4136972279948096275L;
 	Line track;
-	Vector2f normal;
-	static Vector2f temp = new Vector2f();
+	Vector3f normal;
+	static Vector3f temp = new Vector3f();
 	Vector2f left, right;
 	
 	MotionTrack() {}
 	MotionTrack(float sx, float sy, float ex, float ey) {
 		track = new Line(sx, sy, ex, ey);
 		setCollisionShape(track);
-		normal = new Vector2f(-track.getNormal(0)[0], -track.getNormal(0)[1]);
+		normal = new Vector3f(-track.getNormal(0)[0], -track.getNormal(0)[1], 0);
 		right = new Vector2f(
 				track.getDX() / track.length(),
 				track.getDY() / track.length()
@@ -36,7 +36,7 @@ public class MotionTrack extends Collidable {
 		
 		temp.set(a.dynamics.getXVel(), a.dynamics.getYVel());
 		
-		if(temp.dot(normal) < 0)
+		if(Vector3f.dot(temp, normal) < 0)
 			if(suggestedTrajectory.intersect(track, true, suggestedPosition)) {
 				
 				if(temp.x > 0) {
@@ -45,7 +45,10 @@ public class MotionTrack extends Collidable {
 					suggestedVelocity.projectOntoUnit(left, suggestedVelocity); 
 				}
 				suggestedVelocity.scale(
-						1 - Constants.AIRFRICTION - Constants.GROUNDFRICTION * Math.abs(normal.dot(a.dynamics.getVelocity2f().copy().normalise()))
+						1 
+						- Constants.AIRFRICTION 
+						- Constants.GROUNDFRICTION 
+						* Math.abs(Vector3f.dot(normal, a.dynamics.getVelocity().normalise(null)))
 						);
 				if(suggestedVelocity.length() < Constants.STATICFRICTION)
 					suggestedVelocity.set(0, 0);
