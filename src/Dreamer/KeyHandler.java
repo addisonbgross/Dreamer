@@ -59,6 +59,13 @@ abstract public class KeyHandler {
 	public static boolean addKey(char c, Performable p) {
 		return addKey(keyMap.get(c + ""), p);
 	}
+	public static boolean addKey(char c, Action a) {
+		return addKey(keyMap.get(c + ""), a);
+	}
+	public static boolean addKey(int i, Action a) {
+		actionMap.put(i, a);
+		return true;
+	}
 	//handles all keyboard events in the game
 	public static void getKeys() {
 		while (Keyboard.next()) {
@@ -172,6 +179,43 @@ class WASDKeys extends KeyHandler {
 	}
 	
 	void add() {
+		addKey(
+				' ',
+				new KeyedActorAction(subject, Status.TRYJUMP)
+		);
+		addKey(
+				'd',
+				new KeyedActorAction(subject, Status.TRYRIGHT)
+		);
+		addKey(
+				'a',
+				new KeyedActorAction(subject, Status.TRYLEFT)
+		);
+		addKey(
+				'w',
+				new KeyedActorAction(subject, Status.UP)
+		);
+		addKey(
+				's',
+				new KeyedActorAction(subject, Status.DOWN)
+		);
+		addKey(
+				'k',
+				new KeyedActorAction(subject, Status.TRYATTACK)
+		);
+		addKey(
+				Keyboard.KEY_LSHIFT,
+				new KeyedActorAction(subject, Status.TRYSPRINT)
+		);
+		addKey(
+				'e',
+				new KeyedActorAction(subject, Status.ACTING)
+		);
+		addKey(
+				'l',
+				new KeyedActorAction(subject, Status.BLOCKING)
+		);
+		/*
 		addKey(' ', ()-> { subject.addStatus(Status.TRYJUMP); });
 		addKey('d', ()-> { subject.addStatus(Status.TRYRIGHT); });
 		addKey('a', ()-> { subject.addStatus(Status.TRYLEFT); });
@@ -181,6 +225,7 @@ class WASDKeys extends KeyHandler {
 		addKey(KEY_LSHIFT, ()-> { subject.addStatus(Status.TRYSPRINT); });
 		addKey('e', ()-> { subject.addStatus(Status.ACTING); });
 		addKey('l', ()-> { subject.addStatus(Status.BLOCKING); });
+		*/
 	}
 }
 
