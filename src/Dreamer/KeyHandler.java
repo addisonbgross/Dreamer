@@ -156,6 +156,11 @@ class EditorKeys extends KeyHandler {
 			KeyHandler.keyBuffer = "";
 			editor.console.name = KeyHandler.keyBuffer;
 		});
+		addKey(KEY_BACK, ()-> {
+			KeyHandler.keyBuffer 
+				= KeyHandler.keyBuffer.substring(0, KeyHandler.keyBuffer.length() - 1);
+			editor.console.name = KeyHandler.keyBuffer;
+		});
 		addKey(KEY_TAB, ()-> { KeyHandler.openGameKeys(); });
 	}
 }
