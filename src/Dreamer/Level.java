@@ -1,5 +1,6 @@
 package Dreamer;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -65,6 +66,20 @@ class Level {
 	}
 	void createLevel() {
 		//Override this method to create objects in level
+	}
+	public static void openMenu(Menu m) {
+		Menu levelMenu = new Menu(Justification.CENTER, 0, 150);
+		levelMenu.setParent(m);
+		
+		for (File file : new File(Constants.LEVELPATH).listFiles()) {
+			levelMenu.addOption(file.getName(), ()-> {
+				Level.clear();
+				Level.read(file.getName().replace(".level", ""));
+			});
+		}
+		
+		levelMenu.addExitOption();
+		levelMenu.open();
 	}
 }
 class TestLevel extends Level {

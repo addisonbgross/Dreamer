@@ -46,16 +46,13 @@ class Library {
     	return null;
     }
     
-	//main tests loading the current images 
-	public static void test() throws IOException {
-		System.out.println("Initializing Library");
-		Dreamer.init();
-		Library.messages = true;
-		Library.load();
-	}
-	static void load() throws IOException {
-		importFonts();
-		importArt();
+	static void load() {
+		try {
+			importFonts();
+			importArt();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	public static void addImage(String string, ImageTracker temp) {
 		images.put(string, temp);
@@ -210,5 +207,5 @@ class ImageTracker {
 		}
 		return scaledImage;
 	}
-	Image original() {return image;}
+	Image original() { return image; }
 }

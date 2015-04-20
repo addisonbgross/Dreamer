@@ -8,7 +8,7 @@ public class Menu {
 		yposition = yPosition;
 	}
 	
-	Menu parent;
+	private Menu parent;
 	java.util.List<MenuOption> optionList = new java.util.ArrayList<MenuOption>();
 	Justification justification = Justification.LEFT;
     float spacing = 40, xposition = 0, yposition = 0;
@@ -111,6 +111,11 @@ public class Menu {
 			.setPosition(xposition, yposition -= spacing)
 			.setJustification(justification)
 			);
+		return this;
+	}
+
+	Menu setParent(Menu m) {
+		parent = m;
 		return this;
 	}
 }

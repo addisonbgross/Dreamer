@@ -9,8 +9,6 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.geom.Polygon;
 import org.newdawn.slick.geom.Rectangle;
 
-import com.sun.org.apache.xml.internal.security.Init;
-
 public class Shape3d extends Positionable implements Lightable {
 
 	private static final long serialVersionUID = -2545062660573860101L;

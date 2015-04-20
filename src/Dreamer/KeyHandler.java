@@ -123,7 +123,7 @@ class FunctionKeys extends  KeyHandler {
 				Library.messageFontColor = Color.blue;
 			}
 		});
-		addKey('1', ()-> { new TestLevel(); } );
+		addKey('1', ()-> { new Dusk_1(); } );
 		addKey('2', ()-> { new SimpleLevel(); } );
 		addKey('3', ()-> { new BirdLevel(); } );
 		addKey('4', ()-> { new ForestLevel(); } );

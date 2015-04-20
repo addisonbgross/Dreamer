@@ -1,7 +1,5 @@
 package Dreamer;
 
-import java.io.IOException;
-
 import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
@@ -79,12 +77,7 @@ public class Dreamer {
 			System.exit(0);
 		}
 		
-		try {
-			Library.load();
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
-		
+		Library.load();
 		KeyHandler.init();
 	    Drawer.graphics.setFont(Library.defaultFont);
 	    

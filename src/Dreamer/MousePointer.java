@@ -9,12 +9,11 @@ public class MousePointer extends Positionable implements Updateable {
 	
 	boolean leftClickAction = false, rightClickAction = false;
 	float lastX, lastY, lastXVel, lastYVel;
-	Action onMove = new Action(),
-			onRightClick = new Action(),
-			onLeftClick = new Action(),
-			onRightClickRelease = new Action(),
-			onLeftClickRelease = new Action()
-			;
+	Performable onMove = ()-> {}, 
+			onRightClick = ()-> {}, 
+			onLeftClick = ()-> {}, 
+			onRightClickRelease = ()-> {}, 
+			onLeftClickRelease = ()-> {};
 	Shape3d focus;
 	
 	MousePointer() {
