@@ -8,6 +8,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.HashSet;
 import java.util.Random;
+import java.util.ArrayList;
 
 import org.newdawn.slick.Color;
 
@@ -43,7 +44,10 @@ class Level {
 			 	for(Element e: Element.masterList)
 				out.writeObject(e);
 			*/
+		
 			out.writeObject(Element.masterList);
+			out.writeObject(Background.background);
+			out.writeObject(Foreground.foreground);
 			out.close();
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
@@ -54,9 +58,11 @@ class Level {
 		try{ 
 			FileInputStream door = new FileInputStream(Constants.LEVELPATH + s + ".level"); 
 			ObjectInputStream reader = new ObjectInputStream(door); 
-			HashSet<Element> x;
-			x = (HashSet<Element>) reader.readObject();
-			for(Element e: x)
+			for(Element e: (HashSet<Element>) reader.readObject())
+				e.add();
+			for(Element e: (ArrayList<Element>) reader.readObject())
+				e.add();
+			for(Element e: (ArrayList<Element>) reader.readObject())
 				e.add();
 			reader.close();
 		} catch (IOException e){ 
@@ -75,6 +81,7 @@ class Level {
 			levelMenu.addOption(file.getName(), ()-> {
 				Level.clear();
 				Level.read(file.getName().replace(".level", ""));
+				KeyHandler.openGameKeys();
 			});
 		}
 		

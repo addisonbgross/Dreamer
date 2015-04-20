@@ -132,7 +132,7 @@ class FunctionKeys extends  KeyHandler {
 			for(Player p: Player.list) {
 				p.reset();
 			}
-			new ForestLevel();
+			Camera.focus(new ClassFocus(200, Ninja.class));
 		});
 	}
 }

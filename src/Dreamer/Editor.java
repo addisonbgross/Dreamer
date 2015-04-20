@@ -111,8 +111,8 @@ public class Editor {
 			editorMenu.exit();
 
 			prompt("Enter level name", ()-> {
-					prompt.remove();
 					pointer.remove();
+					Foreground.foreground.clear();
 					Level.write(lastCommand);
 					editorMenu.open();
 					pointer.add();

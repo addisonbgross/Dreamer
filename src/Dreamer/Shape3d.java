@@ -630,11 +630,13 @@ class ActionJewel extends SpinningJewel {
 
 	ActionJewel(float x, float y, float z, Performable p) {
 		super(x, y, z, 20);
+		performable = p;
 		init();
 	}
 
-	public ActionJewel(float x, float y, float z, ActorPerformable p) {
+	public ActionJewel(float x, float y, float z, ActorPerformable ap) {
 		super(x, y, z, 20);
+		actorPerformable = ap;
 		init();
 	}
 	
