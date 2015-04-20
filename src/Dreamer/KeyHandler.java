@@ -3,6 +3,7 @@ package Dreamer;
 import java.util.HashMap;
 import java.util.Map;
 
+import static org.lwjgl.input.Keyboard.*;
 import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.Color;
 
@@ -47,12 +48,16 @@ abstract public class KeyHandler {
 		actionMap.clear();
 		actionMap.putAll(savedKeys);
 	}
-	public static boolean addKey(Integer i, Action a) {
-		actionMap.put(i, a);
+	public static boolean addKey(Integer i, Performable p) {
+		actionMap.put(i, new Action() {
+			void perform() {
+				p.perform();
+			}
+		});
 		return true;
 	}
-	public static boolean addKey(char c, Action a) {
-		return addKey(keyMap.get(c + ""), a);
+	public static boolean addKey(char c, Performable p) {
+		return addKey(keyMap.get(c + ""), p);
 	}
 	//handles all keyboard events in the game
 	public static void getKeys() {
@@ -93,103 +98,35 @@ abstract public class KeyHandler {
 	}
 	public static void openMenuKeys(Menu m) {
 		clearKeys();
-		KeyHandler.addKey(
-				Keyboard.KEY_UP,
-				new MenuAction(m, "up")
-		);
-		KeyHandler.addKey(
-				Keyboard.KEY_DOWN,
-				new MenuAction(m, "down")
-		);
-		KeyHandler.addKey(
-				Keyboard.KEY_RETURN,
-				new MenuAction(m, "select")
-		);
+		KeyHandler.addKey(KEY_UP, ()-> { m.command("up"); });
+		KeyHandler.addKey(KEY_DOWN, ()-> { m.command("down"); });
+		KeyHandler.addKey(KEY_RETURN, ()-> { m.command("select"); });
 	}
 }
 class FunctionKeys extends  KeyHandler {
 	void add() {
-		addKey(
-				'p',
-				new Action() {
-					void perform() {
-						Element.printActive();
-					}
-				}
-		);
-		addKey(
-				't',
-				new Action() {
-					void perform() {
-						Element.debug = !Element.debug;
-					}
-				}
-		);
-		addKey(
-				'c',
-				new Action() {
-					void perform() {
-						if(Library.defaultFontColor == Color.black) {
-							Library.defaultFontColor = Color.cyan;
-							Library.messageFontColor = Color.red;
-						} else {
-							Library.defaultFontColor = Color.black;
-							Library.messageFontColor = Color.blue;
-						}
-					}
-				}
-		);
-		addKey(
-				'1',
-				new Action() {
-					void perform() {
-						new TestLevel();
-					}
-				}
-		);
-		addKey(
-				'2',
-				new Action() {
-					void perform() {
-						new SimpleLevel();
-					}
-				}
-		);
-		addKey(
-				'3',
-				new Action() {
-					void perform() {
-						new BirdLevel();
-					}
-				}
-		);
-		addKey(
-				'4',
-				new Action() {
-					void perform() {
-						new ForestLevel();
-					}
-				}
-		);
-		addKey(
-				'm',
-				new Action() {
-					void perform() {
-						new MainMenu();
-					}
-				}
-		);
-		addKey(
-				'i',
-				new Action() {
-					void perform() {
-						for(Player p: Player.list) {
-							p.reset();
-							new ForestLevel();
-						}
-					}
-				}
-		);
+		addKey('p', ()-> { Element.printActive(); });
+		addKey('t', ()-> { Element.debug = !Element.debug; });
+		addKey('c', ()-> {
+			if(Library.defaultFontColor == Color.black) {
+				Library.defaultFontColor = Color.cyan;
+				Library.messageFontColor = Color.red;
+			} else {
+				Library.defaultFontColor = Color.black;
+				Library.messageFontColor = Color.blue;
+			}
+		});
+		addKey('1', ()-> { new TestLevel(); } );
+		addKey('2', ()-> { new SimpleLevel(); } );
+		addKey('3', ()-> { new BirdLevel(); } );
+		addKey('4', ()-> { new ForestLevel(); } );
+		addKey('m', ()-> { new MainMenu(); } );
+		addKey('i', ()-> {
+			for(Player p: Player.list) {
+				p.reset();
+			}
+			new ForestLevel();
+		});
 	}
 }
 class EditorKeys extends KeyHandler {
@@ -202,70 +139,28 @@ class EditorKeys extends KeyHandler {
 	void add() {
 		for(int i = 0; i < alphabetPlus.length; i++) {
 			char key = alphabetPlus[i];
-			addKey(
-				codes[i], 
-				new Action() {
-					void perform() {
-						KeyHandler.keyBuffer = KeyHandler.keyBuffer + key;
-						editor.console.name = KeyHandler.keyBuffer;
-					}
-				}
-			);
+			addKey(codes[i], ()-> {
+				KeyHandler.keyBuffer = KeyHandler.keyBuffer + key;
+				editor.console.name = KeyHandler.keyBuffer;
+			});
 		}
-		addKey(
-			Keyboard.KEY_RETURN, 
-			new Action() {
-				void perform() {
-					editor.command(KeyHandler.keyBuffer);
-					KeyHandler.keyBuffer = "";
-					editor.console.name = KeyHandler.keyBuffer;
-				}
-			}
-		);
-		addKey(
-			Keyboard.KEY_TAB,
-			new Action() {
-				void perform() {
-					KeyHandler.openGameKeys();
-				}
-			}
-		);
+		addKey(KEY_RETURN, ()-> {
+			editor.command(KeyHandler.keyBuffer);
+			KeyHandler.keyBuffer = "";
+			editor.console.name = KeyHandler.keyBuffer;
+		});
+		addKey(KEY_TAB, ()-> { KeyHandler.openGameKeys(); });
 	}
 }
 class ZoomKeys extends KeyHandler {
 	void add() {
-		addKey(
-				'z', 
-				new Action() {
-					void perform() {
-						Camera.zoom = !Camera.zoom;
-					}
-				}
-			);
-		addKey(
-				Keyboard.KEY_COMMA, 
-				new CameraAction("zoom_in")
-			);
-		addKey(
-				Keyboard.KEY_PERIOD, 
-				new CameraAction("zoom_out")
-			);
-		addKey(
-				Keyboard.KEY_UP, 
-				new CameraAction("up")
-			);
-		addKey(
-				Keyboard.KEY_DOWN, 
-				new CameraAction("down")
-			);
-		addKey(
-				Keyboard.KEY_LEFT, 
-				new CameraAction("left")
-			);
-		addKey(
-				Keyboard.KEY_RIGHT, 
-				new CameraAction("right")
-			);
+		addKey('z', ()-> { Camera.zoom = !Camera.zoom; });
+		addKey(KEY_COMMA, ()-> { Camera.command("zoom_in"); });
+		addKey(KEY_PERIOD, ()-> { Camera.command("zoom_out"); });
+		addKey(KEY_UP, ()-> { Camera.command("up"); });
+		addKey(KEY_DOWN, ()-> { Camera.command("down"); });
+		addKey(KEY_LEFT, ()-> { Camera.command("left"); });
+		addKey(KEY_RIGHT, ()-> { Camera.command("right"); });
 	}
 }
 class WASDKeys extends KeyHandler {
@@ -277,42 +172,15 @@ class WASDKeys extends KeyHandler {
 	}
 	
 	void add() {
-		addKey(
-				' ',
-				new KeyedActorAction(subject, Status.TRYJUMP)
-		);
-		addKey(
-				'd',
-				new KeyedActorAction(subject, Status.TRYRIGHT)
-		);
-		addKey(
-				'a',
-				new KeyedActorAction(subject, Status.TRYLEFT)
-		);
-		addKey(
-				'w',
-				new KeyedActorAction(subject, Status.UP)
-		);
-		addKey(
-				's',
-				new KeyedActorAction(subject, Status.DOWN)
-		);
-		addKey(
-				'k',
-				new KeyedActorAction(subject, Status.TRYATTACK)
-		);
-		addKey(
-				Keyboard.KEY_LSHIFT,
-				new KeyedActorAction(subject, Status.TRYSPRINT)
-		);
-		addKey(
-				'e',
-				new KeyedActorAction(subject, Status.ACTING)
-		);
-		addKey(
-				'l',
-				new KeyedActorAction(subject, Status.BLOCKING)
-		);
+		addKey(' ', ()-> { subject.addStatus(Status.TRYJUMP); });
+		addKey('d', ()-> { subject.addStatus(Status.TRYRIGHT); });
+		addKey('a', ()-> { subject.addStatus(Status.TRYLEFT); });
+		addKey('w', ()-> { subject.addStatus(Status.UP); });
+		addKey('s', ()-> { subject.addStatus(Status.DOWN); });
+		addKey('k', ()-> { subject.addStatus(Status.TRYATTACK); });
+		addKey(KEY_LSHIFT, ()-> { subject.addStatus(Status.TRYSPRINT); });
+		addKey('e', ()-> { subject.addStatus(Status.ACTING); });
+		addKey('l', ()-> { subject.addStatus(Status.BLOCKING); });
 	}
 }
 

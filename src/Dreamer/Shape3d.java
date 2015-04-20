@@ -9,6 +9,8 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.geom.Polygon;
 import org.newdawn.slick.geom.Rectangle;
 
+import com.sun.org.apache.xml.internal.security.Init;
+
 public class Shape3d extends Positionable implements Lightable {
 
 	private static final long serialVersionUID = -2545062660573860101L;
@@ -625,10 +627,20 @@ class ActionJewel extends SpinningJewel {
 	int size = 20;
 	Level level;
 	Collidable transporter;
+	ActorPerformable actorPerformable;
+	Performable performable;
 
-	ActionJewel(float x, float y, float z, Action action) {
-
+	ActionJewel(float x, float y, float z, Performable p) {
 		super(x, y, z, 20);
+		init();
+	}
+
+	public ActionJewel(float x, float y, float z, ActorPerformable p) {
+		super(x, y, z, 20);
+		init();
+	}
+	
+	void init() {
 		transporter = new Collidable(new Rectangle(getX() - size / 2, getY()
 				- size / 2, size, size)) {
 
@@ -636,8 +648,10 @@ class ActionJewel extends SpinningJewel {
 
 			boolean collide(Actor a) {
 				if (a.getCollisionShape().intersects(getCollisionShape())) {
-					action.perform(a);
-					action.perform();
+					if(actorPerformable != null)
+						actorPerformable.perform(a);
+					if(performable != null)
+						performable.perform();
 					return true;
 				}
 				return false;

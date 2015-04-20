@@ -14,15 +14,6 @@ public class Menu {
     float spacing = 40, xposition = 0, yposition = 0;
 	int currentOption = 0;
 	
-	Menu addOption(String s, Action a) {
-		optionList.add(
-				new MenuOption(s, a)
-				.setPosition(xposition, yposition -= spacing)
-				.setJustification(justification)
-				);
-		return this;
-	}
-	
 	Menu open() {
 		if(parent != null)
 			parent.exit();
@@ -49,11 +40,11 @@ public class Menu {
 				
 			case "select":
 				Action a = optionList.get(currentOption).action;
-				Doable d = optionList.get(currentOption).doable;
+				Performable d = optionList.get(currentOption).performable;
 				if(a != null)
 					a.perform();
 				if(d != null)
-					d.doIt();
+					d.perform();
 				break;
 				
 			case "exit":
@@ -77,18 +68,17 @@ public class Menu {
 	
 	private class MenuOption {
 		Action action;
-		Doable doable;
+		Performable performable;
 		ShadowedMessage shadowMessage;
 		
 		MenuOption(String s, Action a) {
 			action = a;
 			shadowMessage = new ShadowedMessage(s, 0, 0);
 		}
-		MenuOption(String s, Doable d) {
-			doable = d;
+		MenuOption(String s, Performable d) {
+			performable = d;
 			shadowMessage = new ShadowedMessage(s, 0, 0);
 		}
-		
 		MenuOption setPosition(float x, float y) {
 			shadowMessage.setPosition(x, y, 0);
 			return this;
@@ -102,12 +92,20 @@ public class Menu {
 	Menu addExitOption() {
 		addOption(
 				"EXIT MENU",
-				new MenuAction(this, "exit")
+				()-> { exit(); }
 				);
 		return this;
 	}
 
-	Menu addOption(String s, Doable d) {
+	Menu addOption(String s, Action a) {
+		optionList.add(
+				new MenuOption(s, a)
+				.setPosition(xposition, yposition -= spacing)
+				.setJustification(justification)
+				);
+		return this;
+	}
+	Menu addOption(String s, Performable d) {
 		optionList.add(
 			new MenuOption(s, d)
 			.setPosition(xposition, yposition -= spacing)
@@ -115,8 +113,4 @@ public class Menu {
 			);
 		return this;
 	}
-}
-
-interface Doable {
-	void doIt();
 }
