@@ -29,7 +29,6 @@ abstract class Actor extends Collidable implements Updateable {
 	Body body;
 	HashSet<Effect> effects = new HashSet<Effect>();
 	Weapon weapon;
-	public boolean airborne = false;
 
 	Actor(StatCard sc, float x, float y) {
 		status.add(INITIALIZED);
@@ -162,14 +161,11 @@ abstract class Actor extends Collidable implements Updateable {
 			}
 
 			// jump sequence
-			if (checkStatus(TRYJUMP) && !airborne) {
+			if (checkStatus(TRYJUMP) && !checkStatus(JUMPING)) {
 				if (checkStatus(GROUNDED)) {
-					airborne = true;
 					addStatus(JUMPING);
 					dynamics.adjustVel(0, Constants.PLAYERJUMPVEL);
 				}
-			} else if (!checkStatus(TRYJUMP) && checkStatus(GROUNDED)) {
-				airborne = false;
 			} else {
 				removeStatus(TRYJUMP);
 			}
