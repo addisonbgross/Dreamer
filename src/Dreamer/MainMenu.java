@@ -12,49 +12,34 @@ public class MainMenu extends Level {
 		Theme.current = Theme.mono;
 	
 		main.addOption(
-				"START", 				
-				new Action() {
-					void perform() {
-						KeyHandler.openGameKeys();
-						new ForestLevel();
-					}
+				"START", ()-> {
+					KeyHandler.openGameKeys();
+					new ForestLevel();
 				});
 		main.addOption(
-				"OPEN EDITOR",
-				new Action() {
-					void perform() {
+				"OPEN EDITOR", ()-> {
 						KeyHandler.clearKeys();
 						Editor e = new Editor();
 						Level.clear();
 						e.start();
-					}
 				});
 		main.addOption(
-				"TEST MOTIONTRACKS",
-				new Action() {
-					void perform() {
-						new TestLevel();
-					}
+				"TEST MOTIONTRACKS", ()-> { new TestLevel(); });
+		main.addOption(
+				"OPEN LEVEL", ()-> { new TestLevel(); });
+		main.addOption(
+				"TEST CHARACTERS", (/*why does one drift left?*/)-> {
+					new GrassSoldier(-100, 0, Brains.makeSoldier()).add();
+					Player.getFirst().add();
+					new Skeleton(100, 0, Brains.makeSoldier()).add();
 				});
 		main.addOption(
-				"TEST CHARACTERS",
-				new Action() {
-					void perform() {
-						new GrassSoldier(-100, 0, Brains.makeSoldier()).add();
-						Player.getFirst().add();
-						new Skeleton(100, 0, Brains.makeSoldier()).add();
-					}
-				});
-		main.addOption(
-				"SET FULLSCREEN",
-				new Action() {
-					void perform() {
-						Dreamer.setFullscreen();		
-						try {
-							Library.load();
-						} catch (IOException e1) {
-							e1.printStackTrace();
-						}
+				"SET FULLSCREEN", ()-> {
+					Dreamer.setFullscreen();		
+					try {
+						Library.load();
+					} catch (IOException e1) {
+						e1.printStackTrace();
 					}
 				});
 		main.open();

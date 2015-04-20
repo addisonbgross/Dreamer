@@ -200,13 +200,9 @@ class ForestLevel extends Level {
 
 		Theme.current = Theme.fire;
 		
-		new ActionJewel(-1000, 1040, 0, new Action() {void perform() {new BirdLevel();}}).add();
-		new ActionJewel(-1000, 50, 0, new Action() {
-			void perform(Actor a) {
-				a.addStatus(Status.TRYJUMP);
-			}
-		}).add();
-		new ActionJewel(-800, 50, 0, new KeyedActorAction(Player.getFirst(), Status.TRYJUMP)).add();
+		new ActionJewel(-1000, 1040, 0, ()-> { new BirdLevel(); }).add();
+		new ActionJewel(-1000, 50, 0, (Actor a)-> { a.addStatus(Status.TRYJUMP); }).add();
+		new ActionJewel(-800, 50, 0, (Actor a)-> { a.addStatus(Status.TRYJUMP); }).add();
 		
 		Theme.current = Theme.transparentFire;
 		
@@ -255,7 +251,7 @@ class Dusk_1 extends Level {
 		e.add();
 		
 		new Sunset().add();
-		new ActionJewel(-1300, 125, 0, new Action() {void perform() {new Dusk_2();}}).add();
+		new ActionJewel(-1300, 125, 0, ()-> { new Dusk_2(); }).add();
 		
 		Camera.focus(new ClassFocus(200, Ninja.class));
 	}
@@ -272,7 +268,7 @@ class Dusk_2 extends Level {
 		p.add();
 		
 		new Sunset().add();
-		new ActionJewel(-1400, 30, 0, new Action() {void perform() {new Dusk_3();}}).add();
+		new ActionJewel(-1400, 30, 0, ()-> { new Dusk_3(); }).add();
 		
 		Camera.focus(new ClassFocus(200, Ninja.class));
 	}
@@ -290,7 +286,7 @@ class Dusk_3 extends Level {
 		
 		new Sunset().add();
 		new Lamp(p).add();
-		new ActionJewel(-1400, 1400, 0, new Action() {void perform() {new Dusk_4();}}).add();
+		new ActionJewel(-1400, 1400, 0, ()-> {new Dusk_4(); }).add();
 		
 		Camera.focus(new ClassFocus(200, Ninja.class));
 	}
@@ -308,8 +304,8 @@ class Dusk_4 extends Level {
 		
 		new Sunset().add();
 		new Lamp(p).add();
-		new ActionJewel(-1900, 100, 0, new Action() {void perform() {new Dusk_5();}}).add();
-		new ActionJewel(-1950, 100, 0, new Action() {void perform() {new Dusk_5();}}).add();
+		new ActionJewel(-1900, 100, 0, ()-> { new Dusk_5(); }).add();
+		new ActionJewel(-1950, 100, 0, ()-> { new Dusk_5(); }).add();
 		
 		Camera.focus(new ClassFocus(200, Ninja.class));
 	}
@@ -326,7 +322,7 @@ class Dusk_5 extends Level {
 		p.add();
 		
 		new Lamp(p).add();
-		new ActionJewel(-2950, -3900, 0, new Action() {void perform() {new Dusk_6();}}).add();
+		new ActionJewel(-2950, -3900, 0, ()-> { new Dusk_6(); }).add();
 		
 		Camera.focus(new ClassFocus(200, Ninja.class));
 	}
