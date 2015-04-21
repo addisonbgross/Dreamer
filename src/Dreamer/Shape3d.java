@@ -107,16 +107,7 @@ public class Shape3d extends Positionable implements Lightable {
 		}
 	}
 
-	Shape3d scale(float f) {
-
-		for (Vector3f v : this.vertices) {
-			v.scale(f);
-		}
-
-		manhattanRadius.scale(f);
-
-		return this;
-	}
+	Shape3d scale(float f) { return scale(f, f, f); }
 
 	Shape3d scale(float x, float y, float z) {
 
@@ -186,9 +177,20 @@ public class Shape3d extends Positionable implements Lightable {
 			center = Vector3f.add(center, v, center);
 		}
 
-		center.scale(1 / vertices.size());
-
+		center.scale(1.0f / (float)vertices.size());
+		System.out.println(center + ", " + position);
 		return center;
+	}
+	
+	Shape3d recenter() {
+		Vector3f c = findCenter();
+		manhattanRadius.set(0, 0, 0);
+		for(Vector3f v: vertices) {
+			Vector3f.sub(v, c, v);
+			updateBounds(v, manhattanRadius);
+		}
+		setPosition(c);
+		return this;
 	}
 
 	public ArrayList<Vector2f> generateIntersectionPoints() {
