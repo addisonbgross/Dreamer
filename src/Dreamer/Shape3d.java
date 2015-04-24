@@ -63,7 +63,7 @@ public class Shape3d extends Positionable implements Lightable {
 
 	@Override
 	boolean isVisible() {
-		if(getWidth() > Constants.screenWidth)
+		if(getWidth() > Constants.screenWidth || getHeight() > Constants.screenHeight)
 			return true;
 
 		if (Camera.isPointVisible(getX(), getY(), getZ()))
