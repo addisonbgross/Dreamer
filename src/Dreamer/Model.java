@@ -26,6 +26,7 @@ public class Model extends Element {
 	void add() {
 		for (Shape3d s : models) {
 			s.recenter();
+			// System.out.println(s.position);
 			s.add();
 		}
 	}
