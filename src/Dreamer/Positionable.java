@@ -18,8 +18,8 @@ public class Positionable extends Element {
 		String s = getClass().toString() + "@";
 		s = s.concat("(" + (int) position.x);
 		s = s.concat(", " + (int) position.y + ") ");
-		s = s.concat(" w " + (int) width);
-		s = s.concat(" h " + (int) height);
+		s = s.concat(" w " + (int) getWidth());
+		s = s.concat(" h " + (int) getHeight());
 		return s;
 	}
 	

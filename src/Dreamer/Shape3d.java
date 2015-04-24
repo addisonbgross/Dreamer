@@ -63,60 +63,48 @@ public class Shape3d extends Positionable implements Lightable {
 
 	@Override
 	boolean isVisible() {
-		boolean huehuehue = false;
-
-		if (!huehuehue) {
-			if (Camera.isPointVisible(getX(), getY(), getZ()))
-				return true;
-
-			if (getX() >= Camera.getCenterX() && getY() >= Camera.getCenterY()) // Cartesian
-																				// I
-				if (Camera.isPointVisible(getX() - getWidth() / 2, getY()
-						- getHeight() / 2, getZ() - getDepth()))
-					return true;
-				else
-					return false;
-
-			if (getX() <= Camera.getCenterX() && getY() >= Camera.getCenterY()) // Cartesian
-																				// II
-				if (Camera.isPointVisible(getX() + getWidth() / 2, getY()
-						- getHeight() / 2, getZ() - getDepth()))
-					return true;
-				else
-					return false;
-
-			if (getX() <= Camera.getCenterX() && getY() <= Camera.getCenterY()) // Cartesian
-																				// III
-				if (Camera.isPointVisible(getX() + getWidth() / 2, getY()
-						+ getHeight() / 2, getZ() - getDepth()))
-					return true;
-				else
-					return false;
-
-			if (getX() >= Camera.getCenterX() && getY() <= Camera.getCenterY()) // Cartesian
-																				// IV
-				if (Camera.isPointVisible(getX() - getWidth() / 2, getY()
-						+ getHeight() / 2, getZ() - getDepth()))
-					return true;
-				else
-					return false;
-
-			return false;
-		} else {
+		if(getWidth() > Constants.screenWidth)
 			return true;
-		}
+
+		if (Camera.isPointVisible(getX(), getY(), getZ()))
+			return true;
+
+		if (getX() >= Camera.getCenterX() && getY() >= Camera.getCenterY()) // Cartesian
+																			// I
+			if (Camera.isPointVisible(getX() - getWidth() / 2, getY()
+					- getHeight() / 2, getZ() - getDepth()))
+				return true;
+			else
+				return false;
+
+		if (getX() <= Camera.getCenterX() && getY() >= Camera.getCenterY()) // Cartesian
+																			// II
+			if (Camera.isPointVisible(getX() + getWidth() / 2, getY()
+					- getHeight() / 2, getZ() - getDepth()))
+				return true;
+			else
+				return false;
+
+		if (getX() <= Camera.getCenterX() && getY() <= Camera.getCenterY()) // Cartesian
+																			// III
+			if (Camera.isPointVisible(getX() + getWidth() / 2, getY()
+					+ getHeight() / 2, getZ() - getDepth()))
+				return true;
+			else
+				return false;
+
+		if (getX() >= Camera.getCenterX() && getY() <= Camera.getCenterY()) // Cartesian
+																			// IV
+			if (Camera.isPointVisible(getX() - getWidth() / 2, getY()
+					+ getHeight() / 2, getZ() - getDepth()))
+				return true;
+			else
+				return false;
+
+		return false;
 	}
 
-	Shape3d scale(float f) {
-
-		for (Vector3f v : this.vertices) {
-			v.scale(f);
-		}
-
-		manhattanRadius.scale(f);
-
-		return this;
-	}
+	Shape3d scale(float f) { return scale(f, f, f); }
 
 	Shape3d scale(float x, float y, float z) {
 
@@ -179,16 +167,26 @@ public class Shape3d extends Positionable implements Lightable {
 	}
 
 	Vector3f findCenter() {
-		// TODO: this!
+
 		Vector3f center = new Vector3f();
 
 		for (Vector3f v : vertices) {
 			center = Vector3f.add(center, v, center);
 		}
 
-		center.scale(1 / vertices.size());
-
+		center.scale(1.0f / (float)vertices.size());
 		return center;
+	}
+	
+	Shape3d recenter() {
+		Vector3f c = findCenter();
+		manhattanRadius.set(0, 0, 0);
+		for(Vector3f v: vertices) {
+			Vector3f.sub(v, c, v);
+			updateBounds(v, manhattanRadius);
+		}
+		setPosition(c);
+		return this;
 	}
 
 	public ArrayList<Vector2f> generateIntersectionPoints() {
