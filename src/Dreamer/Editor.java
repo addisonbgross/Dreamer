@@ -12,7 +12,7 @@ public class Editor {
 		NUMERIC, COMMAND
 	};
 
-	MousePointer pointer = new MousePointer();;
+	MousePointer pointer = new MousePointer();
 	ShadowedMessage prompt = new ShadowedMessage("", 0, 100);
 	ShadowedMessage console = new ShadowedMessage("", 0, 0);
 	Menu editorMenu = new Menu(Justification.LEFT, -Constants.screenWidth / 2, 200);
@@ -40,6 +40,7 @@ public class Editor {
 				pointer.onMove = ()-> {};
 			};
 		});
+		editorMenu.addOption("EDIT TRACKS", ()-> { new TrackEditor(); });
 		editorMenu.addOption("TRANSLATE", ()-> {
 			pointer.onMove = ()-> {
 				ShapeMaker.focus.setPosition(pointer.getX(),
@@ -79,13 +80,8 @@ public class Editor {
 			};
 		});
 		editorMenu.addOption("RANDOM", ()-> { ShapeMaker.focus.randomize(0.5f); });
-		editorMenu.addOption("TEST SHAPEMAKER", ()-> {
-			ShapeMaker.make("block").scale(3, 2, 3)
-				.setColor(new Color(Shape3d.r.nextInt()))
-				.randomize(0.8f).rotate(0, 1, 1, 45).makeDynamic()
-				.addTransformer(new Rotator(0, 1, 3, 0.3f)).add();
-		});
 		editorMenu.addOption("PLAY", ()-> {
+			Element.debug = false;
 			Player.getFirst().add();
 			KeyHandler.openGameKeys();
 			Camera.focus(new ClassFocus(150, Ninja.class));
@@ -171,5 +167,36 @@ public class Editor {
 			}
 			currentAction.perform();
 		}
+	}
+}
+
+class TrackEditor {
+	
+	MousePointer pointer = new MousePointer();
+	ArrayList<Marker> pointList = new ArrayList<>();
+	
+	TrackEditor() {
+		
+		Element.debug = true;
+		
+		pointer.setPosition(0, 0, 0);
+		pointer.add();
+		pointer.onLeftClick = ()-> {
+			Vector3f v = pointer.getPosition3f();
+			Marker m = new Marker(pointList.size() + "", v.x, v.y);
+			m.add();
+			pointList.add(m);
+		};
+		pointer.onRightClick = ()-> {
+			
+			for(int i = 1; i < pointList.size(); i++) {
+				Marker start = pointList.get(i - 1);
+				Marker end = pointList.get(i);
+				new MotionTrack(start.getX(), start.getY(), end.getX(), end.getY()).add();
+				end.remove();
+				start.remove();
+			}
+			pointList.clear();
+		};
 	}
 }

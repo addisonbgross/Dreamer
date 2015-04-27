@@ -2,8 +2,9 @@
 
 import org.lwjgl.util.vector.Vector3f;
 
-public abstract class Transformer implements Updateable {
+public abstract class Transformer implements Updateable, java.io.Serializable {
 	
+	private static final long serialVersionUID = 6765091439474383443L;
 	public abstract Vector3f transformVertex(Vector3f v, Vector3f destination);
 	public abstract Vector3f transformNormal(Vector3f v, Vector3f destination);
 	
@@ -20,6 +21,7 @@ public abstract class Transformer implements Updateable {
 
 class Pulsar extends Transformer {
 	
+	private static final long serialVersionUID = -5465661317879986334L;
 	float angle, increment, pulseAmount;
 	
 	Pulsar(float amount, float speed) {
@@ -43,6 +45,7 @@ class Pulsar extends Transformer {
 
 class Rotator extends Transformer {
 	
+	private static final long serialVersionUID = 1929699675823063966L;
 	Vector3f rotationAxis, rotationPoint;
 	float angle, increment;
 	
@@ -75,23 +78,5 @@ class Rotator extends Transformer {
 	@Override
 	public String toString() {
 		return "Rotating at " + increment + " rad/update, current angle " + angle;
-	}
-}
-
-class Wiggler extends Rotator {
-	
-	Wiggler(float x, float y, float z, float speed) {
-		super(x, y, z, speed);
-	}
-	
-	@Override
-	public Vector3f transformVertex(Vector3f v, Vector3f destination) {
-		untranslate(v, rotationPoint, destination);
-		rotate(v, rotationAxis, (float)(0.5f * Math.sin(angle)), destination);
-		return translate(v, rotationPoint, destination);
-	}
-	@Override
-	public Vector3f transformNormal(Vector3f v, Vector3f destination) {
-		return rotate(v, rotationAxis, (float)(0.5f * Math.sin(angle)), destination);
 	}
 }

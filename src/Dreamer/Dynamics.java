@@ -2,8 +2,9 @@ package Dreamer;
 
 import org.lwjgl.util.vector.Vector3f;
 
-public class Dynamics {
+public class Dynamics implements java.io.Serializable {
 	
+	private static final long serialVersionUID = -5242307807752292157L;
 	private Vector3f velocity = new Vector3f();
 	
 	Vector3f getVelocity() {return velocity;}

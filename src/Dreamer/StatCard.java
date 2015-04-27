@@ -1,6 +1,8 @@
 package Dreamer;
 
-public class StatCard {
+public class StatCard implements java.io.Serializable {
+	
+	private static final long serialVersionUID = -1672105871065934811L;
 	String prefix;
 	int width, height, collisionWidth, collisionHeight;
 	//int[] attackAngles = {220, 0, 30, 45, 60, 90};

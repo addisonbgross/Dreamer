@@ -114,6 +114,12 @@ public class Element implements Serializable {
 
 		activeSet.clear();
 	}
+
+	static void printAll() {
+		for(Element e: masterList) {
+			e.print();
+		}
+	}
 }
 
 class ElementMap<K, V> extends TreeMap<K, HashSet<Element>> {

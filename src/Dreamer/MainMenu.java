@@ -8,26 +8,21 @@ public class MainMenu extends Level {
 		
 		Element.debug = false;		
 		Theme.current = Theme.mono;
-	
+		
 		main.addOption("START", ()-> {
 			KeyHandler.openGameKeys();
 			new ForestLevel();
 		});
-		main.addOption("OPEN EDITOR", ()-> {
+		main.addOption("OPEN EDITOR (TAB IN-GAME)", ()-> {
 			KeyHandler.clearKeys();
-			Editor e = new Editor();
 			Level.clear();
-			e.start();
+			new Editor().start();
 		});
 		main.addOption("OPEN LEVEL", ()-> { Level.openMenu(main); });
 		main.addOption("TEST CHARACTERS", (/*why does one drift left?*/)-> {
 			new GrassSoldier(-100, 0, Brains.makeSoldier()).add();
 			Player.getFirst().add();
 			new Skeleton(100, 0, Brains.makeSoldier()).add();
-		});
-		main.addOption("SET FULLSCREEN", ()-> {
-			Dreamer.setFullscreen();		
-			Library.load();
 		});
 		main.open();
 		

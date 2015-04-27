@@ -22,6 +22,8 @@ public class Camera {
 	private static String nextMovement = "stop";
 	private static int velocity = 0;
 	private static Stack<Vector3f> positionStack = new Stack<>();
+	static Performable stop;
+	static { stop = ()-> Camera.command("stop"); }
 	
 	static Vector4f rotated = new Vector4f();
 	static Vector3f tempV3f = new Vector3f();
@@ -51,32 +53,32 @@ public class Camera {
 		
 		switch (nextMovement) {
 		
-	        case	"zoom_in":
+	        case "zoom_in":
 	    		nudge(0, 0, velocity);
 	    		velocity++;
 				break;
 				
-	        case	"zoom_out":
+	        case "zoom_out":
 	    		nudge(0, 0, -velocity);
 	    		velocity++;
 				break;
 				
-	        case	"up":
+	        case "up":
 				nudge(0, velocity, 0);
 				velocity++;
 				break;
 				
-	        case	"down":
+	        case "down":
 				nudge(0, -velocity, 0);
 				velocity++;
 				break;
 				
-	        case	"left":
+	        case "left":
 				nudge(-velocity, 0 ,0);
 				velocity++;
 				break;
 				
-	        case	"right":
+	        case "right":
 				nudge(velocity, 0, 0);
 				velocity++;
 				break;

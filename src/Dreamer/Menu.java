@@ -42,7 +42,7 @@ public class Menu {
 				Action a = optionList.get(currentOption).action;
 				Performable d = optionList.get(currentOption).performable;
 				if(a != null)
-					a.perform();
+					a.start();
 				if(d != null)
 					d.perform();
 				break;

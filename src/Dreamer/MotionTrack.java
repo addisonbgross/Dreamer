@@ -17,9 +17,12 @@ public class MotionTrack extends Collidable {
 	
 	MotionTrack() {}
 	MotionTrack(float sx, float sy, float ex, float ey) {
-		track = new Line(sx, sy, ex, ey);
+		temp.set(ex - sx, ey - sy, 0);
+		temp.normalise();
+		track = new Line(sx - temp.x, sy - temp.y, ex + temp.x, ey + temp.y);
 		setCollisionShape(track);
 		normal = new Vector3f(-track.getNormal(0)[0], -track.getNormal(0)[1], 0);
+		
 		right = new Vector2f(
 				track.getDX() / track.length(),
 				track.getDY() / track.length()
@@ -61,8 +64,7 @@ public class MotionTrack extends Collidable {
 	}
 	@Override 
 	void draw() {
-		super.draw();
-		if(Element.debug && this.getCollisionShape() != null) {
+		if(Element.debug && getCollisionShape() != null) {
 			Drawer.drawLine(
 				Constants.COLLISIONCOLOUR,
 				track.getCenterX(),
@@ -72,6 +74,15 @@ public class MotionTrack extends Collidable {
 				track.getCenterY() + 20 * normal.y,
 				0
 			);	
+			Drawer.drawLine(
+					Constants.COLLISIONCOLOUR,
+					track.getX1(),
+					track.getY1(),
+					0,
+					track.getX2(),
+					track.getY2(),
+					0
+				);	
 		}
 	}
 	@Override
@@ -80,7 +91,6 @@ public class MotionTrack extends Collidable {
 	}
 	public static void generateMotionTrack(Face f, ArrayList<Vector3f> vertices, Vector3f vector3f) {
 		int sides = f.vertexIndex.length;
-		Vector3f line;
 		Vector3f intersectLine;
 		Vector2f firstPoint = null;
 		
@@ -102,33 +112,13 @@ public class MotionTrack extends Collidable {
 					firstPoint = new Vector2f(x, y);
 				else if(!(Math.abs(firstPoint.x - x) <  1 && Math.abs(firstPoint.y - y) <  1)){
 					try {
-						//this line is to extend the motiontracks enough so that the travel is seamless
-						//TODO move this into the constructor
-						line = new Vector3f(x - firstPoint.x, y - firstPoint.y, 0);
-						line.normalise();
-						//if the direction of the face normal is upwards or downwards...			
-						boolean swapPoints = true;
-						if(Vector3f.cross(line, f.normal, null).z > 0) {
-							swapPoints = false;
-						}
-						
-						if(swapPoints) {
-							// System.out.println("x1: " + x + ", y1: " + y + ", x2: " + firstPoint.x + ", y2: " + firstPoint.y);
-							new MotionTrack(
-									x + line.x,
-									y + line.y,
-									firstPoint.x - line.x,
-									firstPoint.y - line.y
-									).add();
+						temp = new Vector3f(x - firstPoint.x, y - firstPoint.y, 0);
+
+						if(Vector3f.cross(temp, f.normal, null).z > 0) {
+							new MotionTrack(firstPoint.x, firstPoint.y, x, y).add();
 						} else {
-							// System.out.println("x1: " + firstPoint.x + ", y1: " + firstPoint.y + ", x2: " + x + ", y2: " + y);
-							new MotionTrack(
-									firstPoint.x - line.x,
-									firstPoint.y - line.y,
-									x + line.x,
-									y + line.y
-									).add();
-						}				
+							new MotionTrack(x, y, firstPoint.x, firstPoint.y).add();
+						} 		
 					} catch(IllegalStateException e) {
 						//invalid vector
 					}

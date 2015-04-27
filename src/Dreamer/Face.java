@@ -22,7 +22,8 @@ public class Face implements java.io.Serializable {
 	Vector2f[] texturePoints;
 	Color[] vertexColor; //the color of the vertex at any point in time
 	Color[] faceColor; //the ideal unlit faceColor
-	Texture texture;
+	String textureName = "";
+	transient Texture texture;
 	Vector3f normal;
 	Shape3d masterShape; //the shape this Face belongs to
 	
@@ -37,10 +38,12 @@ public class Face implements java.io.Serializable {
 		setColor(c);
 		triangulate();
 	}
-	Face (Texture t, Color c, int... i) {
+	Face (String s, Color c, int... i) {
 		//if not a quad may throw errors
 		this(c, i);
-		texture = t;
+		textureName = s;
+		if(!textureName.equals(""))
+			texture = Library.getTexture(textureName);
 		setTexturePoints(0, 0, 1, 1);
 	}
 	
@@ -192,6 +195,14 @@ public class Face implements java.io.Serializable {
 			s += "\npoint " + i + " " + masterShape.vertices.get(i).toString();
 		}
 		return s;
+	}
+	
+	private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, java.lang.ClassNotFoundException {
+		in.defaultReadObject();
+		if(textureName != "") {
+			texture = Library.getTexture(textureName);
+			setTexturePoints(0, 0, 1, 1);
+		}
 	}
 }
 

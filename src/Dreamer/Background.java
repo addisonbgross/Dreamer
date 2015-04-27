@@ -52,14 +52,14 @@ class Background extends Positionable {
 					.exp(-relativeMotion / 10000 * Math.abs(y)))));
 			Drawer.drawImage(Library.getImage(imageName), -x - marginX, y
 					- marginY);
+			
 		}
 	}
 }
 
-class RovingGround extends Background implements Updateable {
+class RovingGround extends GradientBackground implements Updateable {
 
 	private static final long serialVersionUID = -3409596590781397942L;
-	GradientFill gradient;
 	MotionTrack m;
 	float groundHeight;
 
@@ -68,7 +68,7 @@ class RovingGround extends Background implements Updateable {
 	}
 
 	RovingGround(Color top, Color bottom, int y, float z) {
-		gradient = new GradientFill(0, 0, top, 0, 1, bottom, true);
+		super(top, bottom);
 		groundHeight = y;
 		setMinX(Camera.getMinX());
 		setMinY(Camera.getMinY());
@@ -82,7 +82,6 @@ class RovingGround extends Background implements Updateable {
 	@Override
 	void draw() {
 		update();
-		// if(Camera.getMY() < groundHeight)
 		{
 			tempY = Camera.translate(0, groundHeight, getZ()).y;
 			Polygon p = new Polygon();
@@ -101,6 +100,11 @@ class RovingGround extends Background implements Updateable {
 				groundHeight, Camera.getMaxX() + Constants.EXISTENCEBUFFER,
 				groundHeight);
 		m.add();
+	}
+	
+	private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, ClassNotFoundException {
+		in.defaultReadObject();
+		gradient = new GradientFill(0, 0, top, 0, Constants.screenHeight, bottom);
 	}
 }
 
@@ -122,9 +126,12 @@ class SolidBackground extends Background {
 class GradientBackground extends Background {
 
 	private static final long serialVersionUID = 2718003017663189562L;
-	GradientFill gradient;
+	transient GradientFill gradient;
+	Color top, bottom;
 
 	GradientBackground(Color t, Color b) {
+		top = t;
+		bottom = b;
 		gradient = new GradientFill(0, 0, t, 0, Constants.screenHeight, b);
 	}
 
@@ -133,43 +140,9 @@ class GradientBackground extends Background {
 		Drawer.graphics.fill(new Rectangle(0, 0, Constants.screenWidth,
 				Constants.screenHeight), gradient);
 	}
-}
-
-class Mountain extends Background {
-
-	private static final long serialVersionUID = -5998631704992314615L;
-	Polygon shape = new Polygon();
-	Polygon shadow = new Polygon();
-	Polygon snow = new Polygon();
-	Color mountainColor = new Color(127, 127, 127);
-	Color shadowColor = new Color(63, 63, 63);
-	Color snowColor = new Color(200, 220, 255, 191);
-
-	Mountain(float x, float y, float z, int size) {
-		setPosition(x, y, z);
-
-		shape.addPoint(x, y);
-		shape.addPoint(x + size, y + size);
-		shape.addPoint(x + (2 * size), y);
-
-		shadow.addPoint(x + size, y + size);
-		shadow.addPoint(x + (1.5f * size), y);
-		shadow.addPoint(x + (2 * size), y);
-
-		if (size > Constants.SNOWHEIGHT) {
-			snow.addPoint(x + Constants.SNOWHEIGHT, y + Constants.SNOWHEIGHT);
-			snow.addPoint(x + size, y + size);
-			snow.addPoint(x + (2 * size) - Constants.SNOWHEIGHT, y
-					+ Constants.SNOWHEIGHT);
-		}
-
-		setWidth(shape.getWidth());
-		setHeight(shape.getHeight());
-	}
-
-	void draw() {
-		Drawer.drawShape(shape, mountainColor);
-		Drawer.drawShape(shadow, shadowColor);
-		Drawer.drawShape(snow, snowColor);
+	
+	private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, ClassNotFoundException {
+		in.defaultReadObject();
+		gradient = new GradientFill(0, 0, top, 0, Constants.screenHeight, bottom);
 	}
 }

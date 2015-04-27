@@ -40,7 +40,7 @@ public class Animation2 extends Shape3d implements Updateable {
 		this.columns = columns;
 		this.rows = rows;
 		firstUpdate = true;
-		f = new Face(Library.getTexture(s), new Color(1.0f, 1.0f, 1.0f, 1.0f), 0, 1, 2, 3);
+		f = new Face(s, new Color(1.0f, 1.0f, 1.0f, 1.0f), 0, 1, 2, 3);
 		f.setTexturePoints(0, 0, 1, 1);
 		sheetWidth = textureStretch(Library.getImage(s).getWidth());
 		sheetHeight = textureStretch(Library.getImage(s).getHeight());

@@ -47,7 +47,7 @@ abstract class Weapon extends Shape3d implements Updateable {
 	}
 
 	void makeFace() {
-		f = new Face(Library.getTexture(name), new Color(1, 1, 1, 1.0f), 0, 1,
+		f = new Face(name, new Color(1, 1, 1, 1.0f), 0, 1,
 				2, 3);
 		width = Library.getImage(name).getWidth();
 		height = Library.getImage(name).getHeight();

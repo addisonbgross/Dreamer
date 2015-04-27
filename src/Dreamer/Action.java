@@ -16,9 +16,8 @@ class Action {
 		command = s;
 	}
 	
-	void perform() {}
+	void start() {}
 	void stop() {}
-	void perform(Actor a) {}
 }
 
 class KeyedActorAction extends Action {
@@ -27,7 +26,7 @@ class KeyedActorAction extends Action {
 		object = a;
 		status = s;
 	}
-	void perform() {((Actor)object).addStatus(status);}
+	void start() {((Actor)object).addStatus(status);}
 	void stop() {((Actor)object).removeStatus(status);}
 }
 class MouseAction extends Action {

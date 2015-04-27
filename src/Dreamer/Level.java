@@ -40,11 +40,19 @@ class Level {
 		ObjectOutputStream out;
 		try {
 			out = new ObjectOutputStream(new FileOutputStream(Constants.LEVELPATH + s + ".level"));
-			/*
-			 	for(Element e: Element.masterList)
-				out.writeObject(e);
-			*/
-		
+			//-------------------------Debug
+
+			for(Element e: Element.masterList) {
+				try {
+					out.writeObject(e);		
+				} catch (java.io.NotSerializableException nse) {
+					System.out.println("The following objects cannnot be serialized:");
+					e.print();
+				}
+			}
+			out.close();
+			
+		 	out = new ObjectOutputStream(new FileOutputStream(Constants.LEVELPATH + s + ".level"));
 			out.writeObject(Element.masterList);
 			out.writeObject(Background.background);
 			out.writeObject(Foreground.foreground);
@@ -73,9 +81,9 @@ class Level {
 	void createLevel() {
 		//Override this method to create objects in level
 	}
-	public static void openMenu(Menu m) {
+	public static void openMenu(Menu callbackMenu) {
 		Menu levelMenu = new Menu(Justification.CENTER, 0, 150);
-		levelMenu.setParent(m);
+		levelMenu.setParent(callbackMenu);
 		
 		for (File file : new File(Constants.LEVELPATH).listFiles()) {
 			levelMenu.addOption(file.getName(), ()-> {

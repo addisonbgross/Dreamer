@@ -1,4 +1,4 @@
 package Dreamer;
 
-interface Performable {	void perform(); }
-interface ActorPerformable { void perform(Actor a); }
+interface Performable extends java.io.Serializable { void perform(); }
+interface ActorPerformable extends java.io.Serializable { void perform(Actor a); }

@@ -48,13 +48,19 @@ abstract public class KeyHandler {
 		actionMap.clear();
 		actionMap.putAll(savedKeys);
 	}
-	public static boolean addKey(Integer i, Performable p) {
+	public static boolean addKey(Integer i, Performable start, Performable stop) {
 		actionMap.put(i, new Action() {
-			void perform() {
-				p.perform();
+			void start() {
+				start.perform();
+			}
+			void stop() {
+				stop.perform();
 			}
 		});
 		return true;
+	}
+	public static boolean addKey(Integer i, Performable p) {
+		return addKey(i, p, ()-> {});
 	}
 	public static boolean addKey(char c, Performable p) {
 		return addKey(keyMap.get(c + ""), p);
@@ -72,7 +78,7 @@ abstract public class KeyHandler {
 			Integer keyNum = Keyboard.getEventKey();
 			if(Keyboard.getEventKeyState()) {
 				try {
-					actionMap.get(keyNum).perform();
+					actionMap.get(keyNum).start();
 				} catch(NullPointerException e) {
 					//not there, no bigs
 				}
@@ -112,7 +118,8 @@ abstract public class KeyHandler {
 }
 class FunctionKeys extends  KeyHandler {
 	void add() {
-		addKey('p', ()-> { Element.printActive(); });
+		addKey(KEY_TAB, ()-> { new Editor().start(); });
+		addKey('p', ()-> { Element.printAll(); });
 		addKey('t', ()-> { Element.debug = !Element.debug; });
 		addKey('c', ()-> {
 			if(Library.defaultFontColor == Color.black) {
@@ -166,13 +173,13 @@ class EditorKeys extends KeyHandler {
 }
 class ZoomKeys extends KeyHandler {
 	void add() {
-		addKey('z', ()-> { Camera.zoom = !Camera.zoom; });
-		addKey(KEY_COMMA, ()-> { Camera.command("zoom_in"); });
-		addKey(KEY_PERIOD, ()-> { Camera.command("zoom_out"); });
-		addKey(KEY_UP, ()-> { Camera.command("up"); });
-		addKey(KEY_DOWN, ()-> { Camera.command("down"); });
-		addKey(KEY_LEFT, ()-> { Camera.command("left"); });
-		addKey(KEY_RIGHT, ()-> { Camera.command("right"); });
+		addKey('z', ()-> Camera.zoom = !Camera.zoom);
+		addKey(KEY_COMMA, ()-> Camera.command("zoom_in"), Camera.stop);
+		addKey(KEY_PERIOD, ()-> Camera.command("zoom_out"), Camera.stop);
+		addKey(KEY_UP, ()-> Camera.command("up"), Camera.stop);
+		addKey(KEY_DOWN, ()-> Camera.command("down"), Camera.stop);
+		addKey(KEY_LEFT, ()-> Camera.command("left"), Camera.stop);
+		addKey(KEY_RIGHT, ()-> Camera.command("right"), Camera.stop);
 	}
 }
 class WASDKeys extends KeyHandler {

@@ -4,17 +4,13 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import org.lwjgl.input.Mouse;
-import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.vector.Vector3f;
 import org.newdawn.slick.Color;
-import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Polygon;
-import org.newdawn.slick.geom.Transform;
 
 abstract public class Light extends Positionable {
 	
-	private static final long serialVersionUID = 15616709052981486L;
-	
+	private static final long serialVersionUID = 15616709052981486L;	
 	static public ArrayList<Light> lightList = new ArrayList<Light>();
 	static boolean firstLight = true;
 	static Random r = new Random();
@@ -262,20 +258,8 @@ class Sun extends Background {
 		super.remove();
 		light.remove();
 	}
-	void draw(Graphics g) {
-		//PUFF THE MAGIC DRAGON LIVED BY THE 
-		GL11.glEnable(org.lwjgl.opengl.GL11.GL_BLEND);
-		outer.setLocation(200 - Camera.getCenterX() / 100, 200 - Camera.getCenterY() / 100);
-		inner.setLocation(200 - Camera.getCenterX() / 100, 200 - Camera.getCenterY() / 100);
-		middle.setLocation(200 - Camera.getCenterX() / 100, 200 - Camera.getCenterY() / 100);
-		g.setColor(outerSunColor);
-		g.fill(outer.transform(Transform.createRotateTransform(outerAngularMotion, outer.getCenterX(), outer.getCenterY())));
-		g.setColor(middleSunColor);
-		g.fill(middle.transform(Transform.createRotateTransform(middleAngularMotion, middle.getCenterX(), middle.getCenterY())));
-		g.setColor(innerSunColor);
-		g.fill(inner.transform(Transform.createRotateTransform(innerAngularMotion, inner.getCenterX(), inner.getCenterY())));
-		innerAngularMotion += 0.005;
-		middleAngularMotion += 0.003;
-		outerAngularMotion += 0.001;
+	@Override
+	void draw() {
+		// TODO make the sun 3d
 	}
 }

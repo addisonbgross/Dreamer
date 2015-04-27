@@ -29,7 +29,8 @@ public class MousePointer extends Positionable implements Updateable {
 		remove();
 		setPosition(Camera.translateMouse(Mouse.getX(), Mouse.getY(), getZ()));
 		lastXVel = Mouse.getDX();
-		System.out.println("Mouse: " + Mouse.getX() + ", " + Mouse.getY());
+		lastYVel = Mouse.getDY();
+
 		if(Mouse.getX() > Constants.screenWidth - 5)
 			Camera.command("right");
 		else if(Mouse.getX() < 5)

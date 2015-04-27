@@ -165,8 +165,13 @@ class Marker extends Positionable {
 	}
 
 	@Override
+	boolean isVisible() {
+		return Element.debug;
+	}
+	
+	@Override
 	void draw() {
-		if (Element.debug) {
+		if (isVisible()) {
 			Drawer.drawCursor(name + "@(" + (int) getMinX() + ", " + (int) getMinY()
 					+ ")", getX(), getY(), getZ());
 		}
