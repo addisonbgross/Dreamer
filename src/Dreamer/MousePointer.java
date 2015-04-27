@@ -17,6 +17,7 @@ public class MousePointer extends Positionable implements Updateable {
 	Shape3d focus;
 	
 	MousePointer() {
+		
 		try {
 			Mouse.create();
 			Mouse.setGrabbed(true);
@@ -26,6 +27,7 @@ public class MousePointer extends Positionable implements Updateable {
 	}
 	
 	public void update() {
+		
 		remove();
 		setPosition(Camera.translateMouse(Mouse.getX(), Mouse.getY(), getZ()));
 		lastXVel = Mouse.getDX();

@@ -22,8 +22,7 @@ public class Camera {
 	private static String nextMovement = "stop";
 	private static int velocity = 0;
 	private static Stack<Vector3f> positionStack = new Stack<>();
-	static Performable stop;
-	static { stop = ()-> Camera.command("stop"); }
+	static Performable stop = ()-> Camera.command("stop");
 	
 	static Vector4f rotated = new Vector4f();
 	static Vector3f tempV3f = new Vector3f();

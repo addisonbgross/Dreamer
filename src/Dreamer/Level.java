@@ -39,19 +39,6 @@ class Level {
 	static void write(String s) {
 		ObjectOutputStream out;
 		try {
-			out = new ObjectOutputStream(new FileOutputStream(Constants.LEVELPATH + s + ".level"));
-			//-------------------------Debug
-
-			for(Element e: Element.masterList) {
-				try {
-					out.writeObject(e);		
-				} catch (java.io.NotSerializableException nse) {
-					System.out.println("The following objects cannnot be serialized:");
-					e.print();
-				}
-			}
-			out.close();
-			
 		 	out = new ObjectOutputStream(new FileOutputStream(Constants.LEVELPATH + s + ".level"));
 			out.writeObject(Element.masterList);
 			out.writeObject(Background.background);
@@ -66,8 +53,12 @@ class Level {
 		try{ 
 			FileInputStream door = new FileInputStream(Constants.LEVELPATH + s + ".level"); 
 			ObjectInputStream reader = new ObjectInputStream(door); 
-			for(Element e: (HashSet<Element>) reader.readObject())
-				e.add();
+			for(Element e: (HashSet<Element>) reader.readObject()) {
+				// TODO unhack this, don't save players
+				// perhaps create spawn points for all Actors?
+				if(e.getClass() != Ninja.class)
+					e.add();
+			}
 			for(Element e: (ArrayList<Element>) reader.readObject())
 				e.add();
 			for(Element e: (ArrayList<Element>) reader.readObject())
@@ -81,7 +72,7 @@ class Level {
 	void createLevel() {
 		//Override this method to create objects in level
 	}
-	public static void openMenu(Menu callbackMenu) {
+	public static void openSelectionMenu(Menu callbackMenu) {
 		Menu levelMenu = new Menu(Justification.CENTER, 0, 150);
 		levelMenu.setParent(callbackMenu);
 		
@@ -90,6 +81,9 @@ class Level {
 				Level.clear();
 				Level.read(file.getName().replace(".level", ""));
 				KeyHandler.openGameKeys();
+				Player.getFirst().add();
+				Player.getFirst().setCenterBottom(0, 200);
+				Camera.focus(new ClassFocus(200, Ninja.class));
 			});
 		}
 		

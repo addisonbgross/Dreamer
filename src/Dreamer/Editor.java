@@ -4,7 +4,6 @@ import java.io.File;
 import java.util.ArrayList;
 
 import org.lwjgl.util.vector.Vector3f;
-import org.newdawn.slick.Color;
 
 public class Editor {
 
@@ -115,7 +114,7 @@ public class Editor {
 				}
 			);
 		});
-		editorMenu.addOption("OPEN", ()-> { Level.openMenu(editorMenu); });
+		editorMenu.addOption("OPEN", ()-> { Level.openSelectionMenu(editorMenu); });
 		editorMenu.addOption("EXIT", ()-> { new MainMenu(); });
 	}
 

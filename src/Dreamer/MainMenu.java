@@ -18,7 +18,7 @@ public class MainMenu extends Level {
 			Level.clear();
 			new Editor().start();
 		});
-		main.addOption("OPEN LEVEL", ()-> { Level.openMenu(main); });
+		main.addOption("OPEN LEVEL", ()-> { Level.openSelectionMenu(main); });
 		main.addOption("TEST CHARACTERS", (/*why does one drift left?*/)-> {
 			new GrassSoldier(-100, 0, Brains.makeSoldier()).add();
 			Player.getFirst().add();
