@@ -1,0 +1,11 @@
+# Blender MTL File: 'tile_3.blend'
+# Material Count: 1
+
+newmtl Stone
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.281010 0.281010 0.281010
+Ks 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 1
