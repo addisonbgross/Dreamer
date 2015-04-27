@@ -19,7 +19,8 @@ public class Shape3d extends Positionable implements Lightable {
 	ArrayList<Vector3f> vertices = new ArrayList<Vector3f>();
 	protected ArrayList<Face> faces = new ArrayList<Face>();
 	protected ArrayList<Transformer> transformers = new ArrayList<Transformer>();
-
+	protected boolean isLiquid = false;
+	
 	// boolean fading = false; // implement in future?
 
 	float[] pow2 = { 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048 };
@@ -301,8 +302,10 @@ public class Shape3d extends Positionable implements Lightable {
 	}
 
 	public void generateMotionTracks() {
-		for (Face f : faces)
-			MotionTrack.generateMotionTrack(f, vertices, getPosition3f());
+		if (!isLiquid) {
+			for (Face f : faces)
+				MotionTrack.generateMotionTrack(f, vertices, getPosition3f());
+		}
 	}
 
 	public void generateMotionTrack(int i) {

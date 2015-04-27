@@ -106,9 +106,9 @@ abstract class Actor extends Collidable implements Updateable {
 			
 			// slower velocity if blocking
 			float currentVel = (checkStatus("blocking")) ? Constants.VEL / 2 : Constants.VEL;
-			
+
 			// sprint sequence
-			if (checkStatus("trysprint") && !checkStatus("blocking")) {
+			if (checkStatus("trysprint") && checkStatus("grounded") && !checkStatus("blocking")) {
 				if (stamina > 0) {
 					currentVel = 2.5f * Constants.VEL;
 					stamina--;
@@ -127,22 +127,25 @@ abstract class Actor extends Collidable implements Updateable {
 				scaledJumpVel = 0.4f;
 			
 			// left and right sequences
-			float xVel = dynamics.getXVel(), yVel = dynamics.getYVel();
-			if(checkStatus("tryright")) {
-				addStatus("right");
-				if (xVel < currentVel)
-					xVel += (xVel < 5) ? 2 * scaledJumpVel : Constants.ACTORACCELERATION * scaledJumpVel;
-				else 
-					xVel = currentVel;
+			float xVel = dynamics.getXVel(),
+				  yVel = dynamics.getYVel();
+			if (!checkStatus("dodging")) {
+				if(checkStatus("tryright")) {
+					addStatus("right");
+					if (xVel < currentVel)
+						xVel += (xVel < 5) ? 2 * scaledJumpVel : Constants.ACTORACCELERATION * scaledJumpVel;
+					else 
+						xVel = currentVel;
+				}
+				if(checkStatus("tryleft")) {
+					addStatus("left");
+					if (xVel > -currentVel)
+						xVel -= (xVel > -5) ? 2 * scaledJumpVel : Constants.ACTORACCELERATION * scaledJumpVel;
+					else 
+						xVel = -currentVel;
+				}
+				dynamics.setVelocity(xVel, yVel, 0);
 			}
-			if(checkStatus("tryleft")) {
-				addStatus("left");
-				if (xVel > -currentVel)
-					xVel -= (xVel > -5) ? 2 * scaledJumpVel : Constants.ACTORACCELERATION * scaledJumpVel;
-				else 
-					xVel = -currentVel;
-			}  
-			dynamics.setVelocity(xVel, yVel, 0);
 			
 			// attack sequence
 			if (checkStatus("tryattack") && !checkStatus("attacking") && weapon != null) {
@@ -173,9 +176,18 @@ abstract class Actor extends Collidable implements Updateable {
 			}
 			
 			// regenerate stamina
-			if (stamina < Constants.STARTINGSTAMINA && !checkStatus("blocking"))
-				stamina += Constants.STAMINAREGEN;
-			
+			if (stamina < Constants.STARTINGSTAMINA) {
+				if (checkStatus("blocking"))
+					stamina += Constants.STAMINAREGEN / 2;
+				else
+					stamina += Constants.STAMINAREGEN;
+
+				if (stamina < 0)
+					stamina = 0;
+				else if (stamina > 100)
+					stamina = 100;
+			}
+
 			// update all effect animations at correct time
 			for (Effect e : effects)
 				e.followActor();

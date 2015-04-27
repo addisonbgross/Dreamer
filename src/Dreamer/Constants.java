@@ -56,6 +56,7 @@ public class Constants {
 	static final int JUMPBUFFER = 10;
 	public static final float LIGHTDISTANCE = 600;
 	static final int MARKERSIZE = 20;
+	static final int DODGESTAMINACOST = 5;
 	//limit for testing collisions, after that adjusts velocity to 1 in current direction
 	static final int MAXTEST = 20;
 	static final float PLAYERJUMPVEL = 35, PLAYERMAXVEL = 35;

@@ -1,0 +1,11 @@
+# Blender MTL File: 'cave_2.blend'
+# Material Count: 1
+
+newmtl ruin
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.132026 0.118074 0.080976
+Ks 0.000000 0.000000 0.000000
+Ni 1.000000
+d 1.000000
+illum 1

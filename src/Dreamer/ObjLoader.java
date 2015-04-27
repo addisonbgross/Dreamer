@@ -45,6 +45,7 @@ public class ObjLoader {
 				if (m != null)
 					modelList.add(m);
 				m = new Shape3d();
+				
 				highVert = vertCount;
 			}
 			

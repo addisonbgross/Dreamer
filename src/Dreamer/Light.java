@@ -167,7 +167,7 @@ final class SunsetLight extends Light {
 	private static final long serialVersionUID = -8061974024074695263L;
 	{
 		orthogonality = 0.8f;
-		color = new Color(200, 100, 100);
+		color = new Color(250, 150, 150);
 		ambient = true;
 	}
 	SunsetLight(float x, float y, float z) {
