@@ -60,7 +60,7 @@ public class Constants {
 	static final float STAMINAREGEN = 0.20f;
 	public static final int NUMFRAMES = 4;
 	public static final Color COLLISIONCOLOUR = Color.yellow;
-	public static final Color TRAILCOLOR = Color.black;
+	public static final Color HIGHLIGHTCOLOR = Color.red;
 	// models
 	static int DEFAULTMODELSCALE = 100;
 }
