@@ -114,18 +114,15 @@ public class Editor {
 	}
 
 	void prompt(String s, Performable p) {
-		
 		mode = Mode.COMMAND;
 		prompt.name = s;
 		prompt.add();
 		currentAction = p;
 		editorKeys.add();
 	}
-	
 	void start() {
-		
 		KeyHandler.openEditorKeys(this);
-		Camera.focus(0, 0, 2000);
+		Camera.reset();
 		Theme.current = Theme.mono;
 		console.add();
 		pointer.add();
@@ -180,8 +177,9 @@ class TrackEditor {
 		Menu trackMenu = new Menu(
 			Justification.LEFT, 
 			-Constants.screenWidth / 2, 
-			Constants.screenHeight / 2 - 20
+			Constants.screenHeight / 2 - 50
 		);
+		
 		trackMenu.setParent(callback);
 		trackMenu.addOption("PREV", ()-> {
 			trackList.get(trackIndex).highlighted = false;
@@ -220,17 +218,15 @@ class TrackEditor {
 				trackList.add((MotionTrack)e);
 			}
 		}
-		// pointer.setPosition(0, 0, 0);
-		pointer.add();
-		pointer.onLeftClick = ()-> {
-			
+		
+		pointer.setPosition(Camera.getCenterX(), Camera.getCenterY(), 0);
+		pointer.onLeftClick = ()-> {			
 			Vector3f v = pointer.getPosition3f();
 			Marker m = new Marker(pointList.size() + "", v.x, v.y);
 			m.add();
 			pointList.add(m);
 		};
 		pointer.onRightClick = ()-> {
-			
 			for(int i = 1; i < pointList.size(); i++) {
 				Marker start = pointList.get(i - 1);
 				Marker end = pointList.get(i);
@@ -242,5 +238,6 @@ class TrackEditor {
 			}
 			pointList.clear();
 		};
+		pointer.add();
 	}
 }

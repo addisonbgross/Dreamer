@@ -23,7 +23,7 @@ class ShadowedMessage extends Foreground {
 	void draw() 
 	{
 		Camera.pushPosition();
-		Camera.focus(0, 0, 2000);
+		Camera.reset();
 		float j = (justification == Justification.LEFT)? 0: (justification == Justification.RIGHT)? 1: 0.5f; 
 		// OpenGL.disableDepthTest();
 		Drawer.setColor(shadowColor);
