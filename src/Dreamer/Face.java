@@ -190,7 +190,7 @@ public class Face implements java.io.Serializable {
 	@Override
 	public String toString() {
 		String s = "";
-		s += "Face #" + masterShape.faces.indexOf(this) + "\nnormal " + normal.toString();
+		s += "Face # " + masterShape.faces.indexOf(this) + "\nnormal " + normal.toString();
 		for(int i: vertexIndex) {
 			s += "\npoint " + i + " " + masterShape.vertices.get(i).toString();
 		}
@@ -198,8 +198,10 @@ public class Face implements java.io.Serializable {
 	}
 	
 	private void readObject(java.io.ObjectInputStream in) throws java.io.IOException, java.lang.ClassNotFoundException {
+		
 		in.defaultReadObject();
-		if(textureName != "") {
+
+		if(!textureName.equals("")) {
 			texture = Library.getTexture(textureName);
 			setTexturePoints(0, 0, 1, 1);
 		}
