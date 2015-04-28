@@ -20,13 +20,9 @@ public class Editor {
 	Performable currentAction;
 	ArrayList<Float> numericInput = new ArrayList<Float>();
 	String lastCommand = "";
-	static {
-		ShapeMaker.init();
-	}
+	static { ShapeMaker.init(); }
 
-	Editor() {
-		init();
-	}
+	Editor() { init(); }
 
 	void init() {
 		editorMenu.addOption("MAKE", () -> {
@@ -39,7 +35,7 @@ public class Editor {
 				pointer.onMove = ()-> {};
 			};
 		});
-		editorMenu.addOption("EDIT TRACKS", ()-> { new TrackEditor(); });
+		editorMenu.addOption("EDIT TRACKS", ()-> { new TrackEditor(editorMenu); });
 		editorMenu.addOption("TRANSLATE", ()-> {
 			pointer.onMove = ()-> {
 				ShapeMaker.focus.setPosition(pointer.getX(),
@@ -114,8 +110,7 @@ public class Editor {
 				}
 			);
 		});
-		editorMenu.addOption("OPEN", ()-> { Level.openSelectionMenu(editorMenu); });
-		editorMenu.addOption("EXIT", ()-> { new MainMenu(); });
+		editorMenu.addExitOption();
 	}
 
 	void prompt(String s, Performable p) {
@@ -125,10 +120,9 @@ public class Editor {
 		currentAction = p;
 		editorKeys.add();
 	}
-	
 	void start() {
 		KeyHandler.openEditorKeys(this);
-		Camera.focus(0, 0, 2000);
+		Camera.reset();
 		Theme.current = Theme.mono;
 		console.add();
 		pointer.add();
@@ -173,29 +167,77 @@ class TrackEditor {
 	
 	MousePointer pointer = new MousePointer();
 	ArrayList<Marker> pointList = new ArrayList<>();
+	java.util.LinkedList<MotionTrack> trackList = new java.util.LinkedList<>(); 
+	int trackIndex = 0;
 	
-	TrackEditor() {
+	TrackEditor(Menu callback) {
 		
 		Element.debug = true;
 		
-		pointer.setPosition(0, 0, 0);
-		pointer.add();
-		pointer.onLeftClick = ()-> {
+		Menu trackMenu = new Menu(
+			Justification.LEFT, 
+			-Constants.screenWidth / 2, 
+			Constants.screenHeight / 2 - 50
+		);
+		
+		trackMenu.setParent(callback);
+		trackMenu.addOption("PREV", ()-> {
+			trackList.get(trackIndex).highlighted = false;
+			int size = trackList.size();
+			trackIndex = (trackIndex - 1 + size) % size;
+			trackList.get(trackIndex).highlighted = true;
+			Camera.focus(
+				trackList.get(trackIndex).getX(), 
+				trackList.get(trackIndex).getY(), 
+				2000
+			);
+		});
+		trackMenu.addOption("NEXT", ()-> { 
+			trackList.get(trackIndex).highlighted = false;
+			int size = trackList.size();
+			trackIndex = (trackIndex + 1) % size;
+			trackList.get(trackIndex).highlighted = true;
+			Camera.focus(
+				trackList.get(trackIndex).getX(), 
+				trackList.get(trackIndex).getY(), 
+				2000
+			);
+		});
+		trackMenu.addOption("DELETE", ()-> {
+			MotionTrack mt = trackList.get(trackIndex);
+			mt.remove();
+			trackList.remove(mt);
+			int size = trackList.size();
+			trackIndex = (trackIndex - 1 + size) % size;
+		});
+		trackMenu.addExitOption();
+		trackMenu.open();
+		
+		for(Element e: Element.masterList) {
+			if((MotionTrack.class).isAssignableFrom(e.getClass())) {
+				trackList.add((MotionTrack)e);
+			}
+		}
+		
+		pointer.setPosition(Camera.getCenterX(), Camera.getCenterY(), 0);
+		pointer.onLeftClick = ()-> {			
 			Vector3f v = pointer.getPosition3f();
 			Marker m = new Marker(pointList.size() + "", v.x, v.y);
 			m.add();
 			pointList.add(m);
 		};
 		pointer.onRightClick = ()-> {
-			
 			for(int i = 1; i < pointList.size(); i++) {
 				Marker start = pointList.get(i - 1);
 				Marker end = pointList.get(i);
-				new MotionTrack(start.getX(), start.getY(), end.getX(), end.getY()).add();
+				MotionTrack mt = new MotionTrack(start.getX(), start.getY(), end.getX(), end.getY());
+				mt.add();
+				trackList.add(mt);
 				end.remove();
 				start.remove();
 			}
 			pointList.clear();
 		};
+		pointer.add();
 	}
 }

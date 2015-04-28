@@ -168,7 +168,8 @@ class EditorKeys extends KeyHandler {
 				= KeyHandler.keyBuffer.substring(0, KeyHandler.keyBuffer.length() - 1);
 			editor.console.name = KeyHandler.keyBuffer;
 		});
-		addKey(KEY_TAB, ()-> { KeyHandler.openGameKeys(); });
+		// TODO switch cleanly between editor and game
+		// addKey(KEY_TAB, ()-> { KeyHandler.openGameKeys(); });
 	}
 }
 class ZoomKeys extends KeyHandler {

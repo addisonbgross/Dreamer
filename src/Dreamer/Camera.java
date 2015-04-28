@@ -133,7 +133,6 @@ public class Camera {
 		position.set(x, y, z);
 	}
 	static void reset() {
-		
 		target = null;
 		position.x = 0;
 		position.y = 0;
