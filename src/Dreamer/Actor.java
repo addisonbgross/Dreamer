@@ -17,8 +17,7 @@ abstract class Actor extends Collidable implements Updateable {
 	private static Set<Collidable> collisionSet = new HashSet<Collidable>();
 	private static Collidable success = null;
 	
-	//rangeFinder is a disposable rectangle used for activating objects, mostly
-	protected static Rectangle rangeFinder = new Rectangle(0, 0, 0, 0);
+	Rectangle rectangle;
 	private HashSet<Status> status = new HashSet<Status>();
 	float health = Constants.STARTINGHEALTH;
 	float stamina = Constants.STARTINGSTAMINA;
@@ -198,15 +197,14 @@ abstract class Actor extends Collidable implements Updateable {
 	}
 	Set<Collidable> findCollisions(Set<Collidable> foundCollisions) {
 		
-		rangeFinder.setBounds(
-				getMinX() + dynamics.getXVel() - (Constants.COLLISIONINTERVAL), 
-				getMinY() + dynamics.getYVel() - (Constants.COLLISIONINTERVAL), 
-				getWidth() + 2 * (Constants.COLLISIONINTERVAL + Math.abs(dynamics.getXVel())), 
-				getHeight() + 2 *(Constants.COLLISIONINTERVAL + Math.abs(dynamics.getYVel()))
+		rectangle = new Rectangle(
+			getMinX() + dynamics.getXVel() - (Constants.COLLISIONINTERVAL),
+			getMinY() + dynamics.getYVel() - (Constants.COLLISIONINTERVAL),
+			getWidth() + 2 * (Constants.COLLISIONINTERVAL + Math.abs(dynamics.getXVel())),
+			getHeight() + 2 *(Constants.COLLISIONINTERVAL + Math.abs(dynamics.getYVel()))
 		);
-		
 		foundCollisions.clear();
-		for(Element e: Collidable.getActiveWithin(rangeFinder)) {
+		for(Element e: Collidable.getActiveWithin(rectangle)) {
 			//very important to not compare this to itself, infinite loop
 			if(Collidable.class.isAssignableFrom(e.getClass()) && e != this) {
 				 foundCollisions.add((Collidable)e);

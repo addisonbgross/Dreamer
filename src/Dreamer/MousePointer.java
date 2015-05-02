@@ -8,7 +8,7 @@ public class MousePointer extends Positionable implements Updateable {
 	private static final long serialVersionUID = 4399127807182868906L;
 	
 	boolean leftClickAction = false, rightClickAction = false;
-	float lastX, lastY, lastXVel, lastYVel;
+	float lastClickedX, lastClickedY, lastXVel, lastYVel;
 	Performable onMove = ()-> {}, 
 			onRightClick = ()-> {}, 
 			onLeftClick = ()-> {}, 
@@ -50,8 +50,8 @@ public class MousePointer extends Positionable implements Updateable {
 		if(Mouse.isButtonDown(0)) {
 			
 			if(!leftClickAction) {
-				lastX = getX();
-				lastY = getY();
+				lastClickedX = getX();
+				lastClickedY = getY();
 				leftClickAction = true;
 				onLeftClick.perform();
 			}	
@@ -63,8 +63,8 @@ public class MousePointer extends Positionable implements Updateable {
 		
 		if(Mouse.isButtonDown(1)) {
 			if(!rightClickAction) {
-				lastX = getX();
-				lastY = getY();
+				lastClickedX = getX();
+				lastClickedY = getY();
 				rightClickAction = true;
 				onRightClick.perform();
 			}	
