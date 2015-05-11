@@ -25,6 +25,10 @@ class Updater {
 	public static void add(Element e) {
 		updateBirthSet.add((Updateable) e);
 	}
+	
+	public static void remove(Element e) {
+		updateDeathSet.add((Updateable) e);
+	}
 
 	public static void clear() {
 		updateSet.clear();

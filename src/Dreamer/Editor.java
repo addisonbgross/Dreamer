@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 import org.lwjgl.util.vector.Vector3f;
+import org.newdawn.slick.geom.Rectangle;
 
 public class Editor {
 
@@ -25,6 +26,7 @@ public class Editor {
 	Editor() { init(); }
 
 	void init() {
+		
 		editorMenu.addOption("MAKE", () -> {
 			
 			ShapeMaker.menu.setParent(editorMenu);
@@ -35,25 +37,35 @@ public class Editor {
 				pointer.onMove = ()-> {};
 			};
 		});
-		editorMenu.addOption("EDIT TRACKS", ()-> { new TrackEditor(editorMenu); });
+		
+		editorMenu.addOption("EDIT TRACKS", ()-> { 
+		
+			new TrackEditor(editorMenu); 
+		});
+		
 		editorMenu.addOption("TRANSLATE", ()-> {
+			
 			pointer.onMove = ()-> {
 				ShapeMaker.focus.setPosition(pointer.getX(),
 						pointer.getMaxY(), pointer.getZ());
 			};
 		});
+		
 		editorMenu.addOption("CHANGE Z", ()-> {
+			
 			pointer.onMove = ()-> {
 				pointer.setZ(pointer.getZ() + pointer.lastXVel);
 				ShapeMaker.focus.setPosition(ShapeMaker.focus.getX(),
 						ShapeMaker.focus.getY(), pointer.getZ());
 			};
 		});
+		
 		editorMenu.addOption("ROTATE", ()-> {
+			
 			pointer.onMove = ()-> {
 				Vector3f v = new Vector3f(pointer.getX(), pointer
 						.getY(), 1);
-				Vector3f n = new Vector3f(pointer.lastX, pointer.lastY,
+				Vector3f n = new Vector3f(pointer.lastClickedX, pointer.lastClickedY,
 						1);
 				v = Vector3f.cross(v, n, v);
 				v.normalise();
@@ -61,7 +73,9 @@ public class Editor {
 						0.01f * (pointer.lastXVel + pointer.lastYVel));
 			};
 		});
+		
 		editorMenu.addOption("SCALE", ()-> {
+			
 			mode = Mode.NUMERIC;
 			editorKeys.add();
 
@@ -74,8 +88,11 @@ public class Editor {
 					editorMenu.open();
 			};
 		});
+		
 		editorMenu.addOption("RANDOM", ()-> { ShapeMaker.focus.randomize(0.5f); });
+		
 		editorMenu.addOption("PLAY", ()-> {
+			
 			Element.debug = false;
 			Player.getFirst().add();
 			KeyHandler.openGameKeys();
@@ -83,7 +100,9 @@ public class Editor {
 			Foreground.foreground.clear();
 			pointer.remove();
 		});
+		
 		editorMenu.addOption("CHANGE BACKGROUND", ()-> {
+			
 			Menu backgroundMenu = new Menu(Justification.CENTER, 0, 150);
 			backgroundMenu.setParent(editorMenu);
 			
@@ -97,6 +116,7 @@ public class Editor {
 			backgroundMenu.addExitOption();
 			backgroundMenu.open();
 		});
+		
 		editorMenu.addOption("SAVE", ()-> {
 			
 			editorMenu.exit();
@@ -110,6 +130,7 @@ public class Editor {
 				}
 			);
 		});
+		
 		editorMenu.addExitOption();
 	}
 
@@ -132,7 +153,9 @@ public class Editor {
 	void command(String s) {
 
 		if (mode == Mode.NUMERIC) {
+			
 			numericInput.clear();
+			
 			for (String st : s.split("[, ]")) {
 				try {
 					numericInput.add(Float.parseFloat(st + "f"));
@@ -141,23 +164,28 @@ public class Editor {
 					System.err.println("Incorrect numeric input");
 				}
 			}
+			
 			currentAction.perform();
+			
 		} else if (mode == Mode.COMMAND) {
+			
 			lastCommand = s;
 
 			switch (s) {
-			case "menu":
-				new MainMenu();
-				break;
-
-			case "exit":
-				editorMenu.open();
-				break;
-
-			default:
-				System.err.println("Invalid command");
-				break;
+			
+				case "menu":
+					new MainMenu();
+					break;
+	
+				case "exit":
+					editorMenu.open();
+					break;
+	
+				default:
+					System.err.println("Invalid command");
+					break;
 			}
+			
 			currentAction.perform();
 		}
 	}
@@ -165,69 +193,37 @@ public class Editor {
 
 class TrackEditor {
 	
-	MousePointer pointer = new MousePointer();
+	MousePointer pointer;
 	ArrayList<Marker> pointList = new ArrayList<>();
-	java.util.LinkedList<MotionTrack> trackList = new java.util.LinkedList<>(); 
-	int trackIndex = 0;
+	ArrayList<MotionTrack> trackList = new ArrayList<>();
+	ArrayList<MotionTrack> deleteList = new ArrayList<>();
+	Rectangle selectionRectangle = null;
 	
 	TrackEditor(Menu callback) {
 		
 		Element.debug = true;
+		pointer = MainMenu.editor.pointer;
 		
 		Menu trackMenu = new Menu(
 			Justification.LEFT, 
 			-Constants.screenWidth / 2, 
-			Constants.screenHeight / 2 - 50
+			Constants.screenHeight / 2 - 80
 		);
 		
 		trackMenu.setParent(callback);
-		trackMenu.addOption("PREV", ()-> {
-			trackList.get(trackIndex).highlighted = false;
-			int size = trackList.size();
-			trackIndex = (trackIndex - 1 + size) % size;
-			trackList.get(trackIndex).highlighted = true;
-			Camera.focus(
-				trackList.get(trackIndex).getX(), 
-				trackList.get(trackIndex).getY(), 
-				2000
-			);
-		});
-		trackMenu.addOption("NEXT", ()-> { 
-			trackList.get(trackIndex).highlighted = false;
-			int size = trackList.size();
-			trackIndex = (trackIndex + 1) % size;
-			trackList.get(trackIndex).highlighted = true;
-			Camera.focus(
-				trackList.get(trackIndex).getX(), 
-				trackList.get(trackIndex).getY(), 
-				2000
-			);
-		});
-		trackMenu.addOption("DELETE", ()-> {
-			MotionTrack mt = trackList.get(trackIndex);
-			mt.remove();
-			trackList.remove(mt);
-			int size = trackList.size();
-			trackIndex = (trackIndex - 1 + size) % size;
-		});
-		trackMenu.addExitOption();
-		trackMenu.open();
 		
-		for(Element e: Element.masterList) {
-			if((MotionTrack.class).isAssignableFrom(e.getClass())) {
-				trackList.add((MotionTrack)e);
-			}
-		}
-		
-		pointer.setPosition(Camera.getCenterX(), Camera.getCenterY(), 0);
-		pointer.onLeftClick = ()-> {			
+		trackMenu.addOption("MAKE TRACK POINT", ()-> {
+			
 			Vector3f v = pointer.getPosition3f();
 			Marker m = new Marker(pointList.size() + "", v.x, v.y);
 			m.add();
 			pointList.add(m);
-		};
-		pointer.onRightClick = ()-> {
+		});
+		
+		trackMenu.addOption("MAKE TRACKS", ()-> {
+			
 			for(int i = 1; i < pointList.size(); i++) {
+				
 				Marker start = pointList.get(i - 1);
 				Marker end = pointList.get(i);
 				MotionTrack mt = new MotionTrack(start.getX(), start.getY(), end.getX(), end.getY());
@@ -236,8 +232,55 @@ class TrackEditor {
 				end.remove();
 				start.remove();
 			}
+			
 			pointList.clear();
+		});
+		
+		trackMenu.addOption("DELETE", ()-> {
+			
+			for(MotionTrack mt: deleteList) {
+				trackList.remove(mt);
+				mt.remove();
+			}
+			deleteList.clear();
+		});
+		
+		trackMenu.addExitOption();
+		
+		trackMenu.open();
+		
+		for(Element e: Element.masterList) {
+			
+			if((MotionTrack.class).isAssignableFrom(e.getClass())) {
+				trackList.add((MotionTrack)e);
+			}
+		}
+		
+		pointer.setPosition(Camera.getCenterX(), Camera.getCenterY(), 0);
+		
+		pointer.onLeftClick = ()-> pointer.startSelection();
+		
+		pointer.onMove = ()-> pointer.updateSelection();
+		
+		pointer.onLeftClickRelease = ()-> {
+			
+			for(MotionTrack mt: deleteList)
+				mt.highlighted = false;
+			
+			deleteList.clear();
+			
+			for(Element e: pointer.getSelection()) {
+				
+				if(MotionTrack.class.isAssignableFrom(e.getClass())) {
+					
+					deleteList.add((MotionTrack)e);
+					((MotionTrack)e).highlighted = true;
+				}
+			}
+			
+			pointer.resetSelection();
 		};
+		
 		pointer.add();
 	}
 }

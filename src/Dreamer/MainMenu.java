@@ -3,6 +3,7 @@ package Dreamer;
 public class MainMenu extends Level {
 	
 	Menu main = new Menu(Justification.CENTER, 0, 150);	
+	static Editor editor;
 	
 	void createLevel() {
 		
@@ -16,7 +17,8 @@ public class MainMenu extends Level {
 		main.addOption("OPEN EDITOR (TAB IN-GAME)", ()-> {
 			KeyHandler.clearKeys();
 			Level.clear();
-			new Editor().start();
+			editor = new Editor();
+			editor.start();
 		});
 		main.addOption("OPEN LEVEL", ()-> { Level.openSelectionMenu(main); });
 		main.addOption("TEST CHARACTERS", (/*why does one drift left?*/)-> {
