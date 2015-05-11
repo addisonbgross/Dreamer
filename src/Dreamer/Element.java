@@ -34,7 +34,7 @@ public class Element implements Serializable {
 
 	void remove() {
 		if (this instanceof Updateable)
-			Updater.add(this);
+			Updater.remove(this);
 		masterList.remove(this);
 	}
 

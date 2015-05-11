@@ -125,7 +125,6 @@ class BirdLevel extends Level {
 	void createLevel () {
 		new NinjaAlt(500, 300, Brains.makeSoldier()).add();
 		Random r = new Random();
-		new MousePointer().add();
 		new MouseLight().add();
 		new GradientBackground(Color.blue.darker(0.5f), Color.black).add();
 		final int BLOCKWIDTH = 200, BLOCKHEIGHT = 25;

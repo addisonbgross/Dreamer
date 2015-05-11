@@ -118,6 +118,7 @@ public final class PerformanceMonitor {
 
 	static void displayInfo() {
 
+		Drawer.setFont(Library.defaultFont);
 		Drawer.setColor(Library.defaultFontColor);
 		Drawer.drawString(numberActive()
 				+ " ACTIVE ELEMENTS, " + numberXRangeSets()

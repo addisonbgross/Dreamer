@@ -1,13 +1,18 @@
 package Dreamer;
 
+import java.util.Set;
+
 import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Mouse;
+import org.newdawn.slick.Color;
+import org.newdawn.slick.geom.Rectangle;
 
 public class MousePointer extends Positionable implements Updateable {
 	
 	private static final long serialVersionUID = 4399127807182868906L;
 	
-	boolean leftClickAction = false, rightClickAction = false;
+	boolean leftClickPressed = false;
+	boolean rightClickPressed = false;
 	float lastClickedX, lastClickedY, lastXVel, lastYVel;
 	Performable onMove = ()-> {}, 
 			onRightClick = ()-> {}, 
@@ -15,6 +20,7 @@ public class MousePointer extends Positionable implements Updateable {
 			onRightClickRelease = ()-> {}, 
 			onLeftClickRelease = ()-> {};
 	Shape3d focus;
+	Rectangle selectionRectangle = null;
 	
 	MousePointer() {
 		
@@ -46,31 +52,37 @@ public class MousePointer extends Positionable implements Updateable {
 		
 		onMove.perform();
 		
-		//draw a block defined by the mouse left click dragging region
 		if(Mouse.isButtonDown(0)) {
 			
-			if(!leftClickAction) {
+			if(!leftClickPressed) {
 				lastClickedX = getX();
 				lastClickedY = getY();
-				leftClickAction = true;
+				leftClickPressed = true;
 				onLeftClick.perform();
+				System.out.println("LEFT BUTTON CLICKED");
+				System.out.println(this.hashCode());
 			}	
-		} else if(leftClickAction) {
+		} else if(leftClickPressed) {
 			
-			leftClickAction = false;
+			leftClickPressed = false;
 			onLeftClickRelease.perform();
+			System.out.println("LEFT BUTTON RELEASED");
 		}
 		
 		if(Mouse.isButtonDown(1)) {
-			if(!rightClickAction) {
+			
+			if(!rightClickPressed) {
 				lastClickedX = getX();
 				lastClickedY = getY();
-				rightClickAction = true;
+				rightClickPressed = true;
 				onRightClick.perform();
+				System.out.println("RIGHT BUTTON CLICKED");
 			}	
-		} else if(rightClickAction) {
-			rightClickAction = false;
+		} else if(rightClickPressed) {
+			
+			rightClickPressed = false;
 			onRightClickRelease.perform();
+			System.out.println("RIGHT BUTTON RELEASED");
 		}
 		
 		add();
@@ -78,10 +90,37 @@ public class MousePointer extends Positionable implements Updateable {
 
 	@Override
 	void draw() {
+		
+		OpenGL.disableDepthTest();
+	
 		Drawer.drawCursor("MousePointer (" + getX() + " " + getY() + " " + getZ() + ")", getX(), getY(), getZ());
-		/*
-		if(Element.debug)
-			drawCursor("MousePointer", getX(), getY(), getZ(), g);
-			*/
+		
+		if(selectionRectangle != null) {
+			Drawer.drawShape(selectionRectangle, Color.white, false);
+		}
+	}
+
+	public void startSelection() {
+		selectionRectangle = new Rectangle(getX(), getY(), getX(), getY());
+	}
+	
+	public void updateSelection() {
+		
+		if(selectionRectangle != null) {
+			
+			float 
+				width = getX() - lastClickedX, 
+				height = getY() - lastClickedY;
+			
+			selectionRectangle.setSize(width, height);
+		}
+	}
+	
+	public Set<Element> getSelection() {
+		return Collidable.getActiveWithin(selectionRectangle);
+	}
+	
+	public void resetSelection() {
+		selectionRectangle = null;
 	}
 }
