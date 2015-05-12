@@ -1,5 +1,8 @@
 package Dreamer;
 
+import Dreamer.enums.Justification;
+import Dreamer.interfaces.Performable;
+
 public class Menu {
 	
 	Menu (Justification j, float xPosition, float yPosition) {

@@ -8,6 +8,9 @@ import org.lwjgl.util.vector.Vector3f;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.geom.Polygon;
 
+import Dreamer.interfaces.Lightable;
+import Dreamer.interfaces.Updateable;
+
 abstract public class Light extends Positionable {
 	
 	private static final long serialVersionUID = 15616709052981486L;	

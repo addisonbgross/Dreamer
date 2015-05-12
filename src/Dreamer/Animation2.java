@@ -7,6 +7,9 @@ import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 import org.newdawn.slick.Color;
 
+import Dreamer.enums.Status;
+import Dreamer.interfaces.Updateable;
+
 public class Animation2 extends Shape3d implements Updateable {
 	
 	private static final long serialVersionUID = -863958778224192478L;

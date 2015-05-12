@@ -11,6 +11,8 @@ import org.newdawn.slick.geom.Line;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.Vector2f;
 
+import Dreamer.enums.Status;
+
 class Collidable extends Positionable {	
 	
 	private static final long serialVersionUID = -5571044266659765974L;

@@ -7,6 +7,9 @@ import org.newdawn.slick.geom.Line;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Vector2f;
 
+import Dreamer.enums.Status;
+import Dreamer.interfaces.Updateable;
+
 public class MotionTrack extends Collidable {
 	
 	private static final long serialVersionUID = -4136972279948096275L;

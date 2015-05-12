@@ -1,5 +1,7 @@
 package Dreamer;
 
+import Dreamer.enums.FileType;
+
 public class OnDemandLoader implements Runnable {
 	private static java.util.ArrayDeque<Resource> resourceList = new java.util.ArrayDeque<>(); 
 	private static OnDemandLoader loader = new OnDemandLoader();

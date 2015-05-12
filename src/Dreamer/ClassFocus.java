@@ -2,6 +2,8 @@ package Dreamer;
 
 import java.util.ArrayList;
 
+import Dreamer.interfaces.Updateable;
+
 class ClassFocus extends Positionable implements Updateable {
 	
 	private static final long serialVersionUID = 2627661786688015225L;

@@ -7,6 +7,9 @@ import org.lwjgl.util.vector.Vector4f;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Rectangle;
 
+import Dreamer.interfaces.Performable;
+import Dreamer.interfaces.Updateable;
+
 public class Camera {
 	
 	private static Rectangle prescaledScene  = new Rectangle(

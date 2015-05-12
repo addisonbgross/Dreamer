@@ -9,6 +9,11 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.geom.Polygon;
 import org.newdawn.slick.geom.Rectangle;
 
+import Dreamer.interfaces.ActorPerformable;
+import Dreamer.interfaces.Lightable;
+import Dreamer.interfaces.Performable;
+import Dreamer.interfaces.Updateable;
+
 public class Shape3d extends Positionable implements Lightable {
 
 	private static final long serialVersionUID = -2545062660573860101L;

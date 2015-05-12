@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.TreeMap;
 
+import Dreamer.interfaces.Updateable;
+
 public class Element implements Serializable {
 
 	private static final long serialVersionUID = 1384182428126670525L;
