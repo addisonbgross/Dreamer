@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import org.lwjgl.util.vector.Vector3f;
 import org.newdawn.slick.geom.Rectangle;
 
+import Dreamer.enums.Justification;
+import Dreamer.interfaces.Performable;
+
 public class Editor {
 
 	enum Mode {

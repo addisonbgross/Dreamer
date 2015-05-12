@@ -5,7 +5,9 @@ import java.util.Random;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 
-import static Dreamer.Status.*;
+import Dreamer.enums.Status;
+import Dreamer.interfaces.Updateable;
+import static Dreamer.enums.Status.*;
 
 public class Body extends Positionable implements Updateable { 	
 	

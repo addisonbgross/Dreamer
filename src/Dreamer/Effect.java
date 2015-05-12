@@ -1,5 +1,7 @@
 package Dreamer;
 
+import Dreamer.interfaces.Updateable;
+
 public abstract class Effect extends Element implements Updateable {
 	
 	private static final long serialVersionUID = 5289812447446272287L;

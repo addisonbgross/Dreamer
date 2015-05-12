@@ -9,9 +9,11 @@ import org.newdawn.slick.geom.Line;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Vector2f;
 
-import static Dreamer.Status.*;
+import Dreamer.enums.Status;
+import Dreamer.interfaces.Updateable;
+import static Dreamer.enums.Status.*;
 
-abstract class Actor extends Collidable implements Updateable {
+public abstract class Actor extends Collidable implements Updateable {
 	
 	private static final long serialVersionUID = -8711854287889823062L;
 	private static Set<Collidable> collisionSet = new HashSet<Collidable>();

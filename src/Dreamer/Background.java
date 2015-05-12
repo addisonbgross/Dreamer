@@ -7,6 +7,8 @@ import org.newdawn.slick.fills.GradientFill;
 import org.newdawn.slick.geom.Polygon;
 import org.newdawn.slick.geom.Rectangle;
 
+import Dreamer.interfaces.Updateable;
+
 class Background extends Positionable {
 
 	private static final long serialVersionUID = -5311718550637469560L;

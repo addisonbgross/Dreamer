@@ -1,4 +1,4 @@
-package Dreamer;
+package Dreamer.enums;
 
 public enum FileType {
 	IMG, 

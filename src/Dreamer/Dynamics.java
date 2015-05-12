@@ -10,7 +10,7 @@ public class Dynamics implements java.io.Serializable {
 	Vector3f getVelocity() {return velocity;}
 	
 	float getXVel() {return velocity.x;}
-	float getYVel() {return velocity.y;}
+	public float getYVel() {return velocity.y;}
 	float getZVel() {return velocity.z;}
 	
 	public Dynamics setXVel(float f) {velocity.x = f; return this;}

@@ -2,6 +2,8 @@ package Dreamer;
 
 import org.newdawn.slick.Color;
 
+import Dreamer.enums.Justification;
+
 public class ShapeMaker {
 
 	static Shape3d focus = new Shape3d(); 

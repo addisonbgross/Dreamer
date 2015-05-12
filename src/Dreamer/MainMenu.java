@@ -1,5 +1,7 @@
 package Dreamer;
 
+import Dreamer.enums.Justification;
+
 public class MainMenu extends Level {
 	
 	Menu main = new Menu(Justification.CENTER, 0, 150);	

@@ -5,7 +5,8 @@ import org.newdawn.slick.geom.Line;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.Vector2f;
 
-import static Dreamer.Status.*;
+import Dreamer.interfaces.Updateable;
+import static Dreamer.enums.Status.*;
 
 abstract class Weapon extends Shape3d implements Updateable {
 

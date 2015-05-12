@@ -18,7 +18,9 @@ import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.util.ResourceLoader;
 
-class Library {
+import Dreamer.enums.FileType;
+
+public class Library {
 	private static HashMap<String, ImageTracker> images = new HashMap<String, ImageTracker>();
 	private static HashMap<String, File> models = new HashMap<String, File>();
 	static Texture tempTexture = null;
@@ -68,7 +70,7 @@ class Library {
 		return images.get("fail").scale(f);
 	}
 
-	static Image getImage(String s) {
+	public static Image getImage(String s) {
 		return getImage(s, 1);
 	}
 

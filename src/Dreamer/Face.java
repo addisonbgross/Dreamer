@@ -38,7 +38,7 @@ public class Face implements java.io.Serializable {
 		setColor(c);
 		triangulate();
 	}
-	Face (String s, Color c, int... i) {
+	public Face (String s, Color c, int... i) {
 		//if not a quad may throw errors
 		this(c, i);
 		textureName = s;

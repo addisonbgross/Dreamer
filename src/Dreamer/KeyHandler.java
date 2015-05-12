@@ -4,8 +4,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static org.lwjgl.input.Keyboard.*;
+
 import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.Color;
+
+import Dreamer.enums.Status;
+import Dreamer.interfaces.Performable;
 
 abstract public class KeyHandler {
 	static boolean initialized =  false;

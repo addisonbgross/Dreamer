@@ -1,7 +1,8 @@
 package Dreamer;
 
 import java.util.Random;
-import static Dreamer.Status.*;
+
+import static Dreamer.enums.Status.*;
 
 /**
  * Traits form the intelligence of non-player characters. Each
@@ -11,7 +12,7 @@ import static Dreamer.Status.*;
  * activated each game update, and they will dictate the attitude
  * and actions of the NPC
  */
-abstract class Trait implements java.io.Serializable {
+public abstract class Trait implements java.io.Serializable {
 	
 	private static final long serialVersionUID = 4791643009281211758L;
 	protected float intensity; // 0.0 -> 1.0

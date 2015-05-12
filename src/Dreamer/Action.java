@@ -1,5 +1,7 @@
 package Dreamer;
 
+import Dreamer.enums.Status;
+
 class Action {
 	
 	String command = "";

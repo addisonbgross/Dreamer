@@ -12,6 +12,9 @@ import java.util.ArrayList;
 
 import org.newdawn.slick.Color;
 
+import Dreamer.enums.Justification;
+import Dreamer.enums.Status;
+
 // Level is the base class for all games states, including menus, editors, debuggers etc
 
 class Level {

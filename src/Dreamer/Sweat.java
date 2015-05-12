@@ -1,5 +1,7 @@
 package Dreamer;
 
+import Dreamer.enums.Status;
+
 
 public class Sweat extends Effect {	
 

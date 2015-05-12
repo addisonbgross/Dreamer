@@ -4,16 +4,9 @@ import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Set;
 
-public interface Updateable {
-	public void update();
-}
+import Dreamer.interfaces.Updateable;
 
-class x {
-	HashSet<Updateable> h = new HashSet<>();
-	{ h.add(() -> System.err.println("whoah")); }
-}
-
-class Updater {
+public class Updater {
 	// the set which all Elements implementing Updateable get added to with
 	// .add()
 	static Set<Updateable> updateSet = new HashSet<Updateable>(100);

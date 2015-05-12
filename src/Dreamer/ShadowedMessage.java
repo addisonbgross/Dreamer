@@ -3,6 +3,8 @@ package Dreamer;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.TextureImpl;
 
+import Dreamer.enums.Justification;
+
 class ShadowedMessage extends Foreground {	
 
 	private static final long serialVersionUID = -7660105807513879250L;

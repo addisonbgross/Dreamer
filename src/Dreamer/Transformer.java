@@ -2,6 +2,8 @@
 
 import org.lwjgl.util.vector.Vector3f;
 
+import Dreamer.interfaces.Updateable;
+
 public abstract class Transformer implements Updateable, java.io.Serializable {
 	
 	private static final long serialVersionUID = 6765091439474383443L;

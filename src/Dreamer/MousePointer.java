@@ -7,6 +7,9 @@ import org.lwjgl.input.Mouse;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.geom.Rectangle;
 
+import Dreamer.interfaces.Performable;
+import Dreamer.interfaces.Updateable;
+
 public class MousePointer extends Positionable implements Updateable {
 	
 	private static final long serialVersionUID = 4399127807182868906L;
@@ -33,8 +36,7 @@ public class MousePointer extends Positionable implements Updateable {
 	}
 	
 	public void update() {
-		
-		remove();
+
 		setPosition(Camera.translateMouse(Mouse.getX(), Mouse.getY(), getZ()));
 		lastXVel = Mouse.getDX();
 		lastYVel = Mouse.getDY();
@@ -59,14 +61,11 @@ public class MousePointer extends Positionable implements Updateable {
 				lastClickedY = getY();
 				leftClickPressed = true;
 				onLeftClick.perform();
-				System.out.println("LEFT BUTTON CLICKED");
-				System.out.println(this.hashCode());
 			}	
 		} else if(leftClickPressed) {
 			
 			leftClickPressed = false;
 			onLeftClickRelease.perform();
-			System.out.println("LEFT BUTTON RELEASED");
 		}
 		
 		if(Mouse.isButtonDown(1)) {
@@ -76,16 +75,12 @@ public class MousePointer extends Positionable implements Updateable {
 				lastClickedY = getY();
 				rightClickPressed = true;
 				onRightClick.perform();
-				System.out.println("RIGHT BUTTON CLICKED");
 			}	
 		} else if(rightClickPressed) {
 			
 			rightClickPressed = false;
 			onRightClickRelease.perform();
-			System.out.println("RIGHT BUTTON RELEASED");
 		}
-		
-		add();
 	}
 
 	@Override

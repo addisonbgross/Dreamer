@@ -69,11 +69,7 @@ public class Positionable extends Element {
 		}
 
 		public void setPosition(float x, float y, float z) {
-			if (!mutable)
-				throw new NotMutableException();
-			this.position.x = x;
-			this.position.y = y;
-			this.position.z = z;
+			this.position.set(x, y, z);
 		}
 		
 		void setCenterBottom(float x, float y) {
@@ -86,69 +82,47 @@ public class Positionable extends Element {
 		}
 
 		void setCenter(float x, float y) {
-			if (!mutable)
-				throw new NotMutableException();
 			this.position.x = x - width / 2;
 			this.position.y = y - height / 2;
 		}
 
 		void setCenterX(float x) {
-			if (!mutable)
-				throw new NotMutableException();
 			this.position.x = x - width / 2;
 		}
 
 		void setCenterY(float y) {
-			if (!mutable)
-				throw new NotMutableException();
 			this.position.y = y - width / 2;
 		}
 
 		void setMinX(float x) {
-			if (!mutable)
-				throw new NotMutableException();
 			this.position.x = x;
 		}
 
 		void setMinY(float y) {
-			if (!mutable)
-				throw new NotMutableException();
 			this.position.y = y;
 		}
 
 		void setMaxX(float x) {
-			if (!mutable)
-				throw new NotMutableException();
 			this.width = x - getMinX();
 		}
 
 		void setMaxY(float y) {
-			if (!mutable)
-				throw new NotMutableException();
 			this.height = y - getMinY();
 		}
 
 		void setZ(float z) {
-			if (!mutable)
-				throw new NotMutableException();
 			this.position.z = z;
 		}
 
 		void setHeight(float height) {
-			if (!mutable)
-				throw new NotMutableException();
 			this.height = height;
 		}
 
 		void setWidth(float width) {
-			if (!mutable)
-				throw new NotMutableException();
 			this.width = width;
 		}
 
 		void setDepth(float depth) {
-			if (!mutable)
-				throw new NotMutableException();
 			this.depth = depth;
 		}
 }
