@@ -153,11 +153,10 @@ public class Library {
 
 	static private void loadModel(String file) {
 		String referenceName = file.substring(0, file.length());
-		referenceName = referenceName.replace(Constants.RESPATH, "");
 		try {
 			String modelName = referenceName.replace(Constants.MODELPATH, "")
-					.replace(".obj", "");
-			models.put(modelName, new File(Constants.RESPATH + referenceName));
+					.replace(".obj", "").replace(Constants.RESPATH, "");
+			models.put(modelName, new File(file));
 		} catch (Exception e) {
 			System.out.println("Failure to load the model file: "
 					+ referenceName);

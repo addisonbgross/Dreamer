@@ -30,7 +30,7 @@ public class Editor {
 
 	void init() {
 		
-		editorMenu.addOption("MAKE", () -> {
+		editorMenu.addOption("MAKE SHAPE3D", ()-> {
 			
 			ShapeMaker.menu.setParent(editorMenu);
 			ShapeMaker.menu.open();
@@ -39,6 +39,22 @@ public class Editor {
 				ShapeMaker.addFocus();
 				pointer.onMove = ()-> {};
 			};
+		});
+		
+		editorMenu.addOption("MAKE MODEL", ()->  {
+			
+			Menu modelMenu = new Menu(Justification.CENTER, 0, 150);
+			modelMenu.setParent(editorMenu);
+			
+			for (File file : new File(Constants.RESPATH + Constants.MODELPATH).listFiles()) {
+				modelMenu.addOption(file.getName(), ()-> {
+					Background.background.clear();
+					new Model(file.getName().replace(".obj", ""), 200, 0, 0, 0).add();;
+				});
+			}
+			
+			modelMenu.addExitOption();
+			modelMenu.open();
 		});
 		
 		editorMenu.addOption("EDIT TRACKS", ()-> { 
