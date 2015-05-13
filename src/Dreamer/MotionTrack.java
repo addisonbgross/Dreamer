@@ -72,7 +72,7 @@ public class MotionTrack extends Collidable {
 	}
 	@Override 
 	void draw() {
-		if(Element.debug && getCollisionShape() != null) {
+		if(isVisible() && getCollisionShape() != null) {
 			Drawer.drawLine(
 				highlighted? Constants.HIGHLIGHTCOLOR : Constants.COLLISIONCOLOUR,
 				track.getCenterX(),
@@ -95,7 +95,7 @@ public class MotionTrack extends Collidable {
 	}
 	@Override
 	boolean isVisible() {
-		return debug;
+		return Element.trackview || Element.debug;
 	}
 	public static void generateMotionTrack(Face f, ArrayList<Vector3f> vertices, Vector3f vector3f) {
 		int sides = f.vertexIndex.length;

@@ -14,7 +14,7 @@ public class Element implements Serializable {
 	protected static HashSet<Element> activeSet = new HashSet<Element>(2000);
 
 	static PerformanceMonitor performance = new PerformanceMonitor("drawActive");
-	static boolean debug = false, drawing = false;
+	static boolean debug = false, drawing = false, trackview = false;
 	static int count = 0;
 
 	protected Element() {}

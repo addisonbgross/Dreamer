@@ -220,7 +220,7 @@ class TrackEditor {
 	
 	TrackEditor(Menu callback) {
 		
-		Element.debug = true;
+		Element.trackview= true;
 		pointer = MainMenu.editor.pointer;
 		
 		Menu trackMenu = new Menu(
@@ -264,7 +264,10 @@ class TrackEditor {
 			deleteList.clear();
 		});
 		
-		trackMenu.addExitOption();
+		trackMenu.addOption("EXIT", ()-> {
+			trackMenu.exit();
+			Element.trackview = false;
+		});
 		
 		trackMenu.open();
 		
