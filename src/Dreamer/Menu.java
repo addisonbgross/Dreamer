@@ -18,6 +18,7 @@ public class Menu {
 	int currentOption = 0;
 	
 	Menu open() {
+		
 		if(parent != null)
 			parent.exit();
 		KeyHandler.saveKeys();
@@ -61,12 +62,15 @@ public class Menu {
 	}
 	
 	void exit() {
+		
 		KeyHandler.restoreKeys();
 		for(MenuOption mo: optionList) {
 			mo.shadowMessage.remove();
 		}
+		/*
 		if(parent != null)
 			parent.open();
+			*/
 	}
 	
 	private class MenuOption {

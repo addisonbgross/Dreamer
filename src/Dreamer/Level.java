@@ -67,7 +67,8 @@ class Level {
 			for(Element e: (ArrayList<Element>) reader.readObject())
 				e.add();
 			reader.close();
-		} catch (IOException e){ 
+		} catch (IOException e){
+			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -75,23 +76,38 @@ class Level {
 	void createLevel() {
 		//Override this method to create objects in level
 	}
-	public static void openSelectionMenu(Menu callbackMenu) {
+	public static void openSelectionMenu(Menu callbackMenu, String path) {
 		Menu levelMenu = new Menu(Justification.CENTER, 0, 150);
 		levelMenu.setParent(callbackMenu);
 		
-		for (File file : new File(Constants.LEVELPATH).listFiles()) {
-			levelMenu.addOption(file.getName(), ()-> {
-				Level.clear();
-				Level.read(file.getName().replace(".level", ""));
-				KeyHandler.openGameKeys();
-				Player.getFirst().add();
-				Player.getFirst().setCenterBottom(0, 200);
-				Camera.focus(new ClassFocus(200, Ninja.class));
-			});
+		for (File file : new File(Constants.LEVELPATH + path).listFiles()) {
+			
+			if(file.isDirectory()) {
+				
+				levelMenu.addOption("[D]" + file.getName(), ()-> {
+					
+					openSelectionMenu(levelMenu, file.getName() + Constants.slash);
+				});
+				
+			} else {
+				
+				levelMenu.addOption(file.getName(), ()-> {
+					
+					Level.clear();
+					Level.read(path + file.getName().replace(".level", ""));
+					KeyHandler.openGameKeys();
+					Player.getFirst().add();
+					Player.getFirst().setCenterBottom(0, 200);
+					Camera.focus(new ClassFocus(200, Ninja.class));
+				});
+			}
 		}
 		
 		levelMenu.addExitOption();
 		levelMenu.open();
+	}
+	public static void openSelectionMenu(Menu callbackMenu) {
+		openSelectionMenu(callbackMenu, "");
 	}
 }
 class TestLevel extends Level {
