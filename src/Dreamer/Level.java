@@ -292,8 +292,17 @@ class Dusk_1 extends Level {
 		w.add();
 		e.add();
 		
+		new ActionJewel(-1300, 125, 0, ()-> new Dusk_2() ).add();
 		new Sunset().add();
-		new ActionJewel(-1300, 125, 0, ()-> { new Dusk_2(); }).add();
+		/*
+		new ActionJewel(-1300, 125, 0, ()-> { 
+			clear();
+			read("dusk/dusk2"); 
+			Player pl = Player.getFirst();
+			pl.setCenterBottom(1400, 50);
+			pl.add();
+		}).add();
+		*/
 		
 		Camera.focus(new ClassFocus(200, Ninja.class));
 	}

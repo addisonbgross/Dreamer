@@ -21,7 +21,6 @@ public class Constants {
 		BACKGROUNDPATH = RESPATH + "backgrounds" + slash
 		;
 
-	// these define a box within which vision is active
 	static final float ACTORACCELERATION = 1.7f;
 	static final int ACTORLOOKX = 500, ACTORLOOKY = 200;
 	static final int DEFAULTPATROLRANGE = 500;
