@@ -20,11 +20,6 @@ public class Element implements Serializable {
 	protected Element() {}
 
 	/**
-	 * add: maps multiple keys to each element for fast retrieval
-	 * 
-	 * add this element's minimum, intermediate, and extreme x and y values as
-	 * references to it, as well as adding a reference by id to the
-	 * 
 	 * WARNING: if you update add() remove() MUST be changed as well leaving
 	 * references to objects on this list will cause massive memory leaks
 	 */
