@@ -37,14 +37,10 @@ public class ShapeMaker {
 	}
 	
 	static Menu add(Menu m, String s) {
-		m.addOption(s, 
-				new Action() {
-					void start() {
-						make(s).add();
-						menu.exit();
-					}
-				}
-			);
+		m.addOption(s, ()-> {
+			make(s).add();
+			menu.exit();
+		});
 		return m;
 	}
 

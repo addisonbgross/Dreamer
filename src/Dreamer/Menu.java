@@ -43,10 +43,7 @@ public class Menu {
 				break;
 				
 			case "select":
-				Action a = optionList.get(currentOption).action;
 				Performable d = optionList.get(currentOption).performable;
-				if(a != null)
-					a.start();
 				if(d != null)
 					d.perform();
 				break;
@@ -74,22 +71,20 @@ public class Menu {
 	}
 	
 	private class MenuOption {
-		Action action;
+		
 		Performable performable;
 		ShadowedMessage shadowMessage;
 		
-		MenuOption(String s, Action a) {
-			action = a;
-			shadowMessage = new ShadowedMessage(s, 0, 0);
-		}
 		MenuOption(String s, Performable d) {
 			performable = d;
 			shadowMessage = new ShadowedMessage(s, 0, 0);
 		}
+		
 		MenuOption setPosition(float x, float y) {
 			shadowMessage.setPosition(x, y, 0);
 			return this;
 		}
+		
 		MenuOption setJustification(Justification j) {
 			shadowMessage.justification = j;
 			return this;
@@ -104,14 +99,6 @@ public class Menu {
 		return this;
 	}
 
-	Menu addOption(String s, Action a) {
-		optionList.add(
-				new MenuOption(s, a)
-				.setPosition(xposition, yposition -= spacing)
-				.setJustification(justification)
-				);
-		return this;
-	}
 	Menu addOption(String s, Performable d) {
 		optionList.add(
 			new MenuOption(s, d)
