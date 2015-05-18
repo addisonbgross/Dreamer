@@ -154,13 +154,16 @@ public class Editor {
 	}
 
 	void prompt(String s, Performable p) {
+		
 		mode = Mode.COMMAND;
 		prompt.name = s;
 		prompt.add();
 		currentAction = p;
 		editorKeys.add();
 	}
+	
 	void start() {
+	
 		KeyHandler.openEditorKeys(this);
 		Camera.reset();
 		Theme.current = Theme.mono;

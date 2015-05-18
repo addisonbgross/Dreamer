@@ -12,23 +12,32 @@ public class MainMenu extends Level {
 		Element.debug = false;		
 		Theme.current = Theme.mono;
 		
-		main.addOption("START", ()-> {
-			KeyHandler.openGameKeys();
-			new ForestLevel();
+		main.addOption("TEST WORLD", ()-> {
+			
+			new World("dusk").playLevel(0);
 		});
+		
+		main.addOption("START", ()-> {
+			
+			Level l = new Dusk_1();
+		});
+		
 		main.addOption("OPEN EDITOR (TAB IN-GAME)", ()-> {
+		
 			KeyHandler.clearKeys();
 			Level.clear();
 			editor = new Editor();
 			editor.start();
 		});
+		
 		main.addOption("OPEN LEVEL", ()-> { Level.openSelectionMenu(main); });
+		
 		main.addOption("TEST CHARACTERS", (/*why does one drift left?*/)-> {
+		
 			new GrassSoldier(-100, 0, Brains.makeSoldier()).add();
 			Player.getFirst().add();
 			new Skeleton(100, 0, Brains.makeSoldier()).add();
 		});
-		main.open();
 		
 		new Background("space").add();
 		new Block3d(0, -250, -200, 800, 20, 600).generateCollidable().add();
@@ -36,4 +45,7 @@ public class MainMenu extends Level {
 		new BorderedForeground().add();
 		Camera.reset();
 	}
+	
+	@Override
+	void start() { main.open(); }
 }
