@@ -28,7 +28,7 @@ abstract class Weapon extends Shape3d implements Updateable {
 	int[] attackOffsetY;
 
 	//-----------CONSTRUCTORS
-
+	
 	Weapon(Actor a) {
 
 		weaponCollision = new WeaponCollision(this);
@@ -54,6 +54,14 @@ abstract class Weapon extends Shape3d implements Updateable {
 		if (Element.debug)
 			if (weaponLine != null)
 				Drawer.drawShape(weaponLine, Color.black);
+	}
+	
+	@Override
+	void setCenter(float x, float y) {
+		this.position.x = x - width / 2;
+		this.position.y = y - height / 2;
+		weaponPoint.set(x, y);
+		setWeaponPosition();
 	}
 
 	void makeFace() {
