@@ -21,18 +21,18 @@ class Level {
 	
 	class World {
 		
-	//-----------FIELDS
+		//-----------FIELDS
 
 		String directory = "";
 		String levels[];
 		
-	//-----------CONSTRUCTOR
+		//-----------CONSTRUCTOR
 		
 		World(String s) { 
 			levels = new File(Constants.LEVELPATH + (this.directory = s + Constants.slash)).list();
 		}
 		
-	//-----------METHODS
+		//-----------METHODS
 		
 		void selectLevel(int i) {
 			
@@ -65,7 +65,7 @@ class Level {
 
 	void start() {
 		
-		KeyHandler.openGameKeys();
+		Keys.openGameKeys();
 		
 		Player p = Player.getFirst();
 		p.setCenterBottom(playerSpawn.getX(), playerSpawn.getY());
@@ -155,7 +155,7 @@ class Level {
 					
 					Level.clear();
 					Level.read(path + file.getName().replace(".level", ""));
-					KeyHandler.openGameKeys();
+					Keys.openGameKeys();
 					Player.getFirst().add();
 					Player.getFirst().setCenterBottom(0, 200);
 					Camera.focus(new ClassFocus(200, Ninja.class));

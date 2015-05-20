@@ -19,12 +19,12 @@ public class MainMenu extends Level {
 		
 		main.addOption("START", ()-> {
 			
-			Level l = new Dusk_1();
+			new Dusk_1();
 		});
 		
 		main.addOption("OPEN EDITOR (TAB IN-GAME)", ()-> {
 		
-			KeyHandler.clearKeys();
+			Keys.clearKeys();
 			Level.clear();
 			editor = new Editor();
 			editor.start();
