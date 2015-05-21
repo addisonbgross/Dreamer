@@ -342,7 +342,7 @@ class Dusk_1 extends Level {
 	void createLevel() {
 		
 		Weapon w = new Katana(null);
-		w.setCenter(1300, 0);
+		w.setCenter(1300, 100);
 		w.add();
 		
 		playerSpawn.setCenter(1400, 200);

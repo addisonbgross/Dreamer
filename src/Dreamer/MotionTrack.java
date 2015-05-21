@@ -20,13 +20,17 @@ public class MotionTrack extends Collidable {
 	boolean highlighted = false;
 	
 	MotionTrack() {}
+	
 	MotionTrack(float sx, float sy, float ex, float ey) {
+	
 		temp.set(ex - sx, ey - sy, 0);
+		
 		try {
 			temp.normalise();
 		} catch(java.lang.IllegalStateException ise) {
 			ise.printStackTrace();
 		}
+		
 		track = new Line(sx - temp.x, sy - temp.y, ex + temp.x, ey + temp.y);
 		setCollisionShape(track);
 		normal = new Vector3f(-track.getNormal(0)[0], -track.getNormal(0)[1], 0);
@@ -35,6 +39,7 @@ public class MotionTrack extends Collidable {
 				track.getDX() / track.length(),
 				track.getDY() / track.length()
 				);
+		
 		left = new Vector2f(
 				-track.getDX() / track.length(),
 				-track.getDY() / track.length()
@@ -70,9 +75,12 @@ public class MotionTrack extends Collidable {
 			}
 		return false;
 	}
+	
 	@Override 
 	void draw() {
+	
 		if(isVisible() && getCollisionShape() != null) {
+		
 			Drawer.drawLine(
 				highlighted? Constants.HIGHLIGHTCOLOR : Constants.COLLISIONCOLOUR,
 				track.getCenterX(),
@@ -82,15 +90,16 @@ public class MotionTrack extends Collidable {
 				track.getCenterY() + 20 * normal.y,
 				0
 			);	
+			
 			Drawer.drawLine(
-					highlighted? Constants.HIGHLIGHTCOLOR : Constants.COLLISIONCOLOUR,
-					track.getX1(),
-					track.getY1(),
-					0,
-					track.getX2(),
-					track.getY2(),
-					0
-				);	
+				highlighted? Constants.HIGHLIGHTCOLOR : Constants.COLLISIONCOLOUR,
+				track.getX1(),
+				track.getY1(),
+				0,
+				track.getX2(),
+				track.getY2(),
+				0
+			);	
 		}
 	}
 	@Override
