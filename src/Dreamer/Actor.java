@@ -97,6 +97,7 @@ public abstract class Actor extends Collidable implements Updateable {
 					success = null;
 				}
 				for(Collidable c: collisionSet) {
+					// eSystem.out.println(c.toString());
 					if(c.collide(this))
 						success = c;
 				}

@@ -40,7 +40,6 @@ public class Element implements Serializable {
 		return true;
 	}
 
-	// only method subclasses must implement, even if just for debugging
 	void draw() {
 		System.err.println("No draw method attached to " + this.getClass());
 	}
@@ -66,10 +65,12 @@ public class Element implements Serializable {
 
 		drawing = true;
 		count = 0;
+		
 		performance.clear();
-
 		performance.start();
+		
 		for (Element e : Background.background) {
+			
 			count++;
 			Light.light(e);
 			e.draw();
@@ -77,6 +78,7 @@ public class Element implements Serializable {
 		}
 
 		for (Element o : activeSet) {
+			
 			count++;
 			Light.light(o);
 			o.draw();
@@ -87,6 +89,7 @@ public class Element implements Serializable {
 		performance.mark("Faces");
 
 		for (Element e : Foreground.foreground) {
+			
 			count++;
 			e.draw();
 			performance.mark(count + "," + e.toString());

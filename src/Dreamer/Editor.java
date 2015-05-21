@@ -114,7 +114,7 @@ public class Editor {
 			
 			Element.debug = false;
 			Player.getFirst().add();
-			KeyHandler.openGameKeys();
+			Keys.openGameKeys();
 			Camera.focus(new ClassFocus(150, Ninja.class));
 			Foreground.foreground.clear();
 			pointer.remove();
@@ -154,14 +154,17 @@ public class Editor {
 	}
 
 	void prompt(String s, Performable p) {
+		
 		mode = Mode.COMMAND;
 		prompt.name = s;
 		prompt.add();
 		currentAction = p;
 		editorKeys.add();
 	}
+	
 	void start() {
-		KeyHandler.openEditorKeys(this);
+	
+		Keys.openEditorKeys(this);
 		Camera.reset();
 		Theme.current = Theme.mono;
 		console.add();

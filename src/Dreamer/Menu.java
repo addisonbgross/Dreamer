@@ -21,8 +21,8 @@ public class Menu {
 		
 		if(parent != null)
 			parent.exit();
-		KeyHandler.saveKeys();
-		KeyHandler.openMenuKeys(this);
+		Keys.saveKeys();
+		Keys.openMenuKeys(this);
 		optionList.get(currentOption).shadowMessage.highlight = true;
 		for(MenuOption mo: optionList)
 			mo.shadowMessage.add();
@@ -60,7 +60,7 @@ public class Menu {
 	
 	void exit() {
 		
-		KeyHandler.restoreKeys();
+		Keys.restoreKeys();
 		for(MenuOption mo: optionList) {
 			mo.shadowMessage.remove();
 		}

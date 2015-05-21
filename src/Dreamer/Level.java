@@ -18,44 +18,99 @@ import Dreamer.enums.Status;
 // Level is the base class for all games states, including menus, editors, debuggers etc
 
 class Level {
+	
+	class World {
+		
+		//-----------FIELDS
+
+		String directory = "";
+		String levels[];
+		
+		//-----------CONSTRUCTOR
+		
+		World(String s) { 
+			levels = new File(Constants.LEVELPATH + (this.directory = s + Constants.slash)).list();
+		}
+		
+		//-----------METHODS
+		
+		void selectLevel(int i) {
+			
+			System.out.println("opening " + directory + levels[i]);
+			String nextLevel = levels[ (i + levels.length) % levels.length];
+			nextLevel = nextLevel.replace(".level", "");
+			Level.read(directory + nextLevel);
+		}
+		
+		void playLevel(int i) {	
+			
+			clear();
+			selectLevel(i);
+			currentLevel.start();
+		}
+	}
+	
+	Marker playerSpawn = new Marker("playerSpawn", 0, 50);
 	Enemy e; //Generic enemy pointer
 	Weapon w;
-	static Level current;
+	static Level currentLevel;
 	static boolean frozen = false, levelChanged = false;
 	static int freezeCounter = 0;
 	
 	Level() {
+
 		levelChanged = true;
-		current = this;
+		currentLevel = this;
 	}
+
+	void start() {
+		
+		Keys.openGameKeys();
+		
+		Player p = Player.getFirst();
+		p.setCenterBottom(playerSpawn.getX(), playerSpawn.getY());
+		p.add();
+		
+		Camera.focus(new ClassFocus(200, Ninja.class));
+	}
+	
 	static void clear() {
 		Element.clearAll();
 	}
+	
 	static void updateCurrent() {
+		
 		if(levelChanged) {
 			levelChanged = false;
 			freezeCounter = 2;
 			Element.clearAll();
-			current.createLevel();
+			currentLevel.createLevel();
+			currentLevel.start();
 		}
 	}
+	
 	static void write(String s) {
+		
 		ObjectOutputStream out;
+		
 		try {
 		 	out = new ObjectOutputStream(new FileOutputStream(Constants.LEVELPATH + s + ".level"));
 			out.writeObject(Element.masterList);
 			out.writeObject(Background.background);
 			out.writeObject(Foreground.foreground);
+			out.writeObject(currentLevel.playerSpawn);
 			out.close();
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
 		}
 	}
+	
 	@SuppressWarnings("unchecked")
 	static void read(String s) {
 		try{ 
 			FileInputStream door = new FileInputStream(Constants.LEVELPATH + s + ".level"); 
 			ObjectInputStream reader = new ObjectInputStream(door); 
+			
 			for(Element e: (HashSet<Element>) reader.readObject()) {
 				// TODO unhack this, don't save players
 				// perhaps create spawn points for all Actors?
@@ -66,6 +121,8 @@ class Level {
 				e.add();
 			for(Element e: (ArrayList<Element>) reader.readObject())
 				e.add();
+			currentLevel.playerSpawn = ( (Marker) reader.readObject());
+			
 			reader.close();
 		} catch (IOException e){
 			e.printStackTrace();
@@ -73,10 +130,13 @@ class Level {
 			e.printStackTrace();
 		}
 	}
+	
 	void createLevel() {
 		//Override this method to create objects in level
 	}
+	
 	public static void openSelectionMenu(Menu callbackMenu, String path) {
+
 		Menu levelMenu = new Menu(Justification.CENTER, 0, 150);
 		levelMenu.setParent(callbackMenu);
 		
@@ -95,7 +155,7 @@ class Level {
 					
 					Level.clear();
 					Level.read(path + file.getName().replace(".level", ""));
-					KeyHandler.openGameKeys();
+					Keys.openGameKeys();
 					Player.getFirst().add();
 					Player.getFirst().setCenterBottom(0, 200);
 					Camera.focus(new ClassFocus(200, Ninja.class));
@@ -264,6 +324,7 @@ class ForestLevel extends Level {
 }
 
 class EmptyLevel extends Level {
+
 	@Override
 	void createLevel() {
 		
@@ -277,119 +338,118 @@ class EmptyLevel extends Level {
 
 /** Dusk Level **/
 class Dusk_1 extends Level {
+	
 	void createLevel() {
+		
+		Weapon w = new Katana(null);
+		w.setCenter(1300, 100);
+		w.add();
+		
+		playerSpawn.setCenter(1400, 200);
+		
+		Enemy y = new Skeleton(1300, 100, Brains.makeSoldier());
+		new Knife(y).add();
+		y.add();
+		
 		new GradientBackground(new Color(50, 50, 100), new Color(0, 0, 0)).add();
 		new Model("dusk_1", 200, 0, 0, 0).add();
-		
-		Player p = Player.getFirst();
-		p.setCenterBottom(1400, 50);
-		w = new Katana(p);
-		w.add();
-		p.add();
-		
-		e = new Skeleton(0, 100, Brains.makeSoldier());
-		w = new Katana(e);
-		w.add();
-		e.add();
-		
 		new ActionJewel(-1300, 125, 0, ()-> new Dusk_2() ).add();
-		new Sunset().add();
-		/*
-		new ActionJewel(-1300, 125, 0, ()-> { 
-			clear();
-			read("dusk/dusk2"); 
-			Player pl = Player.getFirst();
-			pl.setCenterBottom(1400, 50);
-			pl.add();
-		}).add();
-		*/
-		
-		Camera.focus(new ClassFocus(200, Ninja.class));
+		new Sunset().add();		
 	}
 }
+
 class Dusk_2 extends Level {
+	
 	void createLevel() {
+	
+		Weapon w = new Katana(null);
+		w.setCenter(0, 0);
+		w.add();
+		
+		playerSpawn.setCenter(1400, 50);
+
 		new GradientBackground(new Color(50, 50, 100), new Color(0, 0, 0)).add();
 		new Model("dusk_2", 200, 0, 0, 0).add();
-		
-		Player p = Player.getFirst();
-		p.setCenterBottom(1300,  50);
-		w = new Katana(p);
-		w.add();
-		p.add();
-		
 		new Sunset().add();
 		new ActionJewel(-1400, 30, 0, ()-> { new Dusk_3(); }).add();
 		
 		Camera.focus(new ClassFocus(200, Ninja.class));
 	}
 }
+
 class Dusk_3 extends Level {
+	
 	void createLevel() {
+	
+		Weapon w = new Katana(null);
+		w.setCenter(1400, -500);
+		w.add();
+		
+		playerSpawn.setCenter(1450, -550);
+		
 		new GradientBackground(new Color(50, 50, 100), new Color(0, 0, 0)).add();
 		new Model("dusk_3", 200, 0, 0, 0).add();
-		
-		Player p = Player.getFirst();
-		p.setCenterBottom(1450,  -550);
-		w = new Katana(p);
-		w.add();
-		p.add();
-		
 		new Sunset().add();
-		new Lamp(p).add();
+		new Lamp(Player.getFirst()).add();
 		new ActionJewel(-1400, 1400, 0, ()-> {new Dusk_4(); }).add();
 		
 		Camera.focus(new ClassFocus(200, Ninja.class));
 	}
 }
+
 class Dusk_4 extends Level {
+	
 	void createLevel() {
+		
+		Weapon w = new Katana(null);
+		w.setCenter(3000, 200);
+		w.add();
+		
+		playerSpawn.setCenter(3500, 50);
+		
 		new GradientBackground(new Color(50, 50, 100), new Color(0, 0, 0)).add();
 		new Model("dusk_4", 500, 0, 0, 0).add();
-		
-		Player p = Player.getFirst();
-		p.setCenterBottom(3500,  50);
-		w = new Katana(p);
-		w.add();
-		p.add();
-		
 		new Sunset().add();
-		new Lamp(p).add();
+		new Lamp(Player.getFirst()).add();
 		new ActionJewel(-1900, 100, 0, ()-> { new Dusk_5(); }).add();
 		new ActionJewel(-1950, 100, 0, ()-> { new Dusk_5(); }).add();
 		
 		Camera.focus(new ClassFocus(200, Ninja.class));
 	}
 }
+
 class Dusk_5 extends Level {
+
 	void createLevel() {
+		
+		Weapon w = new Katana(null);
+		w.setCenter(5500, 2100);
+		w.add();
+		
+		playerSpawn.setCenter(5700, 2025);
+		
 		new SolidBackground(new Color(0, 0, 0)).add();
 		new Model("dusk_5", 500, 0, 0, 0).add();
-		
-		Player p = Player.getFirst();
-		p.setCenterBottom(5700,  2025);
-		w = new Katana(p);
-		w.add();
-		p.add();
-		
-		new Lamp(p).add();
+		new Lamp(Player.getFirst()).add();
 		new ActionJewel(-2950, -3900, 0, ()-> { new Dusk_6(); }).add();
 		
 		Camera.focus(new ClassFocus(200, Ninja.class));
 	}
 }
+
 class Dusk_6 extends Level {
+
 	void createLevel() {
+
+		Weapon w = new Katana(null);
+		w.setCenter(5500, 2100);
+		w.add();
+		
+		playerSpawn.setCenter(-1200, -900);
+		
 		new SolidBackground(new Color(0, 0, 0)).add();
 		new Model("dusk_6", 500, 0, 0, 0).add();
-		
-		Player p = Player.getFirst();
-		p.setCenterBottom(-1200,  -900);
-		w = new Katana(p);
-		w.add();
-		p.add();
-		
-		new Lamp(p).add();
+		new Lamp(Player.getFirst()).add();
 		
 		Camera.focus(new ClassFocus(200, Ninja.class));
 	}

@@ -12,31 +12,49 @@ import Dreamer.enums.Status;
 import static Dreamer.enums.Status.*;
 import Dreamer.interfaces.Performable;
 
-abstract public class KeyHandler {
+abstract public class Keys {
+	
+	//-----------FIELDS
+	
 	static boolean initialized = false;
-	// these next two fields cannot be changed without drastic consequences
-	static final char[] alphabetPlus = ("1234567890-=" + "qwertyuiop[]"
-			+ "asdfghjkl;'" + "zxcvbnm,./" + " ").toCharArray();
-	static final int[] codes = { 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, // 1234567890-=
+	
+	static final char[] alphabetPlus = 
+		(	
+			"1234567890-=" + 
+			"qwertyuiop[]" + 
+			"asdfghjkl;'" + 
+			"zxcvbnm,./" + 
+			" "
+		).toCharArray();
+	
+	static final int[] codes = 
+		{ 
+			2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, // 1234567890-=
 			16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, // qwertyuiop[]
 			30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, // asdfghjkl;'
 			44, 45, 46, 47, 48, 49, 50, 51, 52, 53,// zxcvbnm,./
-			Keyboard.KEY_SPACE };
+			Keyboard.KEY_SPACE 
+		};
+	
 	static Map<String, Integer> keyMap = new HashMap<String, Integer>();
+	
 	static Map<Integer, Performable> startMap = new HashMap<>();
 	static Map<Integer, Performable> stopMap = new HashMap<>();
+	
 	static Map<Integer, Performable> savedStartKeys = new HashMap<>();
 	static Map<Integer, Performable> savedStopKeys = new HashMap<>();
 	static String keyBuffer = "";
-
-	public KeyHandler() { }
+	
+	//-----------METHODS
 
 	public static void clearKeys() {
+		
 		startMap.clear();
 		stopMap.clear();
 	}
 
 	public static void saveKeys() {
+		
 		savedStartKeys.clear();
 		savedStartKeys.putAll(startMap);
 		savedStopKeys.clear();
@@ -44,6 +62,7 @@ abstract public class KeyHandler {
 	}
 
 	public static void restoreKeys() {
+		
 		startMap.clear();
 		startMap.putAll(savedStartKeys);
 		stopMap.clear();
@@ -62,8 +81,7 @@ abstract public class KeyHandler {
 	}
 
 	public static boolean addKey(Integer i, Performable p) {
-		return addKey(i, p, () -> {
-		});
+		return addKey(i, p, () -> { /*no action*/ });
 	}
 
 	public static boolean addKey(char c, Performable p) {
@@ -124,13 +142,13 @@ abstract public class KeyHandler {
 		
 		clearKeys();
 		
-		KeyHandler.addKey(KEY_UP, () -> m.command("up") );
-		KeyHandler.addKey(KEY_DOWN, () -> m.command("down") );
-		KeyHandler.addKey(KEY_RETURN, () -> m.command("select") );
+		Keys.addKey(KEY_UP, () -> m.command("up") );
+		Keys.addKey(KEY_DOWN, () -> m.command("down") );
+		Keys.addKey(KEY_RETURN, () -> m.command("select") );
 	}
 }
 
-class FunctionKeys extends KeyHandler {
+class FunctionKeys extends Keys {
 	
 	void add() {
 		
@@ -162,7 +180,7 @@ class FunctionKeys extends KeyHandler {
 	}
 }
 
-class EditorKeys extends KeyHandler {
+class EditorKeys extends Keys {
 	Editor editor;
 
 	EditorKeys(Editor e) {
@@ -173,27 +191,27 @@ class EditorKeys extends KeyHandler {
 		for (int i = 0; i < alphabetPlus.length; i++) {
 			char key = alphabetPlus[i];
 			addKey(codes[i], () -> {
-				KeyHandler.keyBuffer = KeyHandler.keyBuffer + key;
-				editor.console.name = KeyHandler.keyBuffer;
+				Keys.keyBuffer = Keys.keyBuffer + key;
+				editor.console.name = Keys.keyBuffer;
 			});
 		}
 		addKey(KEY_RETURN, () -> {
-			editor.command(KeyHandler.keyBuffer);
-			KeyHandler.keyBuffer = "";
-			editor.console.name = KeyHandler.keyBuffer;
+			editor.command(Keys.keyBuffer);
+			Keys.keyBuffer = "";
+			editor.console.name = Keys.keyBuffer;
 		});
 		addKey(KEY_BACK,
 				() -> {
-					KeyHandler.keyBuffer = KeyHandler.keyBuffer.substring(0,
-							KeyHandler.keyBuffer.length() - 1);
-					editor.console.name = KeyHandler.keyBuffer;
+					Keys.keyBuffer = Keys.keyBuffer.substring(0,
+							Keys.keyBuffer.length() - 1);
+					editor.console.name = Keys.keyBuffer;
 				});
 		// TODO switch cleanly between editor and game
 		// addKey(KEY_TAB, ()-> { KeyHandler.openGameKeys(); });
 	}
 }
 
-class ZoomKeys extends KeyHandler {
+class ZoomKeys extends Keys {
 
 	void add() {
 
@@ -207,7 +225,7 @@ class ZoomKeys extends KeyHandler {
 	}
 }
 
-class WASDKeys extends KeyHandler {
+class WASDKeys extends Keys {
 
 	Actor subject;
 

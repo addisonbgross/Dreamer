@@ -10,6 +10,8 @@ import static Dreamer.enums.Status.*;
 
 abstract class Weapon extends Shape3d implements Updateable {
 
+	//-----------FIELDS (too many!)
+	
 	private static final long serialVersionUID = 4519324822338846058L;
 	Face f;
 	Actor actor;
@@ -25,7 +27,10 @@ abstract class Weapon extends Shape3d implements Updateable {
 	int[] attackOffsetX;
 	int[] attackOffsetY;
 
+	//-----------CONSTRUCTORS
+	
 	Weapon(Actor a) {
+
 		weaponCollision = new WeaponCollision(this);
 		attach(a);
 		addVertex(0, 0, 0);
@@ -33,6 +38,8 @@ abstract class Weapon extends Shape3d implements Updateable {
 		addVertex(100, 100, 0);
 		addVertex(100, 0, 0);
 	}
+	
+	//-----------METHODS
 
 	@Override
 	boolean isVisible() {
@@ -41,13 +48,25 @@ abstract class Weapon extends Shape3d implements Updateable {
 
 	@Override
 	void draw() {
+		
 		super.draw();
+		
 		if (Element.debug)
 			if (weaponLine != null)
 				Drawer.drawShape(weaponLine, Color.black);
 	}
+	
+	@Override
+	void setCenter(float x, float y) {
+		// this.position.x = x - width / 2;
+		// this.position.y = y - height / 2;
+		weaponPoint.set(x, y);
+		setWeaponPosition();
+		updateCollision();
+	}
 
 	void makeFace() {
+		
 		f = new Face(name, new Color(1, 1, 1, 1.0f), 0, 1,
 				2, 3);
 		width = Library.getImage(name).getWidth();
@@ -59,10 +78,13 @@ abstract class Weapon extends Shape3d implements Updateable {
 	}
 
 	void attack() {
+		
 		Actor temp;
 		updateCollision();
 		Shape s = weaponCollision.getCollisionShape();
+		
 		for (Element e : Collidable.getActiveWithin(s)) {
+		
 			// very important to not compare this to itself, infinite loop
 			if (Actor.class.isAssignableFrom(e.getClass()) && e != actor) {
 				temp = (Actor) e;
@@ -80,39 +102,48 @@ abstract class Weapon extends Shape3d implements Updateable {
 				}
 			}
 		}
+		
 		weaponCollision.remove();
 	}
 
 	void updateCollision() {
+		
 		weaponCollision.remove();
+		
 		weaponCollision.setCollisionShape(new Line(weaponPoint.x,
 				weaponPoint.y, weaponPoint.x + cuttingEdge
 						* (float) Math.sin((Math.PI * weaponAngle) / 180),
 				weaponPoint.y + cuttingEdge
 						* (float) Math.cos((Math.PI * weaponAngle) / 180)));
+		
 		weaponCollision.add();
 	}
 
 	void attach(Actor a) {
-		if (a.weapon != this) {
-			actor = a;
+		
+		if(a != null) 
+			if (a.weapon != this) {
+				actor = a;
+	
+				if (a.weapon != null)
+					a.weapon.detach();
+				a.weapon = this;
+			}
 
-			if (a.weapon != null)
-				a.weapon.detach();
-			a.weapon = this;
-
-			updateCollision();
-		}
+		updateCollision();
 	}
 
 	void detach() {
+		
 		actor.weapon.updateCollision();
 		actor.weapon = null;
 		actor = null;
 	}
 
 	public void update() {
+		
 		if (actor != null) {
+		
 			if (actor.checkStatus(DEAD)) {
 				updateCollision();
 				detach();
@@ -146,29 +177,37 @@ abstract class Weapon extends Shape3d implements Updateable {
 					f.setTexturePoints(0, 0, texWidth, texHeight);
 				weaponAngle = -direction * attackAngles[rotation];
 			}
+			
+			// JUST LOOK AT THIS SHIT
+			
 			xOffset = attackOffsetX[rotation] + xBlockOffset;
 			yOffset = carryHeight + yBlockOffset;
 			yOffset += attackOffsetY[rotation];
 			weaponPoint.set(actor.getX() - direction * xOffset, actor.getY()
 					+ yOffset);
-
-			float cos = (float) Math.cos((Math.PI * weaponAngle) / 180);
-			float sin = (float) Math.sin((Math.PI * weaponAngle) / 180);
-
-			vertices.get(0).set(weaponPoint.x - cos * width / 2,
-					weaponPoint.y + sin * width / 2, -0.1f);
-			vertices.get(1).set(weaponPoint.x + sin * height - cos * width / 2,
-					weaponPoint.y + cos * height + sin * width / 2, -0.1f);
-			vertices.get(2).set(weaponPoint.x + sin * height + cos * width / 2,
-					weaponPoint.y + cos * height - sin * width / 2, -0.1f);
-			vertices.get(3).set(weaponPoint.x + cos * width / 2,
-					weaponPoint.y - sin * width / 2, -0.1f);
+			
+			//setWeaponPosition();
 		}
+		
+		setWeaponPosition();
+	}
+	
+	void setWeaponPosition() {
+
+		float cos = (float) Math.cos((Math.PI * weaponAngle) / 180);
+		float sin = (float) Math.sin((Math.PI * weaponAngle) / 180);
+	
+		vertices.get(0).set(weaponPoint.x - cos * width / 2,
+				weaponPoint.y + sin * width / 2, -0.1f);
+		vertices.get(1).set(weaponPoint.x + sin * height - cos * width / 2,
+				weaponPoint.y + cos * height + sin * width / 2, -0.1f);
+		vertices.get(2).set(weaponPoint.x + sin * height + cos * width / 2,
+				weaponPoint.y + cos * height - sin * width / 2, -0.1f);
+		vertices.get(3).set(weaponPoint.x + cos * width / 2,
+				weaponPoint.y - sin * width / 2, -0.1f);
 	}
 
-	int getWeight() {
-		return weight;
-	}
+	int getWeight() { return weight; }
 }
 
 class Katana extends Weapon {
@@ -176,6 +215,7 @@ class Katana extends Weapon {
 	private static final long serialVersionUID = 8042539459172540290L;
 
 	Katana(Actor a) {
+		
 		super(a);
 		name = "katana";
 		damage = 25;
@@ -196,6 +236,7 @@ class Knife extends Weapon {
 	private static final long serialVersionUID = 4057635014160746173L;
 
 	Knife(Actor a) {
+		
 		super(a);
 		name = "knife";
 		damage = 10;
@@ -216,6 +257,7 @@ class Battleaxe extends Weapon {
 	private static final long serialVersionUID = -419016855374838000L;
 
 	Battleaxe(Actor a) {
+	
 		super(a);
 		name = "battleaxe";
 		damage = 15;
@@ -231,6 +273,7 @@ class Naginata extends Weapon {
 	Vector2f block = new Vector2f(-2, -28);
 
 	Naginata(Actor a) {
+	
 		super(a);
 		name = "naginata";
 		damage = 30;
@@ -251,20 +294,22 @@ class WeaponCollision extends Collidable {
 	private static final long serialVersionUID = 4862178711404157907L;
 
 	Weapon weapon;
-
-	WeaponCollision(Weapon w) {
-		weapon = w;
-	}
+	
+	WeaponCollision(Weapon w) { weapon = w; }
 
 	@Override
 	boolean collide(Actor a) {
+		
 		if (weapon.actor == null)
+			
 			if (a.getCollisionShape().intersects(getCollisionShape())
 					&& a.checkStatus(ACTING)) {
+		
 				weapon.attach(a);
 				a.removeStatus(ACTING);
 				return true;
 			}
+		
 		return false;
 	}
 }

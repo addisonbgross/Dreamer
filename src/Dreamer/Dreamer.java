@@ -78,7 +78,7 @@ public class Dreamer {
 		}
 		
 		Library.load();
-		KeyHandler.init();
+		Keys.init();
 	    Drawer.graphics.setFont(Library.defaultFont);
 	    
 	    new Ninja(0, 0).addToGame();
@@ -89,7 +89,7 @@ public class Dreamer {
 	
 		PerformanceMonitor.numberOfCollisions = 0;
 		Level.updateCurrent();
-		KeyHandler.getKeys();
+		Keys.getKeys();
 		if(Level.freezeCounter == 0); // to blank screen during level transitions
 			Updater.updateAll();
 		Camera.update();

@@ -82,6 +82,7 @@ public class Positionable extends Element {
 		}
 
 		void setCenter(float x, float y) {
+			
 			this.position.x = x - width / 2;
 			this.position.y = y - height / 2;
 		}
