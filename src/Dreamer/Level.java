@@ -16,41 +16,61 @@ import Dreamer.enums.Justification;
 import Dreamer.enums.Status;
 
 // Level is the base class for all games states, including menus, editors, debuggers etc
+class World {
+	
+	//-----------FIELDS
+
+	static String directory = "";
+	static String levels[];
+	
+	//-----------METHODS
+	
+	static void select(String s) {
+		
+		levels = new File(Constants.LEVELPATH + (directory = s + Constants.slash)).list();
+	}
+	
+	static void selectLevel(int i) {
+		
+		System.out.println("opening " + directory + levels[i]);
+		String nextLevel = levels[ (i + levels.length) % levels.length];
+		nextLevel = nextLevel.replace(".level", "");
+		
+		if(i > levels.length) {
+			switch(i) {
+				case 0:
+					new Dusk_1();
+					break;
+				case 1:
+					new Dusk_2();
+					break;
+				case 2:
+					new Dusk_3();
+					break;
+				case 3:
+					new Dusk_4();
+					break;
+				case 4:
+					new Dusk_5();
+					break;
+				default:
+					new MainMenu();
+			}
+		}
+		Level.read(directory + nextLevel);
+	}
+	
+	static void playLevel(int i) {	
+		
+		Level.clear();
+		selectLevel(i);
+		Level.initializePlayer();
+	}
+}
 
 class Level {
 	
-	class World {
-		
-		//-----------FIELDS
-
-		String directory = "";
-		String levels[];
-		
-		//-----------CONSTRUCTOR
-		
-		World(String s) { 
-			levels = new File(Constants.LEVELPATH + (this.directory = s + Constants.slash)).list();
-		}
-		
-		//-----------METHODS
-		
-		void selectLevel(int i) {
-			
-			System.out.println("opening " + directory + levels[i]);
-			String nextLevel = levels[ (i + levels.length) % levels.length];
-			nextLevel = nextLevel.replace(".level", "");
-			Level.read(directory + nextLevel);
-		}
-		
-		void playLevel(int i) {	
-			
-			clear();
-			selectLevel(i);
-			currentLevel.start();
-		}
-	}
-	
-	Marker playerSpawn = new Marker("playerSpawn", 0, 50);
+	static Marker playerSpawn = new Marker("playerSpawn", 0, 50);
 	Enemy e; //Generic enemy pointer
 	Weapon w;
 	static Level currentLevel;
@@ -63,7 +83,9 @@ class Level {
 		currentLevel = this;
 	}
 
-	void start() {
+	void start() { initializePlayer(); }
+	
+	static void initializePlayer() {
 		
 		Keys.openGameKeys();
 		
@@ -98,7 +120,7 @@ class Level {
 			out.writeObject(Element.masterList);
 			out.writeObject(Background.background);
 			out.writeObject(Foreground.foreground);
-			out.writeObject(currentLevel.playerSpawn);
+			out.writeObject(playerSpawn);
 			out.close();
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
@@ -121,7 +143,7 @@ class Level {
 				e.add();
 			for(Element e: (ArrayList<Element>) reader.readObject())
 				e.add();
-			currentLevel.playerSpawn = ( (Marker) reader.readObject());
+			playerSpawn = ( (Marker) reader.readObject());
 			
 			reader.close();
 		} catch (IOException e){
@@ -353,7 +375,7 @@ class Dusk_1 extends Level {
 		
 		new GradientBackground(new Color(50, 50, 100), new Color(0, 0, 0)).add();
 		new Model("dusk_1", 200, 0, 0, 0).add();
-		new ActionJewel(-1300, 125, 0, ()-> new Dusk_2() ).add();
+		new ActionJewel(-1300, 125, 0, ()-> World.selectLevel(1) ).add();
 		new Sunset().add();		
 	}
 }
@@ -371,9 +393,7 @@ class Dusk_2 extends Level {
 		new GradientBackground(new Color(50, 50, 100), new Color(0, 0, 0)).add();
 		new Model("dusk_2", 200, 0, 0, 0).add();
 		new Sunset().add();
-		new ActionJewel(-1400, 30, 0, ()-> { new Dusk_3(); }).add();
-		
-		Camera.focus(new ClassFocus(200, Ninja.class));
+		new ActionJewel(-1400, 30, 0, ()-> World.selectLevel(2) ).add();
 	}
 }
 
@@ -391,9 +411,7 @@ class Dusk_3 extends Level {
 		new Model("dusk_3", 200, 0, 0, 0).add();
 		new Sunset().add();
 		new Lamp(Player.getFirst()).add();
-		new ActionJewel(-1400, 1400, 0, ()-> {new Dusk_4(); }).add();
-		
-		Camera.focus(new ClassFocus(200, Ninja.class));
+		new ActionJewel(-1400, 1400, 0, ()-> World.selectLevel(3) ).add();
 	}
 }
 
@@ -411,10 +429,8 @@ class Dusk_4 extends Level {
 		new Model("dusk_4", 500, 0, 0, 0).add();
 		new Sunset().add();
 		new Lamp(Player.getFirst()).add();
-		new ActionJewel(-1900, 100, 0, ()-> { new Dusk_5(); }).add();
-		new ActionJewel(-1950, 100, 0, ()-> { new Dusk_5(); }).add();
-		
-		Camera.focus(new ClassFocus(200, Ninja.class));
+		new ActionJewel(-1900, 100, 0, ()-> World.selectLevel(4) ).add();
+		new ActionJewel(-1950, 100, 0, ()-> World.selectLevel(4) ).add();
 	}
 }
 
@@ -431,9 +447,7 @@ class Dusk_5 extends Level {
 		new SolidBackground(new Color(0, 0, 0)).add();
 		new Model("dusk_5", 500, 0, 0, 0).add();
 		new Lamp(Player.getFirst()).add();
-		new ActionJewel(-2950, -3900, 0, ()-> { new Dusk_6(); }).add();
-		
-		Camera.focus(new ClassFocus(200, Ninja.class));
+		new ActionJewel(-2950, -3900, 0, ()-> World.selectLevel(5) ).add();
 	}
 }
 
@@ -450,7 +464,5 @@ class Dusk_6 extends Level {
 		new SolidBackground(new Color(0, 0, 0)).add();
 		new Model("dusk_6", 500, 0, 0, 0).add();
 		new Lamp(Player.getFirst()).add();
-		
-		Camera.focus(new ClassFocus(200, Ninja.class));
 	}
 }

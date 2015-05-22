@@ -14,11 +14,14 @@ public class MainMenu extends Level {
 		
 		main.addOption("TEST WORLD", ()-> {
 			
-			new World("dusk").playLevel(0);
+			main.exit();
+			World.select("dusk");
+			World.playLevel(0);
 		});
 		
 		main.addOption("START", ()-> {
 			
+			World.select("dusk");
 			new Dusk_1();
 		});
 		
@@ -46,6 +49,7 @@ public class MainMenu extends Level {
 		Camera.reset();
 	}
 	
-	@Override
-	void start() { main.open(); }
+	void start() {
+		main.open();
+	}
 }
