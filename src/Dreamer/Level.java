@@ -30,14 +30,22 @@ class World {
 		levels = new File(Constants.LEVELPATH + (directory = s + Constants.slash)).list();
 	}
 	
-	static void selectLevel(int i) {
+	private static void selectLevel(int i) {
 		
-		System.out.println("opening " + directory + levels[i]);
-		String nextLevel = levels[ (i + levels.length) % levels.length];
-		nextLevel = nextLevel.replace(".level", "");
+		System.out.println("selecting level " + i);
 		
-		if(i > levels.length) {
+		try {
+			
+			System.out.println("opening " + directory + levels[i]);
+			String nextLevel = levels[i].replace(".level", "");
+			Level.read(directory + nextLevel);
+			
+		} catch(ArrayIndexOutOfBoundsException aioobe) {
+			
+			System.err.println("Level.java err: Level " + i + " not available");
+			
 			switch(i) {
+			
 				case 0:
 					new Dusk_1();
 					break;
@@ -57,12 +65,11 @@ class World {
 					new MainMenu();
 			}
 		}
-		Level.read(directory + nextLevel);
 	}
 	
 	static void playLevel(int i) {	
 		
-		Level.clear();
+		Element.clearAll();
 		selectLevel(i);
 		Level.initializePlayer();
 	}
@@ -91,13 +98,11 @@ class Level {
 		
 		Player p = Player.getFirst();
 		p.setCenterBottom(playerSpawn.getX(), playerSpawn.getY());
+		System.out.println(playerSpawn.toString());
 		p.add();
+		System.out.println(p.toString());
 		
 		Camera.focus(new ClassFocus(200, Ninja.class));
-	}
-	
-	static void clear() {
-		Element.clearAll();
 	}
 	
 	static void updateCurrent() {
@@ -129,6 +134,7 @@ class Level {
 	
 	@SuppressWarnings("unchecked")
 	static void read(String s) {
+		
 		try{ 
 			FileInputStream door = new FileInputStream(Constants.LEVELPATH + s + ".level"); 
 			ObjectInputStream reader = new ObjectInputStream(door); 
@@ -175,7 +181,7 @@ class Level {
 				
 				levelMenu.addOption(file.getName(), ()-> {
 					
-					Level.clear();
+					Element.clearAll();
 					Level.read(path + file.getName().replace(".level", ""));
 					Keys.openGameKeys();
 					Player.getFirst().add();
@@ -375,7 +381,7 @@ class Dusk_1 extends Level {
 		
 		new GradientBackground(new Color(50, 50, 100), new Color(0, 0, 0)).add();
 		new Model("dusk_1", 200, 0, 0, 0).add();
-		new ActionJewel(-1300, 125, 0, ()-> World.selectLevel(1) ).add();
+		new ActionJewel(-1300, 125, 0, ()-> World.playLevel(1) ).add();
 		new Sunset().add();		
 	}
 }
@@ -393,7 +399,7 @@ class Dusk_2 extends Level {
 		new GradientBackground(new Color(50, 50, 100), new Color(0, 0, 0)).add();
 		new Model("dusk_2", 200, 0, 0, 0).add();
 		new Sunset().add();
-		new ActionJewel(-1400, 30, 0, ()-> World.selectLevel(2) ).add();
+		new ActionJewel(-1400, 30, 0, ()-> World.playLevel(2) ).add();
 	}
 }
 
@@ -411,7 +417,7 @@ class Dusk_3 extends Level {
 		new Model("dusk_3", 200, 0, 0, 0).add();
 		new Sunset().add();
 		new Lamp(Player.getFirst()).add();
-		new ActionJewel(-1400, 1400, 0, ()-> World.selectLevel(3) ).add();
+		new ActionJewel(-1400, 1400, 0, ()-> World.playLevel(3) ).add();
 	}
 }
 
@@ -429,8 +435,8 @@ class Dusk_4 extends Level {
 		new Model("dusk_4", 500, 0, 0, 0).add();
 		new Sunset().add();
 		new Lamp(Player.getFirst()).add();
-		new ActionJewel(-1900, 100, 0, ()-> World.selectLevel(4) ).add();
-		new ActionJewel(-1950, 100, 0, ()-> World.selectLevel(4) ).add();
+		new ActionJewel(-1900, 100, 0, ()-> World.playLevel(4) ).add();
+		new ActionJewel(-1950, 100, 0, ()-> World.playLevel(4) ).add();
 	}
 }
 
@@ -447,7 +453,7 @@ class Dusk_5 extends Level {
 		new SolidBackground(new Color(0, 0, 0)).add();
 		new Model("dusk_5", 500, 0, 0, 0).add();
 		new Lamp(Player.getFirst()).add();
-		new ActionJewel(-2950, -3900, 0, ()-> World.selectLevel(5) ).add();
+		new ActionJewel(-2950, -3900, 0, ()-> World.playLevel(5) ).add();
 	}
 }
 

@@ -409,28 +409,22 @@ class Player extends Actor {
 	static LinkedList<Player> list = new LinkedList<Player>();
 	
 	Player(StatCard sc, float x, float y) { 
+		
 		super(sc, x, y);
-	}
-
-	void addToGame() {
 		list.add(this);
 	}
-	void removeFromGame() {
-		Updater.updateDeathSet.add(this);
-		this.remove();
-		list.remove(this);
-	}
 	
-	static Player getFirst() {
-		return list.element();
-	}
+	static Player getFirst() { return list.element(); }
+	
 	static boolean atLeastOneLives() {
+		
 		for(Player p: list)
 			if(!p.checkStatus(DEAD))
 				return true;
 		return false;
 	}
 	static boolean allAlive() {
+		
 		for(Player p: list)
 			if(p.checkStatus(DEAD))
 				return false;

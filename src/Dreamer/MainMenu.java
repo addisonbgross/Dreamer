@@ -28,12 +28,12 @@ public class MainMenu extends Level {
 		main.addOption("OPEN EDITOR (TAB IN-GAME)", ()-> {
 		
 			Keys.clearKeys();
-			Level.clear();
+			Element.clearAll();
 			editor = new Editor();
 			editor.start();
 		});
 		
-		main.addOption("OPEN LEVEL", ()-> { Level.openSelectionMenu(main); });
+		main.addOption("OPEN LEVEL", ()-> { Level.openSelectionMenu(main, "dusk/"); });
 		
 		main.addOption("TEST CHARACTERS", (/*why does one drift left?*/)-> {
 		

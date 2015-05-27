@@ -81,7 +81,7 @@ public class Dreamer {
 		Keys.init();
 	    Drawer.graphics.setFont(Library.defaultFont);
 	    
-	    new Ninja(0, 0).addToGame();
+	    new Ninja(0, 0);
 		new MainMenu();
 	}
 	

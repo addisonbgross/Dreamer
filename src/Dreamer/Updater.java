@@ -9,34 +9,33 @@ import Dreamer.interfaces.Updateable;
 public class Updater {
 	// the set which all Elements implementing Updateable get added to with
 	// .add()
-	static Set<Updateable> updateSet = new HashSet<Updateable>(100);
+	static Set<Updateable> updateSet = new HashSet<>(100);
 	// to avoid concurrency errors and such
-	static Set<Updateable> updateLaterSet = new HashSet<Updateable>(100);
-	static Set<Updateable> updateBirthSet = new HashSet<Updateable>();
-	static Set<Updateable> updateDeathSet = new HashSet<Updateable>();
+	static Set<Updateable> updateLaterSet = new HashSet<>(100);
 	
 	public static void add(Element e) {
-		updateBirthSet.add((Updateable) e);
+		updateSet.add((Updateable) e);
 	}
 	
 	public static void remove(Element e) {
-		updateDeathSet.add((Updateable) e);
+		updateSet.add((Updateable) e);
 	}
 
 	public static void clear() {
 		updateSet.clear();
-		updateBirthSet.clear();
-		updateDeathSet.clear();
 	}
 
-	public static void updateAll() {
+	public static void updateAll() {		
 		
-		updateSet.addAll(updateBirthSet);
-		updateBirthSet.clear();
+		Set<Updateable> updatingThings = new HashSet<>();
+		updatingThings.addAll(updateSet);
 
 		Updateable z = null;
+		
 		try {
-			for (Updateable e : updateSet) {
+			
+			for (Updateable e : updatingThings) {
+				
 				if (Actor.class.isAssignableFrom(e.getClass())
 						|| Sweat.class.isAssignableFrom(e.getClass()))
 					e.update();
@@ -52,18 +51,17 @@ public class Updater {
 				System.out.println(z.getClass().toString());
 			e.printStackTrace();
 		}
-		for (Updateable e : updateLaterSet) {
-			e.update();
-		}
-		updateSet.removeAll(updateDeathSet);
-		updateDeathSet.clear();
+		
+		for (Updateable e : updateLaterSet) { e.update(); }
 
 		updateLaterSet.clear();
 	}
 }
 
 class UpdateComparator implements Comparator<Updateable> {
+	
 	boolean a, b;
+	
 	@Override
 	public int compare(Updateable arg0, Updateable arg1) {
 		a = b = false;
