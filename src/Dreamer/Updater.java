@@ -1,60 +1,44 @@
 package Dreamer;
 
 import java.util.Comparator;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.TreeSet;
+import java.util.function.Consumer;
+import java.util.Collection;
+import java.util.LinkedHashSet;
 
 import Dreamer.interfaces.Updateable;
 
 public class Updater {
-	// the set which all Elements implementing Updateable get added to with
-	// .add()
-	static Set<Updateable> updateSet = new HashSet<>(100);
-	// to avoid concurrency errors and such
-	static Set<Updateable> updateLaterSet = new HashSet<>(100);
 	
-	public static void add(Element e) {
-		updateSet.add((Updateable) e);
+	static Consumer<Updateable> 
+		update = (x)-> x.update(),
+		print = (x)-> System.out.println(x.toString());
+		
+	static Collection<Updateable> updateSet = new TreeSet<>(new UpdateComparator());
+	
+	public static void add(Object o) {
+		updateSet.add((Updateable) o);
 	}
 	
-	public static void remove(Element e) {
-		updateSet.add((Updateable) e);
+	public static void remove(Object o) {
+		updateSet.remove((Updateable) o);
 	}
 
 	public static void clear() {
 		updateSet.clear();
 	}
+	
+	public static boolean isPriority(Object o) {
+	
+		return (Actor.class.isAssignableFrom(o.getClass())
+				|| Sweat.class.isAssignableFrom(o.getClass()));
+	}
 
 	public static void updateAll() {		
 		
-		Set<Updateable> updatingThings = new HashSet<>();
+		Collection<Updateable> updatingThings = new LinkedHashSet<>();
 		updatingThings.addAll(updateSet);
-
-		Updateable z = null;
-		
-		try {
-			
-			for (Updateable e : updatingThings) {
-				
-				if (Actor.class.isAssignableFrom(e.getClass())
-						|| Sweat.class.isAssignableFrom(e.getClass()))
-					e.update();
-				else
-					updateLaterSet.add(e);
-				z = e;
-			}
-		} catch (java.util.ConcurrentModificationException e) {
-			// TODO fix this exception
-			// this is caused by Dreamer.Ninja adding and removing something,
-			// probably a call to .remove() or .add() in update
-			if (z != null)
-				System.out.println(z.getClass().toString());
-			e.printStackTrace();
-		}
-		
-		for (Updateable e : updateLaterSet) { e.update(); }
-
-		updateLaterSet.clear();
+		updateSet.stream().forEach(update);		
 	}
 }
 
@@ -64,11 +48,12 @@ class UpdateComparator implements Comparator<Updateable> {
 	
 	@Override
 	public int compare(Updateable arg0, Updateable arg1) {
-		a = b = false;
-		if(arg0.getClass().equals(Actor.class))
-				a = true;
-		if(arg1.getClass().equals(Actor.class))
-				b = true;
-		return 1;
+		
+		a = Updater.isPriority(arg0);
+		b = Updater.isPriority(arg1);
+		
+		if(a && !b) return 1;
+		
+		return -1;
 	}
 }
