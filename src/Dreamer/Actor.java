@@ -11,9 +11,10 @@ import org.newdawn.slick.geom.Vector2f;
 
 import Dreamer.enums.Status;
 import Dreamer.interfaces.Updateable;
+import Dreamer.interfaces.Manageable;
 import static Dreamer.enums.Status.*;
 
-public abstract class Actor extends Collidable implements Updateable {
+public abstract class Actor extends Collidable implements Manageable, Updateable {
 	
 	private static final long serialVersionUID = -8711854287889823062L;
 	private static Set<Collidable> collisionSet = new HashSet<Collidable>();
@@ -32,6 +33,7 @@ public abstract class Actor extends Collidable implements Updateable {
 	Weapon weapon;
 
 	Actor(StatCard sc, float x, float y) {
+
 		status.add(INITIALIZED);
 		status.add(RIGHT);
 		stats = sc;
@@ -48,30 +50,25 @@ public abstract class Actor extends Collidable implements Updateable {
 		setCollisionShape(new Rectangle(x, y, stats.width, stats.height));
 		setPosition(x, y, 0);
 	}
-	// Add to active Elements
-	public void add() {
-		if(!checkStatus(DEAD)) {
-			super.add();
-			body.add();
-			for(Effect e: effects)
-				e.add();
-		} else
-			//TODO procedure for after dying
-			System.out.println(getClass() + " has died! Cannot add to lists.");
+	
+	public java.util.Collection<Manageable> getChildren() {
+		
+		java.util.Collection<Manageable> children = new java.util.ArrayList<>();
+		children.add(body);
+		children.addAll(effects);
+		return children;
 	}
-	public void remove() {
-		super.remove();
-		body.remove();
-		for(Effect e: effects)
-			e.remove();
-	}
+	
 	@Override // this is necessary to update position
 	void setCenterBottom(float x, float y) {
-		super.remove();
+	
+		remove();
 		super.setCenterBottom(x, y);
-		super.add();
+		add();
 	}
+	
 	public void update() {
+		
 		if(health <= 0)
 			die();
 		

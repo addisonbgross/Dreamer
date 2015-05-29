@@ -1,8 +1,9 @@
 package Dreamer;
 
 import Dreamer.interfaces.Updateable;
+import Dreamer.interfaces.Manageable;
 
-public abstract class Effect extends Element implements Updateable {
+public abstract class Effect extends Element implements Updateable, Manageable {
 	
 	private static final long serialVersionUID = 5289812447446272287L;
 	Actor actor;
@@ -10,14 +11,12 @@ public abstract class Effect extends Element implements Updateable {
 	int xOffset, yOffset, zOffset;
 	int LEFT = 1, RIGHT = -1;
 
-	public void add() {
-		super.add();
-		animation.add();
+	public java.util.Collection<Manageable> getChildren() {
+		java.util.Collection<Manageable> children = new java.util.ArrayList<>();
+		children.add(animation);
+		return children;
 	}
-	public void remove() {
-		super.remove();
-		animation.remove();
-	}
+	
 	public void rePosition() {
 		if (actor.isFacing("left")) {
 			animation.direction = LEFT;
@@ -29,6 +28,7 @@ public abstract class Effect extends Element implements Updateable {
 	}
 	@Override
 	void draw() {
+		
 		if(Manager.debug) {
 			Drawer.drawCursor(toString(), animation.position.x, animation.position.y, 0); 
 		}

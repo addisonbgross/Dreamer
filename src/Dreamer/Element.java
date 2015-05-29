@@ -2,9 +2,8 @@ package Dreamer;
 
 import java.util.TreeMap;
 import java.util.HashSet;
-import Dreamer.interfaces.Manageable;
 
-public class Element implements Manageable {
+public class Element implements java.io.Serializable {
 
 	private static final long serialVersionUID = 1384182428126670525L;
 

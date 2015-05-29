@@ -35,7 +35,9 @@ public class Animation2 extends Shape3d implements Updateable {
 	Animation2(String s, int columns, int rows, int speed) {
 		this(s, columns, rows, speed, 64, 64);
 	}
+	
 	Animation2(String s, int columns, int rows, int speed, int w, int h) {
+		
 		super(0, 0, 0);
 		width = w;
 		height = h;
@@ -58,7 +60,9 @@ public class Animation2 extends Shape3d implements Updateable {
 	}
 	
 	public void update() {		
+		
 		try {
+
 			if (running) {
 				long now = getTime();
 				long delta = now - lastTime;
@@ -78,44 +82,45 @@ public class Animation2 extends Shape3d implements Updateable {
 			e.printStackTrace();
 		}
 	}
-	void start() {
-		running = true;
-	}
-	void stop() {
-		running = false;
-	}
+	
+	void start() { running = true; }
+	
+	void stop() { running = false; }
+	
 	void reset() {
+		
 		currentIndex = 0;
 		firstUpdate = true;
 	}
-	void setDirection(Status dir) {
-		direction = (dir == Status.LEFT)?1:-1;
-	}
-	void setLooping(boolean value) {
-		looping = value;
-	}
-	void setReverse(boolean value) {
-		reverse = value;
-	}
-	void setPingPong(boolean value) {
-		pingpong = value;
-	}
+	
+	void setDirection(Status dir) { direction = (dir == Status.LEFT)? 1 : -1; }
+	
+	void setLooping(boolean value) { looping = value; }
+	
+	void setReverse(boolean value) { reverse = value; }
+	
+	void setPingPong(boolean value) { pingpong = value; }
+	
 	void setSpeed(float rate) {
+	
 		if (rate >= 0)
 			speed = rate;
 	}
+	
 	void selectRow(int r) {
+		
 		indices.clear();
+		
 		for (int i = 0; i < columns; ++i)
 			indices.add(new Vector2f(i, r));
 	}
-	int framesWide() {
-		return columns;
-	}
-	Animation2 getRow() {
-		return this;
-	}
+	
+	int framesWide() { return columns; }
+	
+	Animation2 getRow() { return this; }
+	
 	void selectFrame(float x, float y) {
+	
 		if (direction == LEFT) {
 			f.setTexturePoints(
 					sheetWidth * x / columns, 
@@ -147,7 +152,9 @@ public class Animation2 extends Shape3d implements Updateable {
 	 * @param delta The amount of time thats passed since last update
 	 */
 	int nextFrame(long delta) {
+		
 		int numFrames = 0;
+		
 		if (!running) {
 			frameCounter = 0;
 			return 0;
@@ -156,9 +163,12 @@ public class Animation2 extends Shape3d implements Updateable {
 		frameCounter += delta;
 	
 		if(frameCounter >= speed) {
+			
 			numFrames = (int) (frameCounter / speed);
 			frameCounter = (int)(frameCounter % speed);
+		
 			if (!looping) {
+			
 				if (currentIndex + numFrames > 5) {
 					numFrames = 0;
 					reset();

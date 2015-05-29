@@ -1,6 +1,7 @@
 package Dreamer;
 
 import java.util.HashSet;
+import Dreamer.interfaces.Manageable;
 
 public class Manager {
 	
@@ -10,6 +11,7 @@ public class Manager {
 	static PerformanceMonitor performance = new PerformanceMonitor("drawActive");
 	static boolean debug = false, drawing = false, trackview = false;
 	static int count = 0;
+	static java.util.Collection<Manageable> emptyList = new java.util.ArrayList<>();
 	
 	public static void add(Object o) {
 	
@@ -21,7 +23,7 @@ public class Manager {
 	public static void remove(Object o) {
 	
 		Updater.tryRemove(o);
-		Collidable.tryAdd(o);
+		Collidable.tryRemove(o);
 		masterList.remove((Element)o);
 	}
 	

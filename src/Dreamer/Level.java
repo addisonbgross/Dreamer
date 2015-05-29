@@ -143,12 +143,12 @@ class Level {
 				// TODO unhack this, don't save players
 				// perhaps create spawn points for all Actors?
 				if(e.getClass() != Ninja.class)
-					e.add();
+					Manager.add(e);
 			}
 			for(Element e: (ArrayList<Element>) reader.readObject())
-				e.add();
+				Manager.add(e);
 			for(Element e: (ArrayList<Element>) reader.readObject())
-				e.add();
+				Manager.add(e);
 			playerSpawn = ( (Marker) reader.readObject());
 			
 			reader.close();

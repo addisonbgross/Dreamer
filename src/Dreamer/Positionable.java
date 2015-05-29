@@ -1,9 +1,13 @@
 package Dreamer;
 
+import java.util.Collection;
+
 import org.lwjgl.util.vector.Vector3f;
 import org.newdawn.slick.geom.Vector2f;
 
-public class Positionable extends Element {
+import Dreamer.interfaces.Manageable;
+
+public class Positionable extends Element implements Manageable {
 	
 	private static final long serialVersionUID = -7005269360412558578L;
 	// each subclass's constructor should set x, y, width, height, and depth
@@ -125,6 +129,10 @@ public class Positionable extends Element {
 
 		void setDepth(float depth) {
 			this.depth = depth;
+		}
+
+		public Collection<Manageable> getChildren() {
+			return Manager.emptyList;
 		}
 }
 

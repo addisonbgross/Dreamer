@@ -22,7 +22,6 @@ public class Model extends Element {
 			new Lamp(v.x, v.y, v.z, 500).add();
 	}
 
-	@Override
 	public void add() {
 		for (Shape3d s : models) {
 			s.recenter();
