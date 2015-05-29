@@ -7,9 +7,10 @@ import org.newdawn.slick.fills.GradientFill;
 import org.newdawn.slick.geom.Polygon;
 import org.newdawn.slick.geom.Rectangle;
 
+import Dreamer.interfaces.Manageable;
 import Dreamer.interfaces.Updateable;
 
-class Background extends Positionable {
+class Background extends Positionable implements Manageable {
 
 	private static final long serialVersionUID = -5311718550637469560L;
 	static float BACKGROUNDMOTION = 10;
@@ -30,12 +31,12 @@ class Background extends Positionable {
 	}
 
 	@Override
-	void add() {
+	public void add() {
 		Background.background.add(this);
 	}
 
 	@Override
-	void remove() {
+	public void remove() {
 		Background.background.remove(this);
 	}
 

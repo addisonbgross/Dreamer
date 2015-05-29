@@ -2,25 +2,13 @@ package Dreamer;
 
 import java.util.TreeMap;
 import java.util.HashSet;
-import java.io.Serializable;
+import Dreamer.interfaces.Manageable;
 
-public class Element implements Serializable {
+public class Element implements Manageable {
 
 	private static final long serialVersionUID = 1384182428126670525L;
 
 	protected Element() {}
-
-	/**
-	 * WARNING: if you update add() remove() MUST be changed as well leaving
-	 * references to objects on this list will cause massive memory leaks
-	 */
-	void add() {
-		Manager.add(this);
-	}
-
-	void remove() {
-		Manager.remove(this);
-	}
 
 	boolean isVisible() {
 		// TODO make this effective at filtering out unneeded Elements

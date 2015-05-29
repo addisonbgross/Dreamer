@@ -23,7 +23,7 @@ public class Model extends Element {
 	}
 
 	@Override
-	void add() {
+	public void add() {
 		for (Shape3d s : models) {
 			s.recenter();
 			// System.out.println(s.position);

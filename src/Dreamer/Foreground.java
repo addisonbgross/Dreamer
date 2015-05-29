@@ -8,11 +8,11 @@ public class Foreground extends Positionable {
 	public static ArrayList<Element> foreground = new ArrayList<Element>();
 	
 	@Override
-	void add() {
-		Foreground.foreground.add(this);
+	public void add() {
+		foreground.add(this);
 	}
 	@Override
-	void remove() {
-		Foreground.foreground.remove(this);
+	public void remove() {
+		foreground.remove(this);
 	}
 }

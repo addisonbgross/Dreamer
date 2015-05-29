@@ -11,16 +11,18 @@ public class Manager {
 	static boolean debug = false, drawing = false, trackview = false;
 	static int count = 0;
 	
-	static void add(Element e) {
+	public static void add(Object o) {
 	
-		Updater.tryAdd(e);
-		masterList.add(e);
+		Updater.tryAdd(o);
+		Collidable.tryAdd(o);
+		masterList.add((Element)o);
 	}
 	
-	static void remove(Element e) {
+	public static void remove(Object o) {
 	
-		Updater.tryRemove(e);
-		masterList.remove(e);
+		Updater.tryRemove(o);
+		Collidable.tryAdd(o);
+		masterList.remove((Element)o);
 	}
 	
 	static void activateVisible() {

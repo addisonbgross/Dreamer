@@ -29,12 +29,12 @@ abstract public class Light extends Positionable {
 	static int accumulate;
 	
 	@Override
-	void add() {
+	public void add() {
 		super.add();
 		lightList.add(this);
 	}
 	@Override
-	void remove() {
+	public void remove() {
 		super.remove();
 		lightList.remove(this);
 	}
@@ -250,7 +250,7 @@ class Sun extends Background {
 		}
 	}
 	@Override
-	void add() {
+	public void add() {
 		super.add();
 		light.add();
 	}

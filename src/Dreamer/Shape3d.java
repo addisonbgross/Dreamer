@@ -712,13 +712,13 @@ class Flare extends Shape3d implements Updateable {
 	}
 
 	@Override
-	void add() {
+	public void add() {
 		super.add();
 		light.add();
 	}
 
 	@Override
-	void remove() {
+	public void remove() {
 		super.remove();
 		light.remove();
 	}
@@ -806,13 +806,13 @@ class Lamp extends Shape3d implements Updateable {
 	}
 
 	@Override
-	void add() {
+	public void add() {
 		super.add();
 		light.add();
 	}
 
 	@Override
-	void remove() {
+	public void remove() {
 		super.remove();
 		light.remove();
 	}

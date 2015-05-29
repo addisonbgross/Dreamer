@@ -182,14 +182,14 @@ public class Body extends Positionable implements Updateable {
 		setParts();
 	}
 	@Override
-	void add() {
+	public void add() {
 		super.add();
 		this.legs.add();
 		this.body.add();
 		this.head.add();
 	}
 	@Override
-	void remove() {
+	public void remove() {
 		super.add();
 		this.legs.remove();
 		this.body.remove();

@@ -2,7 +2,6 @@ package Dreamer;
 
 import java.util.Comparator;
 import java.util.TreeSet;
-import java.util.function.Consumer;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 
@@ -10,26 +9,22 @@ import Dreamer.interfaces.Updateable;
 
 public class Updater {
 	
-	static Collection<Updateable> updatingThings = new LinkedHashSet<>();
-	static Consumer<Updateable> 
-		update = (x)-> x.update(),
-		print = (x)-> System.out.println(x.toString());
-		
 	static Collection<Updateable> updateSet = new TreeSet<>(new UpdateComparator());
+	static Collection<Updateable> updatingThings = new LinkedHashSet<>();
 	
 	public static void tryAdd(Object o) {
+		
 		if(o instanceof Updateable)
 			updateSet.add((Updateable) o);
 	}
 	
 	public static void tryRemove(Object o) {
+		
 		if(o instanceof Updateable)
 			updateSet.remove((Updateable) o);
 	}
 
-	public static void clear() {
-		updateSet.clear();
-	}
+	public static void clear() { updateSet.clear(); }
 	
 	public static boolean isPriority(Object o) {
 	
@@ -41,7 +36,7 @@ public class Updater {
 		
 		updatingThings.clear();
 		updatingThings.addAll(updateSet);
-		updatingThings.stream().forEach(update);		
+		updatingThings.stream().forEach( (x)-> x.update() );	
 	}
 }
 

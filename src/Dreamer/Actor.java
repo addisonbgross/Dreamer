@@ -49,7 +49,7 @@ public abstract class Actor extends Collidable implements Updateable {
 		setPosition(x, y, 0);
 	}
 	// Add to active Elements
-	void add() {
+	public void add() {
 		if(!checkStatus(DEAD)) {
 			super.add();
 			body.add();
@@ -59,7 +59,7 @@ public abstract class Actor extends Collidable implements Updateable {
 			//TODO procedure for after dying
 			System.out.println(getClass() + " has died! Cannot add to lists.");
 	}
-	void remove() {
+	public void remove() {
 		super.remove();
 		body.remove();
 		for(Effect e: effects)

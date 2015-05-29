@@ -34,26 +34,32 @@ class Collidable extends Positionable {
 	Collidable() {}
 	Collidable(Shape s) { setCollisionShape(s); }
 
-	@Override
-	void add() {
-		super.add();
-		xRange.add(getMinX(), this);
-		yRange.add(getMinY(), this);
-		for (float offset = getWidth(); offset >= 0; offset -= Constants.COLLISIONINTERVAL)
-			xRange.add(getMinX() + offset, this);
-		for (float offset = getHeight(); offset >= 0; offset -= Constants.COLLISIONINTERVAL)
-			yRange.add(getMinY() + offset, this);
+	static void tryAdd(Object o) {
+	
+		if(Collidable.class.isAssignableFrom(o.getClass())) {
+			
+			Collidable c = (Collidable)o;
+			xRange.add(c.getMinX(), c);
+			yRange.add(c.getMinY(), c);
+			for (float offset = c.getWidth(); offset >= 0; offset -= Constants.COLLISIONINTERVAL)
+				xRange.add(c.getMinX() + offset, c);
+			for (float offset = c.getHeight(); offset >= 0; offset -= Constants.COLLISIONINTERVAL)
+				yRange.add(c.getMinY() + offset, c);
+		}
 	}
 	
-	@Override
-	void remove() {
-		super.remove();
-		xRange.remove(getMinX(), this);
-		yRange.remove(getMinY(), this);
-		for (float offset = getWidth(); offset >= 0; offset -= Constants.COLLISIONINTERVAL)
-			xRange.remove(getMinX() + offset, this);
-		for (float offset = getHeight(); offset >= 0; offset -= Constants.COLLISIONINTERVAL)
-			yRange.remove(getMinY() + offset, this);
+	static void tryRemove(Object o) {
+		
+		if(Collidable.class.isAssignableFrom(o.getClass())) {
+			
+			Collidable c = (Collidable)o;
+			xRange.remove(c.getMinX(), c);
+			yRange.remove(c.getMinY(), c);
+			for (float offset = c.getWidth(); offset >= 0; offset -= Constants.COLLISIONINTERVAL)
+				xRange.remove(c.getMinX() + offset, c);
+			for (float offset = c.getHeight(); offset >= 0; offset -= Constants.COLLISIONINTERVAL)
+				yRange.remove(c.getMinY() + offset, c);
+		}
 	}
 	
 	@Override
