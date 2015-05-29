@@ -97,7 +97,7 @@ public final class PerformanceMonitor {
 	}
 
 	static int numberTotal() {
-		return Element.masterList.size();
+		return Manager.masterList.size();
 	}
 
 	static int numberYRangeSets() {
@@ -109,7 +109,7 @@ public final class PerformanceMonitor {
 	}
 
 	static int numberActive() {
-		return Element.activeSet.size();
+		return Manager.activeSet.size();
 	}
 
 	static public PerformanceMonitor getGlobal() {

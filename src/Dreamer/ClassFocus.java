@@ -13,7 +13,7 @@ class ClassFocus extends Positionable implements Updateable {
 	
 	<T> ClassFocus(Class<?>... c) {
 		for(Class<?> cn: c)
-			for (Element e : masterList)
+			for (Element e : Manager.masterList)
 				if ((e.getClass() == cn) && (Positionable.class.isAssignableFrom(e.getClass())))
 					classElements.add((Positionable)e);
 	}
@@ -24,7 +24,7 @@ class ClassFocus extends Positionable implements Updateable {
 
 	@Override
 	void draw() {
-		if(Element.debug) {
+		if(Manager.debug) {
 			String s = "ClassFocus@("+(int)getMinX()+", "+(int)getMinY()+")";
 			Drawer.drawCursor(s, getX(), getY(), getZ());
 		}

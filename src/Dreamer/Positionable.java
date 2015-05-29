@@ -141,7 +141,7 @@ class Marker extends Positionable {
 
 	@Override
 	boolean isVisible() {
-		return Element.debug || Element.trackview;
+		return Manager.debug || Manager.trackview;
 	}
 	
 	@Override

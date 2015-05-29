@@ -1,21 +1,12 @@
 package Dreamer;
 
-import java.io.Serializable;
-import java.util.HashSet;
 import java.util.TreeMap;
-
-import Dreamer.interfaces.Updateable;
+import java.util.HashSet;
+import java.io.Serializable;
 
 public class Element implements Serializable {
 
 	private static final long serialVersionUID = 1384182428126670525L;
-
-	protected static HashSet<Element> masterList = new HashSet<Element>(2000);
-	protected static HashSet<Element> activeSet = new HashSet<Element>(2000);
-
-	static PerformanceMonitor performance = new PerformanceMonitor("drawActive");
-	static boolean debug = false, drawing = false, trackview = false;
-	static int count = 0;
 
 	protected Element() {}
 
@@ -24,15 +15,11 @@ public class Element implements Serializable {
 	 * references to objects on this list will cause massive memory leaks
 	 */
 	void add() {
-		if (this instanceof Updateable)
-			Updater.add(this);
-		masterList.add(this);
+		Manager.add(this);
 	}
 
 	void remove() {
-		if (this instanceof Updateable)
-			Updater.remove(this);
-		masterList.remove(this);
+		Manager.remove(this);
 	}
 
 	boolean isVisible() {
@@ -46,79 +33,6 @@ public class Element implements Serializable {
 
 	void print() {
 		System.out.println(this.toString());
-	}
-
-	static void activateVisible() {
-		for (Element e : masterList)
-			if (e.isVisible())
-				activeSet.add(e);
-	}
-
-	static void printActive() {
-		System.out.println("ACTIVE ELEMENTS");
-		for (Element e : activeSet) {
-			e.print();
-		}
-	}
-
-	static void drawActive() {
-
-		drawing = true;
-		count = 0;
-		
-		performance.clear();
-		performance.start();
-		
-		for (Element e : Background.background) {
-			
-			count++;
-			Light.light(e);
-			e.draw();
-			performance.mark(count + "," + e.toString());
-		}
-
-		for (Element o : activeSet) {
-			
-			count++;
-			Light.light(o);
-			o.draw();
-			performance.mark(count + "," + o.toString());
-		}
-
-		Face.drawFaces();
-		performance.mark("Faces");
-
-		for (Element e : Foreground.foreground) {
-			
-			count++;
-			e.draw();
-			performance.mark(count + "," + e.toString());
-		}
-
-		performance.sort();
-		drawing = false;
-	}
-
-	static void clearAll() {
-
-		masterList.clear();
-		activeSet.clear();
-		Updater.clear();
-		Collidable.clear();
-		Background.background.clear();
-		Foreground.foreground.clear();
-		Light.clearAll();
-	}
-
-	static void clearActive() {
-
-		activeSet.clear();
-	}
-
-	static void printAll() {
-		for(Element e: masterList) {
-			e.print();
-		}
 	}
 }
 

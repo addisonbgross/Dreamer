@@ -69,7 +69,7 @@ class World {
 	
 	static void playLevel(int i) {	
 		
-		Element.clearAll();
+		Manager.clearAll();
 		selectLevel(i);
 		Level.initializePlayer();
 	}
@@ -110,7 +110,7 @@ class Level {
 		if(levelChanged) {
 			levelChanged = false;
 			freezeCounter = 2;
-			Element.clearAll();
+			Manager.clearAll();
 			currentLevel.createLevel();
 			currentLevel.start();
 		}
@@ -122,7 +122,7 @@ class Level {
 		
 		try {
 		 	out = new ObjectOutputStream(new FileOutputStream(Constants.LEVELPATH + s + ".level"));
-			out.writeObject(Element.masterList);
+			out.writeObject(Manager.masterList);
 			out.writeObject(Background.background);
 			out.writeObject(Foreground.foreground);
 			out.writeObject(playerSpawn);
@@ -181,7 +181,7 @@ class Level {
 				
 				levelMenu.addOption(file.getName(), ()-> {
 					
-					Element.clearAll();
+					Manager.clearAll();
 					Level.read(path + file.getName().replace(".level", ""));
 					Keys.openGameKeys();
 					Player.getFirst().add();

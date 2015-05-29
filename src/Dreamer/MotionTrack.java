@@ -104,7 +104,7 @@ public class MotionTrack extends Collidable {
 	}
 	@Override
 	boolean isVisible() {
-		return Element.trackview || Element.debug;
+		return Manager.trackview || Manager.debug;
 	}
 	public static void generateMotionTrack(Face f, ArrayList<Vector3f> vertices, Vector3f vector3f) {
 		int sides = f.vertexIndex.length;

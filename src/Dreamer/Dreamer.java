@@ -53,7 +53,7 @@ public class Dreamer {
 			Display.update(false);			
 			
 			if (Display.isCloseRequested() || Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
-				Element.performance.log();
+				Manager.performance.log();
 				Display.destroy();
 				try {
 					PerformanceMonitor.logWriter.close();
@@ -93,8 +93,8 @@ public class Dreamer {
 		if(Level.freezeCounter == 0); // to blank screen during level transitions
 			Updater.updateAll();
 		Camera.update();
-		Element.clearActive();
-		Element.activateVisible();
+		Manager.clearActive();
+		Manager.activateVisible();
 	}
 	
 	static void render() {	
@@ -105,10 +105,10 @@ public class Dreamer {
 		if(Level.freezeCounter > 0) {
 			Level.freezeCounter--;
 		} else {
-			Element.drawActive();
+			Manager.drawActive();
 		}
 		
-		if(Element.debug) { PerformanceMonitor.displayInfo(); }
+		if(Manager.debug) { PerformanceMonitor.displayInfo(); }
 	}
 	
 	static void setResolution(int x, int y) { 

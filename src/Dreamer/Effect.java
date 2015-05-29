@@ -29,7 +29,7 @@ public abstract class Effect extends Element implements Updateable {
 	}
 	@Override
 	void draw() {
-		if(debug) {
+		if(Manager.debug) {
 			Drawer.drawCursor(toString(), animation.position.x, animation.position.y, 0); 
 		}
 	}

@@ -59,7 +59,7 @@ class Collidable extends Positionable {
 	@Override
 	void draw() {
 		
-		if(Element.debug && collisionShape != null) {	
+		if(Manager.debug && collisionShape != null) {	
 			try {
 				Drawer.drawShape(collisionShape, Color.yellow, false);
 			} catch(java.lang.IndexOutOfBoundsException e) {

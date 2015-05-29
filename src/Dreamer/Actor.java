@@ -356,7 +356,7 @@ class Enemy extends Actor {
 
         // [if any Player's within vision : set to target ? null]
         // TODO: make this not terrible
-        for(Element e: Element.activeSet) {
+        for(Element e: Manager.activeSet) {
         	if (e instanceof Player) {
         		Player p = (Player)e;
         		if (p.getMinX() >= vision.getCenterX() - vision.getWidth() / 2 && 

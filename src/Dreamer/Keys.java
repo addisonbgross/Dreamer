@@ -153,8 +153,8 @@ class FunctionKeys extends Keys {
 	void add() {
 		
 		addKey(KEY_TAB, () -> new Editor().start() );
-		addKey('p', () -> Element.printAll() );
-		addKey('t', () -> Element.debug = !Element.debug );
+		addKey('p', () -> Manager.printAll() );
+		addKey('t', () -> Manager.debug = !Manager.debug );
 		addKey('1', () -> new Dusk_1() );
 		addKey('2', () -> new SimpleLevel() );
 		addKey('3', () -> new BirdLevel() );

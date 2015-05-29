@@ -51,7 +51,7 @@ abstract class Weapon extends Shape3d implements Updateable {
 		
 		super.draw();
 		
-		if (Element.debug)
+		if (Manager.debug)
 			if (weaponLine != null)
 				Drawer.drawShape(weaponLine, Color.black);
 	}

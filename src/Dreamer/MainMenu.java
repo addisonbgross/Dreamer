@@ -9,7 +9,7 @@ public class MainMenu extends Level {
 	
 	void createLevel() {
 		
-		Element.debug = false;		
+		Manager.debug = false;		
 		Theme.current = Theme.mono;
 		
 		main.addOption("TEST WORLD", ()-> {
@@ -28,7 +28,7 @@ public class MainMenu extends Level {
 		main.addOption("OPEN EDITOR (TAB IN-GAME)", ()-> {
 		
 			Keys.clearKeys();
-			Element.clearAll();
+			Manager.clearAll();
 			editor = new Editor();
 			editor.start();
 		});

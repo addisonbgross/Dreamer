@@ -10,18 +10,21 @@ import Dreamer.interfaces.Updateable;
 
 public class Updater {
 	
+	static Collection<Updateable> updatingThings = new LinkedHashSet<>();
 	static Consumer<Updateable> 
 		update = (x)-> x.update(),
 		print = (x)-> System.out.println(x.toString());
 		
 	static Collection<Updateable> updateSet = new TreeSet<>(new UpdateComparator());
 	
-	public static void add(Object o) {
-		updateSet.add((Updateable) o);
+	public static void tryAdd(Object o) {
+		if(o instanceof Updateable)
+			updateSet.add((Updateable) o);
 	}
 	
-	public static void remove(Object o) {
-		updateSet.remove((Updateable) o);
+	public static void tryRemove(Object o) {
+		if(o instanceof Updateable)
+			updateSet.remove((Updateable) o);
 	}
 
 	public static void clear() {
@@ -36,9 +39,9 @@ public class Updater {
 
 	public static void updateAll() {		
 		
-		Collection<Updateable> updatingThings = new LinkedHashSet<>();
+		updatingThings.clear();
 		updatingThings.addAll(updateSet);
-		updateSet.stream().forEach(update);		
+		updatingThings.stream().forEach(update);		
 	}
 }
 

@@ -164,7 +164,7 @@ public class Face implements java.io.Serializable {
 	}
 	
 	public static void drawFaces() {
-		if(Element.debug) {
+		if(Manager.debug) {
 			
 			OpenGL.beginLines();
 			for(Face face: texturedDrawList) {

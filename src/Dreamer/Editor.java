@@ -112,7 +112,7 @@ public class Editor {
 		
 		editorMenu.addOption("PLAY", ()-> {
 			
-			Element.debug = false;
+			Manager.debug = false;
 			Player.getFirst().add();
 			Keys.openGameKeys();
 			Camera.focus(new ClassFocus(150, Ninja.class));
@@ -223,7 +223,7 @@ class TrackEditor {
 	
 	TrackEditor(Menu callback) {
 		
-		Element.trackview= true;
+		Manager.trackview= true;
 		pointer = MainMenu.editor.pointer;
 		
 		Menu trackMenu = new Menu(
@@ -269,12 +269,12 @@ class TrackEditor {
 		
 		trackMenu.addOption("EXIT", ()-> {
 			trackMenu.exit();
-			Element.trackview = false;
+			Manager.trackview = false;
 		});
 		
 		trackMenu.open();
 		
-		for(Element e: Element.masterList) {
+		for(Element e: Manager.masterList) {
 			
 			if((MotionTrack.class).isAssignableFrom(e.getClass())) {
 				trackList.add((MotionTrack)e);

@@ -40,7 +40,7 @@ abstract public class Light extends Positionable {
 	}
 	@Override
 	void draw() {
-		if(Element.debug) {
+		if(Manager.debug) {
 			Vector3f v = Camera.translate(getX(), getY(), getZ());
 			Drawer.drawEllipse(v.x, v.y, 5, 5);
 		}
@@ -255,7 +255,7 @@ class Sun extends Background {
 		light.add();
 	}
 	public void update() {
-		activeSet.add(this);
+		Manager.activeSet.add(this);
 	}
 	public void remove() {
 		super.remove();
