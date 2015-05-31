@@ -1,9 +1,9 @@
 package Dreamer;
 
-import Dreamer.interfaces.Updateable;
-import Dreamer.interfaces.Manageable;
+import Dreamer.interfaces.*;
 
-public abstract class Effect extends Element implements Updateable, Manageable {
+public abstract class Effect
+implements Updateable, Manageable, Drawable {
 	
 	private static final long serialVersionUID = 5289812447446272287L;
 	Actor actor;
@@ -26,12 +26,15 @@ public abstract class Effect extends Element implements Updateable, Manageable {
 			animation.setPosition(actor.getX() - xOffset, actor.getY() + yOffset, actor.getZ() + zOffset);
 		}
 	}
-	@Override
-	void draw() {
+	
+	public void draw() {
 		
 		if(Manager.debug) {
 			Drawer.drawCursor(toString(), animation.position.x, animation.position.y, 0); 
 		}
 	}
+	
+	public boolean isVisible() { return true; }
+	
 	abstract void followActor(); // leave function blank if Effect doesn't follow
 }

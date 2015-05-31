@@ -5,9 +5,46 @@ import java.util.Collection;
 import org.lwjgl.util.vector.Vector3f;
 import org.newdawn.slick.geom.Vector2f;
 
-import Dreamer.interfaces.Manageable;
+import Dreamer.interfaces.*;
 
-public class Positionable extends Element implements Manageable {
+import java.util.TreeMap;
+import java.util.HashSet;
+
+class PositionableMap<K, V> extends TreeMap<K, HashSet<Positionable>> {
+
+	private static final long serialVersionUID = 186057469873355492L;
+
+	boolean add(K key, Positionable value) {
+
+		if (super.containsKey(key)) {
+			super.get(key).add(value);
+		} else {
+			HashSet<Positionable> a = new HashSet<Positionable>();
+			a.add(value);
+			super.put(key, a);
+		}
+
+		return true;
+	}
+
+	boolean remove(K key, Positionable value) {
+
+		try {
+			if (super.get(key).remove(value)) {
+				if (super.get(key).size() == 0) {
+					super.remove(key);
+				}
+				return true;
+			}
+			return false;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+}
+
+public class Positionable 
+implements Manageable {
 	
 	private static final long serialVersionUID = -7005269360412558578L;
 	// each subclass's constructor should set x, y, width, height, and depth
@@ -131,12 +168,10 @@ public class Positionable extends Element implements Manageable {
 			this.depth = depth;
 		}
 
-		public Collection<Manageable> getChildren() {
-			return Manager.emptyList;
-		}
+		public Collection<Manageable> getChildren() { return Manager.emptyList; }
 }
 
-class Marker extends Positionable {
+class Marker extends Positionable implements Drawable {
 	
 	private static final long serialVersionUID = 6813143029134144770L;
 	
@@ -147,13 +182,11 @@ class Marker extends Positionable {
 		name = s;
 	}
 
-	@Override
-	boolean isVisible() {
+	public boolean isVisible() {
 		return Manager.debug || Manager.trackview;
 	}
 	
-	@Override
-	void draw() {
+	public void draw() {
 		if (isVisible()) {
 			Drawer.drawCursor(name + "@(" + (int) getMinX() + ", " + (int) getMinY()
 					+ ")", getX(), getY(), getZ());

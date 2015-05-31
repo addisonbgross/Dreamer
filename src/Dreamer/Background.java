@@ -7,10 +7,10 @@ import org.newdawn.slick.fills.GradientFill;
 import org.newdawn.slick.geom.Polygon;
 import org.newdawn.slick.geom.Rectangle;
 
-import Dreamer.interfaces.Manageable;
-import Dreamer.interfaces.Updateable;
+import Dreamer.interfaces.*;
 
-class Background extends Positionable implements Manageable {
+class Background extends Positionable 
+implements Manageable, Drawable {
 
 	private static final long serialVersionUID = -5311718550637469560L;
 	static float BACKGROUNDMOTION = 10;
@@ -18,7 +18,7 @@ class Background extends Positionable implements Manageable {
 	static final float ANGULARVELOCITY = 0.5f;
 	String imageName;
 	float relativeMotion = BACKGROUNDMOTION;
-	public static ArrayList<Element> background = new ArrayList<Element>();
+	public static ArrayList<Drawable> background = new ArrayList<Drawable>();
 
 	Background() {
 		imageName = "";
@@ -29,6 +29,8 @@ class Background extends Positionable implements Manageable {
 		setWidth(Library.getImage(s).getWidth());
 		setHeight(Library.getImage(s).getHeight());
 	}
+	
+	public boolean isVisible() { return true; }
 
 	@Override
 	public void add() {
@@ -40,11 +42,11 @@ class Background extends Positionable implements Manageable {
 		Background.background.remove(this);
 	}
 
-	@Override
-	void draw() {
+	public void draw() {
+		
 		if (imageName != "") {
-			float x;
-			float y;
+		
+			float x, y;
 			float marginX = (getWidth() - Constants.screenWidth) / 2;
 			float marginY = (getHeight() - Constants.screenHeight) / 2;
 			x = Camera.getCenterX();
@@ -60,7 +62,8 @@ class Background extends Positionable implements Manageable {
 	}
 }
 
-class RovingGround extends GradientBackground implements Updateable {
+class RovingGround extends GradientBackground 
+implements Updateable, Drawable {
 
 	private static final long serialVersionUID = -3409596590781397942L;
 	MotionTrack m;
@@ -82,8 +85,7 @@ class RovingGround extends GradientBackground implements Updateable {
 
 	float tempY;
 
-	@Override
-	void draw() {
+	public void draw() {
 		update();
 		{
 			tempY = Camera.translate(0, groundHeight, getZ()).y;
@@ -120,10 +122,7 @@ class SolidBackground extends Background {
 		color = c;
 	}
 
-	@Override
-	void draw() {
-		Drawer.setBackground(color);
-	}
+	public void draw() { Drawer.setBackground(color); }
 }
 
 class GradientBackground extends Background {
@@ -138,8 +137,7 @@ class GradientBackground extends Background {
 		gradient = new GradientFill(0, 0, t, 0, Constants.screenHeight, b);
 	}
 
-	@Override
-	void draw() {
+	public void draw() {
 		Drawer.graphics.fill(new Rectangle(0, 0, Constants.screenWidth,
 				Constants.screenHeight), gradient);
 	}

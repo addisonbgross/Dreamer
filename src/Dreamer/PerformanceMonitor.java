@@ -109,7 +109,7 @@ public final class PerformanceMonitor {
 	}
 
 	static int numberActive() {
-		return Manager.activeSet.size();
+		return Manager.activeDrawingSet.size();
 	}
 
 	static public PerformanceMonitor getGlobal() {

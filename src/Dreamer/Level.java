@@ -6,11 +6,14 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.ArrayList;
 
 import org.newdawn.slick.Color;
+
+import Dreamer.interfaces.*;
 
 import Dreamer.enums.Justification;
 import Dreamer.enums.Status;
@@ -139,16 +142,16 @@ class Level {
 			FileInputStream door = new FileInputStream(Constants.LEVELPATH + s + ".level"); 
 			ObjectInputStream reader = new ObjectInputStream(door); 
 			
-			for(Element e: (HashSet<Element>) reader.readObject()) {
+			for(Serializable d: (HashSet<Serializable>) reader.readObject()) {
 				// TODO unhack this, don't save players
 				// perhaps create spawn points for all Actors?
-				if(e.getClass() != Ninja.class)
-					Manager.add(e);
+				if(d.getClass() != Ninja.class)
+					Manager.add(d);
 			}
-			for(Element e: (ArrayList<Element>) reader.readObject())
-				Manager.add(e);
-			for(Element e: (ArrayList<Element>) reader.readObject())
-				Manager.add(e);
+			for(Drawable d: (ArrayList<Drawable>) reader.readObject())
+				Manager.add(d);
+			for(Drawable d: (ArrayList<Drawable>) reader.readObject())
+				Manager.add(d);
 			playerSpawn = ( (Marker) reader.readObject());
 			
 			reader.close();

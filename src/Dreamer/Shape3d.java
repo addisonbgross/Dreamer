@@ -9,12 +9,10 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.geom.Polygon;
 import org.newdawn.slick.geom.Rectangle;
 
-import Dreamer.interfaces.ActorPerformable;
-import Dreamer.interfaces.Lightable;
-import Dreamer.interfaces.Performable;
-import Dreamer.interfaces.Updateable;
+import Dreamer.interfaces.*;
 
-public class Shape3d extends Positionable implements Lightable {
+public class Shape3d extends Positionable 
+implements Lightable, Drawable {
 
 	private static final long serialVersionUID = -2545062660573860101L;
 
@@ -29,45 +27,30 @@ public class Shape3d extends Positionable implements Lightable {
 
 	float[] pow2 = { 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048 };
 
-	Shape3d() {
-	}
+	Shape3d() {}
 
-	Shape3d(float x, float y, float z) {
-		this.setPosition(x, y, z);
-	}
+	Shape3d(float x, float y, float z) { this.setPosition(x, y, z); }
 
 	@Override
-	float getX() {
-		return position.x;
-	}
+	float getX() { return position.x; }
 
 	@Override
-	float getY() {
-		return position.y;
-	}
+	float getY() { return position.y; }
 
 	@Override
-	float getZ() {
-		return position.z;
-	}
+	float getZ() { return position.z; }
 
 	@Override
-	float getWidth() {
-		return 2 * manhattanRadius.x;
-	}
+	float getWidth() { return 2 * manhattanRadius.x; }
 
 	@Override
-	float getHeight() {
-		return 2 * manhattanRadius.y;
-	}
+	float getHeight() { return 2 * manhattanRadius.y; }
 
 	@Override
-	float getDepth() {
-		return 2 * manhattanRadius.z;
-	}
+	float getDepth() { return 2 * manhattanRadius.z; }
 
-	@Override
-	boolean isVisible() {
+	public boolean isVisible() {
+		
 		if(getWidth() > Constants.screenWidth || getHeight() > Constants.screenHeight)
 			return true;
 
@@ -148,10 +131,12 @@ public class Shape3d extends Positionable implements Lightable {
 	}
 
 	float textureStretch(int dimension) {
+		
 		for (int i = 0; i < pow2.length; i++) {
 			if (dimension <= pow2[i])
 				return dimension / pow2[i];
 		}
+		
 		return 1;
 	}
 
@@ -165,9 +150,11 @@ public class Shape3d extends Positionable implements Lightable {
 	}
 
 	Vector3f updateBounds(Vector3f v, Vector3f bounds) {
+		
 		bounds.x = Math.max(Math.abs(v.x), bounds.x);
 		bounds.y = Math.max(Math.abs(v.y), bounds.y);
 		bounds.z = Math.max(Math.abs(v.z), bounds.z);
+		
 		return bounds;
 	}
 
@@ -295,11 +282,12 @@ public class Shape3d extends Positionable implements Lightable {
 		}
 	}
 
-	@Override
 	// for reference, this is how the camera finds the point on the screen
 	// Camera.translate(getVertex(triangleIndex[j]), tempV3f);
-	void draw() {
+	public void draw() {
+
 		if (isVisible())
+		
 			for (Face f : faces)
 				f.addToDrawList();
 	}
@@ -724,7 +712,8 @@ class Flare extends Shape3d implements Updateable {
 	}
 
 	@Override
-	boolean isVisible() {
+	public boolean isVisible() {
+		
 		if (Camera.isPointVisible(getX(), getY(), getZ()))
 			return true;
 		else if (Camera.isPointVisible(getX() + Constants.LIGHTDISTANCE, getY()
@@ -818,7 +807,8 @@ class Lamp extends Shape3d implements Updateable {
 	}
 
 	@Override
-	boolean isVisible() {
+	public boolean isVisible() {
+		
 		if (Camera.isPointVisible(getX(), getY(), getZ()))
 			return true;
 		else if (Camera.isPointVisible(getX() + Constants.LIGHTDISTANCE, getY()

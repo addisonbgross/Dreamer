@@ -21,7 +21,6 @@ public class ShapeMaker {
 		
 		if(name.equals("block")) {
 			focus = new Block3d(new Color(r.nextInt()), 0, 0, 0, 100, 100, 100);
-			focus.print();
 			return focus;
 		}
 		

@@ -1,12 +1,14 @@
 package Dreamer;
 
 import java.util.HashSet;
-import Dreamer.interfaces.Manageable;
+import java.io.Serializable;
+
+import Dreamer.interfaces.*;
 
 public class Manager {
 	
-	protected static HashSet<Element> masterList = new HashSet<>(2000);
-	protected static HashSet<Element> activeSet = new HashSet<>(2000);
+	protected static HashSet<Serializable> masterList = new HashSet<>(2000);
+	protected static HashSet<Drawable> activeDrawingSet = new HashSet<>(2000);
 	
 	static PerformanceMonitor performance = new PerformanceMonitor("drawActive");
 	static boolean debug = false, drawing = false, trackview = false;
@@ -17,30 +19,33 @@ public class Manager {
 	
 		Updater.tryAdd(o);
 		Collidable.tryAdd(o);
-		masterList.add((Element)o);
+		masterList.add((Serializable)o);
 	}
 	
 	public static void remove(Object o) {
 	
 		Updater.tryRemove(o);
 		Collidable.tryRemove(o);
-		masterList.remove((Element)o);
+		masterList.remove((Serializable)o);
 	}
 	
 	static void activateVisible() {
 		
-		for (Element e : masterList)
-			if (e.isVisible())
-				activeSet.add(e);
+		for (Object o: masterList)
+			
+			if(o instanceof Drawable)
+			
+				if (((Drawable)o).isVisible())
+					activeDrawingSet.add((Drawable)o);
 	}
 
 	static void printActive() {
 		
 		System.out.println("ACTIVE ELEMENTS");
 		
-		for (Element e : activeSet) {
-			e.print();
-		}
+		activeDrawingSet
+			.stream()
+			.forEach( (e)-> System.out.println(e.toString()) );
 	}
 
 	static void drawActive() {
@@ -51,30 +56,30 @@ public class Manager {
 		performance.clear();
 		performance.start();
 		
-		for (Element e : Background.background) {
+		for (Drawable d : Background.background) {
 			
 			count++;
-			Light.light(e);
-			e.draw();
-			performance.mark(count + "," + e.toString());
+			Light.light(d);
+			d.draw();
+			performance.mark(count + "," + d.toString());
 		}
 
-		for (Element o : activeSet) {
+		for (Drawable d : activeDrawingSet) {
 			
 			count++;
-			Light.light(o);
-			o.draw();
-			performance.mark(count + "," + o.toString());
+			Light.light(d);
+			d.draw();
+			performance.mark(count + "," + d.toString());
 		}
 
 		Face.drawFaces();
 		performance.mark("Faces");
 
-		for (Element e : Foreground.foreground) {
+		for (Drawable d : Foreground.foreground) {
 			
 			count++;
-			e.draw();
-			performance.mark(count + "," + e.toString());
+			d.draw();
+			performance.mark(count + "," + d.toString());
 		}
 
 		performance.sort();
@@ -84,7 +89,7 @@ public class Manager {
 	static void clearAll() {
 
 		masterList.clear();
-		activeSet.clear();
+		activeDrawingSet.clear();
 		Updater.clear();
 		Collidable.clear();
 		Background.background.clear();
@@ -94,12 +99,6 @@ public class Manager {
 
 	static void clearActive() {
 
-		activeSet.clear();
-	}
-
-	static void printAll() {
-		for(Element e: masterList) {
-			e.print();
-		}
+		activeDrawingSet.clear();
 	}
 }

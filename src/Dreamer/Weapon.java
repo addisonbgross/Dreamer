@@ -41,13 +41,9 @@ abstract class Weapon extends Shape3d implements Updateable {
 	
 	//-----------METHODS
 
-	@Override
-	boolean isVisible() {
-		return true;
-	}
+	public boolean isVisible() { return true; }
 
-	@Override
-	void draw() {
+	public void draw() {
 		
 		super.draw();
 		
@@ -83,11 +79,11 @@ abstract class Weapon extends Shape3d implements Updateable {
 		updateCollision();
 		Shape s = weaponCollision.getCollisionShape();
 		
-		for (Element e : Collidable.getActiveWithin(s)) {
+		for (Positionable p : Collidable.getActiveWithin(s)) {
 		
 			// very important to not compare this to itself, infinite loop
-			if (Actor.class.isAssignableFrom(e.getClass()) && e != actor) {
-				temp = (Actor) e;
+			if (Actor.class.isAssignableFrom(p.getClass()) && p != actor) {
+				temp = (Actor) p;
 				float dir = (temp.checkStatus(LEFT)) ? 1 : -1;
 
 				if (temp.getCollisionShape().intersects(s)

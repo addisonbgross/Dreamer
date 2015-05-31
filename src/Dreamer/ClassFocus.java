@@ -1,29 +1,36 @@
 package Dreamer;
 
 import java.util.ArrayList;
+import Dreamer.interfaces.*;
 
-import Dreamer.interfaces.Updateable;
-
-class ClassFocus extends Positionable implements Updateable {
+class ClassFocus extends Positionable
+implements Updateable, Drawable {
 	
 	private static final long serialVersionUID = 2627661786688015225L;
 	ArrayList<Positionable> classElements = new ArrayList<Positionable>();
 	float maxDistance = 0;
 	int yOffset = 0;
 	
+	/* HOLY SHIT THIS IS CRAZY... TOO.... GENERIC... TO LIVE */
+	
 	<T> ClassFocus(Class<?>... c) {
 		for(Class<?> cn: c)
-			for (Element e : Manager.masterList)
-				if ((e.getClass() == cn) && (Positionable.class.isAssignableFrom(e.getClass())))
-					classElements.add((Positionable)e);
+			for (Object o : Manager.masterList)
+				if ((o.getClass() == cn) && (Positionable.class.isAssignableFrom(o.getClass())))
+					classElements.add((Positionable)o);
 	}
+	
 	<T> ClassFocus(int y, Class<?>... c) {
 		this(c);
 		yOffset = y;
 	}
 
-	@Override
-	void draw() {
+	public boolean isVisible() {
+		return Camera.isPointVisible(getX(), getY(), getZ()); 
+	}
+	
+	public void draw() {
+		
 		if(Manager.debug) {
 			String s = "ClassFocus@("+(int)getMinX()+", "+(int)getMinY()+")";
 			Drawer.drawCursor(s, getX(), getY(), getZ());

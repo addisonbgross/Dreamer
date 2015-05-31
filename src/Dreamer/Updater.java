@@ -7,6 +7,33 @@ import java.util.LinkedHashSet;
 
 import Dreamer.interfaces.Updateable;
 
+/*
+
+<T> ClassFocus(Class<?>... c) {
+		for(Class<?> cn: c)
+			for (Object o : Manager.masterList)
+				if ((o.getClass() == cn) && (Positionable.class.isAssignableFrom(o.getClass())))
+					classElements.add((Positionable)o);
+	}
+
+ */
+
+class DiscriminatorSet<T> {
+
+	private TreeSet<T> container;
+	private Class<T> selected;
+	
+	DiscriminatorSet(Class<T> c) { selected = c; }
+	
+	void tryAdd(Object o) { if(selected.isInstance(o)) { container.add((T)o); } }
+	
+	void tryRemove(Object o) { if(selected.isInstance(o)) { container.remove(o); } }
+	
+	TreeSet<T> getContainer() {
+		return container;
+	}
+}
+
 public class Updater {
 	
 	static Collection<Updateable> updateSet = new TreeSet<>(new UpdateComparator());
@@ -25,12 +52,6 @@ public class Updater {
 	}
 
 	public static void clear() { updateSet.clear(); }
-	
-	public static boolean isPriority(Object o) {
-	
-		return (Actor.class.isAssignableFrom(o.getClass())
-				|| Sweat.class.isAssignableFrom(o.getClass()));
-	}
 
 	public static void updateAll() {		
 		
@@ -42,16 +63,9 @@ public class Updater {
 
 class UpdateComparator implements Comparator<Updateable> {
 	
-	boolean a, b;
-	
 	@Override
 	public int compare(Updateable arg0, Updateable arg1) {
-		
-		a = Updater.isPriority(arg0);
-		b = Updater.isPriority(arg1);
-		
-		if(a && !b) return 1;
-		
-		return -1;
+	
+		return (arg0.isPriority() && !arg1.isPriority())? 1 : -1;
 	}
 }

@@ -224,17 +224,5 @@ public class Body extends Positionable implements Updateable {
 		System.out.println(legs.toString());
 		return children;
 	}
-	
-	@Override
-	public boolean isVisible() {
-		if (Camera.isPointVisible(getX(), getY(), getZ()) || Camera.isPointVisible(getX() + getWidth(), getY() + getHeight(), getZ() + getDepth()))
-			return true;
-		return false;
-	}
-	
-	@Override
-	void draw() {
-		//stupid
-	}
 }
 

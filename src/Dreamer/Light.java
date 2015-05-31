@@ -8,8 +8,7 @@ import org.lwjgl.util.vector.Vector3f;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.geom.Polygon;
 
-import Dreamer.interfaces.Lightable;
-import Dreamer.interfaces.Updateable;
+import Dreamer.interfaces.*;
 
 abstract public class Light extends Positionable {
 	
@@ -30,29 +29,23 @@ abstract public class Light extends Positionable {
 	
 	@Override
 	public void add() {
+		
 		super.add();
 		lightList.add(this);
 	}
+	
 	@Override
 	public void remove() {
+		
 		super.remove();
 		lightList.remove(this);
 	}
-	@Override
-	void draw() {
-		if(Manager.debug) {
-			Vector3f v = Camera.translate(getX(), getY(), getZ());
-			Drawer.drawEllipse(v.x, v.y, 5, 5);
-		}
-	}
-	void flicker() {
-		range = r.nextInt(200) + 800;
-	}
 	
-	static void clearAll() {
-		lightList.clear();
-	}
-	static void light (Element e) {
+	void flicker() { range = r.nextInt(200) + 800; }
+	
+	static void clearAll() { lightList.clear(); }
+	
+	static void light (Drawable e) {
 		
 		if(e instanceof Lightable) {
 			firstLight = true;
@@ -63,6 +56,11 @@ abstract public class Light extends Positionable {
 				}
 			}
 		}
+	}
+	
+	boolean isVisible() {
+	
+		return ambient? true : Camera.isPointVisible(getX(), getY(), getZ()); 
 	}
 	
 	void light(Face f) {
@@ -108,6 +106,7 @@ abstract public class Light extends Positionable {
 		}
 	}
 }
+
 final class MouseLight extends Light implements Updateable {
 	
 	private static final long serialVersionUID = 7882373801114220812L;
@@ -117,14 +116,14 @@ final class MouseLight extends Light implements Updateable {
 		range = 1000;
 		orthogonality = 1f;
 	}
-	public MouseLight() {
-		trackMouse();
-	}
-	public void update() {
-		trackMouse();
-	}
-	public void trackMouse() {
-		setPosition(Camera.translateMouse(Mouse.getX(), Mouse.getY(), 0));
+	
+	public MouseLight() { trackMouse(); }
+	
+	public void update() { trackMouse(); }
+	
+	public void trackMouse() { 
+		
+		setPosition(Camera.translateMouse(Mouse.getX(), Mouse.getY(), 0)); 
 	}
 }
 
@@ -133,11 +132,13 @@ final class LampLight extends Light implements Updateable {
 	private static final long serialVersionUID = 3188322324141898573L;
 	Shape3d s;
 	float flickerRange;
+	
 	{
 		orthogonality = 1f;
 		color = new Color(255,255, 255);
 		flickerRange = 600;
 	}
+	
 	public LampLight(Shape3d shape) {
 		setPosition(shape.getPosition3f());
 		s = shape;
@@ -149,6 +150,7 @@ final class LampLight extends Light implements Updateable {
 		//flicker();
 	}
 }
+
 final class SunLight extends Light {
 	
 	private static final long serialVersionUID = -50582640841286336L;
@@ -161,6 +163,7 @@ final class SunLight extends Light {
 		setPosition(x, y, z);
 	}
 }
+
 final class SunsetLight extends Light {
 	
 	private static final long serialVersionUID = -8061974024074695263L;
@@ -173,6 +176,7 @@ final class SunsetLight extends Light {
 		setPosition(x, y, z);
 	}
 }
+
 final class FlareLight extends Light {
 	
 	private static final long serialVersionUID = -4870682254855682693L;
@@ -191,6 +195,7 @@ final class FlareLight extends Light {
 		range = r.nextInt((int)range / 5) + range; 
 	}
 }
+
 class Sunset extends Sun {
 	
 	private static final long serialVersionUID = -3652185159824163938L;
@@ -203,6 +208,7 @@ class Sunset extends Sun {
 		innerSunColor = new Color(255, 100, 0, 191);
 	}
 }
+
 class Sun extends Background {
 	
 	private static final long serialVersionUID = 8144659238106126455L;
@@ -249,20 +255,24 @@ class Sun extends Background {
 			angle += Math.PI / numInnerSpikes;
 		}
 	}
+	
 	@Override
 	public void add() {
+		
 		super.add();
 		light.add();
 	}
-	public void update() {
-		Manager.activeSet.add(this);
-	}
+	
+	public void update() { Manager.activeDrawingSet.add(this); }
+	
 	public void remove() {
+		
 		super.remove();
 		light.remove();
 	}
+	
 	@Override
-	void draw() {
+	public void draw() {
 		// TODO make the sun 3d
 	}
 }

@@ -4,9 +4,8 @@ import java.util.ArrayList;
 
 import org.lwjgl.util.vector.Vector3f;
 
-public class Model extends Element {
+public class Model {
 
-	private static final long serialVersionUID = 1L;
 	private ArrayList<Shape3d> models;
 	private ArrayList<Vector3f> lights;
 

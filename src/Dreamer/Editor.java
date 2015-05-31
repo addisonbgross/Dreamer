@@ -1,6 +1,7 @@
 package Dreamer;
 
 import java.io.File;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import org.lwjgl.util.vector.Vector3f;
@@ -274,10 +275,10 @@ class TrackEditor {
 		
 		trackMenu.open();
 		
-		for(Element e: Manager.masterList) {
+		for(Serializable s: Manager.masterList) {
 			
-			if((MotionTrack.class).isAssignableFrom(e.getClass())) {
-				trackList.add((MotionTrack)e);
+			if((MotionTrack.class).isAssignableFrom(s.getClass())) {
+				trackList.add((MotionTrack)s);
 			}
 		}
 		
@@ -294,12 +295,12 @@ class TrackEditor {
 			
 			deleteList.clear();
 			
-			for(Element e: pointer.getSelection()) {
+			for(Positionable p: pointer.getSelection()) {
 				
-				if(MotionTrack.class.isAssignableFrom(e.getClass())) {
+				if(MotionTrack.class.isAssignableFrom(p.getClass())) {
 					
-					deleteList.add((MotionTrack)e);
-					((MotionTrack)e).highlighted = true;
+					deleteList.add((MotionTrack)p);
+					((MotionTrack)p).highlighted = true;
 				}
 			}
 			

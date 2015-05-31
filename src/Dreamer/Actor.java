@@ -14,7 +14,8 @@ import Dreamer.interfaces.Updateable;
 import Dreamer.interfaces.Manageable;
 import static Dreamer.enums.Status.*;
 
-public abstract class Actor extends Collidable implements Manageable, Updateable {
+public abstract class Actor extends Collidable 
+implements Manageable, Updateable {
 	
 	private static final long serialVersionUID = -8711854287889823062L;
 	private static Set<Collidable> collisionSet = new HashSet<Collidable>();
@@ -204,10 +205,10 @@ public abstract class Actor extends Collidable implements Manageable, Updateable
 			getHeight() + 2 *(Constants.COLLISIONINTERVAL + Math.abs(dynamics.getYVel()))
 		);
 		foundCollisions.clear();
-		for(Element e: Collidable.getActiveWithin(rectangle)) {
+		for(Positionable p: Collidable.getActiveWithin(rectangle)) {
 			//very important to not compare this to itself, infinite loop
-			if(Collidable.class.isAssignableFrom(e.getClass()) && e != this) {
-				 foundCollisions.add((Collidable)e);
+			if(Collidable.class.isAssignableFrom(p.getClass()) && p != this) {
+				 foundCollisions.add((Collidable)p);
 				PerformanceMonitor.numberOfCollisions++;
 			}
 		}
@@ -335,6 +336,7 @@ class Enemy extends Actor {
 		super.update(); // collisions and death checking
 	}
 	void look() {
+		
         vision.setBounds(
                 getMinX() - lookX,
                 getMinY() - lookY,
@@ -353,49 +355,40 @@ class Enemy extends Actor {
 
         // [if any Player's within vision : set to target ? null]
         // TODO: make this not terrible
-        for(Element e: Manager.activeSet) {
-        	if (e instanceof Player) {
-        		Player p = (Player)e;
-        		if (p.getMinX() >= vision.getCenterX() - vision.getWidth() / 2 && 
-        			p.getMinX() <= vision.getCenterX() + vision.getWidth() / 2 &&
-        			p.getMinY() <= vision.getCenterY() + vision.getHeight() / 2 &&
-        			p.getMinY() <= vision.getCenterY() + vision.getHeight() / 2) {
-		            	target = (Player)e;
-		                if(target.checkStatus(DEAD)) {
-		                    target = null;
-		                }
-        		} 
-            }
+        for(Player p : Player.list) {
+    	
+    		if (
+    			p.getMinX() >= vision.getCenterX() - vision.getWidth() / 2 && 
+    			p.getMinX() <= vision.getCenterX() + vision.getWidth() / 2 &&
+    			p.getMinY() <= vision.getCenterY() + vision.getHeight() / 2 &&
+    			p.getMinY() <= vision.getCenterY() + vision.getHeight() / 2
+    		) {     			
+	            	target = p.checkStatus(DEAD)? null : p;
+    		} 
         }
         
         // face the target
         if (target != null)
+        	
         	if (target.getMinX() > getMinX())
         		addStatus(RIGHT);
         	else 
         		addStatus(LEFT);
 	}
-	void setTarget(Actor newTarget) {
-        target = newTarget;
-    }
-    Actor getTarget() {
-        return target;
-    }
-    Rectangle getVision() {
-    	return vision; 
-    }
-    void setAcceleration(float newAcc) {
-    	acceleration = newAcc;
-    }
-    float getAcceleration() {
-    	return acceleration;
-    }
-    void setMaxSpeed(float speed) {
-    	maxSpeed = speed;
-    }
-    float getMaxSpeed() {
-    	return maxSpeed;
-    }
+	
+	void setTarget(Actor newTarget) { target = newTarget; }
+    
+	Actor getTarget() { return target; }
+	
+    Rectangle getVision() { return vision; }
+    
+    void setAcceleration(float newAcc) { acceleration = newAcc; }
+    
+    float getAcceleration() { return acceleration; }
+    
+    void setMaxSpeed(float speed) { maxSpeed = speed; }
+    
+    float getMaxSpeed() { return maxSpeed; }
 }
 /*
  * Player --------------------------------------------------------------------------------------------------

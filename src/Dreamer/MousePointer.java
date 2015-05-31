@@ -7,10 +7,10 @@ import org.lwjgl.input.Mouse;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.geom.Rectangle;
 
-import Dreamer.interfaces.Performable;
-import Dreamer.interfaces.Updateable;
+import Dreamer.interfaces.*;
 
-public class MousePointer extends Positionable implements Updateable {
+public class MousePointer extends Positionable 
+implements Updateable, Drawable {
 	
 	private static final long serialVersionUID = 4399127807182868906L;
 	
@@ -83,8 +83,9 @@ public class MousePointer extends Positionable implements Updateable {
 		}
 	}
 
-	@Override
-	void draw() {
+	public boolean isVisible() { return true; }
+	
+	public void draw() {
 		
 		OpenGL.disableDepthTest();
 	
@@ -111,7 +112,7 @@ public class MousePointer extends Positionable implements Updateable {
 		}
 	}
 	
-	public Set<Element> getSelection() {
+	public Set<Positionable> getSelection() {
 		return Collidable.getActiveWithin(selectionRectangle);
 	}
 	

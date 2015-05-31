@@ -12,8 +12,10 @@ import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.Vector2f;
 
 import Dreamer.enums.Status;
+import Dreamer.interfaces.*;
 
-class Collidable extends Positionable {	
+class Collidable extends Positionable
+implements Drawable{	
 	
 	private static final long serialVersionUID = -5571044266659765974L;
 	static boolean collision = false;
@@ -26,10 +28,10 @@ class Collidable extends Positionable {
 	static Vector3f temp = new Vector3f();
 	
 	private Shape collisionShape;
-	static Set<Element> ySet = new HashSet<Element>();
-	static Set<Element> xSet = new HashSet<Element>();
-	protected static ElementMap<Float, HashSet<Element>> yRange = new ElementMap<Float, HashSet<Element>>();
-	protected static ElementMap<Float, HashSet<Element>> xRange = new ElementMap<Float, HashSet<Element>>();
+	static Set<Positionable> ySet = new HashSet<Positionable>();
+	static Set<Positionable> xSet = new HashSet<Positionable>();
+	protected static PositionableMap<Float, HashSet<Positionable>> yRange = new PositionableMap<Float, HashSet<Positionable>>();
+	protected static PositionableMap<Float, HashSet<Positionable>> xRange = new PositionableMap<Float, HashSet<Positionable>>();
 	
 	Collidable() {}
 	Collidable(Shape s) { setCollisionShape(s); }
@@ -62,15 +64,17 @@ class Collidable extends Positionable {
 		}
 	}
 	
-	@Override
-	void draw() {
+	public void draw() {
+		
+		if(collisionShape == null) {
+			System.err.println("ERR COLLIDABLE.JAVA 69");
+		}
 		
 		if(Manager.debug && collisionShape != null) {	
 			try {
 				Drawer.drawShape(collisionShape, Color.yellow, false);
 			} catch(java.lang.IndexOutOfBoundsException e) {
 				e.printStackTrace();
-				print();
 			}	
 			
 			// draw Enemy vision
@@ -80,7 +84,6 @@ class Collidable extends Positionable {
 							(((Enemy)this).getTarget() == null) ? Color.white : Color.red, false);
 				} catch(java.lang.IndexOutOfBoundsException e) {
 					e.printStackTrace();
-					print();
 				}	
 			}
 		}
@@ -180,38 +183,44 @@ class Collidable extends Positionable {
 	 *            Shape x and y extremes
 	 * @return Set of elements within a given bounds
 	 */
-	static Set<Element> getActiveWithin(Shape s) {
+	static Set<Positionable> getActiveWithin(Shape s) {
 		
-		Set<Map.Entry<Float, HashSet<Element>>> temp = new HashSet<Map.Entry<Float, HashSet<Element>>>();
-		Set<Element> tempActive = new HashSet<Element>();
+		Set<Map.Entry<Float, HashSet<Positionable>>> temp = new HashSet<Map.Entry<Float, HashSet<Positionable>>>();
+		Set<Positionable> tempActive = new HashSet<Positionable>();
 	
 		// take all set of elements in the camera scene x range
-		temp.addAll(xRange.subMap(s.getMinX(), true, s.getMaxX(), true)
-				.entrySet());
+		temp.addAll(
+			xRange
+			.subMap(s.getMinX(), true, s.getMaxX(), true)
+			.entrySet()
+			);
 	
 		// add each set together in xSet
-		for (Map.Entry<Float, HashSet<Element>> entry : temp) {
+		for (Map.Entry<Float, HashSet<Positionable>> entry : temp) {
 			xSet.addAll(entry.getValue());
 		}
 	
 		temp.clear();
 	
 		// take all the elements in scene y range
-		temp.addAll(yRange.subMap(s.getMinY(), true, s.getMaxY(), true)
-				.entrySet());
+		temp.addAll(
+			yRange
+			.subMap(s.getMinY(), true, s.getMaxY(), true)
+			.entrySet()
+			);
 	
 		// add them together in ySet
-		for (Map.Entry<Float, HashSet<Element>> entry : temp) {
+		for (Map.Entry<Float, HashSet<Positionable>> entry : temp) {
+		
 			ySet.addAll(entry.getValue());
 		}
 	
 		// if an element is in both x and y sets then draw it, make it active,
 		// this has the effect of rendering and activating only the elements
 		// that are within the camera scene boundaries
-		for (Element o : xSet) {
-			if (ySet.contains(o)) {
-				tempActive.add(o);
-			}
+		for (Positionable o : xSet) {
+		
+			if (ySet.contains(o)) { tempActive.add(o); }
 		}
 		
 		xSet.clear();
@@ -227,6 +236,11 @@ class Collidable extends Positionable {
 		xSet.clear();
 		ySet.clear();
 	}
+	
+	public boolean isVisible() {
+		
+		return Manager.debug && Camera.isPointVisible(getX(), getY(), getZ()); 
+	}
 }
 
 class CollisionComparator implements Comparator<Collidable> {
@@ -235,6 +249,7 @@ class CollisionComparator implements Comparator<Collidable> {
 	CollisionComparator(Actor a) {actor = a;}
 	
 	public int compare(Collidable a, Collidable b) {
+	
 		if(a.findDistanceTo(actor) < b.findDistanceTo(actor))
 			return 1;
 		else if(a.findDistanceTo(actor) > b.findDistanceTo(actor))

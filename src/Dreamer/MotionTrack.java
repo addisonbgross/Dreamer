@@ -76,8 +76,7 @@ public class MotionTrack extends Collidable {
 		return false;
 	}
 	
-	@Override 
-	void draw() {
+	public void draw() {
 	
 		if(isVisible() && getCollisionShape() != null) {
 		
@@ -102,10 +101,13 @@ public class MotionTrack extends Collidable {
 			);	
 		}
 	}
-	@Override
-	boolean isVisible() {
-		return Manager.trackview || Manager.debug;
+	
+	public boolean isVisible() {
+		
+		return (Manager.trackview || Manager.debug) ?
+			Camera.isPointVisible(getX(), getY(), getZ()) : false; 
 	}
+	
 	public static void generateMotionTrack(Face f, ArrayList<Vector3f> vertices, Vector3f vector3f) {
 		int sides = f.vertexIndex.length;
 		Vector3f intersectLine;
