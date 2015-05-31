@@ -174,6 +174,10 @@ public class Camera {
 		return false;
 	}
 	
+	static boolean isPointVisible(Vector3f v) {
+		return isPointVisible(v.x, v.y, v.z);
+	}
+	
 	static Vector3f translateMouse(float x, float y, float f) {
 		return new Vector3f(
 				((float)x / Constants.screenWidth * getWidth()) + getMinX(),

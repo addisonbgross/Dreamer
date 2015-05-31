@@ -1,35 +1,47 @@
 package Dreamer;
 
 import java.util.HashSet;
+import java.util.Collection;
 import java.io.Serializable;
 
 import Dreamer.interfaces.*;
 
 public class Manager {
 	
-	protected static HashSet<Serializable> masterList = new HashSet<>(2000);
-	protected static HashSet<Drawable> activeDrawingSet = new HashSet<>(2000);
+	static HashSet<Serializable> masterList = new HashSet<>(2000);
+	
+	static HashSet<Drawable> activeDrawingSet = new HashSet<>(2000);
+	
+	static SaferTreeSet<Updateable> updateSet = new SaferTreeSet<>(new UpdateComparator());
 	
 	static PerformanceMonitor performance = new PerformanceMonitor("drawActive");
 	static boolean debug = false, drawing = false, trackview = false;
 	static int count = 0;
-	static java.util.Collection<Manageable> emptyList = new java.util.ArrayList<>();
+	static Collection<Manageable> emptyList = new java.util.ArrayList<>();
 	
 	public static void add(Object o) {
 	
-		Updater.tryAdd(o);
+		updateSet.tryAdd(o);
 		Collidable.tryAdd(o);
 		masterList.add((Serializable)o);
 	}
 	
 	public static void remove(Object o) {
 	
-		Updater.tryRemove(o);
+		updateSet.tryRemove(o);
 		Collidable.tryRemove(o);
 		masterList.remove((Serializable)o);
 	}
 	
-	static void activateVisible() {
+	public static void updateAll() {		
+		
+		java.util.Collection<Updateable> updatingThings 
+			= new java.util.LinkedHashSet<>();
+		updatingThings.addAll(updateSet);
+		updatingThings.stream().forEach( (x)-> x.update() );	
+	}
+	
+	public static void activateVisible() {
 		
 		for (Object o: masterList)
 			
@@ -90,7 +102,7 @@ public class Manager {
 
 		masterList.clear();
 		activeDrawingSet.clear();
-		Updater.clear();
+		updateSet.clear();
 		Collidable.clear();
 		Background.background.clear();
 		Foreground.foreground.clear();
@@ -100,5 +112,14 @@ public class Manager {
 	static void clearActive() {
 
 		activeDrawingSet.clear();
+	}
+}
+
+class UpdateComparator implements java.util.Comparator<Updateable> {
+	
+	@Override
+	public int compare(Updateable arg0, Updateable arg1) {
+	
+		return (arg0.isPriority() && !arg1.isPriority())? 1 : -1;
 	}
 }

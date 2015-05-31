@@ -155,7 +155,9 @@ public class Face implements java.io.Serializable {
 	}
 	
 	void setTexturePoints(float u1, float v1, float u2, float v2) {
+		
 		texturePoints = new Vector2f[]{
+		
 			new Vector2f(u1, v2),
 			new Vector2f(u1, v1),
 			new Vector2f(u2, v1),
@@ -164,21 +166,22 @@ public class Face implements java.io.Serializable {
 	}
 	
 	public static void drawFaces() {
+		
 		if(Manager.debug) {
 			
 			OpenGL.beginLines();
-			for(Face face: texturedDrawList) {
-				face.drawWireFrame();
-			}
-			for(Face face: drawList) {
-				face.drawWireFrame();
-			}
-	 		OpenGL.end();
+			
+			for(Face face: texturedDrawList) { face.drawWireFrame(); }
+			
+			for(Face face: drawList) { face.drawWireFrame(); }
+	 		
+			OpenGL.end();
 		
 		} else {
 			
 			OpenGL.draw(texturedDrawList, drawList);
 		}
+		
 		texturedDrawList.clear();
 		drawList.clear();
 	}

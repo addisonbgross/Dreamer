@@ -91,7 +91,7 @@ public class Dreamer {
 		Level.updateCurrent();
 		Keys.getKeys();
 		if(Level.freezeCounter == 0); // to blank screen during level transitions
-			Updater.updateAll();
+			Manager.updateAll();
 		Camera.update();
 		Manager.clearActive();
 		Manager.activateVisible();

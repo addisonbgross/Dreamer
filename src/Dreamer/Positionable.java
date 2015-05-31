@@ -10,39 +10,6 @@ import Dreamer.interfaces.*;
 import java.util.TreeMap;
 import java.util.HashSet;
 
-class PositionableMap<K, V> extends TreeMap<K, HashSet<Positionable>> {
-
-	private static final long serialVersionUID = 186057469873355492L;
-
-	boolean add(K key, Positionable value) {
-
-		if (super.containsKey(key)) {
-			super.get(key).add(value);
-		} else {
-			HashSet<Positionable> a = new HashSet<Positionable>();
-			a.add(value);
-			super.put(key, a);
-		}
-
-		return true;
-	}
-
-	boolean remove(K key, Positionable value) {
-
-		try {
-			if (super.get(key).remove(value)) {
-				if (super.get(key).size() == 0) {
-					super.remove(key);
-				}
-				return true;
-			}
-			return false;
-		} catch (Exception e) {
-			return false;
-		}
-	}
-}
-
 public class Positionable 
 implements Manageable {
 	
@@ -191,5 +158,42 @@ class Marker extends Positionable implements Drawable {
 			Drawer.drawCursor(name + "@(" + (int) getMinX() + ", " + (int) getMinY()
 					+ ")", getX(), getY(), getZ());
 		}
+	}
+}
+
+class PositionableMap<K, V> extends TreeMap<K, HashSet<Positionable>> {
+
+	private static final long serialVersionUID = 186057469873355492L;
+
+	boolean add(K key, Positionable value) {
+
+		if (super.containsKey(key)) {
+			
+			super.get(key).add(value);
+		
+		} else {
+		
+			HashSet<Positionable> a = new HashSet<Positionable>();
+			a.add(value);
+			super.put(key, a);
+		}
+
+		return true;
+	}
+
+	boolean remove(K key, Positionable value) {
+
+		try {
+			
+			if (super.get(key).remove(value)) {
+			
+				if (super.get(key).size() == 0) { super.remove(key); }
+				
+				return true;
+			}
+			
+			return false;
+			
+		} catch (Exception e) { return false; }
 	}
 }

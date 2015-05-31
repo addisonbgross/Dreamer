@@ -49,6 +49,8 @@ implements Lightable, Drawable {
 	@Override
 	float getDepth() { return 2 * manhattanRadius.z; }
 
+	java.util.Random random = new Random();
+	
 	public boolean isVisible() {
 		
 		if(getWidth() > Constants.screenWidth || getHeight() > Constants.screenHeight)
@@ -215,20 +217,33 @@ implements Lightable, Drawable {
 	}
 
 	public Vector3f getTranslatedVertex(int i, Vector3f destination) {
+		
 		try {
+		
 			destination.set(vertices.get(i));
 			transformVertex(destination, destination);
 			return Vector3f.add(destination, getPosition3f(), destination);
+		
 		} catch (Exception e) {
+		
 			e.printStackTrace();
 			return null;
 		}
 	}
+	
+	public Vector3f getTranslatedVertex(int i) {
+		
+		Vector3f v = new Vector3f(vertices.get(i));
+		transformVertex(v, v);
+		return v;
+	}
 
 	public Vector3f transformVertex(Vector3f v, Vector3f destination) {
+		
 		for (Transformer tx : transformers) {
 			destination.set(tx.transformVertex(v, destination));
 		}
+		
 		return destination;
 	}
 
