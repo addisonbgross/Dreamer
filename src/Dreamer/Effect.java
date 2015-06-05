@@ -12,12 +12,14 @@ implements Updateable, Manageable, Drawable {
 	int LEFT = 1, RIGHT = -1;
 
 	public java.util.Collection<Manageable> getChildren() {
+
 		java.util.Collection<Manageable> children = new java.util.ArrayList<>();
 		children.add(animation);
 		return children;
 	}
 	
 	public void rePosition() {
+	
 		if (actor.isFacing("left")) {
 			animation.direction = LEFT;
 			animation.setPosition(actor.getX() + xOffset, actor.getY() + yOffset, actor.getZ() + zOffset);

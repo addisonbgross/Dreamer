@@ -30,6 +30,14 @@ public class Editor {
 	Editor() { init(); }
 
 	void init() {
+	
+		editorMenu.addOption("LIST ACTIVE OBJECTS", ()-> {
+			
+			Manager
+				.activeDrawingSet
+				.stream()
+				.forEach( (d)->  System.out.println( d.toString() ) );
+		});
 		
 		editorMenu.addOption("MAKE SHAPE3D", ()-> {
 			
