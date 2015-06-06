@@ -10,7 +10,7 @@ import org.newdawn.slick.geom.Vector2f;
 import Dreamer.enums.Status;
 import Dreamer.interfaces.Updateable;
 
-public class MotionTrack extends Collidable {
+public class MotionTrack extends Collider {
 	
 	private static final long serialVersionUID = -4136972279948096275L;
 	Line track;
@@ -146,7 +146,7 @@ public class MotionTrack extends Collidable {
 		}
 	}
 }
-class LadderTrack extends Collidable {
+class LadderTrack extends Collider {
 	
 	private static final long serialVersionUID = 4209415364083440118L;
 

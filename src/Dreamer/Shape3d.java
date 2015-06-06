@@ -323,7 +323,7 @@ implements Lightable, Drawable {
 	public Shape3d generateCollidable() {
 		Polygon p = generateCollisionShape();
 		if (p != null)
-			new Collidable(p).add();
+			new Collider(p).add();
 		return this;
 	}
 
@@ -630,7 +630,7 @@ class ActionJewel extends SpinningJewel {
 
 	int size = 20;
 	Level level;
-	Collidable transporter;
+	Collider transporter;
 	ActorPerformable actorPerformable;
 	Performable performable;
 
@@ -647,7 +647,7 @@ class ActionJewel extends SpinningJewel {
 	}
 	
 	void init() {
-		transporter = new Collidable(new Rectangle(getX() - size / 2, getY()
+		transporter = new Collider(new Rectangle(getX() - size / 2, getY()
 				- size / 2, size, size)) {
 
 			private static final long serialVersionUID = -3060451609325778005L;

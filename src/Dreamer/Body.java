@@ -221,7 +221,6 @@ public class Body extends Positionable implements Updateable {
 		children.add(legs);
 		children.add(body);
 		children.add(head);
-		System.out.println(legs.toString());
 		return children;
 	}
 }

@@ -22,14 +22,14 @@ public class Manager {
 	public static void add(Object o) {
 	
 		updateSet.tryAdd(o);
-		Collidable.tryAdd(o);
+		Collider.tryAdd(o);
 		masterList.add((Serializable)o);
 	}
 	
 	public static void remove(Object o) {
 	
 		updateSet.tryRemove(o);
-		Collidable.tryRemove(o);
+		Collider.tryRemove(o);
 		masterList.remove((Serializable)o);
 	}
 	
@@ -49,15 +49,6 @@ public class Manager {
 			
 				if (((Drawable)o).isVisible())
 					activeDrawingSet.add((Drawable)o);
-	}
-
-	static void printActive() {
-		
-		System.out.println("ACTIVE ELEMENTS");
-		
-		activeDrawingSet
-			.stream()
-			.forEach( (e)-> System.out.println(e.toString()) );
 	}
 
 	static void drawActive() {
@@ -103,7 +94,7 @@ public class Manager {
 		masterList.clear();
 		activeDrawingSet.clear();
 		updateSet.clear();
-		Collidable.clear();
+		Collider.clear();
 		Background.background.clear();
 		Foreground.foreground.clear();
 		Light.clearAll();

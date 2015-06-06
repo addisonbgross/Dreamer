@@ -14,7 +14,7 @@ import org.newdawn.slick.geom.Vector2f;
 import Dreamer.enums.Status;
 import Dreamer.interfaces.*;
 
-class Collidable extends Positionable
+class Collider extends Positionable
 implements Drawable{	
 	
 	private static final long serialVersionUID = -5571044266659765974L;
@@ -33,14 +33,14 @@ implements Drawable{
 	protected static PositionableMap<Float, HashSet<Positionable>> yRange = new PositionableMap<Float, HashSet<Positionable>>();
 	protected static PositionableMap<Float, HashSet<Positionable>> xRange = new PositionableMap<Float, HashSet<Positionable>>();
 	
-	Collidable() {}
-	Collidable(Shape s) { setCollisionShape(s); }
+	Collider() {}
+	Collider(Shape s) { setCollisionShape(s); }
 
 	static void tryAdd(Object o) {
 	
-		if(Collidable.class.isAssignableFrom(o.getClass())) {
+		if(Collider.class.isAssignableFrom(o.getClass())) {
 			
-			Collidable c = (Collidable)o;
+			Collider c = (Collider)o;
 			xRange.add(c.getMinX(), c);
 			yRange.add(c.getMinY(), c);
 			for (float offset = c.getWidth(); offset >= 0; offset -= Constants.COLLISIONINTERVAL)
@@ -52,9 +52,9 @@ implements Drawable{
 	
 	static void tryRemove(Object o) {
 		
-		if(Collidable.class.isAssignableFrom(o.getClass())) {
+		if(Collider.class.isAssignableFrom(o.getClass())) {
 			
-			Collidable c = (Collidable)o;
+			Collider c = (Collider)o;
 			xRange.remove(c.getMinX(), c);
 			yRange.remove(c.getMinY(), c);
 			for (float offset = c.getWidth(); offset >= 0; offset -= Constants.COLLISIONINTERVAL)
@@ -243,12 +243,12 @@ implements Drawable{
 	}
 }
 
-class CollisionComparator implements Comparator<Collidable> {
+class CollisionComparator implements Comparator<Collider> {
 
 	Actor actor;
 	CollisionComparator(Actor a) {actor = a;}
 	
-	public int compare(Collidable a, Collidable b) {
+	public int compare(Collider a, Collider b) {
 	
 		if(a.findDistanceTo(actor) < b.findDistanceTo(actor))
 			return 1;

@@ -101,11 +101,11 @@ public final class PerformanceMonitor {
 	}
 
 	static int numberYRangeSets() {
-		return Collidable.yRange.size();
+		return Collider.yRange.size();
 	}
 
 	static int numberXRangeSets() {
-		return Collidable.xRange.size();
+		return Collider.xRange.size();
 	}
 
 	static int numberActive() {

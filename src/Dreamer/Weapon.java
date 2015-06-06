@@ -79,7 +79,7 @@ abstract class Weapon extends Shape3d implements Updateable {
 		updateCollision();
 		Shape s = weaponCollision.getCollisionShape();
 		
-		for (Positionable p : Collidable.getActiveWithin(s)) {
+		for (Positionable p : Collider.getActiveWithin(s)) {
 		
 			// very important to not compare this to itself, infinite loop
 			if (Actor.class.isAssignableFrom(p.getClass()) && p != actor) {
@@ -285,7 +285,7 @@ class Naginata extends Weapon {
 	}
 }
 
-class WeaponCollision extends Collidable {
+class WeaponCollision extends Collider {
 
 	private static final long serialVersionUID = 4862178711404157907L;
 

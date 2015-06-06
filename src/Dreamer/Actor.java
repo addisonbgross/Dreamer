@@ -14,12 +14,12 @@ import Dreamer.interfaces.Updateable;
 import Dreamer.interfaces.Manageable;
 import static Dreamer.enums.Status.*;
 
-public abstract class Actor extends Collidable 
+public abstract class Actor extends Collider 
 implements Manageable, Updateable {
 	
 	private static final long serialVersionUID = -8711854287889823062L;
-	private static Set<Collidable> collisionSet = new HashSet<Collidable>();
-	private static Collidable success = null;
+	private static Set<Collider> collisionSet = new HashSet<Collider>();
+	private static Collider success = null;
 	
 	Rectangle rectangle;
 	private HashSet<Status> status = new HashSet<Status>();
@@ -91,11 +91,12 @@ implements Manageable, Updateable {
 			//Collidable objects
 			do {
 				if(success != null) {
+					
 					collisionSet.remove(success);
 					success = null;
 				}
-				for(Collidable c: collisionSet) {
-					// eSystem.out.println(c.toString());
+				for(Collider c: collisionSet) {
+					
 					if(c.collide(this))
 						success = c;
 				}
@@ -196,7 +197,7 @@ implements Manageable, Updateable {
 	boolean collide(Actor a) {
 		return false;
 	}
-	Set<Collidable> findCollisions(Set<Collidable> foundCollisions) {
+	Set<Collider> findCollisions(Set<Collider> foundCollisions) {
 		
 		rectangle = new Rectangle(
 			getMinX() + dynamics.getXVel() - (Constants.COLLISIONINTERVAL),
@@ -205,10 +206,10 @@ implements Manageable, Updateable {
 			getHeight() + 2 *(Constants.COLLISIONINTERVAL + Math.abs(dynamics.getYVel()))
 		);
 		foundCollisions.clear();
-		for(Positionable p: Collidable.getActiveWithin(rectangle)) {
+		for(Positionable p: Collider.getActiveWithin(rectangle)) {
 			//very important to not compare this to itself, infinite loop
-			if(Collidable.class.isAssignableFrom(p.getClass()) && p != this) {
-				 foundCollisions.add((Collidable)p);
+			if(Collider.class.isAssignableFrom(p.getClass()) && p != this) {
+				 foundCollisions.add((Collider)p);
 				PerformanceMonitor.numberOfCollisions++;
 			}
 		}
@@ -363,7 +364,7 @@ class Enemy extends Actor {
     			p.getMinY() <= vision.getCenterY() + vision.getHeight() / 2 &&
     			p.getMinY() <= vision.getCenterY() + vision.getHeight() / 2
     		) {     			
-	            	target = p.checkStatus(DEAD)? null : p;
+	            target = p.checkStatus(DEAD)? null : p;
     		} 
         }
         
