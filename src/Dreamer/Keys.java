@@ -44,6 +44,17 @@ abstract public class Keys {
 	static Map<Integer, Performable> savedStartKeys = new HashMap<>();
 	static Map<Integer, Performable> savedStopKeys = new HashMap<>();
 	static String keyBuffer = "";
+
+	static Performable switchFontColor = () -> {
+		
+		if (Library.defaultFontColor == Color.black) {
+			Library.defaultFontColor = Color.cyan;
+			Library.messageFontColor = Color.red;
+		} else {
+			Library.defaultFontColor = Color.black;
+			Library.messageFontColor = Color.blue;
+		}
+	};
 	
 	//-----------METHODS
 
@@ -142,9 +153,11 @@ abstract public class Keys {
 		
 		clearKeys();
 		
-		Keys.addKey(KEY_UP, () -> m.command("up") );
-		Keys.addKey(KEY_DOWN, () -> m.command("down") );
-		Keys.addKey(KEY_RETURN, () -> m.command("select") );
+		addKey(KEY_UP, ()-> m.command("up") );
+		addKey(KEY_DOWN, ()-> m.command("down") );
+		addKey(KEY_RETURN, ()-> m.command("select") );
+		addKey('t', ()-> Manager.debug = !Manager.debug );
+		addKey('c', switchFontColor);
 	}
 }
 
@@ -152,24 +165,15 @@ class FunctionKeys extends Keys {
 	
 	void add() {
 		
-		addKey(KEY_TAB, () -> new Editor().start() );
-		addKey('t', () -> Manager.debug = !Manager.debug );
-		addKey('1', () -> new Dusk_1() );
-		addKey('2', () -> new SimpleLevel() );
-		addKey('3', () -> new BirdLevel() );
-		addKey('4', () -> new ForestLevel() );
-		addKey('m', () -> new MainMenu() );		
-		addKey('c', () -> {
-			
-			if (Library.defaultFontColor == Color.black) {
-				Library.defaultFontColor = Color.cyan;
-				Library.messageFontColor = Color.red;
-			} else {
-				Library.defaultFontColor = Color.black;
-				Library.messageFontColor = Color.blue;
-			}
-		});
-		addKey('i', () -> {
+		addKey(KEY_TAB, ()-> MainMenu.editor.start() );
+		addKey('t', ()-> Manager.debug = !Manager.debug );
+		addKey('1', ()-> new Dusk_1() );
+		addKey('2', ()-> new SimpleLevel() );
+		addKey('3', ()-> new BirdLevel() );
+		addKey('4', ()-> new ForestLevel() );
+		addKey('m', ()-> new MainMenu() );		
+		addKey('c', switchFontColor);
+		addKey('i', ()-> {
 			
 			for (Player p : Player.list) {
 				p.reset();
@@ -180,6 +184,7 @@ class FunctionKeys extends Keys {
 }
 
 class EditorKeys extends Keys {
+	
 	Editor editor;
 
 	EditorKeys(Editor e) {
@@ -187,6 +192,7 @@ class EditorKeys extends Keys {
 	};
 
 	void add() {
+		
 		for (int i = 0; i < alphabetPlus.length; i++) {
 			char key = alphabetPlus[i];
 			addKey(codes[i], () -> {
@@ -194,11 +200,14 @@ class EditorKeys extends Keys {
 				editor.console.name = Keys.keyBuffer;
 			});
 		}
+		
 		addKey(KEY_RETURN, () -> {
+			
 			editor.command(Keys.keyBuffer);
 			Keys.keyBuffer = "";
 			editor.console.name = Keys.keyBuffer;
 		});
+		
 		addKey(KEY_BACK,
 				() -> {
 					Keys.keyBuffer = Keys.keyBuffer.substring(0,

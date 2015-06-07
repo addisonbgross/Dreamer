@@ -113,7 +113,9 @@ implements Updateable, Drawable {
 	}
 	
 	public Set<Positionable> getSelection() {
-		return Collider.getActiveWithin(selectionRectangle);
+		Set<Positionable> set = new java.util.HashSet<>();
+		set.addAll(Collider.getActiveWithin(selectionRectangle));
+		return set;
 	}
 	
 	public void resetSelection() {

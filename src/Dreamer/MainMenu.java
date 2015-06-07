@@ -4,8 +4,8 @@ import Dreamer.enums.Justification;
 
 public class MainMenu extends Level {
 	
-	Menu main = new Menu(Justification.CENTER, 0, 150);	
-	static Editor editor;
+	Menu main = new Menu(Justification.CENTER, 0, 0);	
+	static Editor editor = new Editor();
 	
 	void createLevel() {
 		
@@ -27,13 +27,11 @@ public class MainMenu extends Level {
 		
 		main.addOption("OPEN EDITOR (TAB IN-GAME)", ()-> {
 		
-			Keys.clearKeys();
 			Manager.clearAll();
-			editor = new Editor();
 			editor.start();
 		});
 		
-		main.addOption("OPEN LEVEL", ()-> { Level.openSelectionMenu(main, "dusk/"); });
+		main.addOption("OPEN LEVEL", ()-> { Level.openSelectionMenu(main, ""); });
 		
 		main.addOption("TEST CHARACTERS", (/*why does one drift left?*/)-> {
 		

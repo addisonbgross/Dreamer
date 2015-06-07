@@ -10,7 +10,7 @@ import static Dreamer.enums.Status.*;
 
 abstract class Weapon extends Shape3d implements Updateable {
 
-	//-----------FIELDS (too many!)
+	//-----------FIELDS
 	
 	private static final long serialVersionUID = 4519324822338846058L;
 	Face f;

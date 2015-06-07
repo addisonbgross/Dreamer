@@ -28,4 +28,8 @@ public class Model {
 			s.add();
 		}
 	}
+	
+	public Shape3d getFirst() {
+		return models.get(0);
+	}
 }

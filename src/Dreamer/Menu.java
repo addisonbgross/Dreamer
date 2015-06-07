@@ -37,10 +37,20 @@ public class Menu {
 
 		case "up":
 			currentOption = (size + currentOption - 1) % size;
+			optionList
+				.stream()
+				.forEach(
+					(o) -> o.shadowMessage.position.y -= (currentOption == size - 1) ? 
+						-spacing * (size - 1) : spacing);
 			break;
 
 		case "down":
 			currentOption = (currentOption + 1) % size;
+			optionList
+				.stream()
+				.forEach(
+					(o) -> o.shadowMessage.position.y += (currentOption == 0) ? 
+						-spacing * (size - 1) : spacing);
 			break;
 
 		case "select":
@@ -66,9 +76,8 @@ public class Menu {
 		for (MenuOption mo : optionList) {
 			mo.shadowMessage.remove();
 		}
-		/*
-		 * if(parent != null) parent.open();
-		 */
+		
+		if(parent != null) parent.open();
 	}
 
 	private class MenuOption {

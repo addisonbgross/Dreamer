@@ -42,9 +42,18 @@ public class Editor {
 			objectMenu.setParent(editorMenu);
 			
 			Manager.activeDrawingSet.stream().forEach(
-				(d) -> objectMenu.addOption( d.toString(),
-						()-> { Camera.focus((Positionable)d); } 
-				));
+				(d) -> {
+					try {
+						Positionable p = (Positionable)d;
+						objectMenu.addOption( p.toString(), 
+							()-> Camera.focus(p) );
+						
+					} catch(ClassCastException cce) {
+						
+						System.out.println("Editor.java 52: Class not Positionable");	
+					}
+				}
+			);
 			
 			objectMenu.addExitOption();
 			objectMenu.open();
@@ -58,7 +67,11 @@ public class Editor {
 			pointer.onLeftClick = () -> {
 
 				ShapeMaker.addFocus();
+				
 				pointer.onMove = () -> {
+
+					ShapeMaker.focus.setPosition(pointer.getX(),
+							pointer.getY(), pointer.getZ());
 				};
 			};
 		});
@@ -75,7 +88,15 @@ public class Editor {
 
 					String f = file.getName().replace(".obj", "");
 					Background.background.clear();
-					new Model(f, 200, 0, 0, 0).add();
+					Model m = new Model(f, 200, 0, 0, 0);
+					m.add();
+					ShapeMaker.focus = m.getFirst();
+					
+					pointer.onMove = () -> {
+
+						ShapeMaker.focus.setPosition(pointer.getX(),
+								pointer.getY(), pointer.getZ());
+					};
 				});
 			}
 
@@ -86,15 +107,6 @@ public class Editor {
 		editorMenu.addOption("EDIT TRACKS", () -> {
 
 			new TrackEditor(editorMenu);
-		});
-
-		editorMenu.addOption("TRANSLATE", () -> {
-
-			pointer.onMove = () -> {
-
-				ShapeMaker.focus.setPosition(pointer.getX(),
-						pointer.getY(), pointer.getZ());
-			};
 		});
 
 		editorMenu.addOption("CHANGE Z", () -> {
@@ -193,6 +205,7 @@ public class Editor {
 
 	void start() {
 
+		Keys.clearKeys();
 		Keys.openEditorKeys(this);
 		Camera.reset();
 		Theme.current = Theme.mono;
@@ -208,10 +221,12 @@ public class Editor {
 			numericInput.clear();
 
 			for (String st : s.split("[, ]")) {
+				
 				try {
 					numericInput.add(Float.parseFloat(st + "f"));
+				
 				} catch (NumberFormatException nfe) {
-					// bad number input
+					
 					System.err.println("Incorrect numeric input");
 				}
 			}
