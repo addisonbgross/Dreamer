@@ -1,6 +1,7 @@
 package Dreamer;
 
 import Dreamer.enums.Justification;
+import Dreamer.enums.FontType;
 import Dreamer.interfaces.Performable;
 
 public class Menu {
@@ -17,9 +18,12 @@ public class Menu {
 	Justification justification = Justification.LEFT;
 	float spacing = 40, xposition = 0, yposition = 0;
 	int currentOption = 0;
-
-	void selectFont() {
+	
+	void setFont(FontType f) {
 		
+		optionList.stream().forEach( (x)-> {
+			x.shadowMessage.font = f;
+		});
 	}
 	
 	void open() {
@@ -87,11 +91,11 @@ public class Menu {
 	private class MenuOption {
 
 		Performable performable;
-		ShadowedMessage shadowMessage;
+		Text shadowMessage;	
 
 		MenuOption(String s, Performable d) {
 			performable = d;
-			shadowMessage = new ShadowedMessage(s, 0, 0);
+			shadowMessage = new Text(s, 0, 0);
 		}
 
 		MenuOption setPosition(float x, float y) {

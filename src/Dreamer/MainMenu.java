@@ -1,6 +1,6 @@
 package Dreamer;
 
-import Dreamer.enums.Justification;
+import Dreamer.enums.*;
 
 public class MainMenu extends Level {
 	
@@ -38,6 +38,13 @@ public class MainMenu extends Level {
 			new GrassSoldier(-100, 0, Brains.makeSoldier()).add();
 			Player.getFirst().add();
 			new Skeleton(100, 0, Brains.makeSoldier()).add();
+		});
+		
+		
+		
+		main.addOption("CHANGE FONT", (/*why does one drift left?*/)-> {
+			
+			main.setFont(FontType.DEFAULT);
 		});
 		
 		new Background("space").add();

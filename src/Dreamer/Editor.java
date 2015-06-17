@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import org.lwjgl.util.vector.Vector3f;
 import org.newdawn.slick.geom.Rectangle;
 
+import Dreamer.enums.FontType;
 import Dreamer.enums.Justification;
 import Dreamer.interfaces.Performable;
 
@@ -17,8 +18,8 @@ public class Editor {
 	};
 
 	MousePointer pointer = new MousePointer();
-	ShadowedMessage prompt = new ShadowedMessage("", 0, 100);
-	ShadowedMessage console = new ShadowedMessage("", 0, 0);
+	Text prompt = new Text("", 0, 100);
+	Text console = new Text("", 0, 0);
 	Menu editorMenu = new Menu(Justification.LEFT, -Constants.screenWidth / 2,
 			200);
 	EditorKeys editorKeys = new EditorKeys(this);
@@ -56,27 +57,51 @@ public class Editor {
 			);
 			
 			objectMenu.addExitOption();
+			objectMenu.setFont(FontType.DEFAULT);
 			objectMenu.open();
 		});
+		
+		Performable selectNear = ()-> {
+		
+			Manager.activeDrawingSet.stream().forEach( (d)-> {
+				
+				if(d.getClass().isAssignableFrom(Shape3d.class)) { 
+				
+					Shape3d s = (Shape3d)d;
+					
+					boolean xNear = Math.abs(pointer.getX() - s.getX()) < 10;
+					boolean yNear = Math.abs(pointer.getY() - s.getY()) < 10;
+					
+					if(xNear && yNear)
+						ShapeMaker.focus = s;
+				}
+			});
+			
+			pointer.onLeftClick = ()-> {
 
-		editorMenu.addOption("MAKE SHAPE3D", () -> {
+				ShapeMaker.addFocus();
+			};
+		};
+
+		editorMenu.addOption("MAKE SHAPE3D", ()-> {
 
 			ShapeMaker.menu.setParent(editorMenu);
 			ShapeMaker.menu.open();
 
-			pointer.onLeftClick = () -> {
+			pointer.onLeftClick = ()-> {
 
 				ShapeMaker.addFocus();
-				
-				pointer.onMove = () -> {
+				pointer.onLeftClick = selectNear;
+			};
+			
+			pointer.onMove = ()-> {
 
-					ShapeMaker.focus.setPosition(pointer.getX(),
-							pointer.getY(), pointer.getZ());
-				};
+				ShapeMaker.focus.setPosition(pointer.getX(),
+						pointer.getY(), pointer.getZ());
 			};
 		});
 
-		editorMenu.addOption("MAKE MODEL", () -> {
+		editorMenu.addOption("MAKE MODEL", ()-> {
 
 			Menu modelMenu = new Menu(Justification.CENTER, 0, 150);
 			modelMenu.setParent(editorMenu);

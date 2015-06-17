@@ -1,5 +1,6 @@
 package Dreamer.enums;
 
-public enum Fonts {
+public enum FontType {
+	
 	DEFAULT, EIGHT_BIT
 }

@@ -44,6 +44,6 @@ class Resource {
 	void getResource() {
 	
 		resource = Library.get(name, type);
-		new ShadowedMessage(name + resource.toString(), 0, -200).add();
+		new Text(name + resource.toString(), 0, -200).add();
 	}
 }

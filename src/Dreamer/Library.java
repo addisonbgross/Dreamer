@@ -18,7 +18,7 @@ import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.util.ResourceLoader;
 
-import Dreamer.enums.FileType;
+import Dreamer.enums.*;
 
 public class Library {
 	private static HashMap<String, ImageTracker> images = new HashMap<String, ImageTracker>();
@@ -44,6 +44,10 @@ public class Library {
 			 */
 		}
 		return null;
+	}
+	
+	static TrueTypeFont getFont(FontType f) {
+		return (f == FontType.DEFAULT) ? defaultFont : messageFont;
 	}
 
 	static void load() {
