@@ -18,7 +18,11 @@ public class Menu {
 	float spacing = 40, xposition = 0, yposition = 0;
 	int currentOption = 0;
 
-	Menu open() {
+	void selectFont() {
+		
+	}
+	
+	void open() {
 
 		if (parent != null)
 			parent.exit();
@@ -27,10 +31,10 @@ public class Menu {
 		optionList.get(currentOption).shadowMessage.highlight = true;
 		for (MenuOption mo : optionList)
 			mo.shadowMessage.add();
-		return this;
 	}
 
 	void command(String s) {
+		
 		int size = optionList.size();
 
 		switch (s) {

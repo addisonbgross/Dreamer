@@ -25,10 +25,9 @@ public class Library {
 	private static HashMap<String, File> models = new HashMap<String, File>();
 	static Texture tempTexture = null;
 	static Font font;// = new Font("Courier", Font.BOLD, 60);
-	static TrueTypeFont messageFont;// = new TrueTypeFont(font, false);
+	static TrueTypeFont messageFont, defaultFont;
 	static Color messageFontColor = Color.black;
 	static Color messageFontShadow = Color.gray;
-	static TrueTypeFont defaultFont;
 	static Color defaultFontColor = Color.black;
 	static boolean messages = false;
 
