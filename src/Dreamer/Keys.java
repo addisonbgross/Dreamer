@@ -1,16 +1,17 @@
 package Dreamer;
 
+import interfaces.Performable;
+
 import java.util.HashMap;
 import java.util.Map;
 
+import static enums.Status.*;
 import static org.lwjgl.input.Keyboard.*;
 
 import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.Color;
 
-import Dreamer.enums.Status;
-import static Dreamer.enums.Status.*;
-import Dreamer.interfaces.Performable;
+import enums.Status;
 
 abstract public class Keys {
 	

@@ -1,6 +1,6 @@
 package Dreamer;
 
-import Dreamer.enums.FileType;
+import enums.FileType;
 
 public class OnDemandLoader implements Runnable {
 	

@@ -1,14 +1,14 @@
 package Dreamer;
 
+import interfaces.Performable;
+import interfaces.Updateable;
+
 import java.util.Stack;
 
 import org.lwjgl.util.vector.Vector3f;
 import org.lwjgl.util.vector.Vector4f;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.geom.Rectangle;
-
-import Dreamer.interfaces.Performable;
-import Dreamer.interfaces.Updateable;
 
 public class Camera {
 	

@@ -1,7 +1,8 @@
 package Dreamer;
 
+import interfaces.*;
+
 import java.util.ArrayList;
-import Dreamer.interfaces.*;
 
 class ClassFocus extends Positionable
 implements Updateable, Drawable {

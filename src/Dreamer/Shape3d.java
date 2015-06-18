@@ -1,5 +1,7 @@
 package Dreamer;
 
+import interfaces.*;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -8,8 +10,6 @@ import org.lwjgl.util.vector.Vector3f;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.geom.Polygon;
 import org.newdawn.slick.geom.Rectangle;
-
-import Dreamer.interfaces.*;
 
 public class Shape3d extends Positionable 
 implements Lightable, Drawable {

@@ -1,6 +1,6 @@
 package Dreamer;
 
-import Dreamer.interfaces.*;
+import interfaces.*;
 
 public abstract class Effect
 implements Updateable, Manageable, Drawable {

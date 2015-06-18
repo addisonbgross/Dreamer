@@ -1,5 +1,7 @@
 package Dreamer;
 
+import interfaces.*;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -13,10 +15,8 @@ import java.util.ArrayList;
 
 import org.newdawn.slick.Color;
 
-import Dreamer.interfaces.*;
-
-import Dreamer.enums.Justification;
-import Dreamer.enums.Status;
+import enums.Justification;
+import enums.Status;
 
 // Level is the base class for all games states, including menus, editors, debuggers etc
 class World {

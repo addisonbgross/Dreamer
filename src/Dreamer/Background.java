@@ -1,13 +1,13 @@
 package Dreamer;
 
+import interfaces.*;
+
 import java.util.ArrayList;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.fills.GradientFill;
 import org.newdawn.slick.geom.Polygon;
 import org.newdawn.slick.geom.Rectangle;
-
-import Dreamer.interfaces.*;
 
 class Background extends Positionable 
 implements Manageable, Drawable {

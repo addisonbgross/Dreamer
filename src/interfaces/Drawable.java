@@ -1,4 +1,4 @@
-package Dreamer.interfaces;
+package interfaces;
 
 public interface Drawable {
 	

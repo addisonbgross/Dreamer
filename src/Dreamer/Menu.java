@@ -1,8 +1,8 @@
 package Dreamer;
 
-import Dreamer.enums.Justification;
-import Dreamer.enums.FontType;
-import Dreamer.interfaces.Performable;
+import enums.FontType;
+import enums.Justification;
+import interfaces.Performable;
 
 public class Menu {
 

@@ -1,10 +1,11 @@
 package Dreamer;
 
+import interfaces.*;
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.opengl.TextureImpl;
 
-import Dreamer.enums.*;
-import Dreamer.interfaces.*;
+import enums.*;
 
 class Text extends Foreground 
 implements Drawable {	

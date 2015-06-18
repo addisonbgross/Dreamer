@@ -1,5 +1,7 @@
 package Dreamer;
 
+import interfaces.Updateable;
+
 import java.util.ArrayList;
 
 import org.lwjgl.util.vector.Vector3f;
@@ -7,8 +9,7 @@ import org.newdawn.slick.geom.Line;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Vector2f;
 
-import Dreamer.enums.Status;
-import Dreamer.interfaces.Updateable;
+import enums.Status;
 
 public class MotionTrack extends Collider {
 	

@@ -1,5 +1,7 @@
 package Dreamer;
 
+import interfaces.Updateable;
+
 import java.util.ArrayList;
 
 import org.lwjgl.Sys;
@@ -7,8 +9,7 @@ import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 import org.newdawn.slick.Color;
 
-import Dreamer.enums.Status;
-import Dreamer.interfaces.Updateable;
+import enums.Status;
 
 public class Animation2 extends Shape3d implements Updateable {
 	

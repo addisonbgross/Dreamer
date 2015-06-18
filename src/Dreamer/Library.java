@@ -18,7 +18,7 @@ import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.util.ResourceLoader;
 
-import Dreamer.enums.*;
+import enums.*;
 
 public class Library {
 	private static HashMap<String, ImageTracker> images = new HashMap<String, ImageTracker>();

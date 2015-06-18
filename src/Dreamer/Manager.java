@@ -1,10 +1,10 @@
 package Dreamer;
 
+import interfaces.*;
+
 import java.util.HashSet;
 import java.util.Collection;
 import java.io.Serializable;
-
-import Dreamer.interfaces.*;
 
 public class Manager {
 	

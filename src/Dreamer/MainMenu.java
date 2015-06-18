@@ -1,6 +1,6 @@
 package Dreamer;
 
-import Dreamer.enums.*;
+import enums.*;
 
 public class MainMenu extends Level {
 	

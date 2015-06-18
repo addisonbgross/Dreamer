@@ -1,5 +1,7 @@
 package Dreamer;
 
+import interfaces.*;
+
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Map;
@@ -11,8 +13,7 @@ import org.newdawn.slick.geom.Line;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.Vector2f;
 
-import Dreamer.enums.Status;
-import Dreamer.interfaces.*;
+import enums.Status;
 
 class Collider extends Positionable
 implements Drawable{	

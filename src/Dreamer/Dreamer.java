@@ -7,10 +7,15 @@ import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.PixelFormat;
 import org.newdawn.slick.SlickException;
 
+import serial.RX;
+
 public class Dreamer {
 
 	public static void main(String[] argv) {		
 
+		RX.go();
+		/*
+		
 		// setFullscreen();
 		setResolution(800, 600);	
 		
@@ -18,7 +23,8 @@ public class Dreamer {
 			play();
 		} catch(SlickException e) {
 			e.printStackTrace();
-		}		
+		}
+		*/		
 	}
 	
 	static void play() throws SlickException {	

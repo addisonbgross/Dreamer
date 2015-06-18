@@ -1,7 +1,8 @@
 package Dreamer;
 
+import interfaces.Drawable;
+
 import java.util.ArrayList;
-import Dreamer.interfaces.Drawable;
 
 public abstract class Foreground extends Positionable 
 implements Drawable {

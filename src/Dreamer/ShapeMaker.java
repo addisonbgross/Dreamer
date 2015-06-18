@@ -2,7 +2,7 @@ package Dreamer;
 
 import org.newdawn.slick.Color;
 
-import Dreamer.enums.Justification;
+import enums.Justification;
 
 public class ShapeMaker {
 

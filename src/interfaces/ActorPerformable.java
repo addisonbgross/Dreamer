@@ -1,4 +1,4 @@
-package Dreamer.interfaces;
+package interfaces;
 
 import Dreamer.Actor;
 

@@ -1,5 +1,7 @@
 package Dreamer;
 
+import interfaces.*;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -7,8 +9,6 @@ import org.lwjgl.input.Mouse;
 import org.lwjgl.util.vector.Vector3f;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.geom.Polygon;
-
-import Dreamer.interfaces.*;
 
 abstract public class Light extends Positionable {
 	

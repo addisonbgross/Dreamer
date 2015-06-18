@@ -1,9 +1,10 @@
 package Dreamer;
 
+import interfaces.*;
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
-import Dreamer.interfaces.*;
 
 public class BorderedForeground extends Foreground
 implements Drawable {

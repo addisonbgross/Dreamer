@@ -1,4 +1,4 @@
-package Dreamer.interfaces;
+package interfaces;
 
 public interface Manageable extends java.io.Serializable {
 	

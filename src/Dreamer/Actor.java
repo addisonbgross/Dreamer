@@ -1,5 +1,8 @@
 package Dreamer;
 
+import interfaces.Manageable;
+import interfaces.Updateable;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -9,10 +12,8 @@ import org.newdawn.slick.geom.Line;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Vector2f;
 
-import Dreamer.enums.Status;
-import Dreamer.interfaces.Updateable;
-import Dreamer.interfaces.Manageable;
-import static Dreamer.enums.Status.*;
+import enums.Status;
+import static enums.Status.*;
 
 public abstract class Actor extends Collider 
 implements Manageable, Updateable {

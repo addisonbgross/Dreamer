@@ -1,5 +1,7 @@
 package Dreamer;
 
+import interfaces.Performable;
+
 import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -7,9 +9,8 @@ import java.util.ArrayList;
 import org.lwjgl.util.vector.Vector3f;
 import org.newdawn.slick.geom.Rectangle;
 
-import Dreamer.enums.FontType;
-import Dreamer.enums.Justification;
-import Dreamer.interfaces.Performable;
+import enums.FontType;
+import enums.Justification;
 
 public class Editor {
 

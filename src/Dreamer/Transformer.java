@@ -1,8 +1,8 @@
 	package Dreamer;
 
-import org.lwjgl.util.vector.Vector3f;
+import interfaces.Updateable;
 
-import Dreamer.interfaces.Updateable;
+import org.lwjgl.util.vector.Vector3f;
 
 public abstract class Transformer implements Updateable, java.io.Serializable {
 	

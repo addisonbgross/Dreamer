@@ -1,6 +1,6 @@
 package Dreamer;
 
-import Dreamer.enums.Status;
+import enums.Status;
 
 
 public class SprintDust extends Effect {

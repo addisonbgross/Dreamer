@@ -1,12 +1,13 @@
 package Dreamer;
 
+import interfaces.Updateable;
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.geom.Line;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.Vector2f;
 
-import Dreamer.interfaces.Updateable;
-import static Dreamer.enums.Status.*;
+import static enums.Status.*;
 
 abstract class Weapon extends Shape3d implements Updateable {
 

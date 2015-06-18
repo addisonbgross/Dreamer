@@ -1,11 +1,11 @@
 package Dreamer;
 
+import interfaces.*;
+
 import java.util.Collection;
 
 import org.lwjgl.util.vector.Vector3f;
 import org.newdawn.slick.geom.Vector2f;
-
-import Dreamer.interfaces.*;
 
 import java.util.TreeMap;
 import java.util.HashSet;

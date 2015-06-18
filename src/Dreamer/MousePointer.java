@@ -1,13 +1,13 @@
 package Dreamer;
 
+import interfaces.*;
+
 import java.util.Set;
 
 import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.geom.Rectangle;
-
-import Dreamer.interfaces.*;
 
 public class MousePointer extends Positionable 
 implements Updateable, Drawable {

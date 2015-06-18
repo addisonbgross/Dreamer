@@ -1,4 +1,4 @@
-package Dreamer.enums;
+package enums;
 
 public enum Status {
 	INITIALIZED, 

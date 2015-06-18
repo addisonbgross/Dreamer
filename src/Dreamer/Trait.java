@@ -2,7 +2,7 @@ package Dreamer;
 
 import java.util.Random;
 
-import static Dreamer.enums.Status.*;
+import static enums.Status.*;
 
 /**
  * Traits form the intelligence of non-player characters. Each

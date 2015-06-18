@@ -1,14 +1,15 @@
 package Dreamer;
 
+import interfaces.Manageable;
+import interfaces.Updateable;
+
 import java.util.Random;
 
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
 
-import Dreamer.enums.Status;
-import Dreamer.interfaces.Manageable;
-import Dreamer.interfaces.Updateable;
-import static Dreamer.enums.Status.*;
+import enums.Status;
+import static enums.Status.*;
 
 public class Body extends Positionable implements Updateable { 	
 	
