@@ -9,7 +9,7 @@ public class MainMenu extends Level {
 	
 	void createLevel() {
 		
-		Manager.debug = false;		
+		Manager.debug = false;
 		Theme.current = Theme.mono;
 		
 		main.addOption("TEST WORLD", ()-> {

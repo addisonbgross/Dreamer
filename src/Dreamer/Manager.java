@@ -23,7 +23,10 @@ public class Manager {
 	
 		updateSet.tryAdd(o);
 		Collider.tryAdd(o);
-		masterList.add((Serializable)o);
+		if(o instanceof Serializable)
+			masterList.add((Serializable)o);
+		else
+			System.err.println("Manager.java 29: Warning! " + o.toString() + " not Serializable");	
 	}
 	
 	public static void remove(Object o) {

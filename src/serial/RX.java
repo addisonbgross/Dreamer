@@ -1,38 +1,136 @@
 package serial;
 
-import jssc.SerialPort;
-import jssc.SerialPortException;
+import jssc.*;
 
-/**
- *
- * @author scream3r
- */
-public class RX {
+import java.util.List;
+import java.util.Arrays;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
-    /**
-     * @param args the command line arguments
-     */
+final class SerialData {
+    
+    byte[] buffer;
+    ConcurrentLinkedQueue<Byte> queue = new ConcurrentLinkedQueue<>();
+    int 
+    	lastInt, bytesReceived, bytesSent;
+}
+
+public final class RX {   
+	
+    static List<String> ports;
+    static SerialPort serialPort;
+    static SerialData serialData = new SerialData(); 
+
     public static void go() {
+
+    	ports = Arrays.asList(SerialPortList.getPortNames());
     	
-        SerialPort serialPort = new SerialPort("COM4");
-        try {
-        	// serialPort.closePort();//Close serial port
-            serialPort.openPort();//Open serial port
-            serialPort.setParams(115200, 8, 1, 0);//Set params.
-            while(serialPort.isOpened()) {
-            	serialPort.writeByte((byte)0x01);
-	            byte[] buffer = serialPort.readBytes(4);//Read 10 bytes from serial port
-	            
-	            for (int i = 0; i < buffer.length; i++) {
-	            	 System.out.println(buffer[i] );
-				}
-				
-	            // System.out.println(buffer[3] * 0x1000000 + buffer[2] * 0x10000 + buffer[1] * 0x100 + buffer[0]);
+    	if(ports != null) {
+    	
+    		print(ports);
+    	
+    		serialPort = new SerialPort(ports.get(0)); 
+        
+	    	try {
+	    		
+	            serialPort.openPort();
+	            serialPort.setParams(115200, 8, 1, 0);
+	            int mask = SerialPort.MASK_RXCHAR;
+	            serialPort.setEventsMask(mask);
+	            serialPort.addEventListener(new SerialPortReader());
+	            // serialPort.writeString("BLARGH");
+	        
+	    	} catch (SerialPortException spe) { System.err.println(spe); }
+    	}
+    }
+    
+    public static int tryNextInt() throws Exception {
+    	
+    	return getNextInt(serialData);
+    }
+    
+    private static int getNextInt(SerialData s) throws Exception {
+
+    	Exception e = new Exception() {
+    		
+			private static final long serialVersionUID = 3758617126125859927L;
+
+			public String toString() {
+    			return "RX.java NOT IMPLEMENTED";
+    		}
+		};
+    	
+		String temp = "", two = "";
+		boolean yes = false;
+	
+		while( !s.queue.poll().equals((byte)'#') && !s.queue.isEmpty() );
+		
+		/*
+		while(!s.queue.isEmpty()) {
+			System.out.println(s.queue.poll());
+		}
+		*/
+		//System.out.println("GOOD? " + new Byte((byte) 255).byteValue());
+		
+		if(s.queue.size() >= 4) {
+			
+			int output = 0;
+			int v = 0;
+			System.out.println("-OP-");
+			
+			v += 0x1 *((int)(s.queue.poll().byteValue()) & 0xff);
+			v += 0x100 * ((int)(s.queue.poll().byteValue()) & 0xff);
+			v += 0x10000 * ((int)(s.queue.poll().byteValue()) & 0xff);
+			v += 0x1000000 * ((int)(s.queue.poll().byteValue()) & 0xff);
+			
+			System.out.println(v);
+			
+			/*
+			output += v;
+			System.out.println(output);
+			v = (int)s.queue.poll().byteValue() & 0xff;
+			output += v * 0x100;
+			System.out.println(output);
+			v = (int)s.queue.poll().byteValue() & 0xff;
+			output += v * 0x10000;
+			System.out.println(output);
+			v = (int)s.queue.poll().byteValue() & 0xff;
+			output += v * 0x1000000;
+			System.out.println(output);
+			return output;
+			*/	
+		}
+		
+	    throw e;
+    }
+    
+    private static String peekString(java.util.Queue<Byte> q) {
+    	return "size: " + q.size() + " char: " + (char)q.peek().intValue();
+    }
+    
+    static final class SerialPortReader implements SerialPortEventListener {
+
+        public void serialEvent(SerialPortEvent event) {
+        	
+        	if(event.isRXCHAR()) {
+            
+        		try {
+        			serialData.buffer = serialPort.readBytes();
+        			
+        			for(int i = 0; i < serialData.buffer.length; i++) {
+        				serialData.queue.add(serialData.buffer[i]);
+        				serialData.bytesReceived++;
+                		// System.out.println(i + ": " + ((int)serialData.buffer[i] & 0xff) + " "  + (char)serialData.buffer[i]);
+        			};
+        		
+        		} catch (SerialPortException spe) {
+        			System.err.println(spe); 
+        		}
             }
-            serialPort.closePort();//Close serial port
         }
-        catch (SerialPortException ex) {
-            System.out.println(ex);
-        }
+    }
+	
+    public static void print(java.util.Collection<?> c) {
+    	
+    	c.stream().forEach( (o)-> System.out.println(o.toString()) );
     }
 }

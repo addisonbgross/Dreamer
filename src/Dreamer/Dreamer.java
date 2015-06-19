@@ -14,7 +14,6 @@ public class Dreamer {
 	public static void main(String[] argv) {		
 
 		RX.go();
-		/*
 		
 		// setFullscreen();
 		setResolution(800, 600);	
@@ -24,7 +23,6 @@ public class Dreamer {
 		} catch(SlickException e) {
 			e.printStackTrace();
 		}
-		*/		
 	}
 	
 	static void play() throws SlickException {	
@@ -87,8 +85,35 @@ public class Dreamer {
 		Keys.init();
 	    Drawer.graphics.setFont(Library.defaultFont);
 	    
-	    new Ninja(0, 0);
-		new MainMenu();
+	    new Sun().add();
+	    new SolidBackground(new org.newdawn.slick.Color(0, 0.9f, 0.5f)).add();
+	    
+	    Shape3d s = new Block3d(0, 0, 0, 150, 150, 150);
+	    s.add();
+	    
+	    Text m = new Text("WORKY?", 0, 0);
+	    m.add();
+	    
+	    interfaces.Updateable u = new interfaces.Updateable() {
+
+			@Override
+			public void update() {
+				try {
+					Integer i = RX.tryNextInt() - 200;
+					s.position.x = i / 2 + s.position.x / 2;
+					m.name = "Ultrasound reading: " + i.toString();
+				} catch(Exception e) {
+					
+				}
+			}
+	    };
+	    
+	    Manager.add(u);
+	    
+		/*
+		    new Ninja(0, 0);
+			new MainMenu();
+		*/
 	}
 	
 	static void update() {	
