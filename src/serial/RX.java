@@ -4,21 +4,12 @@ import jssc.*;
 
 import java.util.List;
 import java.util.Arrays;
-import java.util.concurrent.ConcurrentLinkedQueue;
-
-final class SerialData {
-    
-    byte[] buffer;
-    ConcurrentLinkedQueue<Byte> queue = new ConcurrentLinkedQueue<>();
-    int 
-    	lastInt, bytesReceived, bytesSent;
-}
 
 public final class RX {   
 	
     static List<String> ports;
     static SerialPort serialPort;
-    static SerialData serialData = new SerialData(); 
+    public static SerialData serialData = new SerialData(); 
 
     public static void go() {
 
@@ -43,12 +34,12 @@ public final class RX {
     	}
     }
     
-    public static int tryNextInt() throws Exception {
+    public static boolean tryNextInt() throws Exception {
     	
     	return getNextInt(serialData);
     }
     
-    private static int getNextInt(SerialData s) throws Exception {
+    private static boolean getNextInt(SerialData s) throws Exception {
 
     	Exception e = new Exception() {
     		
@@ -58,46 +49,42 @@ public final class RX {
     			return "RX.java NOT IMPLEMENTED";
     		}
 		};
-    	
-		String temp = "", two = "";
-		boolean yes = false;
 	
-		while( !s.queue.poll().equals((byte)'#') && !s.queue.isEmpty() );
+		Byte head = 0;
 		
-		/*
-		while(!s.queue.isEmpty()) {
-			System.out.println(s.queue.poll());
-		}
-		*/
-		//System.out.println("GOOD? " + new Byte((byte) 255).byteValue());
+		do {
+			head = s.queue.poll();
+			
+		} while(
+				
+			!head.equals((byte)'#') 
+			&& !head.equals((byte)'$') 
+			&& !s.queue.isEmpty()
+		);
 		
-		if(s.queue.size() >= 4) {
+		if(s.queue.size() >= 8) {
+			System.out.println("2 bytes in buffer");
 			
-			int output = 0;
-			int v = 0;
-			System.out.println("-OP-");
+			byte[] a = new byte[4];
+			byte[] b = new byte[4]; 
+			// System.out.println("-OP-");
 			
-			v += 0x1 *((int)(s.queue.poll().byteValue()) & 0xff);
-			v += 0x100 * ((int)(s.queue.poll().byteValue()) & 0xff);
-			v += 0x10000 * ((int)(s.queue.poll().byteValue()) & 0xff);
-			v += 0x1000000 * ((int)(s.queue.poll().byteValue()) & 0xff);
+			for(int i = 1; i <= 4; i++) {				
 			
-			System.out.println(v);
+				a[4 - i] = s.queue.poll().byteValue();
+				// System.out.println((int)v[i] & 0xff);
+			}
 			
-			/*
-			output += v;
-			System.out.println(output);
-			v = (int)s.queue.poll().byteValue() & 0xff;
-			output += v * 0x100;
-			System.out.println(output);
-			v = (int)s.queue.poll().byteValue() & 0xff;
-			output += v * 0x10000;
-			System.out.println(output);
-			v = (int)s.queue.poll().byteValue() & 0xff;
-			output += v * 0x1000000;
-			System.out.println(output);
-			return output;
-			*/	
+			for(int i = 1; i <= 4; i++) {				
+			
+				b[4 - i] = s.queue.poll().byteValue();
+				// System.out.println((int)v[i] & 0xff);
+			}
+			
+			s.a = java.nio.ByteBuffer.wrap(a).getInt();
+			s.b = java.nio.ByteBuffer.wrap(b).getInt();
+
+			return true;
 		}
 		
 	    throw e;
