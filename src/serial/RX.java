@@ -15,7 +15,7 @@ public final class RX {
 
     	ports = Arrays.asList(SerialPortList.getPortNames());
     	
-    	if(ports != null) {
+    	if(ports.size() > 0) {
     	
     		print(ports);
     	
@@ -66,19 +66,16 @@ public final class RX {
 			System.out.println("2 bytes in buffer");
 			
 			byte[] a = new byte[4];
-			byte[] b = new byte[4]; 
-			// System.out.println("-OP-");
+			byte[] b = new byte[4];
 			
 			for(int i = 1; i <= 4; i++) {				
 			
 				a[4 - i] = s.queue.poll().byteValue();
-				// System.out.println((int)v[i] & 0xff);
 			}
 			
 			for(int i = 1; i <= 4; i++) {				
 			
 				b[4 - i] = s.queue.poll().byteValue();
-				// System.out.println((int)v[i] & 0xff);
 			}
 			
 			s.a = java.nio.ByteBuffer.wrap(a).getInt();
@@ -88,10 +85,6 @@ public final class RX {
 		}
 		
 	    throw e;
-    }
-    
-    private static String peekString(java.util.Queue<Byte> q) {
-    	return "size: " + q.size() + " char: " + (char)q.peek().intValue();
     }
     
     static final class SerialPortReader implements SerialPortEventListener {

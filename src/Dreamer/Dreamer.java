@@ -28,11 +28,6 @@ public class Dreamer {
 	static void play() throws SlickException {	
 		
 		PerformanceMonitor.getGlobal().start();
-		PerformanceMonitor updateMonitor = new PerformanceMonitor("update");
-		PerformanceMonitor renderMonitor = new PerformanceMonitor("render");
-		PerformanceMonitor otherMonitor = new PerformanceMonitor("other");
-		PerformanceMonitor.addMonitor(updateMonitor, renderMonitor, otherMonitor);
-		otherMonitor.start();
 		
 		while (true) {
 			
@@ -40,18 +35,11 @@ public class Dreamer {
 			PerformanceMonitor.getGlobal().start();
 			
 			Display.processMessages();
-			otherMonitor.stop();
-			
-			updateMonitor.start();
+
 			update();
-			updateMonitor.stop();
-			
-			renderMonitor.start();
+
 			render();
-			renderMonitor.stop();
-			
-			otherMonitor.start();
-			
+
 			// update screen
 			Display.sync(70);
 			Display.update(false);			
@@ -85,52 +73,9 @@ public class Dreamer {
 		Keys.init();
 	    Drawer.graphics.setFont(Library.defaultFont);
 	    
-	    new Sun().add();
-	    new SolidBackground(new org.newdawn.slick.Color(0, 0.9f, 0.5f)).add();
-	    
-	    Shape3d s = new Shape3d();
-	    s.addVertex(-200, 0, 0);
-	    s.addVertex(0, 200, 0);
-	    s.addVertex(200, 0, 0);
-	    Face f = new Face();
-	    f.setVertices(0, 1, 2);
-	    f.setColor(org.newdawn.slick.Color.cyan);
-	    f.triangulate();
-	    s.addFace(f);
-	    s.add();
-	    
-	    Text m1 = new Text("WORKY?", 0, 100);
-	    m1.add();
-	    Text m2 = new Text("NOPE", 0, 150);
-	    m2.add();
-	    
-	    interfaces.Updateable u = new interfaces.Updateable() {
 
-			@Override
-			public void update() {
-				
-				try {
-					
-					RX.tryNextInt();
-					Integer a = RX.serialData.a / 10;
-					Integer b = RX.serialData.b / 10;
-					s.vertices.get(0).set(-a, 0, 0);
-					s.vertices.get(2).set(b, 0, 0);
-					m1.name = "Ultrasound 1: " + a.toString();
-					m2.name = "Ultrasound 2: " + b.toString();
-					
-				} catch(Exception e) {
-					
-				}
-			}
-	    };
-	    
-	    Manager.add(u);
-	    
-		/*
-		    new Ninja(0, 0);
-			new MainMenu();
-		*/
+	    new Ninja(0, 0);
+		new MainMenu();
 	}
 	
 	static void update() {	
@@ -190,5 +135,50 @@ public class Dreamer {
 		DisplayMode dm = Display.getDisplayMode();
 		Constants.screenWidth = dm.getWidth();
 		Constants.screenHeight = dm.getHeight();
+	}
+	
+	public static void testSerial() {
+	    	
+		    new Sun().add();
+		    new SolidBackground(new org.newdawn.slick.Color(0, 0.9f, 0.5f)).add();
+		    
+		    Shape3d s = new Shape3d();
+		    s.addVertex(-200, 0, 0);
+		    s.addVertex(0, 200, 0);
+		    s.addVertex(200, 0, 0);
+		    Face f = new Face();
+		    f.setVertices(0, 1, 2);
+		    f.setColor(org.newdawn.slick.Color.cyan);
+		    f.triangulate();
+		    s.addFace(f);
+		    s.add();
+		    
+		    Text m1 = new Text("WORKY?", 0, 100);
+		m1.add();
+		Text m2 = new Text("NOPE", 0, 150);
+		m2.add();
+		
+		interfaces.Updateable u = new interfaces.Updateable() {
+		
+			@Override
+			public void update() {
+				
+				try {
+					
+					RX.tryNextInt();
+					Integer a = RX.serialData.a / 10;
+					Integer b = RX.serialData.b / 10;
+					s.vertices.get(0).set(-a, 0, 0);
+					s.vertices.get(2).set(b, 0, 0);
+					m1.name = "Ultrasound 1: " + a.toString();
+					m2.name = "Ultrasound 2: " + b.toString();
+					
+				} catch(Exception e) {
+					
+				}
+			}
+		};
+		
+		Manager.add(u);
 	}
 }
