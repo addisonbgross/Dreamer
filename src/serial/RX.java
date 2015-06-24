@@ -2,8 +2,41 @@ package serial;
 
 import jssc.*;
 
+import java.nio.ByteBuffer;
 import java.util.List;
 import java.util.Arrays;
+
+enum MESSAGE_TYPE {
+	
+	UINT32_T(4), 
+    FLOAT32_T(4), 
+    CHAR(1);
+
+    private int enumVal;
+
+    MESSAGE_TYPE(int value) {
+        this.enumVal = value;
+    }
+
+    public int size() {
+        return enumVal;
+    }
+}
+
+final class Attribute {
+	
+	Attribute(int handle, String attributeName, MESSAGE_TYPE type) {
+		
+		name = attributeName;
+		reference = handle;
+		messageType = type;
+	}
+	
+	String name;
+	MESSAGE_TYPE messageType;
+	int reference;
+	ByteBuffer data;
+}
 
 public final class RX {   
 	
@@ -34,57 +67,46 @@ public final class RX {
     	}
     }
     
-    public static boolean tryNextInt() throws Exception {
-    	
-    	return getNextInt(serialData);
+    public static int tryNextInt() throws Exception {
+    
+    	Attribute attribute = new Attribute(0, "TEST", MESSAGE_TYPE.UINT32_T);
+    	loadData(serialData, attribute);
+    	return attribute.data.getInt();
     }
     
-    private static boolean getNextInt(SerialData s) throws Exception {
-
-    	Exception e = new Exception() {
-    		
-			private static final long serialVersionUID = 3758617126125859927L;
-
-			public String toString() {
-    			return "RX.java NOT IMPLEMENTED";
-    		}
-		};
-	
-		Byte head = 0;
-		
-		do {
-			head = s.queue.poll();
+    public static Attribute nextAttribute;
+    
+    public static void get(Attribute a) {
+    	
+    	// receiveQueue.add(a);
+    	nextAttribute = a;
+    	
+    	try {
+			serialPort.writeString('g' + "" + (char)a.reference);
+		} catch (SerialPortException e) {
 			
-		} while(
-				
-			!head.equals((byte)'#') 
-			&& !head.equals((byte)'$') 
-			&& !s.queue.isEmpty()
-		);
+			e.printStackTrace();
+		}
+	}
+    
+    private static boolean loadData(SerialData s, Attribute a) throws Exception {
 		
-		if(s.queue.size() >= 8) {
-			System.out.println("2 bytes in buffer");
+		if(s.queue.size() >= 4) {
 			
-			byte[] a = new byte[4];
-			byte[] b = new byte[4];
+			System.out.println("4 bytes in buffer");
+			
+			byte[] temp = new byte[4];
 			
 			for(int i = 1; i <= 4; i++) {				
 			
-				a[4 - i] = s.queue.poll().byteValue();
+				temp[4 - i] = s.queue.poll().byteValue();
 			}
-			
-			for(int i = 1; i <= 4; i++) {				
-			
-				b[4 - i] = s.queue.poll().byteValue();
-			}
-			
-			s.a = java.nio.ByteBuffer.wrap(a).getInt();
-			s.b = java.nio.ByteBuffer.wrap(b).getInt();
 
+			a.data = java.nio.ByteBuffer.wrap(temp);
 			return true;
 		}
 		
-	    throw e;
+	    return false;
     }
     
     static final class SerialPortReader implements SerialPortEventListener {
@@ -92,7 +114,7 @@ public final class RX {
         public void serialEvent(SerialPortEvent event) {
         	
         	if(event.isRXCHAR()) {
-            
+        		
         		try {
         			serialData.buffer = serialPort.readBytes();
         			
