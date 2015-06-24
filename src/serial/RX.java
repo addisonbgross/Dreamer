@@ -91,15 +91,14 @@ public final class RX {
     
     private static boolean loadData(SerialData s, Attribute a) throws Exception {
 		
-		if(s.queue.size() >= 4) {
+    	int size = a.messageType.size();
+		if(s.queue.size() >= size) {
 			
-			System.out.println("4 bytes in buffer");
+			byte[] temp = new byte[size];
 			
-			byte[] temp = new byte[4];
+			for(int i = 1; i <= size; i++) {				
 			
-			for(int i = 1; i <= 4; i++) {				
-			
-				temp[4 - i] = s.queue.poll().byteValue();
+				temp[size - i] = s.queue.poll().byteValue();
 			}
 
 			a.data = java.nio.ByteBuffer.wrap(temp);
