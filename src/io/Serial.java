@@ -1,4 +1,4 @@
-package serial;
+package io;
 
 import jssc.*;
 
@@ -38,13 +38,13 @@ final class Attribute {
 	ByteBuffer data;
 }
 
-public final class RX {   
+public final class Serial {   
 	
     static List<String> ports;
     static SerialPort serialPort;
     public static SerialData serialData = new SerialData(); 
 
-    public static void go() {
+    public static void begin() {
 
     	ports = Arrays.asList(SerialPortList.getPortNames());
     	
@@ -64,6 +64,8 @@ public final class RX {
 	            // serialPort.writeString("BLARGH");
 	        
 	    	} catch (SerialPortException spe) { System.err.println(spe); }
+    	} else {
+    		System.out.println("NO SERIAL PORTS AVAILABLE");;
     	}
     }
     
