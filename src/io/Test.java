@@ -2,7 +2,7 @@ package io;
 
 public class Test implements Runnable {
 	
-	static boolean flag = true;
+	static int shared = 0;
 	static int numberOfThreads = 0;
 	int id = 0;
 	Thread thread;
@@ -12,29 +12,60 @@ public class Test implements Runnable {
 		numberOfThreads++;
 	}
 	
+	
 	public void start() {
 		
 		thread = new Thread(this);
 		thread.start();
+		try {
+			Thread.sleep(1000);
+			//thread.join();
+			//Thread.currentThread().interrupt();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
+	@Override
 	protected void finalize() throws Throwable {
+		
+		/*
+		 * Does this ever get called ever?
+		 */
+		
 		numberOfThreads--;
+		System.out.println(numberOfThreads + " THREADS LEFT RUNNING");
 	};
 
 	@Override
 	public void run() {
 		
+		int attempts = 0;
 		Serial.begin();
 		
-		while(true) {
-			// System.out.println("RUNNIN THRED " + id);
+		while(attempts < 500) {
+			
+			shared = id;
+			System.out.println("RUNNIN THRED " + id + " ATTEMPT " + attempts);
 			try {
 				Thread.sleep(10);
+				attempts++;
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
+		
+		int i = 0;
+		
+		while(i < 1000000000) {
+			
+			System.out.println(i++);
+		}
+		
+		System.exit(0);
+		
+		return;
 	}
 }
