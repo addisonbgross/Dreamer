@@ -89,7 +89,7 @@ public final class Serial {
     	int size = targetArray.length;
     	int charsFound = 0;
     	
-    	if(Serial.available() >= size)
+    	if(Serial.available() >= size) {
     		
     		while(charsFound < size && Serial.available() != 0) {
     	
@@ -106,6 +106,7 @@ public final class Serial {
     	
     		if(charsFound == size)
     			return true;
+    	}
     		
     	return false;
     }
