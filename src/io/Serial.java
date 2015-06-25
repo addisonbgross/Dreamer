@@ -44,7 +44,7 @@ public final class Serial {
     static SerialPort serialPort;
     public static SerialData serialData = new SerialData(); 
 
-    public static void begin() {
+    public static void begin(int speed) {
 
     	ports = Arrays.asList(SerialPortList.getPortNames());
     	
@@ -57,7 +57,7 @@ public final class Serial {
 	    	try {
 	    		
 	            serialPort.openPort();
-	            serialPort.setParams(115200, 8, 1, 0);
+	            serialPort.setParams(speed, 8, 1, 0);
 	            int mask = SerialPort.MASK_RXCHAR;
 	            serialPort.setEventsMask(mask);
 	            serialPort.addEventListener(new SerialPortReader());
@@ -67,6 +67,60 @@ public final class Serial {
     	} else {
     		System.out.println("NO SERIAL PORTS AVAILABLE");;
     	}
+    }
+    
+    public static void end() {
+    	
+    	try {
+			serialPort.closePort();
+		} catch (SerialPortException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    }
+    
+    public static boolean find(String target) {
+    	
+    	/*
+    	 * TODO Test this shit
+    	 */
+    	
+    	char[] targetArray = target.toCharArray();
+    	int size = targetArray.length;
+    	int charsFound = 0;
+    	
+    	if(Serial.available() >= size)
+    		
+    		while(charsFound < size && Serial.available() != 0) {
+    	
+    			try {
+					byte b[] = serialPort.readBytes(1);
+					if((char)b[0] == targetArray[charsFound])
+						charsFound++;
+				} catch (SerialPortException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					return false;
+				}
+    		}
+    	
+    		if(charsFound == size)
+    			return true;
+    		
+    	return false;
+    }
+    
+    // fulfilling Arduino Serial API
+    public static int available() {
+    	
+    	try {
+			return serialPort.getInputBufferBytesCount();
+		} catch (SerialPortException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
+    	return -1;
     }
     
     public static int tryNextInt() throws Exception {

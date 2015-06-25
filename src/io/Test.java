@@ -42,26 +42,20 @@ public class Test implements Runnable {
 	public void run() {
 		
 		int attempts = 0;
-		Serial.begin();
+		Serial.begin(115200);
 		
 		while(attempts < 500) {
 			
 			shared = id;
 			System.out.println("RUNNIN THRED " + id + " ATTEMPT " + attempts);
 			try {
-				Thread.sleep(10);
+				Thread.sleep(100);
 				attempts++;
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}
-		
-		int i = 0;
-		
-		while(i < 1000000000) {
-			
-			System.out.println(i++);
+			if(Serial.available() > 0);
 		}
 		
 		System.exit(0);
