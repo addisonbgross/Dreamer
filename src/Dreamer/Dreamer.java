@@ -1,5 +1,7 @@
 package Dreamer;
 
+import io.Serial;
+
 import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
@@ -11,13 +13,30 @@ public class Dreamer {
 
 	public static void main(String[] argv) {		
 
+		/*
 		io.Test t = new io.Test();
 		t.start();
-		io.Test u = new io.Test();
-		u.start();
+		*/
+		
+		Serial.begin(115200);
 		
 		boolean b = true;
-		while(b == true) {};
+		while(b == true) {
+			Serial.write((byte)'g');
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			Serial.write((byte)'s');
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		};
 		
 		setFullscreen();
 		// setResolution(800, 600);	

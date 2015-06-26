@@ -53,17 +53,20 @@ public final class Serial {
     		print(ports);
     	
     		serialPort = new SerialPort(ports.get(0)); 
-        
-	    	try {
-	    		
-	            serialPort.openPort();
-	            serialPort.setParams(speed, 8, 1, 0);
-	            int mask = SerialPort.MASK_RXCHAR;
-	            serialPort.setEventsMask(mask);
-	            serialPort.addEventListener(new SerialPortReader());
-	            // serialPort.writeString("BLARGH");
-	        
-	    	} catch (SerialPortException spe) { System.err.println(spe); }
+    		boolean opened = false;
+    		
+    		while(!opened)
+		    	try {
+		    		opened = serialPort.openPort();
+		            serialPort.setParams(speed, 8, 1, 0);
+		            int mask = SerialPort.MASK_RXCHAR;
+		            serialPort.setEventsMask(mask);
+		            serialPort.addEventListener(new SerialPortReader());
+		            // serialPort.writeString("BLARGH");
+		        
+		    	} catch (SerialPortException spe) { 
+		    		System.err.println(spe); 
+		    	}
     	} else {
     		System.out.println("NO SERIAL PORTS AVAILABLE");;
     	}
@@ -196,18 +199,8 @@ public final class Serial {
         	
         	if(event.isRXCHAR()) {
         		
-        		try {
-        			serialData.buffer = serialPort.readBytes();
-        			
-        			for(int i = 0; i < serialData.buffer.length; i++) {
-        				serialData.queue.add(serialData.buffer[i]);
-        				serialData.bytesReceived++;
-                		// System.out.println(i + ": " + ((int)serialData.buffer[i] & 0xff) + " "  + (char)serialData.buffer[i]);
-        			};
-        		
-        		} catch (SerialPortException spe) {
-        			System.err.println(spe); 
-        		}
+        		while(Serial.available() > 0)
+        			System.out.print((char)Serial.read());
             }
         }
     }
@@ -216,4 +209,13 @@ public final class Serial {
     	
     	c.stream().forEach( (o)-> System.out.println(o.toString()) );
     }
+
+	public static void write(byte b) {
+		try {
+			serialPort.writeByte(b);
+		} catch (SerialPortException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }
