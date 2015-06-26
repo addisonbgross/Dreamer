@@ -111,17 +111,42 @@ public final class Serial {
     	return false;
     }
     
-    // fulfilling Arduino Serial API
+    /*
+     * returns -1 for error 
+     */
     public static int available() {
     	
     	try {
 			return serialPort.getInputBufferBytesCount();
-		} catch (SerialPortException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
     	
     	return -1;
+    }
+    
+    /*
+     * returns -1 for error 
+     */
+    public static int read() {
+    	try {
+			return (int)(serialPort.readBytes(1)[0]);
+		} catch (SerialPortException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	return -1;
+    }
+    
+    public static int readBytes(byte[] buffer, int length) {
+    	try {
+			buffer = serialPort.readBytes(length);
+		} catch (SerialPortException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	return buffer.length;
     }
     
     public static int tryNextInt() throws Exception {

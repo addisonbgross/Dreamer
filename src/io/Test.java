@@ -25,6 +25,7 @@ public class Test implements Runnable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		thread.interrupt();
 	}
 	
 	@Override
@@ -44,21 +45,21 @@ public class Test implements Runnable {
 		int attempts = 0;
 		Serial.begin(115200);
 		
-		while(attempts < 500) {
+		while(attempts++ < 1) {
 			
 			shared = id;
 			System.out.println("RUNNIN THRED " + id + " ATTEMPT " + attempts);
 			try {
 				Thread.sleep(100);
-				attempts++;
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			if(Serial.available() > 0);
+			if(Serial.available() > 0) {
+				int i = Serial.read();
+				System.out.println(i);
+			}
 		}
-		
-		System.exit(0);
 		
 		return;
 	}
