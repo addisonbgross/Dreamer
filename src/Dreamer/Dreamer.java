@@ -12,31 +12,6 @@ import org.newdawn.slick.SlickException;
 public class Dreamer {
 
 	public static void main(String[] argv) {		
-
-		/*
-		io.Test t = new io.Test();
-		t.start();
-		*/
-		
-		Serial.begin(115200);
-		
-		boolean b = true;
-		while(b == true) {
-			Serial.write((byte)'g');
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			Serial.write((byte)'s');
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		};
 		
 		setFullscreen();
 		// setResolution(800, 600);	
