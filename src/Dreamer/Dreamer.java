@@ -13,6 +13,11 @@ public class Dreamer {
 
 	public static void main(String[] argv) {		
 		
+		go();
+	}
+	
+	public static void go() {
+		
 		setFullscreen();
 		// setResolution(800, 600);	
 		
@@ -71,7 +76,6 @@ public class Dreamer {
 		Keys.init();
 	    Drawer.graphics.setFont(Library.defaultFont);
 	    
-
 	    new Ninja(0, 0);
 		new MainMenu();
 	}

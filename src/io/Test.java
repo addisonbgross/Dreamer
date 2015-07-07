@@ -4,6 +4,12 @@ import static io.STATUS.*;
 
 import java.nio.ByteBuffer;
 
+import javax.xml.crypto.Data;
+
+import org.lwjgl.util.vector.Vector3f;
+
+import Dreamer.Drawer;
+
 public class Test implements Runnable {
 	
 	static int shared = 0;
@@ -15,9 +21,10 @@ public class Test implements Runnable {
 		
 		Serial.begin(115200);
 		Serial.echo = false;
-		Attribute test = new Attribute(1, "some data", UINT32_T);
-		Attribute test2 = new Attribute(2, "thing to set", FLOAT32_T);
-		Attribute test3 = new Attribute(2, "float reading", FLOAT32_T);
+		Attribute x = new Attribute(1, "x axis", UINT32_T);
+		Attribute y = new Attribute(2, "y axis", UINT32_T);
+		Attribute z = new Attribute(3, "z axis", UINT32_T);
+		Attribute a = new Attribute(4, "acceleration", FLOAT32_T);
 		
 		boolean b = true;
 		try {
@@ -26,6 +33,11 @@ public class Test implements Runnable {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+		
+		// Dreamer.Dreamer.go();
+		Vector3f v = new Vector3f();
+		Vector3f u = new Vector3f();
+		
 		while(b == true) {
 			
 			/*
@@ -33,35 +45,39 @@ public class Test implements Runnable {
 			Serial.set(test2);
 			*/
 			
-			Serial.get(test);
-			Serial.get(test3);
+			Serial.get(x);
+			Serial.get(y);
+			Serial.get(z);
 			
-			for(int i = 0; i < 10; i++) {
-				
-				try {
-					Thread.sleep(10);
-				} catch (Exception e) {
-					// TODO: handle exception
-					e.printStackTrace();
-				}
-				
-				if(test.newDataAvailable())
-					try {
-						System.out.println(test.name + " " +  test.data.getInt());
-						test.newDataAvailable(false);
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
+			float average = 0f;
+			float remainder = 1 - average;
+			v.set(average * v.x + remainder * x.asInt, 
+					average * v.y + remainder * y.asInt, 
+					average * v.z + remainder * z.asInt);
+			u = v.normalise(u);
+			float gConvert = 9.8f/69;
+			String s = String.format("%6.2f %6.2f %6.2f %6.2f", u.x, u.y, u.z, v.length() * gConvert );
+			System.out.println(s);
+			// System.out.println(getString(x) + getString(y) + getString(z) + getString(a));
 	
-				if(test3.newDataAvailable())
-					try {
-						System.out.println(test3.name + " " + test3.data.getFloat());
-						test3.newDataAvailable(false);
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
+			try {
+				Thread.sleep(2);
+			} catch (Exception e) {
+				e.printStackTrace();
+				// TODO: handle exception
 			}
 		};
+	}
+	
+	private static String getString(Attribute a) {
+		String s = "";
+		if(a.messageType == UINT32_T) {
+			s = String.format("%7d", a.asInteger());
+		} else if(a.messageType == FLOAT32_T) {
+			s = String.format("%7.2f", a.asFloating());
+		} a.newDataAvailable(false);
+
+		return s;
 	}
 	
 	private static void serialize(float f, ByteBuffer data) {

@@ -181,6 +181,8 @@ public final class Serial {
 			}
 
 			a.data = ByteBuffer.wrap(temp);
+			a.asInt = ByteBuffer.wrap(temp).getInt();
+			a.asFloat = ByteBuffer.wrap(temp).getFloat();
 			a.newDataAvailable(true);
 			return true;
 		}
