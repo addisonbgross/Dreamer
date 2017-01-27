@@ -2,6 +2,13 @@ Dreamer
 =======
 ##'Dreams from a mundane existance'<br>
 ##By Addison Bellamy-Gross & max@theprogrammingclub.com<br>
+
+![alt tag](media/Screenshot(20).png)
+![alt tag](media/Screenshot(24).png)
+![alt tag](media/Screenshot(25).png)
+![alt tag](media/Screenshot(27).png)
+![alt tag](media/Screenshot(28).png)
+
 ###Dependencies:<br>
 &nbsp;&nbsp;lwjgl.org lightweight java game library (using V2)<br>
 &nbsp;&nbsp;slick.ninjacave.com Slick2D<br>
