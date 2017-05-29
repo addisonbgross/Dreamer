@@ -1,20 +1,20 @@
 Dreamer
 =======
-##'Dreams from a mundane existance'<br>
-##By Addison Bellamy-Gross & max@theprogrammingclub.com<br>
+## 'Dreams from a mundane existance'  
+## By Addison Bellamy-Gross & max@theprogrammingclub.com  
 
-![alt tag](media/Screenshot (20).png)
-![alt tag](media/Screenshot (24).png)
-![alt tag](media/Screenshot (25).png)
-![alt tag](media/Screenshot (27).png)
-![alt tag](media/Screenshot (28).png)
+![alt text](https://github.com/addisonbgross/Dreamer/blob/master/media/Screenshot%20(20).png)
+![alt text](https://github.com/addisonbgross/Dreamer/blob/master/media/Screenshot%20(24).png)
+![alt text](https://github.com/addisonbgross/Dreamer/blob/master/media/Screenshot%20(25).png)
+![alt text](https://github.com/addisonbgross/Dreamer/blob/master/media/Screenshot%20(27).png)
+![alt text](https://github.com/addisonbgross/Dreamer/blob/master/media/Screenshot%20(28).png)
 
-###Dependencies:<br>
-&nbsp;&nbsp;lwjgl.org lightweight java game library (using V2)<br>
-&nbsp;&nbsp;slick.ninjacave.com Slick2D<br>
-###OS X 64-bit setup:<br>
-&nbsp;&nbsp;clone repository<br>
-&nbsp;&nbsp;start new project (I use Eclipse)<br>
-&nbsp;&nbsp;add missing dependencies in Dreamer/dependencies<br>
-&nbsp;&nbsp;might need to add native includes in dependencies/slick/lwjgl<br>
-&nbsp;&nbsp;needs jre 1.8<br>
+### Dependencies:<br>
+&nbsp;&nbsp;lwjgl.org lightweight java game library (using V2)  
+&nbsp;&nbsp;slick.ninjacave.com Slick2D  
+### OS X 64-bit setup:  
+&nbsp;&nbsp;clone repository  
+&nbsp;&nbsp;start new project (I use Eclipse)  
+&nbsp;&nbsp;add missing dependencies in Dreamer/dependencies  
+&nbsp;&nbsp;might need to add native includes in dependencies/slick/lwjgl  
+&nbsp;&nbsp;needs jre 1.8  
